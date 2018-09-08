@@ -1,0 +1,143 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>礼包</title>
+	<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+	<link href="css/mui.min.css" rel="stylesheet" />
+	<link rel="stylesheet" href="css/common/common.css" />
+	<style>
+		.mui-content{
+			background: white;
+		}
+		.imagess{
+			width: 90%;
+		}
+		.right_info{
+			line-height: 2.2rem!important;
+		}
+		.right{
+			width: 27%;
+			text-align: center;
+			margin-left: 0;
+		}
+	</style>
+</head>
+
+<body>
+<nav class="mui-bar mui-bar-tab" id="nav">
+	<a id="tab_home" class="mui-tab-item" href="index.html">
+		<img src="images/common/index.svg"/>
+		<img src="images/common/index_light.svg" style="display: none;"/>
+		<span class="mui-tab-label">首页</span>
+	</a>
+	<a id="tab_message" class="mui-tab-item" href="games.html">
+		<img src="images/common/game.svg"/>
+		<img src="images/common/game_light.svg"style="display: none;"/>
+		<span class="mui-tab-label">游戏</span>
+	</a>
+	<a id="tab_contact" class="mui-tab-item actives" href="gifts.html">
+		<img src="images/common/gift.svg" style="display: none;"/>
+		<img src="images/common/gift_light.svg"/>
+		<span class="mui-tab-label">礼包</span>
+	</a>
+	<a id="tab_setting" class="mui-tab-item" href="zhao.html">
+		<img src="images/common/zhao.svg"/>
+		<img src="images/common/zhao_light.svg" style="display: none;"/>
+		<span class="mui-tab-label">招聘</span>
+	</a>
+	<a id="tab_setting" class="mui-tab-item" href="about.html">
+		<img src="images/common/about.svg" style="margin-top: .6rem;"/>
+		<img src="images/common/about_light.svg" style="display: none;margin-top: .1rem;"/>
+		<span class="mui-tab-label">关于</span>
+	</a>
+</nav>
+<div class="mui-content">
+	<div class="topInfo">
+		<img src="images/logo (2).png" class="logo"/>
+		<span class="tel"><img src="images/tel.svg">020-37887202</span>
+	</div>
+	<div class="top_list">
+		<p>领取礼包</p>
+	</div>
+	<div class="content">
+		<div class="middle" style="width: 69%;margin-left: 4%;">
+			<div class="left_img">
+				<img src="images/icon.png" class="imagess"/>
+			</div>
+			<div class="right_info">
+				<p class="d_name">仙坠凡尘</p>
+				<p style="line-height: 1.1rem;">
+					<img src="images/angle.svg" />
+					<img src="images/angle.svg" />
+					<img src="images/angle.svg" />
+					<img src="images/angle.svg" />
+					<img src="images/angle.svg" />
+				</p>
+				<p class="d_describe">《仙坠凡尘》是一款以东方修真题材为背景的回合制手游。</p>
+			</div>
+		</div>
+		<div class="right">
+			<button class="dlBtn gf">领取礼包</button>
+		</div>
+	</div>
+	<div class="content" style="border-bottom: 1px solid #ececec;">
+		<div class="middle" style="width: 69%;margin-left: 4%;">
+			<div class="left_img">
+				<img src="images/icon1.png" class="imagess"/>
+			</div>
+			<div class="right_info">
+				<p class="d_name">梦幻仙语</p>
+				<p style="line-height: 1.1rem;">
+					<img src="images/angle.svg" />
+					<img src="images/angle.svg" />
+					<img src="images/angle.svg" />
+					<img src="images/angle.svg" />
+					<img src="images/angle.svg" />
+				</p>
+				<p class="d_describe">重燃经典，创新回合制手游《梦幻仙语》给你带来不一样的游戏体验。</p>
+			</div>
+		</div>
+		<div class="right">
+			<button class="dlBtn gf">领取礼包</button>
+		</div>
+	</div>
+	<!--<div class="content" style="border-bottom: 1px solid #ececec;">
+		<div class="middle" style="width: 69%;margin-left: 4%;">
+			<div class="left_img">
+				<img src="images/g3.png" class="imagess"/>
+			</div>
+			<div class="right_info">
+				<p class="d_name">王者荣耀</p>
+				<p style="line-height: 1.1rem;">
+					<img src="images/angle.svg" />
+					<img src="images/angle.svg" />
+					<img src="images/angle.svg" />
+					<img src="images/angle.svg" />
+					<img src="images/angle.svg" />
+				</p>
+				<p class="d_describe">3D国漫盗墓手游</p>
+			</div>
+		</div>
+		<div class="right">
+			<button class="dlBtn gf">领取礼包</button>
+		</div>
+	</div>-->
+</div>
+<script src="js/jquery.min.js"></script>
+<script src="js/mui.min.js"></script>
+<script src="js/layer.js"></script>
+<script type="text/javascript" src="js/common.js" ></script>
+<script type="text/javascript">
+	mui.init();
+	mui(".right").on('tap', '.gf', function(event){
+	   layer.open({
+		    content: '暂无礼包领取',
+		    skin: 'msg',
+		    time: 2 //2秒后自动关闭
+	   });
+	});
+</script>
+</body>
+
+</html>

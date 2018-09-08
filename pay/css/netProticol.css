@@ -1,0 +1,41 @@
+/* 560*540  dpi*/
+/* 280*270 */
+html,body{
+    height: 100%;
+    width: 100%;
+}
+body{
+    /* padding: 10px; */
+    box-sizing: border-box;
+}
+.netProticol{
+    /* box-sizing: border-box;
+    padding: 15px 15px 50px 15px; */
+    height: 100%;
+    overflow: auto;
+    margin: auto;
+}
+.content{
+    width: 100%;
+}
+p{
+    text-align:justify;
+    text-indent: 2em;
+}
+h3{
+    text-align: center;
+}
+h4{
+    margin-top: 10px;
+}
+.btn{
+    display: none;
+    border-radius: 5px;
+    width: 80%;
+    height: 35px;
+    line-height: 35px;
+    text-align: center;
+    color: #fff;
+    margin: 10px auto 0;
+    background-color: #62d000;
+}

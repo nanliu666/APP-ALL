@@ -1,0 +1,23 @@
+.mui-content{
+	background: white;
+}
+.box{
+	overflow: hidden;
+	margin: 2% 2% 0 2%;
+}
+.lrow,.rrow{
+	width: 49%;
+}
+.z{
+	float: left;
+}
+.y{
+	float: right;
+}
+.lrow img,.rrow img{
+	width: 100%;
+    border-radius: 5px;
+    display: block;
+    margin-bottom: 4%;
+}
+

@@ -1,0 +1,73 @@
+.tabBar ul li{
+	width: 25%!important;
+}
+.tbTitle{
+    height: 3.6rem;
+	line-height: 3.6rem;
+	background: white;
+	border-bottom: 1px solid #efefef;
+}
+.tbTitle span{
+	display: inline-block;
+	width: 33.3%;
+	float: left;
+	text-align: center;
+	font-size: 1.3rem;
+}
+.icons{
+	float: left;
+	width: 1.6rem;
+	margin-top: 1rem;
+}
+.Question{
+	display: inline-block;
+	height: 100%;
+	width: 94%;
+	float: left;
+}
+.Question span{
+	display: inline-block;
+	width: 33.3%;
+	float: left;
+	height: 100%;
+	line-height: 3.6rem;
+	text-align: center;
+	padding: 0 3%;
+	overflow: hidden;
+	text-overflow:ellipsis;
+	white-space:nowrap;
+	font-size: 1.3rem;
+}
+.flips{
+	height: 3.6rem;
+	background: #fcfcfc;
+	border-bottom: 1px solid #efefef;
+}
+.up,.down{
+    float: right;
+    margin-top: .8rem;
+    width: 1.7rem;
+}
+.down{
+	display: none;
+}
+.panels{
+    display:none;
+    padding: 1rem;
+    background: white;
+    border-bottom: 1px solid #efefef;
+}
+.panels p{
+	color: black;
+	font-size: 1.2rem;
+    margin-bottom: 0;
+}
+.letf10{
+	padding-left: 10%!important;
+}
+.tb{
+	margin-bottom: 0;
+}
+#tb2,#tb3,#tb4{
+	display: none;
+}

@@ -1,0 +1,312 @@
+/* ---微信支付页面--- */
+
+.payPage .priceInfo {
+    height: 20px;
+    line-height: 20px;
+    font-size: 14px;
+    font-weight: bold;
+    padding: 0 10px;
+}
+
+.payPage .priceInfo li {
+    padding-top: 5px;
+}
+
+.payPage .priceInfo .left {
+    float: left;
+    color: #1f1f1f;
+}
+
+.priceInfo .right {
+    float: right;
+    color: #fba919;
+}
+
+.payPage .content {
+    padding: 10px 10px 0 10px;
+    font-size: 14px;
+    color: #5c5c5c;
+}
+
+.payPage .content .payWay {
+    font-size: 12px;
+    padding-bottom: 5px;
+}
+
+.payPage .content>ul>li {
+    height: 35px;
+    line-height: 35px;
+    font-size: 12px;
+    background-color: #f2f2f2;
+    padding-left: 10px;
+    padding-right: 10px;
+    margin-bottom: 5px;
+    border-radius: 5px;
+    position: relative;
+}
+
+.payPage .content>ul>li>.payImg {
+    /* float: left; */
+    display: block;
+    height: 18px;
+    width: 18px;
+    position: absolute;
+    /* left: 2%; */
+    top: 50%;
+    /* margin-top: -9px; */
+    transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+    -moz-transform: translateY(-50%);
+    -webkit-transform: translateY(-50%);
+    -o-transform: translateY(-50%);
+}
+
+.payPage .content>ul>li>p {
+    margin-left: 28px;
+    float: left;
+}
+
+.payPage .content>ul>li>.selImg {
+    /* float: right; */
+    height: 20px;
+    width: 20px;
+    /* border-radius: 50%; */
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    /* margin-top: -10px; */
+    /* transform: translateY(33%); */
+    transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+    -moz-transform: translateY(-50%);
+    -webkit-transform: translateY(-50%);
+    -o-transform: translateY(-50%);
+}
+
+.payPage .pay {
+    padding: 0 10px;
+}
+
+.payPage .pay>.btn {
+    display: block;
+    border-radius: 5px;
+    width: 100%;
+    height: 35px;
+    line-height: 35px;
+    text-align: center;
+    color: #fff;
+    margin: 0 auto;
+    background: url(../images/payBtn.png) center;
+}
+
+.payPage .payQuest {
+    padding: 5px 50px;
+}
+
+.payPage .payQuest>a {
+    display: block;
+    text-align: center;
+    color: #999999;
+    font-size: 12px;
+    border: 1px solid #808080;
+    border-radius: 20px;
+    padding: 8px 0;
+}
+
+.s1 {
+    background: url(../images/paySelect1.png) no-repeat center;
+    background-size: contain;
+}
+
+.s2 {
+    background: url(../images/paySelect2.png) no-repeat center;
+    background-size: contain;
+}
+
+
+/* .aliPay,
+.unionPay {
+    visibility: hidden;
+} */
+
+
+/* ---支付状态--- */
+
+.payStatusPage {
+    display: none;
+}
+
+html,
+body {
+    height: 100%;
+    width: 100%;
+}
+
+body {
+    position: relative;
+}
+
+.payStatusPage .priceInfo {
+    line-height: 20px;
+    font-size: 14px;
+    font-weight: bold;
+    padding: 0 10px;
+    display: none;
+}
+
+.payStatusPage .priceInfo li {
+    padding-top: 8px;
+}
+
+.payStatusPage .priceInfo .left {
+    float: left;
+    color: #1f1f1f;
+}
+
+.payStatusPage .priceInfo .right {
+    float: right;
+    color: #fba919;
+}
+
+.payStatusPage .content {
+    font-size: 16px;
+    text-align: center;
+    margin-top: 30px;
+}
+
+.payStatusPage .content img {
+    display: block;
+    width: 50px;
+    height: 50px;
+    margin: 0 auto;
+}
+
+.payStatusPage .content p {
+    margin-top: 12px;
+    color: #56b520;
+    font-weight: bold;
+    font-size: 16px;
+}
+
+
+/* 返回游戏 */
+
+.payStatusPage .pay {
+    margin-top: 20px;
+}
+
+.payStatusPage .pay>.btn,
+.payFinish {
+    display: block;
+    /* max-width: 400px;
+    min-width: 200px; */
+    border-radius: 5px;
+    width: 100%;
+    height: 35px;
+    line-height: 35px;
+    text-align: center;
+    color: #fff;
+    margin: 10px auto 0;
+    background: url(../images/payBtn.png) center;
+}
+
+
+/* 支付问题 */
+
+.payStatusPage .payQuest {
+    padding: 8px 45px;
+}
+
+.payStatusPage .payQuest>a {
+    display: block;
+    text-align: center;
+    color: #999999;
+    font-size: 12px;
+    border: 1px solid #808080;
+    border-radius: 20px;
+    padding: 8px 0;
+}
+
+.payStatusPage .pay p {
+    color: #a5a5a5;
+    margin-top: 14px;
+    text-align: center;
+}
+
+.payLoading {
+    display: none;
+}
+
+.payLoading,
+.success,
+.failed,
+.payNot {
+    display: none;
+}
+
+.payStatusPage .status {
+    margin: 0 atuo;
+    padding: 0 10px;
+}
+
+@keyframes rotation {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+@-webkit-keyframes rotation {
+    0% {
+        -webkit-transform: rotate(0deg);
+    }
+    100% {
+        -webkit-transform: rotate(360deg);
+    }
+}
+
+.rotation {
+    /* transform: rotate(360deg); */
+    animation: rotation 3s linear infinite;
+    -ms-animation: rotation 3s linear infinite;
+    -moz-animation: rotation 3s linear infinite;
+    -webkit-animation: rotation 3s linear infinite;
+    -o-animation: rotation 3s linear infinite;
+}
+
+
+/* ----客服页面--- */
+
+.cusService {
+    padding: 20px 10px;
+    display: none;
+}
+
+.cusService p {
+    text-align: center;
+    font-size: 14px;
+}
+
+.cusService p:nth-child(1) {
+    margin-top: 60px;
+}
+
+.cusService p:nth-child(2) {
+    margin-top: 20px;
+}
+
+.cusService input {
+    display: block;
+    /* max-width: 400px;
+    min-width: 200px; */
+    border-radius: 5px;
+    width: 100%;
+    height: 35px;
+    line-height: 35px;
+    text-align: center;
+    color: #fff;
+    margin: 30px auto 0;
+    background: url(../images/payBtn.png) center;
+}

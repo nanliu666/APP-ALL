@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title>首页</title>
+    <link href="css/mui.min.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="css/common/common.css" />
+    <link rel="stylesheet" href="css/index.css" />
+</head>
+<body>
+	<nav class="mui-bar mui-bar-tab" id="nav">
+		<a id="tab_home" class="mui-tab-item actives" href="index.html">
+			<img src="images/common/index.svg" style="display: none;"/>
+			<img src="images/common/index_light.svg" />
+			<span class="mui-tab-label">首页</span>
+		</a>
+		<a id="tab_message" class="mui-tab-item" href="games.html">
+			<img src="images/common/game.svg"/>
+			<img src="images/common/game_light.svg" style="display: none;"/>
+			<span class="mui-tab-label">游戏</span>
+		</a>
+		<a id="tab_contact" class="mui-tab-item" href="gifts.html">
+			<img src="images/common/gift.svg"/>
+			<img src="images/common/gift_light.svg" style="display: none;"/>
+			<span class="mui-tab-label">礼包</span>
+		</a>
+		<a id="tab_setting" class="mui-tab-item" href="zhao.html">
+			<img src="images/common/zhao.svg"/>
+			<img src="images/common/zhao_light.svg" style="display: none;"/>
+			<span class="mui-tab-label">招聘</span>
+		</a>
+		<a id="tab_setting" class="mui-tab-item" href="about.html">
+			<img src="images/common/about.svg" style="margin-top: .6rem;"/>
+			<img src="images/common/about_light.svg" style="display: none;margin-top: .1rem;"/>
+			<span class="mui-tab-label">关于</span>
+		</a>
+	</nav>
+	<div class="mui-content">
+		<div class="topInfo">
+			<img src="images/logo (2).png" class="logo"/>
+			<span class="tel"><img src="images/tel.svg">020-37887202</span>
+		</div>
+		<div id="slider" class="mui-slider" >
+			<div class="mui-slider-group mui-slider-loop">
+				<!-- 额外增加的一个节点(循环轮播：第一个节点是最后一张轮播) -->
+				<div class="mui-slider-item mui-slider-item-duplicate">
+					<a href="javascript:;">
+						<img src="images/banner3.png">
+					</a>
+				</div>
+				<!-- 第一张 -->
+				<div class="mui-slider-item">
+					<a href="javascript:;">
+						<img src="images/banner1.png">
+					</a>
+				</div>
+				<!-- 第二张 -->
+				<div class="mui-slider-item">
+					<a href="javascript:;">
+						<img src="images/banner2.png">
+					</a>
+				</div>
+				<!-- 第三张 -->
+				<div class="mui-slider-item">
+					<a href="javascript:;">
+						<img src="images/banner3.png">
+					</a>
+				</div>
+				<!-- 额外增加的一个节点(循环轮播：最后一个节点是第一张轮播) -->
+				<div class="mui-slider-item mui-slider-item-duplicate">
+					<a href="javascript:;">
+						<img src="images/banner1.png">
+					</a>
+				</div>
+			</div>
+			<div class="mui-slider-indicator">
+				<div class="mui-indicator mui-active"></div>
+				<div class="mui-indicator"></div>
+				<div class="mui-indicator"></div>
+			</div>
+		</div>
+		<div class="list">
+			<div class="top_list">
+				<p>今日推荐<a href="games.html" style="color:#1296db!important;">查看全部></a></p>
+			</div>
+			<div class="list_Body">
+				<div class="list_content" onclick="download(this,1)">
+					<div class="left_img">
+						<img src="images/icon.png" />
+					</div>
+					<div class="right_info">
+						<p>仙坠凡尘<img src="images/free.png" class="icon"></p>
+						<p>
+							<img src="images/angle.svg" />
+							<img src="images/angle.svg" />
+							<img src="images/angle.svg" />
+							<img src="images/angle.svg" />
+							<img src="images/angle.svg" />
+						</p>
+						<p>《仙坠凡尘》是一款以东方修真题材为背景的回合制手游。</p>
+					</div>
+				</div>
+				<div class="list_content" style="margin-left: 2%;" onclick="download(this,2)">
+					<div class="left_img">
+						<img src="images/icon1.png" />
+					</div>
+					<div class="right_info">
+						<p>梦幻仙语<img src="images/free.png" class="icon"></p>
+						<p>
+							<img src="images/angle.svg" />
+							<img src="images/angle.svg" />
+							<img src="images/angle.svg" />
+							<img src="images/angle.svg" />
+							<img src="images/angle.svg" />
+						</p>
+						<p>重燃经典，创新回合制手游《梦幻仙语》给你带来不一样的游戏体验。</p>
+					</div>
+				</div>
+				<!--<div class="list_content" onclick="download(this,3)">
+					<div class="left_img">
+						<img src="images/g3.png" />
+					</div>
+					<div class="right_info">
+						<p>王者荣耀<img src="images/free.png" class="icon"></p>
+						<p>
+							<img src="images/angle.svg" />
+							<img src="images/angle.svg" />
+							<img src="images/angle.svg" />
+							<img src="images/angle.svg" />
+							<img src="images/angle.svg" />
+						</p>
+						<p>3D国漫盗墓手游</p>
+					</div>
+				</div>-->
+			</div>
+		</div>
+		<div id="tableBox">
+			<div class="tabBar">
+				<ul>
+					<li class="active" onclick="change(this,1)">开服表</li>
+					<li onclick="change(this,2)">新游榜</li>
+				</ul>
+			</div>
+			<div class="tb" id="tb1">
+				<table class="table">
+					<thead>
+						<tr>
+							<td>开服名称</td>
+							<td>开服时间</td>
+							<td>礼包</td>
+							<td>下载</td>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>仙坠凡尘</td>
+							<td>2018-07-26</td>
+							<td><img src="images/gf.svg" class="gf"></td>
+							<td><img src="images/download.svg" onclick="download(this,1)"></td>
+						</tr>
+						<tr>
+							<td>梦幻仙语</td>
+							<td>2018-08-11</td>
+							<td><img src="images/gf.svg" class="gf"></td>
+							<td><img src="images/download.svg" onclick="download(this,2)"></td>
+						</tr>
+						<!--<tr>
+							<td>王者荣耀</td>
+							<td>2018-08-28</td>
+							<td><img src="images/gf.svg" class="gf"></td>
+							<td><img src="images/download.svg" onclick="download(this,3)"></td>
+						</tr>-->
+					</tbody>
+				</table>
+			</div>
+			<div class="tb" id="tb2" style="display: none;">
+				<div class="content">
+					<div class="left">
+						<img src="images/one.png" />
+					</div>
+					<div class="middle">
+						<div class="left_img">
+							<img src="images/icon.png" style="width: 90%;"/>
+						</div>
+						<div class="right_info">
+							<p class="d_name">仙坠凡尘</p>
+							<p style="line-height: 1.1rem;">
+								<img src="images/angle.svg" />
+								<img src="images/angle.svg" />
+								<img src="images/angle.svg" />
+								<img src="images/angle.svg" />
+								<img src="images/angle.svg" />
+							</p>
+							<p class="d_describe">《仙坠凡尘》是一款以东方修真题材为背景的回合制手游。</p>
+						</div>
+					</div>
+					<div class="right">
+						<button class="dlBtn" onclick="download(this,1)">下载</button>
+					</div>
+				</div>
+				<div class="content">
+					<div class="left">
+						<img src="images/two.png" />
+					</div>
+					<div class="middle">
+						<div class="left_img">
+							<img src="images/icon1.png" style="width: 90%;"/>
+						</div>
+						<div class="right_info">
+							<p class="d_name">梦幻仙语</p>
+							<p style="line-height: 1.1rem;">
+								<img src="images/angle.svg" />
+								<img src="images/angle.svg" />
+								<img src="images/angle.svg" />
+								<img src="images/angle.svg" />
+								<img src="images/angle.svg" />
+							</p>
+							<p class="d_describe">重燃经典，创新回合制手游《梦幻仙语》给你带来不一样的游戏体验。</p>
+						</div>
+					</div>
+					<div class="right">
+						<button class="dlBtn" onclick="download(this,2)">下载</button>
+					</div>
+				</div>
+				<!--<div class="content">
+					<div class="left">
+						<img src="images/three.png" />
+					</div>
+					<div class="middle">
+						<div class="left_img">
+							<img src="images/g3.png" style="width: 90%;"/>
+						</div>
+						<div class="right_info">
+							<p class="d_name">王者荣耀</p>
+							<p style="line-height: 1.1rem;">
+								<img src="images/angle.svg" />
+								<img src="images/angle.svg" />
+								<img src="images/angle.svg" />
+								<img src="images/angle.svg" />
+								<img src="images/angle.svg" />
+							</p>
+							<p class="d_describe">3D国漫盗墓手游</p>
+						</div>
+					</div>
+					<div class="right">
+						<button class="dlBtn" onclick="download(this,3)">下载</button>
+					</div>
+				</div>-->
+			</div>
+		</div>
+	</div>
+	<div class="mui-backdrop">
+		<div class="white_content">
+			<p class="d_title">下载游戏</p>
+			<div class="d_content">
+				<div class="left_img">
+					<img src="images/icon.png" style="width: 96%;" class="gameImg"/>
+				</div>
+				<div class="right_info">
+					<p class="name">仙坠凡尘</p>
+					<p style="line-height: 1.1rem;">
+						<img src="images/angle.svg" />
+						<img src="images/angle.svg" />
+						<img src="images/angle.svg" />
+						<img src="images/angle.svg" />
+						<img src="images/angle.svg" />
+					</p>
+					<p class="describe">《仙坠凡尘》是一款以东方修真题材为背景的回合制手游。</p>
+				</div>
+			</div>
+			<p class="android" onclick="down()"><span><img src="images/android.svg"></span>安卓版下载</p>
+			<p class="iOS" onclick="down()"><span><img src="images/iOS.svg"></span>苹果版下载</p>
+			<p class="closeBtn" onclick="closeMask()">关闭</button>
+		</div>
+	</div>
+	<script src="js/mui.min.js"></script>
+	<script src="js/jquery.min.js"></script>
+	<script src="js/layer.js"></script>
+	<script type="text/javascript" src="js/common.js" ></script>
+	<script type="text/javascript" charset="utf-8">
+      	mui.init();
+      	var slider = mui("#slider");
+		slider.slider({
+			interval: 5000
+		});
+		// layer提示
+		mui("#tb1").on('tap', '.gf', function(event){
+		   layer.open({
+			    content: '暂无礼包领取',
+			    skin: 'msg',
+			    time: 2 //2秒后自动关闭
+		   });
+		});
+		function download(e,val){
+			if(val === 1){
+				$(".name").text('仙坠凡尘');
+				$(".gameImg").attr("src","images/icon.png");
+				$(".describe").text("《仙坠凡尘》是一款以东方修真题材为背景的回合制手游。");
+			}else if(val === 2){
+				$(".name").text('梦幻仙语');
+				$(".gameImg").attr("src","images/icon1.png");
+				$(".describe").text("重燃经典，创新回合制手游《梦幻仙语》给你带来不一样的游戏体验。");
+			}
+//			else if(val === 3){
+//				$(".name").text('王者荣耀');
+//				$(".gameImg").attr("src","images/g3.png");
+//				$(".describe").text("3D国漫盗墓手游");
+//			}
+			$(".mui-backdrop").fadeIn();
+		}
+		//  点击下载按钮
+		function down(){
+			window.location.href="http://data.gzzhongw.net/gameDL/wuyuan/wuyuan180601.apk";
+		}
+		function closeMask(){
+			$(".mui-backdrop").fadeOut();
+		}
+		//  分辨率自适应
+		var width = document.body.clientWidth;
+		if(width<=320){
+			$(".white_content").css("height","50%");
+			$(".white_content").css("top","25%");
+		}
+    </script>
+</body>
+</html>

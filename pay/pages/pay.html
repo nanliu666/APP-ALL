@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0,maximum-scale=1,minimum-scale=1,user-scalable=no">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="../css/base.css">
+    <link rel="stylesheet" href="../css/pay.css">
+    <title>Document</title>
+</head>
+
+<body>
+    <div class="payPage">
+        <div class="priceInfo">
+            <ul></ul>
+        </div>
+        <div class="content">
+            <p class="payWay">选择支付方式</p>
+            <ul>
+                <li class="wechatPay JsClick">
+                    <img class="payImg" src="../images/wxPay.png" alt="">
+                    <p>微信支付</p>
+                    <div class="selImg wx s1 s2"></div>
+                </li>
+                <li class="aliPay JsClick">
+                    <img class="payImg" src="../images/aliPay.png" alt="">
+                    <p>支付宝</p>
+                    <div class="selImg alipay s1"></div>
+                </li>
+                <li class="unionPay JsClick">
+                    <img class="payImg" src="../images/unionpayPay.png" alt="">
+                    <p>银联支付</p>
+                    <div class="selImg unionpay s1"></div>
+                </li>
+            </ul>
+        </div>
+        <div class="pay payNow">
+            <input class="btn" type="button" value="立即支付">
+        </div>
+        <div class="payQuest">
+            <a class="payQue" href="javascript:;">支付过程出现问题？</a>
+        </div>
+    </div>
+
+    <!-- 2支付状态 -->
+    <div class="payStatusPage">
+        <div class="priceInfo clearfix">
+            <!-- <div class="left">
+                我欲修真
+            </div>
+            <div class="right">￥20.00</div> -->
+            <ul>
+            </ul>
+        </div>
+
+        <!-- 支付中 -->
+        <div class="status payLoading">
+            <div class="content">
+                <img class='rotation' src="../images/payLoading.png" alt="">
+                <p>支付中...</p>
+            </div>
+            <div class="pay">
+                <input class="payFinish" type="button" value="支付完成">
+            </div>
+        </div>
+
+        <!-- 支付成功 -->
+        <div class="status success">
+            <div class="content">
+                <img src="../images/paySuccess.png" alt="">
+                <p>支付成功</p>
+            </div>
+            <div class="pay">
+                <p href="javascript:;">支付成功后一般在10分钟内到账，超过30分钟未到账，可联系客服查询</p>
+                <input class="btn" type="button" value="返回游戏">
+            </div>
+        </div>
+
+        <!-- 支付失败 -->
+        <div class="status failed">
+            <div class="content">
+                <img src="../images/payFailed.png" alt="">
+                <p>支付失败</p>
+            </div>
+            <div class="pay">
+                <input class="btn" type="button" value="返回游戏">
+            </div>
+            <div class="payQuest">
+                <a class="payQue" href="javascript:;">支付过程出现问题？</a>
+            </div>
+        </div>
+
+        <!-- 不能支付 -->
+        <div class="status payNot">
+            <div class="content">
+                <img src="../images/payFailed.png" alt="">
+                <p>支付功能不能用</p>
+            </div>
+            <div class="pay">
+                <input class="btn" type="button" value="返回游戏">
+            </div>
+            <div class="payQuest">
+                <a class="payQue" href="javascript:;">支付过程出现问题？</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- 客服页面 -->
+    <div class="cusService">
+        <p>客服QQ：
+            <span class="serviceqq"></span>
+        </p>
+        <p>客服邮箱：
+            <span class="servicemail"></span>
+        </p>
+        <input class="toBack" type="button" value="返回">
+    </div>
+    <script>
+    </script>
+    <script src="../js/jquery.min.js"></script>
+    <script src="../js/utils.js"></script>
+    <script src="../js/pay.js"></script>
+
+</body>
+
+</html>
