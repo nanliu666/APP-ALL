@@ -1,213 +1,222 @@
 <!doctype html>
 <html lang="zh-cn">
+
 <head>
     <meta charset="UTF-8">
-	<title>招聘详情</title>
-	<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
-	<link rel="stylesheet" href="css/common/common.css" />
-	<link rel="stylesheet" href="css/szDetail.css" />
+    <title>招聘详情</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <link rel="stylesheet" href="css/common/common.css" />
+    <link rel="stylesheet" href="css/szDetail.css" />
     <link rel="stylesheet" href="css/dropload.css">
 </head>
+
 <body>
-<div class="outer">
-    <div class="header">
-       <div class="topInfo">
-			<img src="images/logo (2).png" class="logo"/>
-			<span class="tel"><img src="images/tel.svg">020-37887202</span>
-		</div>
-		<div class="tabBar" style="background: #f5f5f5;">
-			<ul>
-				<li class="active" onclick="changeSelect(this,1)">全部</li>
-				<li onclick="changeSelect(this,2)">技术类</li>
-				<li onclick="changeSelect(this,3)">策划类</li>
-				<li onclick="changeSelect(this,4)">美术类</li>
-				<li onclick="changeSelect(this,5)">职能类</li>
-			</ul>
-		</div>
-		<div class="tbTitle">
-			<span>招聘岗位</span>
-			<span>岗位类别</span>
-			<span>薪酬待遇</span>
-		</div>
-    </div>
-    <div class="inner">
-        <div class="lists">
-            <div class="tb" id="tb1">
-				<table class="table">
-				<tbody>
-					<tr>
-						<td>Erlang服务端开发工程师</td>
-						<td>技术类</td>
-						<td>面议</td>
-					</tr>
-					<tr>
-						<td>C++服务端开发工程师</td>
-						<td>技术类</td>
-						<td>面议</td>
-					</tr>
-					<tr>
-						<td>Cocos2dx客户端开发工程师</td>
-						<td>技术类</td>
-						<td>面议</td>
-					</tr>
-					<tr>
-						<td>Unity3D客户端开发工程师</td>
-						<td>技术类</td>
-						<td>面议</td>
-					</tr>
-					<tr>
-						<td>H5客户端开发工程师</td>
-						<td>技术类</td>
-						<td>面议</td>
-					</tr>
-					<tr>
-						<td>SDK接入工程师</td>
-						<td>技术类</td>
-						<td>面议</td>
-					</tr>
-					<tr>
-						<td>Web前端开发工程师</td>
-						<td>技术类</td>
-						<td>面议</td>
-					</tr>
-					<tr>
-						<td>PHP开发工程师</td>
-						<td>技术类</td>
-						<td>面议</td>
-					</tr>
-					<tr>
-						<td>游戏测试</td>
-						<td>技术类</td>
-						<td>面议</td>
-					</tr>
-					<tr>
-						<td>H5游戏策划</td>
-						<td>策划类</td>
-						<td>面议</td>
-					</tr>
-				</tbody>
-			</table>
-			</div>
+    <div class="outer">
+        <div class="header">
+            <div class="topInfo">
+                <img src="images/logo (2).png" class="logo" />
+                <span style="float: right">
+						<span class="mui-icon mui-icon-contact" id="JSCenter" style="font-size:38px; padding: 10px"></span>
+                </span>
+            </div>
+            <div class="tabBar" style="background: #f5f5f5;">
+                <ul>
+                    <li class="active" onclick="changeSelect(this,1)">全部</li>
+                    <li onclick="changeSelect(this,2)">技术类</li>
+                    <li onclick="changeSelect(this,3)">策划类</li>
+                    <li onclick="changeSelect(this,4)">美术类</li>
+                    <li onclick="changeSelect(this,5)">职能类</li>
+                </ul>
+            </div>
+            <div class="tbTitle">
+                <span>招聘岗位</span>
+                <span>岗位类别</span>
+                <span>薪酬待遇</span>
+            </div>
+        </div>
+        <div class="inner">
+            <div class="lists">
+                <div class="tb" id="tb1">
+                    <table class="table">
+                        <tbody>
+                            <tr>
+                                <td>Erlang服务端开发工程师</td>
+                                <td>技术类</td>
+                                <td>面议</td>
+                            </tr>
+                            <tr>
+                                <td>C++服务端开发工程师</td>
+                                <td>技术类</td>
+                                <td>面议</td>
+                            </tr>
+                            <tr>
+                                <td>Cocos2dx客户端开发工程师</td>
+                                <td>技术类</td>
+                                <td>面议</td>
+                            </tr>
+                            <tr>
+                                <td>Unity3D客户端开发工程师</td>
+                                <td>技术类</td>
+                                <td>面议</td>
+                            </tr>
+                            <tr>
+                                <td>H5客户端开发工程师</td>
+                                <td>技术类</td>
+                                <td>面议</td>
+                            </tr>
+                            <tr>
+                                <td>SDK接入工程师</td>
+                                <td>技术类</td>
+                                <td>面议</td>
+                            </tr>
+                            <tr>
+                                <td>Web前端开发工程师</td>
+                                <td>技术类</td>
+                                <td>面议</td>
+                            </tr>
+                            <tr>
+                                <td>PHP开发工程师</td>
+                                <td>技术类</td>
+                                <td>面议</td>
+                            </tr>
+                            <tr>
+                                <td>游戏测试</td>
+                                <td>技术类</td>
+                                <td>面议</td>
+                            </tr>
+                            <tr>
+                                <td>H5游戏策划</td>
+                                <td>策划类</td>
+                                <td>面议</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         </div>
     </div>
-</div>
-<!-- jQuery1.7以上 或者 Zepto 二选一，不要同时都引用 -->
-<script src="js/zepto.min.js"></script>
-<script src="js/dropload.min.js"></script>
-<script>
-$(function(){
-    var counter = 0;
-    // 每页展示4个
-    var num = 4;
-    var pageStart = 0,pageEnd = 0;
+    <!-- jQuery1.7以上 或者 Zepto 二选一，不要同时都引用 -->
+    <script src="js/zepto.min.js"></script>
+    <script src="js/dropload.min.js"></script>
+    <script>
+        $(function() {
+            var counter = 0;
+            // 每页展示4个
+            var num = 4;
+            var pageStart = 0,
+                pageEnd = 0;
 
-    // 上拉刷新，下拉加载
-    $('.inner').dropload({
-        scrollArea : window,
-        domUp : {
-            domClass   : 'dropload-up',
-            domRefresh : '<div class="dropload-refresh">↓下拉刷新</div>',
-            domUpdate  : '<div class="dropload-update">↑释放更新</div>',
-            domLoad    : '<div class="dropload-load"><span class="loading"></span>加载中...</div>'
-        },
-        domDown : {
-            domClass   : 'dropload-down',
-            domRefresh : '<div class="dropload-refresh">↑上拉加载更多</div>',
-            domLoad    : '<div class="dropload-load"><span class="loading"></span>加载中...</div>',
-            domNoData  : '<div class="dropload-noData">暂无数据</div>'
-        },
-        loadUpFn : function(me){
-            $.ajax({
-                type: 'GET',
-                url: 'json/update.json',
-                dataType: 'json',
-                success: function(data){
-                    var result = '';
-                    for(var i = 0; i < data.lists.length; i++){
-                        result += '<tr>'+
-		                				'<td>'+data.lists[i].job+'</td>'+
-		                				'<td>'+data.lists[i].type+'</td>'+
-		                				'<td>'+data.lists[i].money+'</td>'
-		                           '</tr>';
-                    }
-                    // 为了测试，延迟1秒加载
-                    setTimeout(function(){
-                        $('.table tbody').prepend(result);
-                        // 每次数据加载完，必须重置
-                        me.resetload();
-                        // 重置索引值，重新拼接more.json数据
-                        counter = 0;
-                    },1000);
+            // 上拉刷新，下拉加载
+            $('.inner').dropload({
+                scrollArea: window,
+                domUp: {
+                    domClass: 'dropload-up',
+                    domRefresh: '<div class="dropload-refresh">↓下拉刷新</div>',
+                    domUpdate: '<div class="dropload-update">↑释放更新</div>',
+                    domLoad: '<div class="dropload-load"><span class="loading"></span>加载中...</div>'
                 },
-                error: function(xhr, type){
-                   // alert('Ajax error!');
-                    // 即使加载出错，也得重置
-                    me.resetload();
-                }
-            });
-        },
-        loadDownFn : function(me){
-            $.ajax({
-                type: 'GET',
-                url: 'json/more.json',
-                dataType: 'json',
-                success: function(data){
-                    var result = '';
-                    counter++;
-                    pageEnd = num * counter;
-                    pageStart = pageEnd - num;
-
-                    for(var i = pageStart; i < pageEnd; i++){              
-							result +=   '<tr>'+
-                				'<td>'+data.lists[i].job+'</td>'+
-                				'<td>'+data.lists[i].type+'</td>'+
-                				'<td>'+data.lists[i].money+'</td>'
-                            '</tr>';
-                        if((i + 1) >= data.lists.length){
-                            // 锁定
-                            me.lock();
-                            // 无数据
-                            me.noData();
-                            break;
+                domDown: {
+                    domClass: 'dropload-down',
+                    domRefresh: '<div class="dropload-refresh">↑上拉加载更多</div>',
+                    domLoad: '<div class="dropload-load"><span class="loading"></span>加载中...</div>',
+                    domNoData: '<div class="dropload-noData">暂无数据</div>'
+                },
+                loadUpFn: function(me) {
+                    $.ajax({
+                        type: 'GET',
+                        url: 'json/update.json',
+                        dataType: 'json',
+                        success: function(data) {
+                            var result = '';
+                            for (var i = 0; i < data.lists.length; i++) {
+                                result += '<tr>' +
+                                    '<td>' + data.lists[i].job + '</td>' +
+                                    '<td>' + data.lists[i].type + '</td>' +
+                                    '<td>' + data.lists[i].money + '</td>'
+                                '</tr>';
+                            }
+                            // 为了测试，延迟1秒加载
+                            setTimeout(function() {
+                                $('.table tbody').prepend(result);
+                                // 每次数据加载完，必须重置
+                                me.resetload();
+                                // 重置索引值，重新拼接more.json数据
+                                counter = 0;
+                            }, 1000);
+                        },
+                        error: function(xhr, type) {
+                            // alert('Ajax error!');
+                            // 即使加载出错，也得重置
+                            me.resetload();
                         }
-                    }
-                    // 为了测试，延迟1秒加载
-                    setTimeout(function(){
-                        $('.table tbody').append(result);
-                        // 每次数据加载完，必须重置
-                        me.resetload();
-                    },1000);
+                    });
                 },
-                error: function(xhr, type){
-                   // alert('Ajax error!');
-                    // 即使加载出错，也得重置
-                    me.resetload();
-                }
-            });
-        },
-        threshold : 50
-    });
-});
+                loadDownFn: function(me) {
+                    $.ajax({
+                        type: 'GET',
+                        url: 'json/more.json',
+                        dataType: 'json',
+                        success: function(data) {
+                            var result = '';
+                            counter++;
+                            pageEnd = num * counter;
+                            pageStart = pageEnd - num;
 
-function changeSelect(e,val){
-	$(e).addClass('active');
-	$(e).siblings().removeClass('active');
-	//	该出请求ajax数据,点击tab切换,获取获取对应类型的数据渲染到页面。
-	// $.ajax({
-	// 	type:"get",
-	// 	data:{
-	// 		// 此处 点击tab传参给后端，
-	// 	}
-	// 	url:"",
-	// 	async:true,
-	// 	success:function(res){
-	// 		// 渲染返回参数到页面
-	// 	},
-	// 	error:function(err){
-	// 		//  请求出错提示
-	// 	}
-	// });
-}
-</script>
+                            for (var i = pageStart; i < pageEnd; i++) {
+                                result += '<tr>' +
+                                    '<td>' + data.lists[i].job + '</td>' +
+                                    '<td>' + data.lists[i].type + '</td>' +
+                                    '<td>' + data.lists[i].money + '</td>'
+                                '</tr>';
+                                if ((i + 1) >= data.lists.length) {
+                                    // 锁定
+                                    me.lock();
+                                    // 无数据
+                                    me.noData();
+                                    break;
+                                }
+                            }
+                            // 为了测试，延迟1秒加载
+                            setTimeout(function() {
+                                $('.table tbody').append(result);
+                                // 每次数据加载完，必须重置
+                                me.resetload();
+                            }, 1000);
+                        },
+                        error: function(xhr, type) {
+                            // alert('Ajax error!');
+                            // 即使加载出错，也得重置
+                            me.resetload();
+                        }
+                    });
+                },
+                threshold: 50
+            });
+        });
+
+        function changeSelect(e, val) {
+            $(e).addClass('active');
+            $(e).siblings().removeClass('active');
+            //	该出请求ajax数据,点击tab切换,获取获取对应类型的数据渲染到页面。
+            // $.ajax({
+            // 	type:"get",
+            // 	data:{
+            // 		// 此处 点击tab传参给后端，
+            // 	}
+            // 	url:"",
+            // 	async:true,
+            // 	success:function(res){
+            // 		// 渲染返回参数到页面
+            // 	},
+            // 	error:function(err){
+            // 		//  请求出错提示
+            // 	}
+            // });
+        }
+        $('#JSCenter').on('click', function() {
+            window.location.href = './centerIndex.html'
+        })
+    </script>
 </body>
+
 </html>

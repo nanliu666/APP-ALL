@@ -3,24 +3,18 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>招聘</title>
+    <title>个人中心</title>
     <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
     <link href="css/mui.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="css/common/common.css" />
     <style>
-        .mui-content {
-            background: white;
+        .flexSpaceAround img {
+            height: 80px;
+            width: 80px;
         }
         
-        .zhaoBox a {
-            width: 100%;
-            height: 100%;
-            display: inline-block;
-        }
-        
-        .zhaoBox a img {
-            width: 100%;
-            height: 223px;
+        .detailImg {
+            border: 2px solid rgb(204, 204, 204)
         }
     </style>
 </head>
@@ -42,48 +36,52 @@
             <img src="images/common/gift_light.svg" style="display: none;" />
             <span class="mui-tab-label">礼包</span>
         </a>
-        <a id="tab_setting" class="mui-tab-item actives" href="zhao.html">
-            <img src="images/common/zhao.svg" style="display: none;" />
-            <img src="images/common/zhao_light.svg" />
+        <a id="tab_setting" class="mui-tab-item" href="zhao.html">
+            <img src="images/common/zhao.svg" />
+            <img src="images/common/zhao_light.svg" style="display: none;" />
             <span class="mui-tab-label">招聘</span>
         </a>
-        <a id="tab_setting" class="mui-tab-item" href="about.html">
-            <img src="images/common/about.svg" style="margin-top: .6rem;" />
-            <img src="images/common/about_light.svg" style="display: none;margin-top: .1rem;" />
+        <a id="tab_setting" class="mui-tab-item actives" href="about.html">
+            <img src="images/common/about.svg" style="display: none;margin-top: .6rem;" />
+            <img src="images/common/about_light.svg" style="margin-top: .6rem;" />
             <span class="mui-tab-label">关于</span>
         </a>
     </nav>
-    <div class="mui-content">
+    <div class="mui-content" style="background-color: rgb(255, 255, 255)">
         <div class="topInfo">
             <img src="images/logo (2).png" class="logo" />
             <span style="float: right">
-					<span class="mui-icon mui-icon-contact" id="JSCenter" style="font-size:38px; padding: 10px"></span>
+				<span class="mui-icon mui-icon-contact" id="JSCenter" style="font-size:38px; padding: 10px"></span>
             </span>
         </div>
-        <div class="top_list">
-            <p>社会招聘</p>
+        <div style="width: 100%; background-color: rgb(239, 239, 244)" class="flexSpaceAround">
+            <div>
+                <i class="mui-icon mui-icon-contact" style="font-size:80px"></i>
+            </div>
+            <div class="flexCenterH">
+                <p>{{昵称}}</p>
+            </div>
         </div>
-        <div class="zhaoBox">
-            <a href="szDetail.html"><img src="images/sz.jpg" /></a>
-        </div>
-        <div class="top_list">
-            <p>校园招聘</p>
-        </div>
-        <div class="zhaoBox">
-            <a href="xzDetail.html"><img src="images/xz.jpg" /></a>
+        <div class="flexSpaceAround" style="margin-top: 30px">
+            <a href="./gifts.html">
+                <img src="images/icon.png" alt="" class="detailImg">
+                <div class="flexCenterALL">我的礼包</div>
+            </a>
+            <a href="./changPassWord.html">
+                <img src="images/icon.png" alt="" class="detailImg">
+                <div class="flexCenterALL">修改密码</div>
+            </a>
+            <a href="./login.html">
+                <img src="images/icon.png" alt="" class="detailImg">
+                <div class="flexCenterALL">退出登录</div>
+            </a>
         </div>
     </div>
+
     <script src="js/jquery.min.js"></script>
     <script src="js/mui.min.js"></script>
     <script type="text/javascript" src="js/common.js"></script>
     <script type="text/javascript">
-        mui.init();
-        var width = document.body.clientWidth;
-        if (width > 640) {
-            $(".zhaoBox a img").css("margin-left", "25%");
-            $(".zhaoBox a img").css('width', "50%");
-            $(".zhaoBox a img").css('height', "50%");
-        }
         $('#JSCenter').on('click', function() {
             window.location.href = './centerIndex.html'
         })

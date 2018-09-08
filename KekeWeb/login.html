@@ -1,0 +1,79 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>登录</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <link href="css/mui.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="css/common/common.css" />
+    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="./plugins/bootstrapValidator/bootstrapValidator.css">
+
+</head>
+
+<body>
+    <nav class="mui-bar mui-bar-tab" id="nav">
+        <a id="tab_home" class="mui-tab-item" href="index.html">
+            <img src="images/common/index.svg" />
+            <img src="images/common/index_light.svg" style="display: none;" />
+            <span class="mui-tab-label">首页</span>
+        </a>
+        <a id="tab_message" class="mui-tab-item" href="games.html">
+            <img src="images/common/game.svg" />
+            <img src="images/common/game_light.svg" style="display: none;" />
+            <span class="mui-tab-label">游戏</span>
+        </a>
+        <a id="tab_contact" class="mui-tab-item" href="gifts.html">
+            <img src="images/common/gift.svg" />
+            <img src="images/common/gift_light.svg" style="display: none;" />
+            <span class="mui-tab-label">礼包</span>
+        </a>
+        <a id="tab_setting" class="mui-tab-item" href="zhao.html">
+            <img src="images/common/zhao.svg" />
+            <img src="images/common/zhao_light.svg" style="display: none;" />
+            <span class="mui-tab-label">招聘</span>
+        </a>
+        <a id="tab_setting" class="mui-tab-item actives" href="about.html">
+            <img src="images/common/about.svg" style="display: none;margin-top: .6rem;" />
+            <img src="images/common/about_light.svg" style="margin-top: .6rem;" />
+            <span class="mui-tab-label">关于</span>
+        </a>
+    </nav>
+    <div class="mui-content bgcWhite">
+        <div class="topInfo">
+            <img src="images/logo (2).png" class="logo" />
+            <span style="float: right">
+				<span class="mui-icon mui-icon-contact" id="JSCenter" style="font-size:38px; padding: 10px"></span>
+            </span>
+        </div>
+        <div class="flexCenterALL">
+            <div class="mui-icon mui-icon-contact" id="JSCenter" style="font-size:80px; padding: 10px"></div>
+        </div>
+        <form class="form-horizontal paddingT40" role="form" method="post" id="passwordForm">
+            <input type="text" id="JSusername" name="username" class="div90" />
+            <p>*支持可可豆通行证/手机号码登录</p>
+            <input type="password" id="JSpassword" name="password" />
+            <div class="flexRow" style="margin-left: 18%;width: 100%;">
+                <a href="./register.html" title="注册可可豆通行证" style="margin-bottom: 10px;">
+                    <span class="btn btn-success div70">注册可可豆通行证</span>
+                </a>
+                <a href="./index.html" title="账号登录">
+                    <span class="btn btn-primary div70">账号登录</span>
+                </a>
+            </div>
+        </form>
+    </div>
+    <script src="https://cdn.bootcss.com/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="./plugins/bootstrapValidator/bootstrap.min.js"></script>
+    <script src="./plugins/bootstrapValidator/bootstrapValidator.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script type="text/javascript">
+        $('#JSCenter').on('click', function() {
+            window.location.href = './centerIndex.html'
+        })
+    </script>
+</body>
+
+</html>
