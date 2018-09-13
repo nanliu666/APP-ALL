@@ -278,11 +278,14 @@
             <p class="closeBtn" onclick="closeMask()">关闭</button>
         </div>
     </div>
-    <script src="js/mui.min.js"></script>
-    <script src="js/jquery.min.js"></script>
-    <script src="js/layer.js"></script>
-    <script type="text/javascript" src="js/common.js"></script>
-    <script type="text/javascript" charset="utf-8">
+</body>
+<script src="js/mui.min.js"></script>
+<script src="js/jquery.min.js"></script>
+<script src="js/layer.js"></script>
+<script type="text/javascript" src="js/common.js"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script type="text/javascript" charset="utf-8">
+    $(document).ready(() => {
         mui.init();
         var slider = mui("#slider");
         slider.slider({
@@ -332,7 +335,7 @@
         $('#JSCenter').on('click', function() {
             window.location.href = './centerIndex.html'
         })
-    </script>
-</body>
+    })
+</script>
 
 </html>

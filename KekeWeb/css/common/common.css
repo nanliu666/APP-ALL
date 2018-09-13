@@ -9,10 +9,6 @@ body {
     background: white;
 }
 
-.mui-bar-tab~.mui-content {
-    /*background: white;*/
-}
-
 
 /*头部公共样式*/
 
@@ -360,6 +356,7 @@ table {
     display: flex;
     justify-content: center;
     align-items: center;
+    width: 100%;
 }
 
 .flexCenterH {
