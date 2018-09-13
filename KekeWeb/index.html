@@ -8,6 +8,169 @@
     <link href="css/mui.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="css/common/common.css" />
     <link rel="stylesheet" href="css/index.css" />
+    <script src="js/mui.min.js"></script>
+    <script src="js/jquery.min.js"></script>
+    <script src="js/layer.js"></script>
+    <script type="text/javascript" src="js/common.js"></script>
+    <script src="https://cdn.bootcss.com/blueimp-md5/2.10.0/js/md5.js"></script>
+    <script src="js/moment.min.js"></script>
+    <script src="./js/util/getSign.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="https://cdn.bootcss.com/lodash.js/4.17.10/lodash.core.js"></script>
+    <script>
+        let download, closeMask, down, onLoad
+        if (sessionStorage.loginSuccess && sessionStorage.loginSuccess === 'success') {
+            $(document).ready(() => {
+                mui('body').on('tap', 'a', function() {
+                    document.location.href = this.href;
+                });
+                mui('#tableBox').scroll({});
+                mui.init();
+                var slider = mui("#slider");
+                slider.slider({
+                    interval: 5000
+                });
+                // layer提示
+                mui("#tb1").on('tap', '.gf', function(event) {
+                    layer.open({
+                        content: '暂无礼包领取',
+                        skin: 'msg',
+                        time: 2 //2秒后自动关闭
+                    });
+                });
+
+
+
+
+                closeMask = function() {
+                    $(".mui-backdrop").fadeOut();
+                }
+
+                //  分辨率自适应
+                var width = document.body.clientWidth;
+                if (width <= 320) {
+                    $(".white_content").css("height", "50%");
+                    $(".white_content").css("top", "25%");
+                }
+
+                $('#JSCenter').on('click', function() {
+                    window.location.href = './centerIndex.html'
+                })
+
+                //axios请求
+                axios.defaults.baseURL = 'http://192.168.2.159:7002';
+                axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
+
+                const [newSortUrl, IndexUrl, now_time, platform] = ['/game/new-sort', '/game-server/index', parseInt(moment().unix()), 'web']
+                const signObj = {
+                    now_time,
+                    platform,
+                }
+                const sign = getSign(signObj) //调用签名函数获取签名
+
+                axios({
+                        method: "GET",
+                        url: newSortUrl,
+                        params: {
+                            now_time,
+                            platform,
+                            sign,
+                        },
+                    })
+                    .then((result) => {
+                        let data = result.data.data
+                        data = _.sortBy(data, function(item) {
+                            return item.hot;
+                        });
+                        console.log(data)
+                        let [modalnameHTML, modalgameImgHTML, modaldescribeHTML, newGameHTML, android_download_url, ios_download_url] = [
+                            [],
+                            [],
+                            [],
+                            '', [],
+                            []
+                        ]
+                        download = function(e, i) {
+                            $(".name").text(`${modalnameHTML[i]}`);
+                            $(".gameImg").attr("src", `${modalgameImgHTML[i]}`);
+                            $(".describe").text(`${modaldescribeHTML[i]}`);
+                            $(".mui-backdrop").fadeIn();
+                        }
+
+                        //  点击下载按钮
+                        down = function(e, i) {
+                            if (i === 0) {
+                                window.location.href = android_download_url[i]
+                            } else {
+                                location.href = ios_download_url
+                            }
+                        }
+
+
+                        for (let i = 0; i < data.length; i++) {
+                            newGameHTML += `
+                                <div class="content">
+                                    <div class="left">
+                                        <img loadImg(this, ${i})/>
+                                    </div>
+                                    <div class="middle">
+                                        <div class="left_img">
+                                            <img src="${data[i].logo}" style="width: 90%;" />
+                                        </div>
+                                        <div class="right_info">
+                                            <p class="d_name">${data[i].name}</p>
+                                            <p style="line-height: 1.1rem;">
+                                                <img src="images/angle.svg" />
+                                                <img src="images/angle.svg" />
+                                                <img src="images/angle.svg" />
+                                                <img src="images/angle.svg" />
+                                                <img src="images/angle.svg" />
+                                            </p>
+                                            <p class="d_describe">${data[i].describe}</p>
+                                        </div>
+                                    </div>
+                                    <div class="right">
+                                        <button class="dlBtn" onclick="download(this,${i})">下载</button>
+                                    </div>
+                                </div>
+                            `
+                            modalnameHTML.push(`${data[i].name}`)
+                            modalgameImgHTML.push(`${data[i].logo}`)
+                            modaldescribeHTML.push(`${data[i].describe}`)
+                            android_download_url.push(`${data[i].android_download_url}`)
+                            ios_download_url.push(`${data[i].ios_download_url}`)
+                        }
+                        $("#tb2").html(newGameHTML)
+
+                        loadImg = function(e, i) {
+                            console.log(1)
+                            let img = new Image()
+                                // switch (i) {
+                                //     case 0:
+                                //         img.src = "images/one.png"
+                                //         break;
+                                //     case 1:
+                                //         img.src = "images/two.png"
+                                //         break;
+                                //     case 2:
+                                //         img.src = "images/three.png"
+                                //         break;
+                                //     case 3:
+                                //         img.src = "images/one.png"
+                                //         break;
+                                //     default:
+                                // }
+                            console.log(img)
+                        }
+                    })
+                    .catch((err) => {
+                        console.log(err)
+                    })
+            })
+        } else {
+            location.href = './login.html'
+        }
+    </script>
 </head>
 
 <body>
@@ -121,22 +284,22 @@
                         <p>重燃经典，创新回合制手游《梦幻仙语》给你带来不一样的游戏体验。</p>
                     </div>
                 </div>
-                <!--<div class="list_content" onclick="download(this,3)">
-					<div class="left_img">
-						<img src="images/g3.png" />
-					</div>
-					<div class="right_info">
-						<p>王者荣耀<img src="images/free.png" class="icon"></p>
-						<p>
-							<img src="images/angle.svg" />
-							<img src="images/angle.svg" />
-							<img src="images/angle.svg" />
-							<img src="images/angle.svg" />
-							<img src="images/angle.svg" />
-						</p>
-						<p>3D国漫盗墓手游</p>
-					</div>
-				</div>-->
+                <div class="list_content" onclick="download(this,3)">
+                    <div class="left_img">
+                        <img src="images/g3.png" />
+                    </div>
+                    <div class="right_info">
+                        <p>王者荣耀<img src="images/free.png" class="icon"></p>
+                        <p>
+                            <img src="images/angle.svg" />
+                            <img src="images/angle.svg" />
+                            <img src="images/angle.svg" />
+                            <img src="images/angle.svg" />
+                            <img src="images/angle.svg" />
+                        </p>
+                        <p>3D国漫盗墓手游</p>
+                    </div>
+                </div>
             </div>
         </div>
         <div id="tableBox">
@@ -178,80 +341,7 @@
                     </tbody>
                 </table>
             </div>
-            <div class="tb" id="tb2" style="display: none;">
-                <div class="content">
-                    <div class="left">
-                        <img src="images/one.png" />
-                    </div>
-                    <div class="middle">
-                        <div class="left_img">
-                            <img src="images/icon.png" style="width: 90%;" />
-                        </div>
-                        <div class="right_info">
-                            <p class="d_name">仙坠凡尘</p>
-                            <p style="line-height: 1.1rem;">
-                                <img src="images/angle.svg" />
-                                <img src="images/angle.svg" />
-                                <img src="images/angle.svg" />
-                                <img src="images/angle.svg" />
-                                <img src="images/angle.svg" />
-                            </p>
-                            <p class="d_describe">《仙坠凡尘》是一款以东方修真题材为背景的回合制手游。</p>
-                        </div>
-                    </div>
-                    <div class="right">
-                        <button class="dlBtn" onclick="download(this,1)">下载</button>
-                    </div>
-                </div>
-                <div class="content">
-                    <div class="left">
-                        <img src="images/two.png" />
-                    </div>
-                    <div class="middle">
-                        <div class="left_img">
-                            <img src="images/icon1.png" style="width: 90%;" />
-                        </div>
-                        <div class="right_info">
-                            <p class="d_name">梦幻仙语</p>
-                            <p style="line-height: 1.1rem;">
-                                <img src="images/angle.svg" />
-                                <img src="images/angle.svg" />
-                                <img src="images/angle.svg" />
-                                <img src="images/angle.svg" />
-                                <img src="images/angle.svg" />
-                            </p>
-                            <p class="d_describe">重燃经典，创新回合制手游《梦幻仙语》给你带来不一样的游戏体验。</p>
-                        </div>
-                    </div>
-                    <div class="right">
-                        <button class="dlBtn" onclick="download(this,2)">下载</button>
-                    </div>
-                </div>
-                <!--<div class="content">
-					<div class="left">
-						<img src="images/three.png" />
-					</div>
-					<div class="middle">
-						<div class="left_img">
-							<img src="images/g3.png" style="width: 90%;"/>
-						</div>
-						<div class="right_info">
-							<p class="d_name">王者荣耀</p>
-							<p style="line-height: 1.1rem;">
-								<img src="images/angle.svg" />
-								<img src="images/angle.svg" />
-								<img src="images/angle.svg" />
-								<img src="images/angle.svg" />
-								<img src="images/angle.svg" />
-							</p>
-							<p class="d_describe">3D国漫盗墓手游</p>
-						</div>
-					</div>
-					<div class="right">
-						<button class="dlBtn" onclick="download(this,3)">下载</button>
-					</div>
-				</div>-->
-            </div>
+            <div class="tb" id="tb2" style="display: none;"></div>
         </div>
     </div>
     <div class="mui-backdrop">
@@ -273,69 +363,12 @@
                     <p class="describe">《仙坠凡尘》是一款以东方修真题材为背景的回合制手游。</p>
                 </div>
             </div>
-            <p class="android" onclick="down()"><span><img src="images/android.svg"></span>安卓版下载</p>
-            <p class="iOS" onclick="down()"><span><img src="images/iOS.svg"></span>苹果版下载</p>
+            <p class="android" onclick="down(this, 0)"><span><img src="images/android.svg"></span>安卓版下载</p>
+            <p class="iOS" onclick="down(this, 1)"><span><img src="images/iOS.svg"></span>苹果版下载</p>
             <p class="closeBtn" onclick="closeMask()">关闭</button>
         </div>
     </div>
 </body>
-<script src="js/mui.min.js"></script>
-<script src="js/jquery.min.js"></script>
-<script src="js/layer.js"></script>
-<script type="text/javascript" src="js/common.js"></script>
-<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-<script type="text/javascript" charset="utf-8">
-    $(document).ready(() => {
-        mui.init();
-        var slider = mui("#slider");
-        slider.slider({
-            interval: 5000
-        });
-        // layer提示
-        mui("#tb1").on('tap', '.gf', function(event) {
-            layer.open({
-                content: '暂无礼包领取',
-                skin: 'msg',
-                time: 2 //2秒后自动关闭
-            });
-        });
 
-        function download(e, val) {
-            if (val === 1) {
-                $(".name").text('仙坠凡尘');
-                $(".gameImg").attr("src", "images/icon.png");
-                $(".describe").text("《仙坠凡尘》是一款以东方修真题材为背景的回合制手游。");
-            } else if (val === 2) {
-                $(".name").text('梦幻仙语');
-                $(".gameImg").attr("src", "images/icon1.png");
-                $(".describe").text("重燃经典，创新回合制手游《梦幻仙语》给你带来不一样的游戏体验。");
-            }
-            //			else if(val === 3){
-            //				$(".name").text('王者荣耀');
-            //				$(".gameImg").attr("src","images/g3.png");
-            //				$(".describe").text("3D国漫盗墓手游");
-            //			}
-            $(".mui-backdrop").fadeIn();
-        }
-        //  点击下载按钮
-        function down() {
-            window.location.href = "http://data.gzzhongw.net/gameDL/wuyuan/wuyuan180601.apk";
-        }
-
-        function closeMask() {
-            $(".mui-backdrop").fadeOut();
-        }
-        //  分辨率自适应
-        var width = document.body.clientWidth;
-        if (width <= 320) {
-            $(".white_content").css("height", "50%");
-            $(".white_content").css("top", "25%");
-        }
-
-        $('#JSCenter').on('click', function() {
-            window.location.href = './centerIndex.html'
-        })
-    })
-</script>
 
 </html>

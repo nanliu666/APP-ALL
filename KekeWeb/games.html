@@ -8,6 +8,55 @@
     <link href="./css/mui.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="./css/common/common.css" />
     <link rel="stylesheet" href="./css/games.css" />
+    <script src="./js/jquery.min.js"></script>
+    <script src="./js/mui.min.js"></script>
+    <script type="text/javascript" src="./js/common.js"></script>
+    <script type="text/javascript">
+        if (sessionStorage.loginSuccess && sessionStorage.loginSuccess === 'success') {
+            $(document).ready(() => {
+                mui('body').on('tap', 'a', function() {
+                    document.location.href = this.href;
+                });
+                mui.init();
+
+                function download(e, val) {
+                    if (val === 1) {
+                        $(".name").text('仙坠凡尘');
+                        $(".gameImg").attr("src", "images/icon.png");
+                        $(".describe").text("《仙坠凡尘》是一款以东方修真题材为背景的回合制手游。");
+                    } else if (val === 2) {
+                        $(".name").text('梦幻仙语');
+                        $(".gameImg").attr("src", "images/icon1.png");
+                        $(".describe").text("重燃经典，创新回合制手游《梦幻仙语》给你带来不一样的游戏体验");
+                    }
+                    //			else if(val === 3){
+                    //				$(".name").text('王者荣耀');
+                    //				$(".gameImg").attr("src","images/g3.png");
+                    //				$(".describe").text("3D国漫盗墓手游");
+                    //			}
+                    $(".mui-backdrop").fadeIn();
+                }
+
+                function down() {
+                    window.location.href = "http://data.gzzhongw.net/gameDL/wuyuan/wuyuan180601.apk";
+                }
+
+                function closeMask() {
+                    $(".mui-backdrop").fadeOut();
+                }
+                let width = document.body.clientWidth;
+                if (width <= 320) {
+                    $(".white_content").css("height", "50%");
+                    $(".white_content").css("top", "25%");
+                }
+                $('#JSCenter').on('click', function() {
+                    window.location.href = './centerIndex.html'
+                })
+            })
+        } else {
+            location.href = './login.html'
+        }
+    </script>
 </head>
 
 <body>
@@ -230,46 +279,7 @@
             <p class="closeBtn" onclick="closeMask()">关闭</button>
         </div>
     </div>
-    <script src="./js/jquery.min.js"></script>
-    <script src="./js/mui.min.js"></script>
-    <script type="text/javascript" src="./js/common.js"></script>
-    <script type="text/javascript">
-        mui.init();
 
-        function download(e, val) {
-            if (val === 1) {
-                $(".name").text('仙坠凡尘');
-                $(".gameImg").attr("src", "images/icon.png");
-                $(".describe").text("《仙坠凡尘》是一款以东方修真题材为背景的回合制手游。");
-            } else if (val === 2) {
-                $(".name").text('梦幻仙语');
-                $(".gameImg").attr("src", "images/icon1.png");
-                $(".describe").text("重燃经典，创新回合制手游《梦幻仙语》给你带来不一样的游戏体验");
-            }
-            //			else if(val === 3){
-            //				$(".name").text('王者荣耀');
-            //				$(".gameImg").attr("src","images/g3.png");
-            //				$(".describe").text("3D国漫盗墓手游");
-            //			}
-            $(".mui-backdrop").fadeIn();
-        }
-
-        function down() {
-            window.location.href = "http://data.gzzhongw.net/gameDL/wuyuan/wuyuan180601.apk";
-        }
-
-        function closeMask() {
-            $(".mui-backdrop").fadeOut();
-        }
-        var width = document.body.clientWidth;
-        if (width <= 320) {
-            $(".white_content").css("height", "50%");
-            $(".white_content").css("top", "25%");
-        }
-        $('#JSCenter').on('click', function() {
-            window.location.href = './centerIndex.html'
-        })
-    </script>
 </body>
 
 </html>

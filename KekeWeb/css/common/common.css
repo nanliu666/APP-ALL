@@ -1,3 +1,7 @@
+* {
+    touch-action: pan-y;
+}
+
 html,
 body {
     width: 100%;
