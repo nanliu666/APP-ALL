@@ -1,23 +1,22 @@
-.mui-content{
-	background: white;
-}
-.box{
-	overflow: hidden;
-	margin: 2% 2% 0 2%;
-}
-.lrow,.rrow{
-	width: 49%;
-}
-.z{
-	float: left;
-}
-.y{
-	float: right;
-}
-.lrow img,.rrow img{
-	width: 100%;
-    border-radius: 5px;
-    display: block;
-    margin-bottom: 4%;
+.mui-content {
+    background: white;
 }
 
+.mui-content::-webkit-scrollbar {
+    background-color: transparent;
+    display: none;
+    /*隐藏滚轮*/
+}
+
+body::-webkit-scrollbar {
+    width: 0;
+    height: 0;
+}
+
+body::-webkit-scrollbar {
+    display: none;
+}
+
+.box {
+    margin: 2% 2% 0 2%;
+}

@@ -59,6 +59,7 @@ body {
     margin: 0;
     padding: 0;
     height: 100%;
+    width: 100%;
 }
 
 .active {
@@ -122,7 +123,10 @@ a {
     width: 100%;
     overflow: hidden;
     background: white;
-    padding: 1.5rem 1rem 0 1rem;
+    padding: 1rem 1rem 0;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap
 }
 
 .list_content {
@@ -210,10 +214,9 @@ table {
 }
 
 .white_content {
-    position: fixed;
-    background: white;
+    position: fixed !important;
     height: 44%;
-    width: 70%;
+    width: 70% !important;
     top: 28%;
     left: 15%;
     border-radius: 5px;
@@ -237,6 +240,7 @@ table {
 
 .android,
 .iOS {
+    display: block;
     width: 100%;
     text-align: center;
     height: 3.6rem;
@@ -248,7 +252,6 @@ table {
 
 .android {
     background: #99D846;
-    margin-top: 1rem;
 }
 
 .android span {
@@ -427,4 +430,33 @@ table {
 
 .textright {
     text-align: right
+}
+
+
+/*模态框*/
+
+.modalBody {
+    display: flex;
+    flex-direction: column;
+    padding: 0 10px
+}
+
+.top {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 10px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #ccc
+}
+
+.topImg {
+    border-radius: 4px;
+    width: 50px;
+    height: 50px;
+    border: 4px solid rgb(204, 204, 204)
+}
+
+.top topRight {
+    display: flex;
+    flex-direction: column;
 }
