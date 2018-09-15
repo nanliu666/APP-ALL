@@ -26,6 +26,37 @@
             margin-left: 0;
         }
     </style>
+
+    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+    <script src="https://cdn.bootcss.com/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+    <script src="js/mui.min.js"></script>
+    <script src="js/layer.js"></script>
+    <script type="text/javascript" src="js/common.js"></script>
+    <script src="https://cdn.bootcss.com/blueimp-md5/2.10.0/js/md5.js"></script>
+    <script src="js/moment.min.js"></script>
+    <script src="./js/util/getSign.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="https://cdn.bootcss.com/lodash.js/4.17.10/lodash.core.js"></script>
+    <script src="./js/UI/modal.js"></script>
+    <script src="./js/pageJs/gifts.js"></script>
+
+
+    <script type="text/javascript">
+        mui.init();
+        mui(".right").on('tap', '.gf', function(event) {
+            layer.open({
+                content: '暂无礼包领取',
+                skin: 'msg',
+                time: 2 //2秒后自动关闭
+            });
+        });
+        $('#JSCenter').on('click', function() {
+            window.location.href = './centerIndex.html'
+        })
+    </script>
 </head>
 
 <body>
@@ -66,87 +97,74 @@
         <div class="top_list">
             <p>领取礼包</p>
         </div>
-        <div class="content">
-            <div class="middle" style="width: 69%;margin-left: 4%;">
-                <div class="left_img">
-                    <img src="images/icon.png" class="imagess" />
+        <div class="giftBox">
+            <div class="content">
+                <div class="middle" style="width: 69%;margin-left: 4%;">
+                    <div class="left_img">
+                        <img src="images/icon.png" class="imagess" />
+                    </div>
+                    <div class="right_info">
+                        <p class="d_name">仙坠凡尘</p>
+                        <p style="line-height: 1.1rem;">
+                            <img src="images/angle.svg" />
+                            <img src="images/angle.svg" />
+                            <img src="images/angle.svg" />
+                            <img src="images/angle.svg" />
+                            <img src="images/angle.svg" />
+                        </p>
+                        <p class="d_describe">《仙坠凡尘》是一款以东方修真题材为背景的回合制手游。</p>
+                    </div>
                 </div>
-                <div class="right_info">
-                    <p class="d_name">仙坠凡尘</p>
-                    <p style="line-height: 1.1rem;">
-                        <img src="images/angle.svg" />
-                        <img src="images/angle.svg" />
-                        <img src="images/angle.svg" />
-                        <img src="images/angle.svg" />
-                        <img src="images/angle.svg" />
-                    </p>
-                    <p class="d_describe">《仙坠凡尘》是一款以东方修真题材为背景的回合制手游。</p>
+                <div class="right">
+                    <button class="dlBtn gf">领取礼包</button>
                 </div>
             </div>
-            <div class="right">
-                <button class="dlBtn gf">领取礼包</button>
+            <div class="content" style="border-bottom: 1px solid #ececec;">
+                <div class="middle" style="width: 69%;margin-left: 4%;">
+                    <div class="left_img">
+                        <img src="images/icon1.png" class="imagess" />
+                    </div>
+                    <div class="right_info">
+                        <p class="d_name">梦幻仙语</p>
+                        <p style="line-height: 1.1rem;">
+                            <img src="images/angle.svg" />
+                            <img src="images/angle.svg" />
+                            <img src="images/angle.svg" />
+                            <img src="images/angle.svg" />
+                            <img src="images/angle.svg" />
+                        </p>
+                        <p class="d_describe">重燃经典，创新回合制手游《梦幻仙语》给你带来不一样的游戏体验。</p>
+                    </div>
+                </div>
+                <div class="right">
+                    <button class="dlBtn gf">领取礼包</button>
+                </div>
+            </div>
+            <div class="content" style="border-bottom: 1px solid #ececec;">
+                <div class="middle" style="width: 69%;margin-left: 4%;">
+                    <div class="left_img">
+                        <img src="images/g3.png" class="imagess" />
+                    </div>
+                    <div class="right_info">
+                        <p class="d_name">王者荣耀</p>
+                        <p style="line-height: 1.1rem;">
+                            <img src="images/angle.svg" />
+                            <img src="images/angle.svg" />
+                            <img src="images/angle.svg" />
+                            <img src="images/angle.svg" />
+                            <img src="images/angle.svg" />
+                        </p>
+                        <p class="d_describe">3D国漫盗墓手游</p>
+                    </div>
+                </div>
+                <div class="right">
+                    <button class="dlBtn gf">领取礼包</button>
+                </div>
             </div>
         </div>
-        <div class="content" style="border-bottom: 1px solid #ececec;">
-            <div class="middle" style="width: 69%;margin-left: 4%;">
-                <div class="left_img">
-                    <img src="images/icon1.png" class="imagess" />
-                </div>
-                <div class="right_info">
-                    <p class="d_name">梦幻仙语</p>
-                    <p style="line-height: 1.1rem;">
-                        <img src="images/angle.svg" />
-                        <img src="images/angle.svg" />
-                        <img src="images/angle.svg" />
-                        <img src="images/angle.svg" />
-                        <img src="images/angle.svg" />
-                    </p>
-                    <p class="d_describe">重燃经典，创新回合制手游《梦幻仙语》给你带来不一样的游戏体验。</p>
-                </div>
-            </div>
-            <div class="right">
-                <button class="dlBtn gf">领取礼包</button>
-            </div>
-        </div>
-        <!--<div class="content" style="border-bottom: 1px solid #ececec;">
-		<div class="middle" style="width: 69%;margin-left: 4%;">
-			<div class="left_img">
-				<img src="images/g3.png" class="imagess"/>
-			</div>
-			<div class="right_info">
-				<p class="d_name">王者荣耀</p>
-				<p style="line-height: 1.1rem;">
-					<img src="images/angle.svg" />
-					<img src="images/angle.svg" />
-					<img src="images/angle.svg" />
-					<img src="images/angle.svg" />
-					<img src="images/angle.svg" />
-				</p>
-				<p class="d_describe">3D国漫盗墓手游</p>
-			</div>
-		</div>
-		<div class="right">
-			<button class="dlBtn gf">领取礼包</button>
-		</div>
-	</div>-->
+
     </div>
-    <script src="js/jquery.min.js"></script>
-    <script src="js/mui.min.js"></script>
-    <script src="js/layer.js"></script>
-    <script type="text/javascript" src="js/common.js"></script>
-    <script type="text/javascript">
-        mui.init();
-        mui(".right").on('tap', '.gf', function(event) {
-            layer.open({
-                content: '暂无礼包领取',
-                skin: 'msg',
-                time: 2 //2秒后自动关闭
-            });
-        });
-        $('#JSCenter').on('click', function() {
-            window.location.href = './centerIndex.html'
-        })
-    </script>
+
 </body>
 
 </html>

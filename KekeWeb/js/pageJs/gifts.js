@@ -13,10 +13,13 @@ if (sessionStorage.loginSuccess && sessionStorage.loginSuccess === 'success') {
             window.location.href = './centerIndex.html'
         })
 
+        //axios请求
+        axios.defaults.baseURL = 'http://192.168.2.159:7002';
+        axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
 
         // todo 去除滚动条
-        const [newSortUrl, recommendURL, ] = ['/game/new-sort', '/game/recommend', ]
-        let [android_download_url, describe, game_id, hot, ios_download_url, logo, name, ] = [
+        const [giftListUrl, getCDkeyRUL, now_time, platform, ] = ['/gift-bag/index', '/gift-bag-user-cdkey/index', parseInt(moment().unix()), 'web', ]
+        let [android_download_url, describe, game_id, hot, ios_download_url, logo, name, imgBoxHTMLList, downLoadHTML, hotHTML, divList] = [
             [],
             [],
             [],
@@ -24,30 +27,44 @@ if (sessionStorage.loginSuccess && sessionStorage.loginSuccess === 'success') {
             [],
             [],
             [],
-        ]
-        let [downLoadHTML, hotHTML, divList] = [
+            [],
             [],
             [], ''
         ]
-        const axiosConfig = $axiosGet()
+        const signObj = {
+            now_time,
+            platform,
+        }
+        const sign = getSign(signObj) //调用签名函数获取签名
+        const axiosConfig = {
+            method: "GET",
+            params: {
+                now_time,
+                platform,
+                sign,
+            },
+        }
 
-        function getnewSortUrl() {
-            return axios.get(newSortUrl, axiosConfig);
+        function getgiftListUrl() {
+            return axios.get(giftListUrl, axiosConfig);
         }
 
 
-        function getrecommendURL() {
-            return axios.get(recommendURL, axiosConfig);
+        function getCDkey() {
+            return axios.get(getCDkeyRUL, axiosConfig);
         }
 
 
-        axios.all([getnewSortUrl(), getrecommendURL()])
-            .then(axios.spread(function(newSort, rem) {
-                if (newSort.data.data) {
-                    HTMLAdd(newSort.data.data, index = 0)
+        axios.all([getgiftListUrl(), getCDkey()])
+            .then(axios.spread(function(giftListURL, CDKey) {
+                if (giftListURL.data.data) {
+                    console.log(giftListURL.data.data)
+                        // HTMLAdd(giftListURL.data.data, index = 0)
                 }
-                if (rem.data.data) {
-                    HTMLAdd(rem.data.data, index = 1)
+                if (CDKey.data.data) {
+                    console.log(giftListURL.data.data)
+
+                    // HTMLAdd(CDKey.data.data, index = 1)
                 }
             }))
 
@@ -86,6 +103,11 @@ if (sessionStorage.loginSuccess && sessionStorage.loginSuccess === 'success') {
                 ios_download_url.push(data[i].ios_download_url)
                 logo.push(data[i].logo)
                 name.push(data[i].name)
+                if (logo.length !== 1) {
+                    imgBoxHTMLList.push(`<img src=${data[i].logo} />`)
+                } else {
+
+                }
                 if (index === 0) {
                     downLoadHTML += `
                         <div class="content" data-indexNEW=${i}>

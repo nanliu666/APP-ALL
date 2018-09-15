@@ -1,15 +1,12 @@
-function $axios(options) {
-    axios.prototype.$axios = $axios
+function $axiosGet(options) {
     axios.defaults.baseURL = 'http://192.168.2.159:7002';
     axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
 
-    const [method, url, ...params] = options
     const [now_time, platform, ] = [parseInt(moment().unix()), 'web', ]
     const signObj = {
         now_time,
         platform,
     }
-    Object.assign(signObj, ...params)
     console.log("签名对象=》", signObj)
 
     // 签名函数
@@ -35,22 +32,15 @@ function $axios(options) {
 
     const sign = getSign(signObj) //调用签名函数获取签名
     const axiosconfig = {
-        method,
-        url,
+        method: "GET",
         headers: {
             'Content-type': 'application/x-www-form-urlencoded'
         },
-        transformRequest: [function(data) {
-            let ret = ''
-            for (let it in data) {
-                ret += encodeURIComponent(it) + '=' + encodeURIComponent(data[it]) + '&'
-            }
-            return ret
-        }],
-        data: {
-            ...signObj,
+        params: {
+            now_time,
+            platform,
             sign,
         },
     }
-
+    return axiosconfig
 }
