@@ -17,6 +17,7 @@ if (sessionStorage.loginSuccess && sessionStorage.loginSuccess === 'success') {
         axios.defaults.baseURL = 'http://192.168.2.159:7002';
         axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
 
+        // todo 去除滚动条
         const [newSortUrl, recommendURL, now_time, platform, ] = ['/game/new-sort', '/game/recommend', parseInt(moment().unix()), 'web', ]
         let [android_download_url, describe, game_id, hot, ios_download_url, logo, name, imgBoxHTMLList, downLoadHTML, hotHTML, divList] = [
             [],
@@ -68,7 +69,6 @@ if (sessionStorage.loginSuccess && sessionStorage.loginSuccess === 'success') {
             data = _.sortBy(data, function(item) {
                 return item.hot;
             });
-            console.log(index)
             HTMLCreate(data, index)
             if (index === 0) {
 
@@ -92,8 +92,6 @@ if (sessionStorage.loginSuccess && sessionStorage.loginSuccess === 'success') {
         }
 
         function HTMLCreate(data, index) {
-            console.log(data)
-
             for (let i = 0; i < data.length; i++) {
                 android_download_url.push(data[i].android_download_url)
                 describe.push(data[i].describe)
@@ -107,7 +105,6 @@ if (sessionStorage.loginSuccess && sessionStorage.loginSuccess === 'success') {
                 } else {
 
                 }
-                console.log("data1=>", data)
                 if (index === 0) {
                     downLoadHTML += `
                         <div class="content" data-indexNEW=${i}>
