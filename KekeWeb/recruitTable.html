@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>校园招聘</title>
+    <link href="css/mui.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="css/common/common.css" />
+    <link rel="stylesheet" href="css/xzDetail.css" />
+    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+    <style>
+        nav {
+            height: 6%;
+            background-color: #f5f5f5;
+        }
+        
+        nav li {
+            height: 100%;
+            line-height: 4.2rem;
+            align-items: none
+        }
+    </style>
+</head>
+
+<body>
+
+    <header></header>
+    <nav class="flexSpaceAround flexCenterH"></nav>
+    <table class="table table-responsive table-hover ">
+        <thead>
+            <tr>
+                <th class="textCenter">招聘职位</th>
+                <th class="textCenter">岗位类别</th>
+                <th class="textCenter">薪酬待遇</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+</body>
+<script src="https://cdn.bootcss.com/jquery/2.1.1/jquery.min.js"></script>
+
+<script>
+    if (sessionStorage.loginSuccess && sessionStorage.loginSuccess === 'success') {
+        $(document).ready(() => {
+            if (sessionStorage && sessionStorage.recruit === 'school') {
+                document.title = "校园招聘"
+            } else {
+                document.title = "社会招聘"
+            }
+            const reciuitText = ['全部', '技术类', '策划类', '美术类', '职能类', ]
+            const tBodyText = [{
+                A: 'Erlang服务端开发工程师',
+                B: '技术类',
+                C: '面议'
+            }, {
+                A: 'Erlang服务端开发工程师',
+                B: '技术类',
+                C: '面议'
+            }, {
+                A: 'Erlang服务端开发工程师',
+                B: '技术类',
+                C: '面议'
+            }, ]
+            let [headerHTML, LiHTML, tBody1, ] = ['', [],
+                [],
+            ]
+            headerHTML = `
+            <div class="topInfo">
+            <a href='./index.html'><img src="images/logo (2).png" class="logo" /></a>
+            <span style="float: right">
+						<span class="mui-icon mui-icon-contact" id="JSCenter" style="font-size:38px; padding: 10px"></span>
+            </span>
+        </div>
+            `
+
+            for (let i = 0; i < reciuitText.length; i++) {
+                LiHTML.push(`
+                <li class="flexCenterW div25">${reciuitText[i]}</li>
+            `)
+            }
+            LiHTML[0] = `<li class="div25 flexCenterW  active">${reciuitText[0]}</li>`
+
+            $('header').html(headerHTML)
+            $('nav').html(LiHTML)
+            $("nav li").click(function() {
+                var item = $(this).index(); //获取索引下标 也从0开始
+                $(this).siblings().removeClass('active')
+                $(this).addClass('active')
+            })
+            var myRows = $('table tr').click(function() {
+
+                alert(myRows.index(this));
+
+            });
+            tBodyText.map((item, index, tBodyText) => {
+                tBody1 += `
+                <tr><td>${item.A}</td><td>${item.B}</td><td>${item.C}</td></tr>
+            `
+            })
+            $('tbody').html(tBody1)
+            var myRows = $('tbody tr').click(function() {
+
+                alert(myRows.index(this));
+
+            });
+        })
+    } else {
+        location.href = './login.html'
+    }
+</script>
+
+</html>

@@ -69,8 +69,12 @@ if (sessionStorage.loginSuccess && sessionStorage.loginSuccess === 'success') {
             return axios.get(recommendURL, axiosConfig);
         }
 
+        function getIndexUrl() {
+            return axios.get(IndexUrl, axiosConfig);
+        }
 
-        axios.all([getnewSortUrl(), gethotURL(), getrecommendURL()])
+
+        axios.all([getnewSortUrl(), gethotURL(), getrecommendURL(), getIndexUrl()])
             .then(axios.spread(function(newSort, hot, rem, start) {
 
                 // 推荐游戏请求
@@ -125,11 +129,12 @@ if (sessionStorage.loginSuccess && sessionStorage.loginSuccess === 'success') {
                 }
 
                 //  新游请求
-                if (newSort.data.data) {
+                if (!!newSort.data.data && newSort.data.data) {
                     let data = newSort.data.data
                     data = _.sortBy(data, function(item) {
                         return item.hot;
                     });
+                    console.log('新游=》', data)
                     let [modalnameHTML, modalgameImgHTML, modaldescribeHTML, newGameHTML, android_download_url, ios_download_url, imgSrcArr, propaganda_img] = [
                         [],
                         [],
@@ -182,7 +187,7 @@ if (sessionStorage.loginSuccess && sessionStorage.loginSuccess === 'success') {
                     $("#tb2").html(newGameHTML)
 
                     //添加图片
-                    let imgWrap = $('.content> .left img');
+                    let imgWrap = $('.content');
 
                     function preloadImg(arr) {
                         for (var i = 0; i < arr.length; i++) {
@@ -209,11 +214,50 @@ if (sessionStorage.loginSuccess && sessionStorage.loginSuccess === 'success') {
                     const hotData = hot.data.data
                 }
 
-                // //开服游戏
-                // if (start.data.data) {
-                //     let data = start.data.data
-                //     console.log(data)
-                // }
+                //开服游戏
+                if (start.data.data) {
+                    let data = start.data.data
+                    _.sortBy(data, function(item) {
+                        return item.opening_time;
+                    });
+                    console.log(data)
+                    let [game_server_id, gift_bag_id, name, opening_time, android_download_url, ios_download_url, openHTML] = [
+                        [],
+                        [],
+                        [],
+                        [],
+                        [],
+                        [],
+                        [],
+                    ]
+                    for (let i = 0; i < data.length; i++) {
+                        game_server_id.push(`${data[i].game_server_id}`)
+                        gift_bag_id.push(`${data[i].gift_bag_id}`)
+                        name.push(`${data[i].name}`)
+                        opening_time.push(`${data[i].opening_time}`)
+                        android_download_url.push(`${data[i].android_download_url}`)
+                        ios_download_url.push(`${data[i].ios_download_url}`)
+
+                        openHTML.push(`
+                            <tr >
+                                <td>${data[i].name}</td>
+                                <td>${data[i].opening_time}</td>
+                                <td><img src="images/gf.svg" class="gf"></td>
+                                <td data-indexNEW=${i}><img src="images/download.svg"  data-toggle="modal" data-target="#downModal"></td>
+                            </tr>
+                        `)
+                    }
+                    $("tbody").html(openHTML)
+                    let divList = $("td[data-indexNEW]")
+                    for (let i = 0; i < divList.length; i++) {
+                        divList[i].onclick = function() {
+                            console.log(divList[i])
+                            let params = [game_server_id[i], name[i], gift_bag_id[i], android_download_url[i], ios_download_url[i]]
+                            let modalHTML = modal(params)
+                            $('#modal').html(modalHTML)
+                        }
+                    }
+                }
 
             }))
     })

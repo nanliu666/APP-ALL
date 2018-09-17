@@ -16,13 +16,14 @@
             padding: 5%
         }
         
-        .zhaoBox a {
+        .zhaoBox {
+            margin: 10px 0;
             width: 100%;
             height: 100%;
             display: inline-block;
         }
         
-        .zhaoBox a img {
+        .zhaoBox img {
             width: 100%;
             height: 223px;
         }
@@ -41,16 +42,7 @@
 					<span class="mui-icon mui-icon-contact" id="JSCenter" style="font-size:38px; padding: 10px"></span>
             </span>
         </div>
-
-        <div class="flexRow">
-            <div class="zhaoBox">
-                <a href="szDetail.html"><img src="images/sz.jpg" /></a>
-            </div>
-
-            <div class="zhaoBox">
-                <a href="xzDetail.html"><img src="images/xz.jpg" /></a>
-            </div>
-        </div>
+        <ul class="flexRow" id="myList"></ul>
     </div>
 
 </body>
@@ -72,6 +64,37 @@
             $('#JSCenter').on('click', function() {
                 window.location.href = './centerIndex.html'
             })
+            let [imgSrc, liHTML] = [
+                [{
+                    img: 'images/sz.jpg',
+                    ID: "school"
+                }, {
+                    img: 'images/xz.jpg',
+                    ID: "society"
+                }, ],
+                [],
+            ]
+            imgSrc.map((item, index) => {
+                liHTML.push(`<li class="zhaoBox"><img  id="${item.ID}" src="${item.img}" /></li>`)
+            })
+            $('ul').html(liHTML)
+            var list = document.getElementById('myList');
+            list.addEventListener('click', function(event) {
+
+                event = event || window.event;
+                var target = event.target || event.srcElement;
+                console.log(target)
+                switch (target.id) {
+                    case "school":
+                        sessionStorage.setItem('recruit', 'school')
+                        location.href = './recruitTable.html'
+                        break;
+                    case "society":
+                        sessionStorage.setItem('recruit', 'society')
+                        location.href = './recruitTable.html'
+                        break;
+                }
+            }, false);
 
             // 添加nav
             const navHTML = nav(3)

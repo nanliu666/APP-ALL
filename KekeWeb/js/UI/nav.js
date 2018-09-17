@@ -5,7 +5,9 @@ function nav(index) {
     ]
     const href = ['index.html', 'games.html', 'gifts.html', 'zhao.html', 'about.html', ]
 
-    let LiHTMLList = []
+    let [LiHTMLList, reciuitNav] = [
+        [], ''
+    ]
     for (let i = 0; i < text.length; i++) {
         LiHTMLList.push(`
             <a class="mui-tab-item"  href="${href[i]}">
@@ -23,9 +25,5 @@ function nav(index) {
             `
         }
     }
-
-
-
-    console.log(LiHTMLList)
     return LiHTMLList
 }

@@ -1,3 +1,70 @@
+/*样式重置*/
+
+body,
+ol,
+ul,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+th,
+td,
+dl,
+dd,
+form,
+fieldset,
+legend,
+input,
+textarea,
+select {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font: 14px "宋体", "Arial Narrow", HELVETICA;
+    background: #fff;
+    -webkit-text-size-adjust: 100%
+}
+
+a {
+    color: #172c45;
+    text-decoration: none
+}
+
+a:hover {
+    color: #cd0200;
+    text-decoration: underline
+}
+
+em {
+    font-style: normal
+}
+
+li {
+    list-style: none
+}
+
+img {
+    border: 0;
+    vertical-align: middle
+}
+
+table {
+    border-collapse: collapse;
+    border-spacing: 0
+}
+
+p {
+    word-wrap: break-word
+}
+
+
+/**/
+
 * {
     touch-action: pan-y;
 }
@@ -91,9 +158,10 @@ a {
     height: 56px;
 }
 
-.actives {
+
+/* .actives {
     color: #1296db!important;
-}
+} */
 
 
 /*标题样式*/
@@ -356,7 +424,8 @@ table {
 
 .flexSpaceAround {
     display: flex;
-    justify-content: space-around
+    justify-content: space-around;
+    width: 100%;
 }
 
 .flexCenterALL {
@@ -378,7 +447,8 @@ table {
 
 .flexSpaceBetwen {
     display: flex;
-    justify-content: space-between
+    justify-content: space-between;
+    width: 100%;
 }
 
 .flexSpaceAround {
@@ -426,6 +496,10 @@ table {
     width: 20%;
 }
 
+.div25 {
+    width: 25%;
+}
+
 .paddingT40 {
     padding: 0 40px;
 }
@@ -435,6 +509,10 @@ table {
 
 .textright {
     text-align: right
+}
+
+.textCenter {
+    text-align: center
 }
 
 
