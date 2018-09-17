@@ -1,4 +1,10 @@
-function $axiosGet(options) {
+/**
+ *获取axios中GET方法的参数
+ *
+ * @param {*}  不需要传参
+ * @returns axiosconfig  外界统一调用这个参数列表
+ */
+function $axiosGetConfig() {
     axios.defaults.baseURL = 'http://192.168.2.159:7002';
     axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
 
@@ -9,12 +15,23 @@ function $axiosGet(options) {
     }
     console.log("签名对象=》", signObj)
 
-    // 签名函数
+    /**
+     *获取签名函数
+     *
+     * @param {*} option 
+     * @returns 返回签名md5
+     */
     function getSign(option) {
         const [signList, key] = [
             [], '73c0030b13ceeff3994ebd59ff7530cd'
         ]
 
+        /**
+         *
+         *排序对象
+         * @param {*} obj 对对象的属性排序
+         * @returns 返回排序好的对象
+         */
         function objKeySort(obj) { //排序的函数
             const newkey = Object.keys(obj).sort();　　 //先用Object内置类的keys方法获取要排序对象的属性名，再利用Array原型上的sort方法对获取的属性名进行排序，newkey是一个数组
             let newObj = {}; //创建一个新的对象，用于存放排好序的键值对

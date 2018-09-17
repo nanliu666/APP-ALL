@@ -8,9 +8,12 @@
     <link href="css/mui.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="css/common/common.css" />
     <link rel="stylesheet" href="css/xzDetail.css" />
+
 </head>
 
 <body>
+    <!-- 导航条（Nav） -->
+    <nav class="mui-bar mui-bar-tab" id="nav"></nav>
     <div class="mui-content">
         <div class="topInfo">
             <img src="images/logo (2).png" class="logo" />
@@ -284,41 +287,54 @@
         </div>
     </div>
 
-    <script src="js/jquery.min.js"></script>
-    <script src="js/mui.min.js"></script>
-    <script type="text/javascript" src="js/common.js"></script>
-    <script type="text/javascript">
-        mui.init();
 
-        function changeSelect(e, val) {
-            $(e).addClass('active');
-            $(e).siblings().removeClass('active');
-            if (val === 1) {
-                $("#tb1").show();
-                $("#tb2,#tb3,#tb4").hide();
-            } else if (val === 2) {
-                $("#tb2").show();
-                $("#tb1,#tb3,#tb4").hide();
-            } else if (val === 3) {
-                $("#tb3").show();
-                $("#tb1,#tb2,#tb4").hide();
-            } else if (val === 4) {
-                $("#tb4").show();
-                $("#tb1,#tb2,#tb3").hide();
-            }
-        }
-        $(function() {
-            $('div.flips').click(function() {
-                $(this).next().slideToggle("normal");
-                var image = $(this).find('img').attr('src');
-                image = image == "images/down.svg" ? "images/up.svg" : "images/down.svg";
-                $(this).find('img.icons').attr("src", image);
-            });
-        });
-        $('#JSCenter').on('click', function() {
-            window.location.href = './centerIndex.html'
-        })
-    </script>
 </body>
+<script src="js/jquery.min.js"></script>
+<script src="js/mui.min.js"></script>
+<script type="text/javascript" src="js/common.js"></script>
+<script src="./js/UI/nav.js"></script>
+
+<script type="text/javascript">
+    if (sessionStorage.loginSuccess && sessionStorage.loginSuccess === 'success') {
+        $(document).ready(() => {
+            mui.init();
+
+            function changeSelect(e, val) {
+                $(e).addClass('active');
+                $(e).siblings().removeClass('active');
+                if (val === 1) {
+                    $("#tb1").show();
+                    $("#tb2,#tb3,#tb4").hide();
+                } else if (val === 2) {
+                    $("#tb2").show();
+                    $("#tb1,#tb3,#tb4").hide();
+                } else if (val === 3) {
+                    $("#tb3").show();
+                    $("#tb1,#tb2,#tb4").hide();
+                } else if (val === 4) {
+                    $("#tb4").show();
+                    $("#tb1,#tb2,#tb3").hide();
+                }
+            }
+            $(function() {
+                $('div.flips').click(function() {
+                    $(this).next().slideToggle("normal");
+                    var image = $(this).find('img').attr('src');
+                    image = image == "images/down.svg" ? "images/up.svg" : "images/down.svg";
+                    $(this).find('img.icons').attr("src", image);
+                });
+            });
+            $('#JSCenter').on('click', function() {
+                window.location.href = './centerIndex.html'
+            })
+
+            // 添加nav
+            const navHTML = nav(3)
+            $("nav").html(navHTML)
+        })
+    } else {
+        location.href = './login.html'
+    }
+</script>
 
 </html>

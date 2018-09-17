@@ -13,9 +13,12 @@ if (sessionStorage.loginSuccess && sessionStorage.loginSuccess === 'success') {
             window.location.href = './centerIndex.html'
         })
 
+        // 添加nav
+        const navHTML = nav(1)
+        $("nav").html(navHTML)
 
         // 定义url
-        const [newSortUrl, recommendURL, type] = ['/game/new-sort', '/game/recommend', '/recruit/type']
+        const [newSortUrl, recommendURL, ] = ['/game/new-sort', '/game/recommend']
         let [android_download_url, describe, game_id, hot, ios_download_url, logo, name, ] = [
             [],
             [],
@@ -29,14 +32,11 @@ if (sessionStorage.loginSuccess && sessionStorage.loginSuccess === 'success') {
             [],
             [], ''
         ]
-        const axiosConfig = $axiosGet()
+        // axios GET参数获取
+        const axiosConfig = $axiosGetConfig()
 
         function getnewSortUrl() {
             return axios.get(newSortUrl, axiosConfig);
-        }
-
-        function getType() {
-            return axios.get(type, axiosConfig);
         }
 
 
@@ -45,16 +45,13 @@ if (sessionStorage.loginSuccess && sessionStorage.loginSuccess === 'success') {
         }
 
 
-        axios.all([getnewSortUrl(), getrecommendURL(), getType()])
+        axios.all([getnewSortUrl(), getrecommendURL(), ])
             .then(axios.spread(function(newSort, rem) {
                 if (newSort.data.data) {
                     HTMLAdd(newSort.data.data, index = 0)
                 }
                 if (rem.data.data) {
                     HTMLAdd(rem.data.data, index = 1)
-                }
-                if (type.data.data) {
-                    console.log(type.data.data)
                 }
             }))
 

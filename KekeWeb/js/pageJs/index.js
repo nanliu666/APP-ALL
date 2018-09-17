@@ -34,6 +34,10 @@ if (sessionStorage.loginSuccess && sessionStorage.loginSuccess === 'success') {
             window.location.href = './centerIndex.html'
         })
 
+        // 添加nav
+        const navHTML = nav(0)
+        $("nav").html(navHTML)
+
         //axios请求
         axios.defaults.baseURL = 'http://192.168.2.159:7002';
         axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
@@ -64,11 +68,6 @@ if (sessionStorage.loginSuccess && sessionStorage.loginSuccess === 'success') {
         function getrecommendURL() {
             return axios.get(recommendURL, axiosConfig);
         }
-
-        // function getreIndexUrl() {
-        //     return axios.get(IndexUrl, axiosConfig);
-        // }
-
 
 
         axios.all([getnewSortUrl(), gethotURL(), getrecommendURL()])

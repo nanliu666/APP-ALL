@@ -23,36 +23,13 @@
             height: 223px;
         }
     </style>
+
+
 </head>
 
 <body>
-    <nav class="mui-bar mui-bar-tab" id="nav">
-        <a id="tab_home" class="mui-tab-item" href="index.html">
-            <img src="images/common/index.svg" />
-            <img src="images/common/index_light.svg" style="display: none;" />
-            <span class="mui-tab-label">首页</span>
-        </a>
-        <a id="tab_message" class="mui-tab-item" href="games.html">
-            <img src="images/common/game.svg" />
-            <img src="images/common/game_light.svg" style="display: none;" />
-            <span class="mui-tab-label">游戏</span>
-        </a>
-        <a id="tab_contact" class="mui-tab-item" href="gifts.html">
-            <img src="images/common/gift.svg" />
-            <img src="images/common/gift_light.svg" style="display: none;" />
-            <span class="mui-tab-label">礼包</span>
-        </a>
-        <a id="tab_setting" class="mui-tab-item actives" href="zhao.html">
-            <img src="images/common/zhao.svg" style="display: none;" />
-            <img src="images/common/zhao_light.svg" />
-            <span class="mui-tab-label">招聘</span>
-        </a>
-        <a id="tab_setting" class="mui-tab-item" href="about.html">
-            <img src="images/common/about.svg" style="margin-top: .6rem;" />
-            <img src="images/common/about_light.svg" style="display: none;margin-top: .1rem;" />
-            <span class="mui-tab-label">关于</span>
-        </a>
-    </nav>
+    <!-- 导航条（Nav） -->
+    <nav class="mui-bar mui-bar-tab" id="nav"></nav>
     <div class="mui-content">
         <div class="topInfo">
             <img src="images/logo (2).png" class="logo" />
@@ -73,21 +50,34 @@
             <a href="xzDetail.html"><img src="images/xz.jpg" /></a>
         </div>
     </div>
-    <script src="js/jquery.min.js"></script>
-    <script src="js/mui.min.js"></script>
-    <script type="text/javascript" src="js/common.js"></script>
-    <script type="text/javascript">
-        mui.init();
-        var width = document.body.clientWidth;
-        if (width > 640) {
-            $(".zhaoBox a img").css("margin-left", "25%");
-            $(".zhaoBox a img").css('width', "50%");
-            $(".zhaoBox a img").css('height', "50%");
-        }
-        $('#JSCenter').on('click', function() {
-            window.location.href = './centerIndex.html'
-        })
-    </script>
+
 </body>
+<script src="js/jquery.min.js"></script>
+<script src="js/mui.min.js"></script>
+<script type="text/javascript" src="js/common.js"></script>
+<script src="./js/UI/nav.js"></script>
+
+<script type="text/javascript">
+    if (sessionStorage.loginSuccess && sessionStorage.loginSuccess === 'success') {
+        $(document).ready(() => {
+            mui.init();
+            var width = document.body.clientWidth;
+            if (width > 640) {
+                $(".zhaoBox a img").css("margin-left", "25%");
+                $(".zhaoBox a img").css('width', "50%");
+                $(".zhaoBox a img").css('height', "50%");
+            }
+            $('#JSCenter').on('click', function() {
+                window.location.href = './centerIndex.html'
+            })
+
+            // 添加nav
+            const navHTML = nav(3)
+            $("nav").html(navHTML)
+        })
+    } else {
+        location.href = './login.html'
+    }
+</script>
 
 </html>
