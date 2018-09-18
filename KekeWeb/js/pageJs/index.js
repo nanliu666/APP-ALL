@@ -144,6 +144,7 @@ if (sessionStorage.loginSuccess && sessionStorage.loginSuccess === 'success') {
 
         // HTML创建
         function HTMLCreate(remData) {
+            console.log("新游请求=》", remData)
             for (let i = 0; i < remData.length; i++) {
                 logoList.push(remData[i].logo)
                 describe.push(remData[i].describe)
