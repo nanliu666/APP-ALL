@@ -1,5 +1,7 @@
 if (sessionStorage.loginSuccess && sessionStorage.loginSuccess === 'success') {
     $(document).ready(() => {
+
+
         mui('body').on('tap', 'a', function() {
             document.location.href = this.href;
         });
@@ -317,7 +319,9 @@ if (sessionStorage.loginSuccess && sessionStorage.loginSuccess === 'success') {
                 }
 
             }))
+
     })
+
 } else {
     location.href = './login.html'
 }

@@ -30,10 +30,6 @@ if (sessionStorage.loginSuccess && sessionStorage.loginSuccess === 'success') {
                 console.log(err)
             })
 
-        // function getrecommendURL() {
-        //     return axios(recommendURL, axiosConfig);
-        // }
-
         const reciuitText = ['全部', '技术类', '策划类', '美术类', '职能类', ]
         const tBodyText = [{
             A: 'Erlang服务端开发工程师111',
