@@ -1,7 +1,5 @@
 if (sessionStorage.loginSuccess && sessionStorage.loginSuccess === 'success') {
     $(document).ready(() => {
-
-
         mui('body').on('tap', 'a', function() {
             document.location.href = this.href;
         });
@@ -11,12 +9,6 @@ if (sessionStorage.loginSuccess && sessionStorage.loginSuccess === 'success') {
         slider.slider({
             interval: 5000
         });
-
-
-        closeMask = function() {
-            $(".mui-backdrop").fadeOut();
-        }
-
         //  分辨率自适应
         var width = document.body.clientWidth;
         if (width <= 320) {
@@ -59,20 +51,20 @@ if (sessionStorage.loginSuccess && sessionStorage.loginSuccess === 'success') {
             []
         ]
         // URL请求
-        function getnewSortUrl() {
+        getnewSortUrl = () => {
             return axios.get(newSortUrl, axiosConfig);
         }
 
-        function getrecommendURL() {
+        getrecommendURL = () => {
             return axios.get(recommendURL, axiosConfig);
         }
 
-        function getIndexUrl() {
+        getIndexUrl = () => {
             return axios.get(IndexUrl, axiosConfig);
         }
 
         //礼包领取
-        function CDKey(gift_bag_id) {
+        CDKey = (gift_bag_id) => {
             if (gift_bag_id && !!gift_bag_id) {
                 const giftList = document.querySelectorAll('.gift_bag_id')
                 for (let i = 0; i < giftList.length; i++) {

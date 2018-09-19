@@ -11,13 +11,9 @@ function modal(params, index) {
                     <h4 class="modal-title" id="myModalLabel" style="text-align: center">领取成功</h4>
                 </div>
                 <div class="modal-body">
-                    <div class="modalBody">
-                        <div class="top">
-                            <div class="right_info">
-                                <p class="name">您已成功领取${game_name}的礼包</p>
-                                <p class="describe">CDKEY:${describe}</p>
-                            </div>
-                        </div>
+                    <div class="modalBody flexCenterH">
+                        <p>您已成功领取${game_name}的礼包</p>
+                        <p class="describe">CDKEY:${describe}</p>
                     </div>
                 </div>
                 <div class="modal-footer flexCenterW">

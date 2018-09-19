@@ -9,7 +9,6 @@ if (sessionStorage.loginSuccess && sessionStorage.loginSuccess === 'success') {
 
         // axios GET参数获取
         const axiosConfig = $axiosGetConfig()
-        console.log('axiosConfig', axiosConfig)
 
         function getnewSortUrl() {
             return axios(newSortUrl, axiosConfig);
@@ -37,22 +36,22 @@ if (sessionStorage.loginSuccess && sessionStorage.loginSuccess === 'success') {
             C: '面议'
         }, {
             A: 'Erlang服务端开发工程师222',
-            B: '策划',
+            B: '策划类',
             C: '面议'
         }, {
             A: 'Erlang服务端开发工程师333',
-            B: '美术',
+            B: '美术类',
             C: '面议'
         }, , {
             A: 'Erlang服务端开发工程师444',
-            B: '职能',
+            B: '职能类',
             C: '面议'
         }, , {
             A: 'Erlang服务端开发工程师555',
             B: '技术类',
             C: '面议'
         }, ]
-        let [headerHTML, LiHTML, tBody1, ] = ['', [],
+        let [headerHTML, LiHTML, tBody1, tBody2, tBody3, tBody4, tBody5, ] = ['', [],
             [],
         ]
         headerHTML = `
@@ -66,30 +65,70 @@ if (sessionStorage.loginSuccess && sessionStorage.loginSuccess === 'success') {
 
         for (let i = 0; i < reciuitText.length; i++) {
             LiHTML.push(`
-            <li class="flexCenterW div25">${reciuitText[i]}</li>
+            <li class="flexCenterW div25" data-index='${i}'>${reciuitText[i]}</li>
         `)
         }
-        LiHTML[0] = `<li class="div25 flexCenterW  active">${reciuitText[0]}</li>`
+        LiHTML[0] = `<li class="div25 flexCenterW  active" data-index='${0}'>${reciuitText[0]}</li>`
 
         $('header').html(headerHTML)
         $('nav').html(LiHTML)
-        $("nav li").click(function() {
-            var item = $(this).index(); //获取索引下标 也从0开始
-            $(this).siblings().removeClass('active')
-            $(this).addClass('active')
-            console.log(item)
-        })
+
         var myRows = $('table tr').click(function() {
 
             alert(myRows.index(this));
 
         });
+
         tBodyText.map((item, index, tBodyText) => {
-            tBody1 += `
+            if (item.B === '技术类') {
+                tBody2 += `
+        <tr><td>${item.A}</td><td>${item.B}</td><td>${item.C}</td></tr>
+    `
+            }
+            if (item.B === '策划类') {
+                tBody3 += `
+        <tr><td>${item.A}</td><td>${item.B}</td><td>${item.C}</td></tr>
+    `
+            }
+            if (item.B === '美术类') {
+                tBody4 += `
+        <tr><td>${item.A}</td><td>${item.B}</td><td>${item.C}</td></tr>
+    `
+            }
+            if (item.B === '职能类') {
+                tBody5 += `
+        <tr><td>${item.A}</td><td>${item.B}</td><td>${item.C}</td></tr>
+    `
+            } else {
+                tBody1 += `
             <tr><td>${item.A}</td><td>${item.B}</td><td>${item.C}</td></tr>
         `
+            }
         })
         $('tbody').html(tBody1)
+        $("nav li").click(function() {
+            var item = $(this).index(); //获取索引下标 也从0开始
+            $(this).siblings().removeClass('active')
+            $(this).addClass('active')
+
+            switch ($(this)[0].innerText) {
+                case '技术类':
+                    $('tbody').html(tBody2)
+                    break
+                case '策划类':
+                    $('tbody').html(tBody3)
+                    break
+                case '美术类':
+                    $('tbody').html(tBody4)
+                    break
+                case '职能类':
+                    $('tbody').html(tBody5)
+                    break
+                default:
+                    $('tbody').html(tBody1)
+                    break
+            }
+        })
         var myRows = $('tbody tr').click(function() {
 
             alert(myRows.index(this));
