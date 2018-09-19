@@ -75,12 +75,15 @@ if (sessionStorage.loginSuccess && sessionStorage.loginSuccess === 'success') {
             //礼包领取
             CDKey(gift_bag_id)
 
+            //模态框加载数据
+            modalStart("div[data-index]")
+
         }
 
         //礼包领取
         function CDKey(gift_bag_id) {
             if (gift_bag_id && !!gift_bag_id) {
-                const giftList = document.querySelectorAll('.gift_bag_id')
+                const giftList = document.querySelectorAll('div[data-index]')
                 for (let i = 0; i < giftList.length; i++) {
                     giftList[i].addEventListener('click', () => {
                         Object.assign(signObj, { gift_bag_id: gift_bag_id[i] })
@@ -96,9 +99,7 @@ if (sessionStorage.loginSuccess && sessionStorage.loginSuccess === 'success') {
                         }
                         axios(CDKeydURL, axiosConfig)
                             .then(function(response) {
-                                console.log(response);
-                                //模态框加载数据
-                                modalStart("div[data-index]")
+
                             })
                             .catch(function(error) {
                                 console.log(error);
@@ -125,7 +126,6 @@ if (sessionStorage.loginSuccess && sessionStorage.loginSuccess === 'success') {
             for (let i = 0; i < divList.length; i++) {
                 divList[i].onclick = function() {
                     let params = [describe[i], game_name[i]]
-                    console.log(divList[i])
                     let modalHTML = modal(params, 0)
                     $('#modal').html(modalHTML)
                 }

@@ -2,7 +2,6 @@ function modal(params, index) {
     // 礼包开启modal index === 0
     if (index === 0) {
         let [describe, game_name] = params
-        console.log('params', params)
         let modalHTML = `
     <div class="modal fade" id="downModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog white_content">
