@@ -21,11 +21,11 @@ const recruitTableFun = (() => {
             let [headerHTML, LiHTML, TbodyAddHTML, ] = ['', [],
                 [],
             ]
-
             const navText = ['全部', '技术类', '策划类', '美术类', '职能类', ]
 
             // axios GET参数获取
-            let axiosConfig = $axiosGetConfig()
+            const axiosGet = new $axiosGet()
+            let axiosConfig = axiosGet.$axiosGetConfig()
 
             const navAxios = (() => {
                 axios(recruitTypeUrl, axiosConfig)
@@ -38,16 +38,17 @@ const recruitTableFun = (() => {
                     })
             })()
 
+            // 表格数据请求
             const TBodyAxios = ((recruit_type_id) => {
-                if (!!recruit_type_id) {
-                    axiosConfig = $axiosGetConfig({ 'recruit_type_id': recruit_type_id })
-                } else { //直接请求所有岗位
-                    axiosConfig = axiosConfig
+                if (!!recruit_type_id) { //有ID把ID传进去
+                    axiosConfig = axiosGet.$axiosGetConfig({ 'recruit_type_id': recruit_type_id })
+                } else { //没有就直接请求所有岗位
+                    // console.log('没有ID')
+                    axiosConfig = axiosGet.$axiosGetConfig()
                 }
                 axios(recruitPositionURL, axiosConfig)
                     .then((result) => {
                         positionData = Array.from(new Set(result.data.data))
-                        console.log(positionData)
                         TbodyAdd(positionData)
                     })
                     .catch((err) => {
@@ -71,7 +72,7 @@ const recruitTableFun = (() => {
             })();
 
             const navLi = ((params) => {
-                LiHTML[0] = `<li class="div25 flexCenterW  active" data-index='${0}'>全部</li>`
+                LiHTML[0] = `<li class="div25 flexCenterW  active">全部</li>`
                 for (let i = 0; i < params.length; i++) {
                     LiHTML.push(`
                     <li class="flexCenterW div25" data-index='${params[i].recruit_type_id}'>${params[i].recruit_type_name}</li>
