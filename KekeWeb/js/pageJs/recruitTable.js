@@ -58,7 +58,6 @@ const recruitTableFun = (() => {
 
             // 拉取全部职位请求
             TBodyAxios()
-
             const headerHTMLAdd = (() => {
                 headerHTML = `
                 <div class="topInfo">
@@ -70,6 +69,7 @@ const recruitTableFun = (() => {
                 `
                 $('header').html(headerHTML)
             })();
+
 
             const navLi = ((params) => {
                 LiHTML[0] = `<li class="div25 flexCenterW  active">全部</li>`
@@ -101,13 +101,13 @@ const recruitTableFun = (() => {
                 })
             }
 
-            const TbodyTdClick = (() => {
+            const TbodyTdClick = () => {
                 $('tbody tr').click(function() { //这里不用箭头函数，this需要指向tbody
                     console.log($(this).attr('recruit_position_id'))
                     sessionStorage.setItem('recruit_position_id', $(this).attr('recruit_position_id'))
                     location.href = './recruitDetail.html'
                 })
-            })
+            }
             $('#JSCenter').on('click', function() {
                 window.location.href = './centerIndex.html'
             })

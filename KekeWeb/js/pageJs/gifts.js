@@ -4,11 +4,6 @@ if (sessionStorage.loginSuccess && sessionStorage.loginSuccess === 'success') {
             document.location.href = this.href;
         });
         mui.init();
-        let width = document.body.clientWidth;
-        if (width <= 320) {
-            $(".white_content").css("height", "50%");
-            $(".white_content").css("top", "25%");
-        }
         $('#JSCenter').on('click', function() {
             window.location.href = './centerIndex.html'
         })
