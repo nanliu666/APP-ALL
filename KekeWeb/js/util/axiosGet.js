@@ -4,16 +4,38 @@
  * @param {*}  不需要传参
  * @returns axiosconfig  外界统一调用这个参数列表
  */
-function $axiosGetConfig() {
+function $axiosGetConfig(params) {
+
     axios.defaults.baseURL = 'http://192.168.2.159:7002';
     axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
-
     const [now_time, platform, ] = [parseInt(moment().unix()), 'web', ]
-    const signObj = {
+    let signObj = {
         now_time,
         platform,
     }
-    console.log("签名对象=》", signObj)
+
+    if (!!params) { // 传参
+        // 签名参数处理
+        Object.assign(signObj, { recruit_type_id: params.recruit_type_id })
+    } else {
+        signObj = signObj
+    }
+
+    const sign = getSign(signObj) //调用签名函数获取签名
+    let axiosconfig = {
+        method: "GET",
+        headers: {
+            'Content-type': 'application/x-www-form-urlencoded'
+        },
+        params: {
+            now_time,
+            platform,
+            sign,
+        },
+    }
+
+    // 处理传递参数新增时处理
+    axiosconfig.params = !!params ? Object.assign(axiosconfig.params, { recruit_type_id: params.recruit_type_id }) : axiosconfig.params
 
     /**
      *获取签名函数
@@ -47,17 +69,7 @@ function $axiosGetConfig() {
         return md5(signList.join('&') + '&key=' + key)
     }
 
-    const sign = getSign(signObj) //调用签名函数获取签名
-    const axiosconfig = {
-        method: "GET",
-        headers: {
-            'Content-type': 'application/x-www-form-urlencoded'
-        },
-        params: {
-            now_time,
-            platform,
-            sign,
-        },
-    }
+
+
     return axiosconfig
 }
