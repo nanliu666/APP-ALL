@@ -5,12 +5,12 @@ if (sessionStorage.loginSuccess && sessionStorage.loginSuccess === 'success') {
         });
         mui('#tableBox').scroll({});
         mui.init();
-        var slider = mui("#slider");
+        const slider = mui("#slider");
         slider.slider({
             interval: 5000
         });
         //  分辨率自适应
-        var width = document.body.clientWidth;
+        const width = document.body.clientWidth;
         if (width <= 320) {
             $(".white_content").css("height", "50%");
             $(".white_content").css("top", "25%");
@@ -24,7 +24,7 @@ if (sessionStorage.loginSuccess && sessionStorage.loginSuccess === 'success') {
         const navHTML = nav(0)
         $("nav").html(navHTML)
 
-        //axios请求
+        //axios请求配置
         axios.defaults.baseURL = 'http://192.168.2.159:7002';
         axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
 
@@ -51,20 +51,20 @@ if (sessionStorage.loginSuccess && sessionStorage.loginSuccess === 'success') {
             []
         ]
         // URL请求
-        getnewSortUrl = () => {
-            return axios.get(newSortUrl, axiosConfig);
+        const getnewSortUrl = () => {
+            return axios(newSortUrl, axiosConfig);
         }
 
-        getrecommendURL = () => {
-            return axios.get(recommendURL, axiosConfig);
+        const getrecommendURL = () => {
+            return axios(recommendURL, axiosConfig);
         }
 
-        getIndexUrl = () => {
-            return axios.get(IndexUrl, axiosConfig);
+        const getIndexUrl = () => {
+            return axios(IndexUrl, axiosConfig);
         }
 
         //礼包领取
-        CDKey = (gift_bag_id) => {
+        const CDKey = (gift_bag_id) => {
             if (gift_bag_id && !!gift_bag_id) {
                 const giftList = document.querySelectorAll('.gift_bag_id')
                 for (let i = 0; i < giftList.length; i++) {
@@ -82,9 +82,9 @@ if (sessionStorage.loginSuccess && sessionStorage.loginSuccess === 'success') {
                         }
                         axios(CDKeydURL, axiosConfig)
                             .then(function(response) {
-                                console.log(response);
                                 let data = response.data
-                                    //  获取礼包ID后去获取CDKEY
+                                console.log("礼包data=>", data);
+                                //  获取礼包ID后去获取CDKEY
                                 modalStart("td[data-indexCD]", 0, data)
                             })
                             .catch(function(error) {
@@ -107,7 +107,7 @@ if (sessionStorage.loginSuccess && sessionStorage.loginSuccess === 'success') {
         }
 
         // 开启模态框
-        function modalStart(NodeList, index, data) {
+        const modalStart = (NodeList, index, data) => {
             //模态框加载数据
             let divList = $(NodeList)
                 //礼包modal开启
@@ -137,7 +137,7 @@ if (sessionStorage.loginSuccess && sessionStorage.loginSuccess === 'success') {
         }
 
         // HTML创建
-        function HTMLCreate(remData) {
+        const HTMLCreate = (remData) => {
             console.log("新游请求=》", remData)
             for (let i = 0; i < remData.length; i++) {
                 logoList.push(remData[i].logo)
