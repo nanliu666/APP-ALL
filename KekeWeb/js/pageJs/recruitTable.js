@@ -10,9 +10,6 @@ if (sessionStorage.loginSuccess && sessionStorage.loginSuccess === 'success') {
         // axios GET参数获取
         const axiosConfig = $axiosGetConfig()
 
-        function getnewSortUrl() {
-            return axios(newSortUrl, axiosConfig);
-        }
         axios(newSortUrl, axiosConfig)
             .then((result) => {
                 console.log(result)
@@ -73,12 +70,6 @@ if (sessionStorage.loginSuccess && sessionStorage.loginSuccess === 'success') {
         $('header').html(headerHTML)
         $('nav').html(LiHTML)
 
-        var myRows = $('table tr').click(function() {
-
-            alert(myRows.index(this));
-
-        });
-
         tBodyText.map((item, index, tBodyText) => {
             if (item.B === '技术类') {
                 tBody2 += `
@@ -129,11 +120,6 @@ if (sessionStorage.loginSuccess && sessionStorage.loginSuccess === 'success') {
                     break
             }
         })
-        var myRows = $('tbody tr').click(function() {
-
-            alert(myRows.index(this));
-
-        });
     })
 } else {
     location.href = './login.html'

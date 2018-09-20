@@ -61,7 +61,6 @@ $(document).ready(function() {
                     const data = result.data
                     if (data.state === "success") {
                         sessionStorage.setItem("loginSuccess", data.state)
-                        localStorage.removeItem('loginSuccess')
                         location.href = href
                     } else {
                         $("#JSLogin").removeAttr('disabled')
