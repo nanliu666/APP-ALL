@@ -58,6 +58,8 @@ const recruitTableFun = (() => {
 
             // 拉取全部职位请求
             TBodyAxios()
+
+            //添加header
             const headerHTMLAdd = (() => {
                 headerHTML = `
                 <div class="topInfo">
@@ -70,7 +72,7 @@ const recruitTableFun = (() => {
                 $('header').html(headerHTML)
             })();
 
-
+            // nav导航
             const navLi = ((params) => {
                 LiHTML[0] = `<li class="div25 flexCenterW  active">全部</li>`
                 for (let i = 0; i < params.length; i++) {

@@ -1,4 +1,5 @@
 $(document).ready(function() {
+    foo();
     $("#passwordForm ")
         .bootstrapValidator({
             fields: {
