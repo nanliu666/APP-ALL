@@ -45,12 +45,13 @@ if (sessionStorage.loginSuccess && sessionStorage.loginSuccess === 'success') {
 
         //变量统一管理
         let [remHTML, openHTML] = ['', []]
-        let [newGameHTML, imgSrcArr, ] = [
+        let [newGameHTML, imgSrcArr, gift_bag_id] = [
             '', [
                 'images/one.png',
                 'images/two.png',
                 'images/three.png',
             ],
+            []
         ]
         // URL请求
         const getnewSortUrl = () => {
@@ -67,8 +68,8 @@ if (sessionStorage.loginSuccess && sessionStorage.loginSuccess === 'success') {
 
         //礼包领取
         const CDKey = (gift_bag_id) => {
+            const giftList = document.querySelectorAll('.gift_bag_id')
             if (gift_bag_id && !!gift_bag_id) {
-                const giftList = document.querySelectorAll('.gift_bag_id')
                 for (let i = 0; i < giftList.length; i++) {
                     giftList[i].addEventListener('click', () => {
                         Object.assign(signObj, { gift_bag_id: gift_bag_id[i] })
@@ -245,6 +246,7 @@ if (sessionStorage.loginSuccess && sessionStorage.loginSuccess === 'success') {
                         return item.opening_time;
                     });
                     for (let i = 0; i < data.length; i++) {
+                        gift_bag_id.push(data[i].gift_bag_id)
                         openHTML.push(`
                             <tr >
                                 <td>${data[i].name}</td>
@@ -263,8 +265,8 @@ if (sessionStorage.loginSuccess && sessionStorage.loginSuccess === 'success') {
                                 $('#modal').html(modalHTML)
                             }
                             //礼包领取逻辑
-                        CDKey(data[i].gift_bag_id)
                     }
+                    CDKey(gift_bag_id)
                 }
 
             }))

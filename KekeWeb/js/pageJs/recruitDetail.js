@@ -66,20 +66,20 @@ const recruitTableFun = (() => {
                 $('main').html(BodyHTML)
             })()
 
-            const dutyHTMLAdd = (() => {
+            const dutyHTMLAdd = ((() => {
                 data.duty.map((item) => {
                     dutyHTML[0] = `<label for="">岗位职责:</label>`
                     dutyHTML += `<p>${item}</p>`
                 })
                 $('.duty').html(dutyHTML)
-            })()
-            const requestHTMLAdd = (() => {
+            })())
+            const requestHTMLAdd = ((() => {
                 requestHTML[0] = `<label for="">任职要求:</label>`
                 data.request.map((item) => {
                     requestHTML += `<p>${item}</p>`
                 })
                 $('.request').html(requestHTML)
-            })()
+            })())
 
             $('#JSCenter').on('click', function() {
                 window.location.href = './centerIndex.html'
