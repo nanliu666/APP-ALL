@@ -15,15 +15,6 @@ const gameJs = (() => {
 
             // 定义url
             const [newSortUrl, recommendURL, ] = ['/game/new-sort', '/game/recommend']
-            let [android_download_url, describe, game_id, hot, ios_download_url, logo, name, ] = [
-                [],
-                [],
-                [],
-                [],
-                [],
-                [],
-                [],
-            ]
             let [downLoadHTML, hotHTML, divList] = [
                 [],
                 [], ''
@@ -36,17 +27,16 @@ const gameJs = (() => {
                 return axios(newSortUrl, axiosConfig);
             })
             const getrecommendURL = (() => {
-                return axios(newSortUrl, axiosConfig);
+                return axios(recommendURL, axiosConfig);
             })
 
 
             axios.all([getnewSortUrl(), getrecommendURL(), ])
                 .then(axios.spread((newSort, rem) => {
-                    if (newSort.data.data) {
-                        console.log(newSort.data.data)
+                    if (!!newSort.data.data && newSort.data.data) {
                         HTMLAdd(newSort.data.data, index = 0)
                     }
-                    if (rem.data.data) {
+                    if (!!rem.data.data && rem.data.data) {
                         HTMLAdd(rem.data.data, index = 1)
                     }
                 }))
@@ -57,7 +47,6 @@ const gameJs = (() => {
                 });
                 HTMLCreate(data, index)
                 if (index === 0) {
-
                     $(".downLoad").html(downLoadHTML)
 
                     //模态框加载数据
@@ -70,21 +59,15 @@ const gameJs = (() => {
                 }
                 for (let i = 0; i < divList.length; i++) {
                     divList[i].onclick = function() {
-                        let params = [logo[i], name[i], describe[i], android_download_url[i], ios_download_url[i]]
-                        let modalHTML = modal(params)
+                        const params = [data[i].logo, data[i].name, data[i].describe, data[i].android_download_url, data[i].ios_download_url, ]
+                        const modalHTML = modal(params)
                         $('#modal').html(modalHTML)
                     }
                 }
             })
+
             const HTMLCreate = ((data, index) => {
                 for (let i = 0; i < data.length; i++) {
-                    android_download_url.push(data[i].android_download_url)
-                    describe.push(data[i].describe)
-                    game_id.push(data[i].game_id)
-                    hot.push(data[i].hot)
-                    ios_download_url.push(data[i].ios_download_url)
-                    logo.push(data[i].logo)
-                    name.push(data[i].name)
                     if (index === 0) {
                         downLoadHTML += `
                             <div class="content" data-indexNEW=${i}>
