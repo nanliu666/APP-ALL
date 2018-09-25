@@ -44,11 +44,13 @@ if (sessionStorage.loginSuccess && sessionStorage.loginSuccess === 'success') {
         }
 
         //变量统一管理
-        let [remHTML, logoList, describe, nameHTML, android_download_url, ios_download_url] = ['', [],
-            [],
-            [],
-            [],
-            []
+        let [remHTML, openHTML] = ['', []]
+        let [newGameHTML, imgSrcArr, ] = [
+            '', [
+                'images/one.png',
+                'images/two.png',
+                'images/three.png',
+            ],
         ]
         // URL请求
         const getnewSortUrl = () => {
@@ -110,7 +112,8 @@ if (sessionStorage.loginSuccess && sessionStorage.loginSuccess === 'success') {
         const modalStart = (NodeList, index, data) => {
             //模态框加载数据
             let divList = $(NodeList)
-                //礼包modal开启
+
+            //礼包modal开启
             if (index === 0) {
                 let [game_name] = data
                 for (let i = 0; i < divList.length; i++) {
@@ -118,7 +121,6 @@ if (sessionStorage.loginSuccess && sessionStorage.loginSuccess === 'success') {
 
                         // FIX 同一个礼包接口返回不同数据要求后端处理
                         let params = [describe[i], game_name[i]]
-                        console.log(params)
                         let modalHTML = modal(params, 0)
                         $('#modal').html(modalHTML)
                     }
@@ -127,7 +129,7 @@ if (sessionStorage.loginSuccess && sessionStorage.loginSuccess === 'success') {
                 //下载modal开启
                 for (let i = 0; i < divList.length; i++) {
                     divList[i].onclick = function() {
-                        let params = [logoList[i], nameHTML[i], describe[i], android_download_url[i], ios_download_url[i]]
+                        let params = [data[i].logo, data[i].name, data[i].describe, data[i].android_download_url, data[i].ios_download_url, ]
                         let modalHTML = modal(params)
                         $('#modal').html(modalHTML)
                     }
@@ -138,20 +140,15 @@ if (sessionStorage.loginSuccess && sessionStorage.loginSuccess === 'success') {
 
         // HTML创建
         const HTMLCreate = (remData) => {
-            console.log("新游请求=》", remData)
+            console.log(remData)
             for (let i = 0; i < remData.length; i++) {
-                logoList.push(remData[i].logo)
-                describe.push(remData[i].describe)
-                nameHTML.push(remData[i].name)
-                android_download_url.push(remData[i].android_download_url)
-                ios_download_url.push(remData[i].ios_download_url)
                 remHTML += `
                 <div class="list_content" data-toggle="modal" data-target="#downModal" data-index=${i}>
                     <div class="left_img">
-                        <img src="${logoList[i]}" />
+                        <img src="${remData[i].logo}" />
                     </div>
                     <div class="right_info">
-                        <p>${nameHTML[i]}<img src="images/free.png" class="icon"></p>
+                        <p>${remData[i].name}<img src="images/free.png" class="icon"></p>
                         <p>
                             <img src="images/angle.svg" />
                             <img src="images/angle.svg" />
@@ -159,7 +156,7 @@ if (sessionStorage.loginSuccess && sessionStorage.loginSuccess === 'success') {
                             <img src="images/angle.svg" />
                             <img src="images/angle.svg" />
                         </p>
-                        <p>${describe[i]}</p>
+                        <p>${remData[i].describe}</p>
                     </div>
                 </div>
                 `
@@ -179,7 +176,7 @@ if (sessionStorage.loginSuccess && sessionStorage.loginSuccess === 'success') {
                     $('.list_Body').html(remHTML)
 
                     //模态框加载数据
-                    modalStart("div[data-index]")
+                    modalStart("div[data-index]", index = 1, remData)
                 }
 
                 //  新游请求
@@ -188,20 +185,7 @@ if (sessionStorage.loginSuccess && sessionStorage.loginSuccess === 'success') {
                     data = _.sortBy(data, function(item) {
                         return item.hot;
                     });
-                    let [modalnameHTML, modalgameImgHTML, modaldescribeHTML, newGameHTML, android_download_url, ios_download_url, imgSrcArr, propaganda_img] = [
-                        [],
-                        [],
-                        [],
-                        '', [],
-                        [],
-                        [
-                            'images/one.png',
-                            'images/two.png',
-                            'images/three.png',
-                            'images/two.png',
-                        ],
-                        []
-                    ]
+
 
                     for (let i = 0; i < data.length; i++) {
                         newGameHTML += `
@@ -230,31 +214,23 @@ if (sessionStorage.loginSuccess && sessionStorage.loginSuccess === 'success') {
                                         </div>
                                     </div>
                                 `
-                        modalnameHTML.push(`${data[i].name}`)
-                        modalgameImgHTML.push(`${data[i].logo}`)
-                        modaldescribeHTML.push(`${data[i].describe}`)
-                        android_download_url.push(`${data[i].android_download_url}`)
-                        ios_download_url.push(`${data[i].ios_download_url}`)
-                        propaganda_img.push(`${data[i].propaganda_img}`)
                     }
                     $("#tb2").html(newGameHTML)
 
                     //添加图片
-                    let imgWrap = $('.content');
+                    let imgWrap = $('.content .left img');
 
-                    function preloadImg(arr) {
+                    const preloadImg = (function(arr) {
                         for (var i = 0; i < arr.length; i++) {
                             imgWrap[i].src = arr[i];
                         }
-                    }
-                    preloadImg(imgSrcArr);
+                    }(imgSrcArr))
 
                     //模态框加载数据
                     let divList = $("div[data-indexNEW]")
                     for (let i = 0; i < divList.length; i++) {
                         divList[i].onclick = function() {
-                            let params = [modalgameImgHTML[i], modalnameHTML[i], modaldescribeHTML[i], android_download_url[i], ios_download_url[i]]
-                            console.log(modalgameImgHTML)
+                            let params = [data[i].logo, data[i].name, data[i].describe, data[i].android_download_url, data[i].ios_download_url]
                             let modalHTML = modal(params)
                             $('#modal').html(modalHTML)
                         }
@@ -268,23 +244,7 @@ if (sessionStorage.loginSuccess && sessionStorage.loginSuccess === 'success') {
                     _.sortBy(data, function(item) {
                         return item.opening_time;
                     });
-                    let [game_server_id, gift_bag_id, name, opening_time, android_download_url, ios_download_url, openHTML] = [
-                        [],
-                        [],
-                        [],
-                        [],
-                        [],
-                        [],
-                        [],
-                    ]
                     for (let i = 0; i < data.length; i++) {
-                        game_server_id.push(`${data[i].game_server_id}`)
-                        name.push(`${data[i].name}`)
-                        opening_time.push(`${data[i].opening_time}`)
-                        android_download_url.push(`${data[i].android_download_url}`)
-                        gift_bag_id.push(`${data[i].gift_bag_id}`)
-                        ios_download_url.push(`${data[i].ios_download_url}`)
-
                         openHTML.push(`
                             <tr >
                                 <td>${data[i].name}</td>
@@ -298,16 +258,13 @@ if (sessionStorage.loginSuccess && sessionStorage.loginSuccess === 'success') {
                     let divList = $("td[data-indexNEW]")
                     for (let i = 0; i < divList.length; i++) {
                         divList[i].onclick = function() {
-                            console.log(divList[i])
-                            let params = [game_server_id[i], name[i], gift_bag_id[i], android_download_url[i], ios_download_url[i]]
-                            let modalHTML = modal(params)
-                            $('#modal').html(modalHTML)
-                        }
+                                let params = [data[i].game_server_id, data[i].name, data[i].gift_bag_id, data[i].android_download_url, data[i].ios_download_url]
+                                let modalHTML = modal(params)
+                                $('#modal').html(modalHTML)
+                            }
+                            //礼包领取逻辑
+                        CDKey(data[i].gift_bag_id)
                     }
-
-                    //礼包领取逻辑
-                    CDKey(gift_bag_id)
-
                 }
 
             }))
