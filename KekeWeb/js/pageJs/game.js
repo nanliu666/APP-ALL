@@ -1,3 +1,9 @@
+/*
+ * @Author: NaNSix 
+ * @Date: 2018-09-25 17:23:54 
+ * @Last Modified by: NaNSix
+ * @Last Modified time: 2018-09-25 17:24:14
+ */
 const gameJs = (() => {
     if (sessionStorage.loginSuccess && sessionStorage.loginSuccess === 'success') {
         $(document).ready(() => {

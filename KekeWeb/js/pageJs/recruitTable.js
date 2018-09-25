@@ -1,3 +1,9 @@
+/*
+ * @Author: NaNSix 
+ * @Date: 2018-09-25 17:24:38 
+ * @Last Modified by:   NaNSix 
+ * @Last Modified time: 2018-09-25 17:24:38 
+ */
 const recruitTableFun = (() => {
     if (sessionStorage.loginSuccess && sessionStorage.loginSuccess === 'success') {
         $(document).ready(() => {
