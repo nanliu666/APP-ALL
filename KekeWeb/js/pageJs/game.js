@@ -2,19 +2,11 @@
  * @Author: NaNSix 
  * @Date: 2018-09-25 17:23:54 
  * @Last Modified by: NaNSix
- * @Last Modified time: 2018-09-25 17:24:14
+ * @Last Modified time: 2018-09-26 14:05:12
  */
 const gameJs = (() => {
     if (sessionStorage.loginSuccess && sessionStorage.loginSuccess === 'success') {
         $(document).ready(() => {
-            mui('body').on('tap', 'a', function() {
-                document.location.href = this.href;
-            });
-            mui.init();
-            $('#JSCenter').on('click', function() {
-                window.location.href = './centerIndex.html'
-            })
-
             // 添加nav
             const navHTML = nav(1)
             $("nav").html(navHTML)

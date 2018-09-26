@@ -1,27 +1,18 @@
 /*
  * @Author: NaNSix 
  * @Date: 2018-09-25 17:24:19 
- * @Last Modified by:   NaNSix 
- * @Last Modified time: 2018-09-25 17:24:19 
+ * @Last Modified by: NaNSix
+ * @Last Modified time: 2018-09-26 14:06:16
  */
 
 if (sessionStorage.loginSuccess && sessionStorage.loginSuccess === 'success') {
     $(document).ready(() => {
-        mui('body').on('tap', 'a', function() {
-            document.location.href = this.href;
-        });
-        mui.init();
-        $('#JSCenter').on('click', function() {
-            window.location.href = './centerIndex.html'
-        })
+
 
         // 添加nav
         const navHTML = nav(2)
         $("nav").html(navHTML)
 
-        //axios请求
-        axios.defaults.baseURL = 'http://192.168.2.159:7002';
-        axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
 
         // todo 去除滚动条
         const [giftListUrl, CDKeydURL, now_time, platform, ] = ['/gift-bag/index', '/gift-bag-user-cdkey/index', parseInt(moment().unix()), 'web', ]

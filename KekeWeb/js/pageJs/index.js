@@ -1,32 +1,8 @@
 if (sessionStorage.loginSuccess && sessionStorage.loginSuccess === 'success') {
     $(document).ready(() => {
-        mui('body').on('tap', 'a', function() {
-            document.location.href = this.href;
-        });
-        mui('#tableBox').scroll({});
-        mui.init();
-        const slider = mui("#slider");
-        slider.slider({
-            interval: 5000
-        });
-        //  分辨率自适应
-        const width = document.body.clientWidth;
-        if (width <= 320) {
-            $(".white_content").css("height", "50%");
-            $(".white_content").css("top", "25%");
-        }
-
-        $('#JSCenter').on('click', function() {
-            window.location.href = './centerIndex.html'
-        })
-
         // 添加nav
         const navHTML = nav(0)
         $("nav").html(navHTML)
-
-        //axios请求配置
-        axios.defaults.baseURL = 'http://192.168.2.159:7002';
-        axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
 
         const [newSortUrl, IndexUrl, recommendURL, CDKeydURL, now_time, platform, ] = ['/game/new-sort', '/game-server/index', '/game/recommend', '/gift-bag-user-cdkey/index', parseInt(moment().unix()), 'web', ]
         let signObj = {
