@@ -1,8 +1,8 @@
 /*
  * @Author: NaNSix 
  * @Date: 2018-09-25 17:24:38 
- * @Last Modified by:   NaNSix 
- * @Last Modified time: 2018-09-25 17:24:38 
+ * @Last Modified by: NaNSix
+ * @Last Modified time: 2018-09-26 17:48:05
  */
 const recruitTableFun = (() => {
     if (sessionStorage.loginSuccess && sessionStorage.loginSuccess === 'success') {
@@ -27,13 +27,12 @@ const recruitTableFun = (() => {
             let [headerHTML, LiHTML, TbodyAddHTML, ] = ['', [],
                 [],
             ]
-            const navText = ['全部', '技术类', '策划类', '美术类', '职能类', ]
 
             // axios GET参数获取
             const axiosGet = new $axiosGet()
             let axiosConfig = axiosGet.$axiosGetConfig()
 
-            const navAxios = (() => {
+            const navAxios = ((() => {
                 axios(recruitTypeUrl, axiosConfig)
                     .then((result) => {
                         typeData = result.data.data
@@ -42,14 +41,13 @@ const recruitTableFun = (() => {
                     .catch((err) => {
                         console.log(err)
                     })
-            })()
+            })())
 
             // 表格数据请求
             const TBodyAxios = ((recruit_type_id) => {
                 if (!!recruit_type_id) { //有ID把ID传进去
                     axiosConfig = axiosGet.$axiosGetConfig({ 'recruit_type_id': recruit_type_id })
                 } else { //没有就直接请求所有岗位
-                    // console.log('没有ID')
                     axiosConfig = axiosGet.$axiosGetConfig()
                 }
                 axios(recruitPositionURL, axiosConfig)
@@ -61,12 +59,10 @@ const recruitTableFun = (() => {
                         console.log(err)
                     })
             })
-
-            // 拉取全部职位请求
             TBodyAxios()
 
             //添加header
-            const headerHTMLAdd = (() => {
+            const headerHTMLAdd = ((() => {
                 headerHTML = `
                 <div class="topInfo">
                     <a href='./index.html'><img src="images/logo (2).png" class="logo" /></a>
@@ -76,7 +72,7 @@ const recruitTableFun = (() => {
                 </div>
                 `
                 $('header').html(headerHTML)
-            })();
+            })())
 
             // nav导航
             const navLi = ((params) => {
