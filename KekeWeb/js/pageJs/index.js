@@ -48,7 +48,9 @@ if (sessionStorage.loginSuccess && sessionStorage.loginSuccess === 'success') {
             if (gift_bag_id && !!gift_bag_id) {
                 for (let i = 0; i < giftList.length; i++) {
                     giftList[i].addEventListener('click', () => {
-                        Object.assign(signObj, { gift_bag_id: gift_bag_id[i] })
+                        Object.assign(signObj, {
+                            gift_bag_id: gift_bag_id[i]
+                        })
                         let sign = getSign(signObj) //调用签名函数获取签名
                         let axiosConfig = {
                             method: "GET",

@@ -21,18 +21,18 @@ if (typeof jQuery === 'undefined') {
 
 (function($) {
     var BootstrapValidator = function(form, options) {
-        this.$form   = $(form);
+        this.$form = $(form);
         this.options = $.extend({}, $.fn.bootstrapValidator.DEFAULT_OPTIONS, options);
 
-        this.$invalidFields = $([]);    // Array of invalid fields
-        this.$submitButton  = null;     // The submit button which is clicked to submit form
-        this.$hiddenButton  = null;
+        this.$invalidFields = $([]); // Array of invalid fields
+        this.$submitButton = null; // The submit button which is clicked to submit form
+        this.$hiddenButton = null;
 
         // Validating status
         this.STATUS_NOT_VALIDATED = 'NOT_VALIDATED';
-        this.STATUS_VALIDATING    = 'VALIDATING';
-        this.STATUS_INVALID       = 'INVALID';
-        this.STATUS_VALID         = 'VALID';
+        this.STATUS_VALIDATING = 'VALIDATING';
+        this.STATUS_INVALID = 'INVALID';
+        this.STATUS_VALID = 'VALID';
 
         // Determine the event that is fired when user change the field value
         // Most modern browsers supports input event except IE 7, 8.
@@ -40,8 +40,10 @@ if (typeof jQuery === 'undefined') {
         // Get IE version
         // https://gist.github.com/padolsey/527683/#comment-7595
         var ieVersion = (function() {
-            var v = 3, div = document.createElement('div'), a = div.all || [];
-            while (div.innerHTML = '<!--[if gt IE '+(++v)+']><br><![endif]-->', a[0]) {}
+            var v = 3,
+                div = document.createElement('div'),
+                a = div.all || [];
+            while (div.innerHTML = '<!--[if gt IE ' + (++v) + ']><br><![endif]-->', a[0]) {}
             return v > 4 ? v : !v;
         }());
 
@@ -64,39 +66,39 @@ if (typeof jQuery === 'undefined') {
          * Init form
          */
         _init: function() {
-            var that    = this,
+            var that = this,
                 options = {
-                    autoFocus:      this.$form.attr('data-bv-autofocus'),
-                    container:      this.$form.attr('data-bv-container'),
+                    autoFocus: this.$form.attr('data-bv-autofocus'),
+                    container: this.$form.attr('data-bv-container'),
                     events: {
-                        formInit:         this.$form.attr('data-bv-events-form-init'),
-                        formError:        this.$form.attr('data-bv-events-form-error'),
-                        formSuccess:      this.$form.attr('data-bv-events-form-success'),
-                        fieldAdded:       this.$form.attr('data-bv-events-field-added'),
-                        fieldRemoved:     this.$form.attr('data-bv-events-field-removed'),
-                        fieldInit:        this.$form.attr('data-bv-events-field-init'),
-                        fieldError:       this.$form.attr('data-bv-events-field-error'),
-                        fieldSuccess:     this.$form.attr('data-bv-events-field-success'),
-                        fieldStatus:      this.$form.attr('data-bv-events-field-status'),
-                        validatorError:   this.$form.attr('data-bv-events-validator-error'),
+                        formInit: this.$form.attr('data-bv-events-form-init'),
+                        formError: this.$form.attr('data-bv-events-form-error'),
+                        formSuccess: this.$form.attr('data-bv-events-form-success'),
+                        fieldAdded: this.$form.attr('data-bv-events-field-added'),
+                        fieldRemoved: this.$form.attr('data-bv-events-field-removed'),
+                        fieldInit: this.$form.attr('data-bv-events-field-init'),
+                        fieldError: this.$form.attr('data-bv-events-field-error'),
+                        fieldSuccess: this.$form.attr('data-bv-events-field-success'),
+                        fieldStatus: this.$form.attr('data-bv-events-field-status'),
+                        validatorError: this.$form.attr('data-bv-events-validator-error'),
                         validatorSuccess: this.$form.attr('data-bv-events-validator-success')
                     },
-                    excluded:       this.$form.attr('data-bv-excluded'),
+                    excluded: this.$form.attr('data-bv-excluded'),
                     feedbackIcons: {
-                        valid:      this.$form.attr('data-bv-feedbackicons-valid'),
-                        invalid:    this.$form.attr('data-bv-feedbackicons-invalid'),
+                        valid: this.$form.attr('data-bv-feedbackicons-valid'),
+                        invalid: this.$form.attr('data-bv-feedbackicons-invalid'),
                         validating: this.$form.attr('data-bv-feedbackicons-validating')
                     },
-                    group:          this.$form.attr('data-bv-group'),
-                    live:           this.$form.attr('data-bv-live'),
-                    message:        this.$form.attr('data-bv-message'),
-                    onError:        this.$form.attr('data-bv-onerror'),
-                    onSuccess:      this.$form.attr('data-bv-onsuccess'),
-                    submitButtons:  this.$form.attr('data-bv-submitbuttons'),
-                    threshold:      this.$form.attr('data-bv-threshold'),
-                    trigger:        this.$form.attr('data-bv-trigger'),
-                    verbose:        this.$form.attr('data-bv-verbose'),
-                    fields:         {}
+                    group: this.$form.attr('data-bv-group'),
+                    live: this.$form.attr('data-bv-live'),
+                    message: this.$form.attr('data-bv-message'),
+                    onError: this.$form.attr('data-bv-onerror'),
+                    onSuccess: this.$form.attr('data-bv-onsuccess'),
+                    submitButtons: this.$form.attr('data-bv-submitbuttons'),
+                    threshold: this.$form.attr('data-bv-threshold'),
+                    trigger: this.$form.attr('data-bv-trigger'),
+                    verbose: this.$form.attr('data-bv-verbose'),
+                    fields: {}
                 };
 
             this.$form
@@ -109,21 +111,21 @@ if (typeof jQuery === 'undefined') {
                     that.validate();
                 })
                 .on('click.bv', this.options.submitButtons, function() {
-                    that.$submitButton  = $(this);
-					// The user just click the submit button
-					that._submitIfValid = true;
+                    that.$submitButton = $(this);
+                    // The user just click the submit button
+                    that._submitIfValid = true;
                 })
                 // Find all fields which have either "name" or "data-bv-field" attribute
                 .find('[name], [data-bv-field]')
-                    .each(function() {
-                        var $field = $(this),
-                            field  = $field.attr('name') || $field.attr('data-bv-field'),
-                            opts   = that._parseOptions($field);
-                        if (opts) {
-                            $field.attr('data-bv-field', field);
-                            options.fields[field] = $.extend({}, opts, options.fields[field]);
-                        }
-                    });
+                .each(function() {
+                    var $field = $(this),
+                        field = $field.attr('name') || $field.attr('data-bv-field'),
+                        opts = that._parseOptions($field);
+                    if (opts) {
+                        $field.attr('data-bv-field', field);
+                        options.fields[field] = $.extend({}, opts, options.fields[field]);
+                    }
+                });
 
             this.options = $.extend(true, this.options, options);
 
@@ -131,10 +133,14 @@ if (typeof jQuery === 'undefined') {
             // The form then will be submitted.
             // I create a first hidden submit button
             this.$hiddenButton = $('<button/>')
-                                    .attr('type', 'submit')
-                                    .prependTo(this.$form)
-                                    .addClass('bv-hidden-submit')
-                                    .css({ display: 'none', width: 0, height: 0 });
+                .attr('type', 'submit')
+                .prependTo(this.$form)
+                .addClass('bv-hidden-submit')
+                .css({
+                    display: 'none',
+                    width: 0,
+                    height: 0
+                });
 
             this.$form
                 .on('click.bv', '[type="submit"]', function(e) {
@@ -181,10 +187,10 @@ if (typeof jQuery === 'undefined') {
          * @returns {Object}
          */
         _parseOptions: function($field) {
-            var field      = $field.attr('name') || $field.attr('data-bv-field'),
+            var field = $field.attr('name') || $field.attr('data-bv-field'),
                 validators = {},
                 validator,
-                v,          // Validator name
+                v, // Validator name
                 attrName,
                 enabled,
                 optionName,
@@ -194,22 +200,25 @@ if (typeof jQuery === 'undefined') {
                 html5AttrMap;
 
             for (v in $.fn.bootstrapValidator.validators) {
-                validator    = $.fn.bootstrapValidator.validators[v];
-                attrName     = 'data-bv-' + v.toLowerCase(),
-                enabled      = $field.attr(attrName) + '';
+                validator = $.fn.bootstrapValidator.validators[v];
+                attrName = 'data-bv-' + v.toLowerCase(),
+                    enabled = $field.attr(attrName) + '';
                 html5AttrMap = ('function' === typeof validator.enableByHtml5) ? validator.enableByHtml5($field) : null;
 
-                if ((html5AttrMap && enabled !== 'false')
-                    || (html5AttrMap !== true && ('' === enabled || 'true' === enabled || attrName === enabled.toLowerCase())))
-                {
+                if ((html5AttrMap && enabled !== 'false') ||
+                    (html5AttrMap !== true && ('' === enabled || 'true' === enabled || attrName === enabled.toLowerCase()))) {
                     // Try to parse the options via attributes
-                    validator.html5Attributes = $.extend({}, { message: 'message', onerror: 'onError', onsuccess: 'onSuccess' }, validator.html5Attributes);
+                    validator.html5Attributes = $.extend({}, {
+                        message: 'message',
+                        onerror: 'onError',
+                        onsuccess: 'onSuccess'
+                    }, validator.html5Attributes);
                     validators[v] = $.extend({}, html5AttrMap === true ? {} : html5AttrMap, validators[v]);
 
                     for (html5AttrName in validator.html5Attributes) {
-                        optionName  = validator.html5Attributes[html5AttrName];
+                        optionName = validator.html5Attributes[html5AttrName];
                         optionAttrName = 'data-bv-' + v.toLowerCase() + '-' + html5AttrName,
-                        optionValue = $field.attr(optionAttrName);
+                            optionValue = $field.attr(optionAttrName);
                         if (optionValue) {
                             if ('true' === optionValue || optionAttrName === optionValue.toLowerCase()) {
                                 optionValue = true;
@@ -223,23 +232,23 @@ if (typeof jQuery === 'undefined') {
             }
 
             var opts = {
-                    autoFocus:     $field.attr('data-bv-autofocus'),
-                    container:     $field.attr('data-bv-container'),
-                    excluded:      $field.attr('data-bv-excluded'),
+                    autoFocus: $field.attr('data-bv-autofocus'),
+                    container: $field.attr('data-bv-container'),
+                    excluded: $field.attr('data-bv-excluded'),
                     feedbackIcons: $field.attr('data-bv-feedbackicons'),
-                    group:         $field.attr('data-bv-group'),
-                    message:       $field.attr('data-bv-message'),
-                    onError:       $field.attr('data-bv-onerror'),
-                    onStatus:      $field.attr('data-bv-onstatus'),
-                    onSuccess:     $field.attr('data-bv-onsuccess'),
-                    selector:      $field.attr('data-bv-selector'),
-                    threshold:     $field.attr('data-bv-threshold'),
-                    trigger:       $field.attr('data-bv-trigger'),
-                    verbose:       $field.attr('data-bv-verbose'),
-                    validators:    validators
+                    group: $field.attr('data-bv-group'),
+                    message: $field.attr('data-bv-message'),
+                    onError: $field.attr('data-bv-onerror'),
+                    onStatus: $field.attr('data-bv-onstatus'),
+                    onSuccess: $field.attr('data-bv-onsuccess'),
+                    selector: $field.attr('data-bv-selector'),
+                    threshold: $field.attr('data-bv-threshold'),
+                    trigger: $field.attr('data-bv-trigger'),
+                    verbose: $field.attr('data-bv-verbose'),
+                    validators: validators
                 },
-                emptyOptions    = $.isEmptyObject(opts),        // Check if the field options are set using HTML attributes
-                emptyValidators = $.isEmptyObject(validators);  // Check if the field validators are set using HTML attributes
+                emptyOptions = $.isEmptyObject(opts), // Check if the field options are set using HTML attributes
+                emptyValidators = $.isEmptyObject(validators); // Check if the field validators are set using HTML attributes
 
             if (!emptyValidators || (!emptyOptions && this.options.fields && this.options.fields[field])) {
                 opts.validators = validators;
@@ -259,7 +268,7 @@ if (typeof jQuery === 'undefined') {
             switch (typeof field) {
                 case 'object':
                     fields = field;
-                    field  = field.attr('data-bv-field');
+                    field = field.attr('data-bv-field');
                     break;
                 case 'string':
                     fields = this.getFieldElements(field);
@@ -288,23 +297,23 @@ if (typeof jQuery === 'undefined') {
                 this.options.fields[field].enabled = true;
             }
 
-            var that      = this,
-                total     = fields.length,
-                type      = fields.attr('type'),
+            var that = this,
+                total = fields.length,
+                type = fields.attr('type'),
                 updateAll = (total === 1) || ('radio' === type) || ('checkbox' === type),
-                event     = ('radio' === type || 'checkbox' === type || 'file' === type || 'SELECT' === fields.eq(0).get(0).tagName) ? 'change' : this._changeEvent,
-                trigger   = (this.options.fields[field].trigger || this.options.trigger || event).split(' '),
-                events    = $.map(trigger, function(item) {
+                event = ('radio' === type || 'checkbox' === type || 'file' === type || 'SELECT' === fields.eq(0).get(0).tagName) ? 'change' : this._changeEvent,
+                trigger = (this.options.fields[field].trigger || this.options.trigger || event).split(' '),
+                events = $.map(trigger, function(item) {
                     return item + '.update.bv';
                 }).join(' ');
 
             for (var i = 0; i < total; i++) {
-                var $field    = fields.eq(i),
-                    group     = this.options.fields[field].group || this.options.group,
-                    $parent   = $field.parents(group),
+                var $field = fields.eq(i),
+                    group = this.options.fields[field].group || this.options.group,
+                    $parent = $field.parents(group),
                     // Allow user to indicate where the error messages are shown
-                    container = ('function' === typeof (this.options.fields[field].container || this.options.container)) ? (this.options.fields[field].container || this.options.container).call(this, $field, this) : (this.options.fields[field].container || this.options.container),
-                    $message  = (container && container !== 'tooltip' && container !== 'popover') ? $(container) : this._getMessageContainer($field, group);
+                    container = ('function' === typeof(this.options.fields[field].container || this.options.container)) ? (this.options.fields[field].container || this.options.container).call(this, $field, this) : (this.options.fields[field].container || this.options.container),
+                    $message = (container && container !== 'tooltip' && container !== 'popover') ? $(container) : this._getMessageContainer($field, group);
 
                 if (container && container !== 'tooltip' && container !== 'popover') {
                     $message.addClass('has-error');
@@ -318,7 +327,7 @@ if (typeof jQuery === 'undefined') {
                 $field.off(events).on(events, function() {
                     that.updateStatus($(this), that.STATUS_NOT_VALIDATED);
                 });
-                
+
                 // Create help block elements for showing the error messages
                 $field.data('bv.messages', $message);
                 for (validatorName in this.options.fields[field].validators) {
@@ -343,19 +352,18 @@ if (typeof jQuery === 'undefined') {
 
                 // Prepare the feedback icons
                 // Available from Bootstrap 3.1 (http://getbootstrap.com/css/#forms-control-validation)
-                if (this.options.fields[field].feedbackIcons !== false && this.options.fields[field].feedbackIcons !== 'false'
-                    && this.options.feedbackIcons
-                    && this.options.feedbackIcons.validating && this.options.feedbackIcons.invalid && this.options.feedbackIcons.valid
-                    && (!updateAll || i === total - 1))
-                {
+                if (this.options.fields[field].feedbackIcons !== false && this.options.fields[field].feedbackIcons !== 'false' &&
+                    this.options.feedbackIcons &&
+                    this.options.feedbackIcons.validating && this.options.feedbackIcons.invalid && this.options.feedbackIcons.valid &&
+                    (!updateAll || i === total - 1)) {
                     // $parent.removeClass('has-success').removeClass('has-error').addClass('has-feedback');
                     // Keep error messages which are populated from back-end
                     $parent.addClass('has-feedback');
                     var $icon = $('<i/>')
-                                    .css('display', 'none')
-                                    .addClass('form-control-feedback')
-                                    .attr('data-bv-icon-for', field)
-                                    .insertAfter($field);
+                        .css('display', 'none')
+                        .addClass('form-control-feedback')
+                        .attr('data-bv-icon-for', field)
+                        .insertAfter($field);
 
                     // Place it after the container of checkbox/radio
                     // so when clicking the icon, it doesn't effect to the checkbox/radio element
@@ -376,7 +384,7 @@ if (typeof jQuery === 'undefined') {
                     // Fix feedback icons in input-group
                     if ($parent.find('.input-group').length !== 0) {
                         $icon.addClass('bv-icon-input-group')
-                             .insertAfter($parent.find('.input-group').eq(0));
+                            .insertAfter($parent.find('.input-group').eq(0));
                     }
 
                     // Store the icon as a data of field element
@@ -386,10 +394,10 @@ if (typeof jQuery === 'undefined') {
                         // All fields with the same name have the same icon
                         fields.data('bv.icon', $icon);
                     }
-                    
+
                     if (container) {
                         $field
-                            // Show tooltip/popover message when field gets focus
+                        // Show tooltip/popover message when field gets focus
                             .off('focus.container.bv')
                             .on('focus.container.bv', function() {
                                 switch (container) {
@@ -465,7 +473,7 @@ if (typeof jQuery === 'undefined') {
                     fields.off(events);
                     break;
                 case 'enabled':
-                /* falls through */
+                    /* falls through */
                 default:
                     fields.off(events).on(events, function() {
                         if (that._exceedThreshold($(this))) {
@@ -490,9 +498,8 @@ if (typeof jQuery === 'undefined') {
          * @returns {String}
          */
         _getMessage: function(field, validatorName) {
-            if (!this.options.fields[field] || !$.fn.bootstrapValidator.validators[validatorName]
-                || !this.options.fields[field].validators || !this.options.fields[field].validators[validatorName])
-            {
+            if (!this.options.fields[field] || !$.fn.bootstrapValidator.validators[validatorName] ||
+                !this.options.fields[field].validators || !this.options.fields[field].validators[validatorName]) {
                 return '';
             }
 
@@ -542,9 +549,9 @@ if (typeof jQuery === 'undefined') {
          * Called when all validations are completed
          */
         _submit: function() {
-            var isValid   = this.isValid(),
+            var isValid = this.isValid(),
                 eventType = isValid ? this.options.events.formSuccess : this.options.events.formError,
-                e         = $.Event(eventType);
+                e = $.Event(eventType);
 
             this.$form.trigger(e);
 
@@ -565,7 +572,7 @@ if (typeof jQuery === 'undefined') {
         _isExcluded: function($field) {
             var excludedAttr = $field.attr('data-bv-excluded'),
                 // I still need to check the 'name' attribute while initializing the field
-                field        = $field.attr('data-bv-field') || $field.attr('name');
+                field = $field.attr('data-bv-field') || $field.attr('name');
 
             switch (true) {
                 case (!!field && this.options.fields && this.options.fields[field] && (this.options.fields[field].excluded === 'true' || this.options.fields[field].excluded === true)):
@@ -589,9 +596,8 @@ if (typeof jQuery === 'undefined') {
 
                         var length = this.options.excluded.length;
                         for (var i = 0; i < length; i++) {
-                            if (('string' === typeof this.options.excluded[i] && $field.is(this.options.excluded[i]))
-                                || ('function' === typeof this.options.excluded[i] && this.options.excluded[i].call(this, $field, this) === true))
-                            {
+                            if (('string' === typeof this.options.excluded[i] && $field.is(this.options.excluded[i])) ||
+                                ('function' === typeof this.options.excluded[i] && this.options.excluded[i].call(this, $field, this) === true)) {
                                 return true;
                             }
                         }
@@ -607,7 +613,7 @@ if (typeof jQuery === 'undefined') {
          * @returns {Boolean}
          */
         _exceedThreshold: function($field) {
-            var field     = $field.attr('data-bv-field'),
+            var field = $field.attr('data-bv-field'),
                 threshold = this.options.fields[field].threshold || this.options.threshold;
             if (!threshold) {
                 return true;
@@ -615,7 +621,7 @@ if (typeof jQuery === 'undefined') {
             var cannotType = $.inArray($field.attr('type'), ['button', 'checkbox', 'file', 'hidden', 'image', 'radio', 'reset', 'submit']) !== -1;
             return (cannotType || $field.val().length >= threshold);
         },
-        
+
         // ---
         // Events
         // ---
@@ -637,12 +643,12 @@ if (typeof jQuery === 'undefined') {
                 var that = this;
                 for (var field in this.options.fields) {
                     (function(f) {
-                        var fields  = that.getFieldElements(f);
+                        var fields = that.getFieldElements(f);
                         if (fields.length) {
-                            var type    = $(fields[0]).attr('type'),
-                                event   = ('radio' === type || 'checkbox' === type || 'file' === type || 'SELECT' === $(fields[0]).get(0).tagName) ? 'change' : that._changeEvent,
+                            var type = $(fields[0]).attr('type'),
+                                event = ('radio' === type || 'checkbox' === type || 'file' === type || 'SELECT' === $(fields[0]).get(0).tagName) ? 'change' : that._changeEvent,
                                 trigger = that.options.fields[field].trigger || that.options.trigger || event,
-                                events  = $.map(trigger.split(' '), function(item) {
+                                events = $.map(trigger.split(' '), function(item) {
                                     return item + '.live.bv';
                                 }).join(' ');
 
@@ -658,11 +664,12 @@ if (typeof jQuery === 'undefined') {
 
             // Determined the first invalid field which will be focused on automatically
             for (var i = 0; i < this.$invalidFields.length; i++) {
-                var $field    = this.$invalidFields.eq(i),
+                var $field = this.$invalidFields.eq(i),
                     autoFocus = this._isOptionEnabled($field.attr('data-bv-field'), 'autoFocus');
                 if (autoFocus) {
                     // Activate the tab containing the field if exists
-                    var $tabPane = $field.parents('.tab-pane'), tabId;
+                    var $tabPane = $field.parents('.tab-pane'),
+                        tabId;
                     if ($tabPane && (tabId = $tabPane.attr('id'))) {
                         $('a[href="#' + tabId + '"][data-toggle="tab"]').tab('show');
                     }
@@ -696,11 +703,11 @@ if (typeof jQuery === 'undefined') {
          * @param {String} [validatorName] The validator name
          */
         _onFieldValidated: function($field, validatorName) {
-            var field         = $field.attr('data-bv-field'),
-                validators    = this.options.fields[field].validators,
-                counter       = {},
+            var field = $field.attr('data-bv-field'),
+                validators = this.options.fields[field].validators,
+                counter = {},
                 numValidators = 0,
-                data          = {
+                data = {
                     bv: this,
                     field: field,
                     element: $field,
@@ -723,9 +730,9 @@ if (typeof jQuery === 'undefined') {
             }
 
             counter[this.STATUS_NOT_VALIDATED] = 0;
-            counter[this.STATUS_VALIDATING]    = 0;
-            counter[this.STATUS_INVALID]       = 0;
-            counter[this.STATUS_VALID]         = 0;
+            counter[this.STATUS_VALIDATING] = 0;
+            counter[this.STATUS_INVALID] = 0;
+            counter[this.STATUS_VALID] = 0;
 
             for (var v in validators) {
                 if (validators[v].enabled === false) {
@@ -783,9 +790,9 @@ if (typeof jQuery === 'undefined') {
          */
         getFieldElements: function(field) {
             if (!this._cacheFields[field]) {
-                this._cacheFields[field] = (this.options.fields[field] && this.options.fields[field].selector)
-                                         ? $(this.options.fields[field].selector)
-                                         : this.$form.find('[name="' + field + '"]');
+                this._cacheFields[field] = (this.options.fields[field] && this.options.fields[field].selector) ?
+                    $(this.options.fields[field].selector) :
+                    this.$form.find('[name="' + field + '"]');
             }
 
             return this._cacheFields[field];
@@ -871,7 +878,7 @@ if (typeof jQuery === 'undefined') {
             switch (typeof field) {
                 case 'object':
                     fields = field;
-                    field  = field.attr('data-bv-field');
+                    field = field.attr('data-bv-field');
                     break;
                 case 'string':
                     fields = this.getFieldElements(field);
@@ -884,12 +891,12 @@ if (typeof jQuery === 'undefined') {
                 return this;
             }
 
-            var that       = this,
-                type       = fields.attr('type'),
-                total      = ('radio' === type || 'checkbox' === type) ? 1 : fields.length,
-                updateAll  = ('radio' === type || 'checkbox' === type),
+            var that = this,
+                type = fields.attr('type'),
+                total = ('radio' === type || 'checkbox' === type) ? 1 : fields.length,
+                updateAll = ('radio' === type || 'checkbox' === type),
                 validators = this.options.fields[field].validators,
-                verbose    = this._isOptionEnabled(field, 'verbose'),
+                verbose = this._isOptionEnabled(field, 'verbose'),
                 validatorName,
                 validateResult;
 
@@ -979,7 +986,7 @@ if (typeof jQuery === 'undefined') {
             switch (typeof field) {
                 case 'object':
                     $fields = field;
-                    field   = field.attr('data-bv-field');
+                    field = field.attr('data-bv-field');
                     break;
                 case 'string':
                     $fields = this.getFieldElements(field);
@@ -992,7 +999,7 @@ if (typeof jQuery === 'undefined') {
                 $(this).data('bv.messages').find('.help-block[data-bv-validator="' + validator + '"][data-bv-for="' + field + '"]').html(message);
             });
         },
-        
+
         /**
          * Update all validating results of field
          *
@@ -1006,7 +1013,7 @@ if (typeof jQuery === 'undefined') {
             switch (typeof field) {
                 case 'object':
                     fields = field;
-                    field  = field.attr('data-bv-field');
+                    field = field.attr('data-bv-field');
                     break;
                 case 'string':
                     fields = this.getFieldElements(field);
@@ -1021,23 +1028,23 @@ if (typeof jQuery === 'undefined') {
                 this._submitIfValid = false;
             }
 
-            var that  = this,
-                type  = fields.attr('type'),
+            var that = this,
+                type = fields.attr('type'),
                 group = this.options.fields[field].group || this.options.group,
                 total = ('radio' === type || 'checkbox' === type) ? 1 : fields.length;
 
             for (var i = 0; i < total; i++) {
-                var $field       = fields.eq(i);
+                var $field = fields.eq(i);
                 if (this._isExcluded($field)) {
                     continue;
                 }
 
-                var $parent      = $field.parents(group),
-                    $message     = $field.data('bv.messages'),
-                    $allErrors   = $message.find('.help-block[data-bv-validator][data-bv-for="' + field + '"]'),
-                    $errors      = validatorName ? $allErrors.filter('[data-bv-validator="' + validatorName + '"]') : $allErrors,
-                    $icon        = $field.data('bv.icon'),
-                    container    = ('function' === typeof (this.options.fields[field].container || this.options.container)) ? (this.options.fields[field].container || this.options.container).call(this, $field, this) : (this.options.fields[field].container || this.options.container),
+                var $parent = $field.parents(group),
+                    $message = $field.data('bv.messages'),
+                    $allErrors = $message.find('.help-block[data-bv-validator][data-bv-for="' + field + '"]'),
+                    $errors = validatorName ? $allErrors.filter('[data-bv-validator="' + validatorName + '"]') : $allErrors,
+                    $icon = $field.data('bv.icon'),
+                    container = ('function' === typeof(this.options.fields[field].container || this.options.container)) ? (this.options.fields[field].container || this.options.container).call(this, $field, this) : (this.options.fields[field].container || this.options.container),
                     isValidField = null;
 
                 // Update status
@@ -1086,9 +1093,10 @@ if (typeof jQuery === 'undefined') {
 
                     case this.STATUS_VALID:
                         // If the field is valid (passes all validators)
-                        isValidField = ($allErrors.filter('[data-bv-result="' + this.STATUS_NOT_VALIDATED +'"]').length === 0)
-                                     ? ($allErrors.filter('[data-bv-result="' + this.STATUS_VALID +'"]').length === $allErrors.length)  // All validators are completed
-                                     : null;                                                                                            // There are some validators that have not done
+                        isValidField = ($allErrors.filter('[data-bv-result="' + this.STATUS_NOT_VALIDATED + '"]').length === 0) ?
+                            ($allErrors.filter('[data-bv-result="' + this.STATUS_VALID + '"]').length === $allErrors.length) // All validators are completed
+                            :
+                            null; // There are some validators that have not done
                         if (isValidField !== null) {
                             this.disableSubmitButtons(this.$submitButton ? !this.isValid() : !isValidField);
                             if ($icon) {
@@ -1106,7 +1114,7 @@ if (typeof jQuery === 'undefined') {
                         break;
 
                     case this.STATUS_NOT_VALIDATED:
-                    /* falls through */
+                        /* falls through */
                     default:
                         isValidField = null;
                         this.disableSubmitButtons(false);
@@ -1123,29 +1131,27 @@ if (typeof jQuery === 'undefined') {
                 switch (true) {
                     // Only show the first error message if it is placed inside a tooltip ...
                     case ($icon && 'tooltip' === container):
-                        (isValidField === false)
-                                ? $icon.css('cursor', 'pointer').tooltip('destroy').tooltip({
-                                    container: 'body',
-                                    html: true,
-                                    placement: 'auto top',
-                                    title: $allErrors.filter('[data-bv-result="' + that.STATUS_INVALID + '"]').eq(0).html()
-                                })
-                                : $icon.css('cursor', '').tooltip('destroy');
+                        (isValidField === false) ?
+                        $icon.css('cursor', 'pointer').tooltip('destroy').tooltip({
+                            container: 'body',
+                            html: true,
+                            placement: 'auto top',
+                            title: $allErrors.filter('[data-bv-result="' + that.STATUS_INVALID + '"]').eq(0).html()
+                        }): $icon.css('cursor', '').tooltip('destroy');
                         break;
-                    // ... or popover
+                        // ... or popover
                     case ($icon && 'popover' === container):
-                        (isValidField === false)
-                                ? $icon.css('cursor', 'pointer').popover('destroy').popover({
-                                    container: 'body',
-                                    content: $allErrors.filter('[data-bv-result="' + that.STATUS_INVALID + '"]').eq(0).html(),
-                                    html: true,
-                                    placement: 'auto top',
-                                    trigger: 'hover click'
-                                })
-                                : $icon.css('cursor', '').popover('destroy');
+                        (isValidField === false) ?
+                        $icon.css('cursor', 'pointer').popover('destroy').popover({
+                            container: 'body',
+                            content: $allErrors.filter('[data-bv-result="' + that.STATUS_INVALID + '"]').eq(0).html(),
+                            html: true,
+                            placement: 'auto top',
+                            trigger: 'hover click'
+                        }): $icon.css('cursor', '').popover('destroy');
                         break;
                     default:
-                        (status === this.STATUS_INVALID) ? $errors.show() : $errors.hide();
+                        (status === this.STATUS_INVALID) ? $errors.show(): $errors.hide();
                         break;
                 }
 
@@ -1188,7 +1194,7 @@ if (typeof jQuery === 'undefined') {
             switch (typeof field) {
                 case 'object':
                     fields = field;
-                    field  = field.attr('data-bv-field');
+                    field = field.attr('data-bv-field');
                     break;
                 case 'string':
                     fields = this.getFieldElements(field);
@@ -1200,7 +1206,7 @@ if (typeof jQuery === 'undefined') {
                 return true;
             }
 
-            var type  = fields.attr('type'),
+            var type = fields.attr('type'),
                 total = ('radio' === type || 'checkbox' === type) ? 1 : fields.length,
                 $field, validatorName, status;
             for (var i = 0; i < total; i++) {
@@ -1232,8 +1238,8 @@ if (typeof jQuery === 'undefined') {
          * @returns {Boolean}
          */
         isValidContainer: function(container) {
-            var that       = this,
-                map        = {},
+            var that = this,
+                map = {},
                 $container = ('string' === typeof container) ? $(container) : container;
             if ($container.length === 0) {
                 return true;
@@ -1241,7 +1247,7 @@ if (typeof jQuery === 'undefined') {
 
             $container.find('[data-bv-field]').each(function() {
                 var $field = $(this),
-                    field  = $field.attr('data-bv-field');
+                    field = $field.attr('data-bv-field');
                 if (!that._isExcluded($field) && !map[field]) {
                     map[field] = $field;
                 }
@@ -1250,10 +1256,9 @@ if (typeof jQuery === 'undefined') {
             for (var field in map) {
                 var $f = map[field];
                 if ($f.data('bv.messages')
-                      .find('.help-block[data-bv-validator][data-bv-for="' + field + '"]')
-                      .filter('[data-bv-result="' + this.STATUS_INVALID +'"]')
-                      .length > 0)
-                {
+                    .find('.help-block[data-bv-validator][data-bv-for="' + field + '"]')
+                    .filter('[data-bv-result="' + this.STATUS_INVALID + '"]')
+                    .length > 0) {
                     return false;
                 }
             }
@@ -1312,9 +1317,9 @@ if (typeof jQuery === 'undefined') {
          * @returns {String[]}
          */
         getMessages: function(field, validator) {
-            var that     = this,
+            var that = this,
                 messages = [],
-                $fields  = $([]);
+                $fields = $([]);
 
             switch (true) {
                 case (field && 'object' === typeof field):
@@ -1336,14 +1341,14 @@ if (typeof jQuery === 'undefined') {
             $fields.each(function() {
                 messages = messages.concat(
                     $(this)
-                        .data('bv.messages')
-                        .find('.help-block[data-bv-for="' + $(this).attr('data-bv-field') + '"][data-bv-result="' + that.STATUS_INVALID + '"]' + filter)
-                        .map(function() {
-                            var v = $(this).attr('data-bv-validator'),
-                                f = $(this).attr('data-bv-for');
-                            return (that.options.fields[f].validators[v].enabled === false) ? '' : $(this).html();
-                        })
-                        .get()
+                    .data('bv.messages')
+                    .find('.help-block[data-bv-for="' + $(this).attr('data-bv-field') + '"][data-bv-result="' + that.STATUS_INVALID + '"]' + filter)
+                    .map(function() {
+                        var v = $(this).attr('data-bv-validator'),
+                            f = $(this).attr('data-bv-for');
+                        return (that.options.fields[f].validators[v].enabled === false) ? '' : $(this).html();
+                    })
+                    .get()
                 );
             });
 
@@ -1383,7 +1388,7 @@ if (typeof jQuery === 'undefined') {
             switch (typeof field) {
                 case 'object':
                     fields = field;
-                    field  = field.attr('data-bv-field') || field.attr('name');
+                    field = field.attr('data-bv-field') || field.attr('name');
                     break;
                 case 'string':
                     delete this._cacheFields[field];
@@ -1395,7 +1400,7 @@ if (typeof jQuery === 'undefined') {
 
             fields.attr('data-bv-field', field);
 
-            var type  = fields.attr('type'),
+            var type = fields.attr('type'),
                 total = ('radio' === type || 'checkbox' === type) ? 1 : fields.length;
 
             for (var i = 0; i < total; i++) {
@@ -1436,7 +1441,7 @@ if (typeof jQuery === 'undefined') {
             switch (typeof field) {
                 case 'object':
                     fields = field;
-                    field  = field.attr('data-bv-field') || field.attr('name');
+                    field = field.attr('data-bv-field') || field.attr('name');
                     fields.attr('data-bv-field', field);
                     break;
                 case 'string':
@@ -1450,7 +1455,7 @@ if (typeof jQuery === 'undefined') {
                 return this;
             }
 
-            var type  = fields.attr('type'),
+            var type = fields.attr('type'),
                 total = ('radio' === type || 'checkbox' === type) ? 1 : fields.length;
 
             for (var i = 0; i < total; i++) {
@@ -1492,7 +1497,7 @@ if (typeof jQuery === 'undefined') {
             switch (typeof field) {
                 case 'object':
                     $fields = field;
-                    field   = field.attr('data-bv-field');
+                    field = field.attr('data-bv-field');
                     break;
                 case 'string':
                     $fields = this.getFieldElements(field);
@@ -1515,7 +1520,7 @@ if (typeof jQuery === 'undefined') {
 
             if (resetValue) {
                 var type = $fields.attr('type');
-                ('radio' === type || 'checkbox' === type) ? $fields.removeAttr('checked').removeAttr('selected') : $fields.val('');
+                ('radio' === type || 'checkbox' === type) ? $fields.removeAttr('checked').removeAttr('selected'): $fields.val('');
             }
 
             return this;
@@ -1533,7 +1538,7 @@ if (typeof jQuery === 'undefined') {
             }
 
             this.$invalidFields = $([]);
-            this.$submitButton  = null;
+            this.$submitButton = null;
 
             // Enable submit buttons
             this.disableSubmitButtons(false);
@@ -1567,10 +1572,9 @@ if (typeof jQuery === 'undefined') {
             var validators = this.options.fields[field].validators;
 
             // Enable/disable particular validator
-            if (validatorName
-                && validators
-                && validators[validatorName] && validators[validatorName].enabled !== enabled)
-            {
+            if (validatorName &&
+                validators &&
+                validators[validatorName] && validators[validatorName].enabled !== enabled) {
                 this.options.fields[field].validators[validatorName].enabled = enabled;
                 this.updateStatus(field, this.STATUS_NOT_VALIDATED, validatorName);
             }
@@ -1607,7 +1611,7 @@ if (typeof jQuery === 'undefined') {
          */
         getDynamicOption: function(field, option) {
             var $field = ('string' === typeof field) ? this.getFieldElements(field) : field,
-                value  = $field.val();
+                value = $field.val();
 
             // Option can be determined by
             // ... a function
@@ -1636,20 +1640,20 @@ if (typeof jQuery === 'undefined') {
         destroy: function() {
             var field, fields, $field, validator, $icon, group;
             for (field in this.options.fields) {
-                fields    = this.getFieldElements(field);
-                group     = this.options.fields[field].group || this.options.group;
+                fields = this.getFieldElements(field);
+                group = this.options.fields[field].group || this.options.group;
                 for (var i = 0; i < fields.length; i++) {
                     $field = fields.eq(i);
                     $field
-                        // Remove all error messages
+                    // Remove all error messages
                         .data('bv.messages')
-                            .find('.help-block[data-bv-validator][data-bv-for="' + field + '"]').remove().end()
-                            .end()
+                        .find('.help-block[data-bv-validator][data-bv-for="' + field + '"]').remove().end()
+                        .end()
                         .removeData('bv.messages')
                         // Remove feedback classes
                         .parents(group)
-                            .removeClass('has-feedback has-error has-success')
-                            .end()
+                        .removeClass('has-feedback has-error has-success')
+                        .end()
                         // Turn off events
                         .off('.bv')
                         .removeAttr('data-bv-field');
@@ -1657,7 +1661,7 @@ if (typeof jQuery === 'undefined') {
                     // Remove feedback icons, tooltip/popover container
                     $icon = $field.data('bv.icon');
                     if ($icon) {
-                        var container = ('function' === typeof (this.options.fields[field].container || this.options.container)) ? (this.options.fields[field].container || this.options.container).call(this, $field, this) : (this.options.fields[field].container || this.options.container);
+                        var container = ('function' === typeof(this.options.fields[field].container || this.options.container)) ? (this.options.fields[field].container || this.options.container).call(this, $field, this) : (this.options.fields[field].container || this.options.container);
                         switch (container) {
                             case 'tooltip':
                                 $icon.tooltip('destroy').remove();
@@ -1677,8 +1681,8 @@ if (typeof jQuery === 'undefined') {
                             $field.data('bv.dfs.' + validator).reject();
                         }
                         $field.removeData('bv.result.' + validator)
-                              .removeData('bv.response.' + validator)
-                              .removeData('bv.dfs.' + validator);
+                            .removeData('bv.response.' + validator)
+                            .removeData('bv.dfs.' + validator);
 
                         // Destroy the validator
                         if ('function' === typeof $.fn.bootstrapValidator.validators[validator].destroy) {
@@ -1688,8 +1692,8 @@ if (typeof jQuery === 'undefined') {
                 }
             }
 
-            this.disableSubmitButtons(false);   // Enable submit buttons
-            this.$hiddenButton.remove();        // Remove the hidden button
+            this.disableSubmitButtons(false); // Enable submit buttons
+            this.$hiddenButton.remove(); // Remove the hidden button
 
             this.$form
                 .removeClass(this.options.elementClass)
@@ -1705,8 +1709,8 @@ if (typeof jQuery === 'undefined') {
     $.fn.bootstrapValidator = function(option) {
         var params = arguments;
         return this.each(function() {
-            var $this   = $(this),
-                data    = $this.data('bootstrapValidator'),
+            var $this = $(this),
+                data = $this.data('bootstrapValidator'),
                 options = 'object' === typeof option && option;
             if (!data) {
                 data = new BootstrapValidator(this, options);
@@ -1797,8 +1801,8 @@ if (typeof jQuery === 'undefined') {
         //      validating: 'fa fa-refresh'
         //  }
         feedbackIcons: {
-            valid:      null,
-            invalid:    null,
+            valid: null,
+            invalid: null,
             validating: null
         },
 
@@ -1837,10 +1841,10 @@ if (typeof jQuery === 'undefined') {
     };
 
     // Available validators
-    $.fn.bootstrapValidator.validators  = {};
+    $.fn.bootstrapValidator.validators = {};
 
     // i18n
-    $.fn.bootstrapValidator.i18n        = {};
+    $.fn.bootstrapValidator.i18n = {};
 
     $.fn.bootstrapValidator.Constructor = BootstrapValidator;
 
@@ -1862,8 +1866,8 @@ if (typeof jQuery === 'undefined') {
                 if ('()' === functionName.substring(functionName.length - 2)) {
                     functionName = functionName.substring(0, functionName.length - 2);
                 }
-                var ns      = functionName.split('.'),
-                    func    = ns.pop(),
+                var ns = functionName.split('.'),
+                    func = ns.pop(),
                     context = window;
                 for (var i = 0; i < ns.length; i++) {
                     context = context[ns[i]];
@@ -1911,9 +1915,9 @@ if (typeof jQuery === 'undefined') {
                 return false;
             }
 
-            day   = parseInt(day, 10);
+            day = parseInt(day, 10);
             month = parseInt(month, 10);
-            year  = parseInt(year, 10);
+            year = parseInt(year, 10);
 
             if (year < 1000 || year > 9999 || month <= 0 || month > 12) {
                 return false;
@@ -1930,13 +1934,13 @@ if (typeof jQuery === 'undefined') {
             }
 
             if (notInFuture === true) {
-                var currentDate  = new Date(),
-                    currentYear  = currentDate.getFullYear(),
+                var currentDate = new Date(),
+                    currentYear = currentDate.getFullYear(),
                     currentMonth = currentDate.getMonth(),
-                    currentDay   = currentDate.getDate();
-                return (year < currentYear
-                        || (year === currentYear && month - 1 < currentMonth)
-                        || (year === currentYear && month - 1 === currentMonth && day < currentDay));
+                    currentDay = currentDate.getDate();
+                return (year < currentYear ||
+                    (year === currentYear && month - 1 < currentMonth) ||
+                    (year === currentYear && month - 1 === currentMonth && day < currentDay));
             }
 
             return true;
@@ -1951,10 +1955,13 @@ if (typeof jQuery === 'undefined') {
          * @returns {Boolean}
          */
         luhn: function(value) {
-            var length  = value.length,
-                mul     = 0,
-                prodArr = [[0, 1, 2, 3, 4, 5, 6, 7, 8, 9], [0, 2, 4, 6, 8, 1, 3, 5, 7, 9]],
-                sum     = 0;
+            var length = value.length,
+                mul = 0,
+                prodArr = [
+                    [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
+                    [0, 2, 4, 6, 8, 1, 3, 5, 7, 9]
+                ],
+                sum = 0;
 
             while (length--) {
                 sum += prodArr[mul][parseInt(value.charAt(length), 10)];
@@ -1971,7 +1978,7 @@ if (typeof jQuery === 'undefined') {
          * @returns {Boolean}
          */
         mod11And10: function(value) {
-            var check  = 5,
+            var check = 5,
                 length = value.length;
             for (var i = 0; i < length; i++) {
                 check = (((check || 10) * 2) % 11 + parseInt(value.charAt(i), 10)) % 10;
@@ -1992,16 +1999,16 @@ if (typeof jQuery === 'undefined') {
         mod37And36: function(value, alphabet) {
             alphabet = alphabet || '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
             var modulus = alphabet.length,
-                length  = value.length,
-                check   = Math.floor(modulus / 2);
+                length = value.length,
+                check = Math.floor(modulus / 2);
             for (var i = 0; i < length; i++) {
                 check = (((check || modulus) * 2) % (modulus + 1) + alphabet.indexOf(value.charAt(i))) % modulus;
             }
             return (check === 1);
         }
     };
-}(window.jQuery));
-;(function($) {
+}(window.jQuery));;
+(function($) {
     $.fn.bootstrapValidator.i18n.base64 = $.extend($.fn.bootstrapValidator.i18n.base64 || {}, {
         'default': 'Please enter a valid base 64 encoded'
     });
@@ -2025,8 +2032,8 @@ if (typeof jQuery === 'undefined') {
             return /^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=|[A-Za-z0-9+/]{4})$/.test(value);
         }
     };
-}(window.jQuery));
-;(function($) {
+}(window.jQuery));;
+(function($) {
     $.fn.bootstrapValidator.i18n.between = $.extend($.fn.bootstrapValidator.i18n.between || {}, {
         'default': 'Please enter a value between %s and %s',
         notInclusive: 'Please enter a value between %s and %s strictly'
@@ -2076,34 +2083,32 @@ if (typeof jQuery === 'undefined') {
                 return true;
             }
 
-			value = this._format(value);
+            value = this._format(value);
             if (!$.isNumeric(value)) {
                 return false;
             }
 
-            var min      = $.isNumeric(options.min) ? options.min : validator.getDynamicOption($field, options.min),
-                max      = $.isNumeric(options.max) ? options.max : validator.getDynamicOption($field, options.max),
+            var min = $.isNumeric(options.min) ? options.min : validator.getDynamicOption($field, options.min),
+                max = $.isNumeric(options.max) ? options.max : validator.getDynamicOption($field, options.max),
                 minValue = this._format(min),
                 maxValue = this._format(max);
 
             value = parseFloat(value);
-			return (options.inclusive === true || options.inclusive === undefined)
-                    ? {
-                        valid: value >= minValue && value <= maxValue,
-                        message: $.fn.bootstrapValidator.helpers.format(options.message || $.fn.bootstrapValidator.i18n.between['default'], [min, max])
-                    }
-                    : {
-                        valid: value > minValue  && value <  maxValue,
-                        message: $.fn.bootstrapValidator.helpers.format(options.message || $.fn.bootstrapValidator.i18n.between.notInclusive, [min, max])
-                    };
+            return (options.inclusive === true || options.inclusive === undefined) ? {
+                valid: value >= minValue && value <= maxValue,
+                message: $.fn.bootstrapValidator.helpers.format(options.message || $.fn.bootstrapValidator.i18n.between['default'], [min, max])
+            } : {
+                valid: value > minValue && value < maxValue,
+                message: $.fn.bootstrapValidator.helpers.format(options.message || $.fn.bootstrapValidator.i18n.between.notInclusive, [min, max])
+            };
         },
 
         _format: function(value) {
             return (value + '').replace(',', '.');
         }
     };
-}(window.jQuery));
-;(function($) {
+}(window.jQuery));;
+(function($) {
     $.fn.bootstrapValidator.validators.blank = {
         /**
          * Placeholder validator that can be used to display a custom validation message
@@ -2131,8 +2136,8 @@ if (typeof jQuery === 'undefined') {
             return true;
         }
     };
-}(window.jQuery));
-;(function($) {
+}(window.jQuery));;
+(function($) {
     $.fn.bootstrapValidator.i18n.callback = $.extend($.fn.bootstrapValidator.i18n.callback || {}, {
         'default': 'Please enter a valid value'
     });
@@ -2159,21 +2164,25 @@ if (typeof jQuery === 'undefined') {
          * @returns {Deferred}
          */
         validate: function(validator, $field, options) {
-            var value  = $field.val(),
-                dfd    = new $.Deferred(),
-                result = { valid: true };
+            var value = $field.val(),
+                dfd = new $.Deferred(),
+                result = {
+                    valid: true
+                };
 
             if (options.callback) {
                 var response = $.fn.bootstrapValidator.helpers.call(options.callback, [value, validator, $field]);
-                result = ('boolean' === typeof response) ? { valid: response } :  response;
+                result = ('boolean' === typeof response) ? {
+                    valid: response
+                } : response;
             }
 
             dfd.resolve($field, 'callback', result);
             return dfd;
         }
     };
-}(window.jQuery));
-;(function($) {
+}(window.jQuery));;
+(function($) {
     $.fn.bootstrapValidator.i18n.choice = $.extend($.fn.bootstrapValidator.i18n.choice || {}, {
         'default': 'Please enter a valid value',
         less: 'Please choose %s options at minimum',
@@ -2208,13 +2217,13 @@ if (typeof jQuery === 'undefined') {
          * @returns {Object}
          */
         validate: function(validator, $field, options) {
-            var numChoices = $field.is('select')
-                            ? validator.getFieldElements($field.attr('data-bv-field')).find('option').filter(':selected').length
-                            : validator.getFieldElements($field.attr('data-bv-field')).filter(':checked').length,
-                min        = options.min ? ($.isNumeric(options.min) ? options.min : validator.getDynamicOption($field, options.min)) : null,
-                max        = options.max ? ($.isNumeric(options.max) ? options.max : validator.getDynamicOption($field, options.max)) : null,
-                isValid    = true,
-                message    = options.message || $.fn.bootstrapValidator.i18n.choice['default'];
+            var numChoices = $field.is('select') ?
+                validator.getFieldElements($field.attr('data-bv-field')).find('option').filter(':selected').length :
+                validator.getFieldElements($field.attr('data-bv-field')).filter(':checked').length,
+                min = options.min ? ($.isNumeric(options.min) ? options.min : validator.getDynamicOption($field, options.min)) : null,
+                max = options.max ? ($.isNumeric(options.max) ? options.max : validator.getDynamicOption($field, options.max)) : null,
+                isValid = true,
+                message = options.message || $.fn.bootstrapValidator.i18n.choice['default'];
 
             if ((min && numChoices < parseInt(min, 10)) || (max && numChoices > parseInt(max, 10))) {
                 isValid = false;
@@ -2237,11 +2246,14 @@ if (typeof jQuery === 'undefined') {
                     break;
             }
 
-            return { valid: isValid, message: message };
+            return {
+                valid: isValid,
+                message: message
+            };
         }
     };
-}(window.jQuery));
-;(function($) {
+}(window.jQuery));;
+(function($) {
     $.fn.bootstrapValidator.i18n.color = $.extend($.fn.bootstrapValidator.i18n.color || {}, {
         'default': 'Please enter a valid color'
     });
@@ -2330,8 +2342,8 @@ if (typeof jQuery === 'undefined') {
                 isValid = false;
 
             for (var i = 0; i < types.length; i++) {
-                type    = types[i];
-                method  = '_' + type.toLowerCase();
+                type = types[i];
+                method = '_' + type.toLowerCase();
                 isValid = isValid || this[method](value);
                 if (isValid) {
                     return true;
@@ -2369,8 +2381,8 @@ if (typeof jQuery === 'undefined') {
             return regexInteger.test(value) || regexPercent.test(value);
         }
     };
-}(window.jQuery));
-;(function($) {
+}(window.jQuery));;
+(function($) {
     $.fn.bootstrapValidator.i18n.creditCard = $.extend($.fn.bootstrapValidator.i18n.creditCard || {}, {
         'default': 'Please enter a valid credit card number'
     });
@@ -2419,11 +2431,12 @@ if (typeof jQuery === 'undefined') {
                 DISCOVER: {
                     length: [16],
                     prefix: ['6011', '622126', '622127', '622128', '622129', '62213',
-                             '62214', '62215', '62216', '62217', '62218', '62219',
-                             '6222', '6223', '6224', '6225', '6226', '6227', '6228',
-                             '62290', '62291', '622920', '622921', '622922', '622923',
-                             '622924', '622925', '644', '645', '646', '647', '648',
-                             '649', '65']
+                        '62214', '62215', '62216', '62217', '62218', '62219',
+                        '6222', '6223', '6224', '6225', '6226', '6227', '6228',
+                        '62290', '62291', '622920', '622921', '622922', '622923',
+                        '622924', '622925', '644', '645', '646', '647', '648',
+                        '649', '65'
+                    ]
                 },
                 JCB: {
                     length: [16],
@@ -2448,9 +2461,10 @@ if (typeof jQuery === 'undefined') {
                 UNIONPAY: {
                     length: [16, 17, 18, 19],
                     prefix: ['622126', '622127', '622128', '622129', '62213', '62214',
-                             '62215', '62216', '62217', '62218', '62219', '6222', '6223',
-                             '6224', '6225', '6226', '6227', '6228', '62290', '62291',
-                             '622920', '622921', '622922', '622923', '622924', '622925']
+                        '62215', '62216', '62217', '62218', '62219', '6222', '6223',
+                        '6224', '6225', '6226', '6227', '6228', '62290', '62291',
+                        '622920', '622921', '622922', '622923', '622924', '622925'
+                    ]
                 },
                 VISA: {
                     length: [16],
@@ -2461,8 +2475,9 @@ if (typeof jQuery === 'undefined') {
             var type, i;
             for (type in cards) {
                 for (i in cards[type].prefix) {
-                    if (value.substr(0, cards[type].prefix[i].length) === cards[type].prefix[i]     // Check the prefix
-                        && $.inArray(value.length, cards[type].length) !== -1)                      // and length
+                    if (value.substr(0, cards[type].prefix[i].length) === cards[type].prefix[i] // Check the prefix
+                        &&
+                        $.inArray(value.length, cards[type].length) !== -1) // and length
                     {
                         return true;
                     }
@@ -2472,8 +2487,8 @@ if (typeof jQuery === 'undefined') {
             return false;
         }
     };
-}(window.jQuery));
-;(function($) {
+}(window.jQuery));;
+(function($) {
     $.fn.bootstrapValidator.i18n.cusip = $.extend($.fn.bootstrapValidator.i18n.cusip || {}, {
         'default': 'Please enter a valid CUSIP number'
     });
@@ -2504,14 +2519,15 @@ if (typeof jQuery === 'undefined') {
             }
 
             var converted = $.map(value.split(''), function(item) {
-                                var code = item.charCodeAt(0);
-                                return (code >= 'A'.charCodeAt(0) && code <= 'Z'.charCodeAt(0))
-                                            // Replace A, B, C, ..., Z with 10, 11, ..., 35
-                                            ? (code - 'A'.charCodeAt(0) + 10)
-                                            : item;
-                            }),
-                length    = converted.length,
-                sum       = 0;
+                    var code = item.charCodeAt(0);
+                    return (code >= 'A'.charCodeAt(0) && code <= 'Z'.charCodeAt(0))
+                        // Replace A, B, C, ..., Z with 10, 11, ..., 35
+                        ?
+                        (code - 'A'.charCodeAt(0) + 10) :
+                        item;
+                }),
+                length = converted.length,
+                sum = 0;
             for (var i = 0; i < length - 1; i++) {
                 var num = parseInt(converted[i], 10);
                 if (i % 2 !== 0) {
@@ -2527,8 +2543,8 @@ if (typeof jQuery === 'undefined') {
             return sum === converted[length - 1];
         }
     };
-}(window.jQuery));
-;(function($) {
+}(window.jQuery));;
+(function($) {
     $.fn.bootstrapValidator.i18n.cvv = $.extend($.fn.bootstrapValidator.i18n.cvv || {}, {
         'default': 'Please enter a valid CVV number'
     });
@@ -2568,7 +2584,7 @@ if (typeof jQuery === 'undefined') {
             if (creditCard === '') {
                 return true;
             }
-            
+
             creditCard = creditCard.replace(/\D/g, '');
 
             // Supported credit card types
@@ -2588,11 +2604,12 @@ if (typeof jQuery === 'undefined') {
                 DISCOVER: {
                     length: [16],
                     prefix: ['6011', '622126', '622127', '622128', '622129', '62213',
-                             '62214', '62215', '62216', '62217', '62218', '62219',
-                             '6222', '6223', '6224', '6225', '6226', '6227', '6228',
-                             '62290', '62291', '622920', '622921', '622922', '622923',
-                             '622924', '622925', '644', '645', '646', '647', '648',
-                             '649', '65']
+                        '62214', '62215', '62216', '62217', '62218', '62219',
+                        '6222', '6223', '6224', '6225', '6226', '6227', '6228',
+                        '62290', '62291', '622920', '622921', '622922', '622923',
+                        '622924', '622925', '644', '645', '646', '647', '648',
+                        '649', '65'
+                    ]
                 },
                 JCB: {
                     length: [16],
@@ -2617,9 +2634,10 @@ if (typeof jQuery === 'undefined') {
                 UNIONPAY: {
                     length: [16, 17, 18, 19],
                     prefix: ['622126', '622127', '622128', '622129', '62213', '62214',
-                             '62215', '62216', '62217', '62218', '62219', '6222', '6223',
-                             '6224', '6225', '6226', '6227', '6228', '62290', '62291',
-                             '622920', '622921', '622922', '622923', '622924', '622925']
+                        '62215', '62216', '62217', '62218', '62219', '6222', '6223',
+                        '6224', '6225', '6226', '6227', '6228', '62290', '62291',
+                        '622920', '622921', '622922', '622923', '622924', '622925'
+                    ]
                 },
                 VISA: {
                     length: [16],
@@ -2629,8 +2647,9 @@ if (typeof jQuery === 'undefined') {
             var type, i, creditCardType = null;
             for (type in cards) {
                 for (i in cards[type].prefix) {
-                    if (creditCard.substr(0, cards[type].prefix[i].length) === cards[type].prefix[i]    // Check the prefix
-                        && $.inArray(creditCard.length, cards[type].length) !== -1)                     // and length
+                    if (creditCard.substr(0, cards[type].prefix[i].length) === cards[type].prefix[i] // Check the prefix
+                        &&
+                        $.inArray(creditCard.length, cards[type].length) !== -1) // and length
                     {
                         creditCardType = type;
                         break;
@@ -2638,13 +2657,13 @@ if (typeof jQuery === 'undefined') {
                 }
             }
 
-            return (creditCardType === null)
-                        ? false
-                        : (('AMERICAN_EXPRESS' === creditCardType) ? (value.length === 4) : (value.length === 3));
+            return (creditCardType === null) ?
+                false :
+                (('AMERICAN_EXPRESS' === creditCardType) ? (value.length === 4) : (value.length === 3));
         }
     };
-}(window.jQuery));
-;(function($) {
+}(window.jQuery));;
+(function($) {
     $.fn.bootstrapValidator.i18n.date = $.extend($.fn.bootstrapValidator.i18n.date || {}, {
         'default': 'Please enter a valid date',
         min: 'Please enter a date after %s',
@@ -2694,13 +2713,13 @@ if (typeof jQuery === 'undefined') {
                 options.format = 'YYYY-MM-DD';
             }
 
-            var formats    = options.format.split(' '),
+            var formats = options.format.split(' '),
                 dateFormat = formats[0],
                 timeFormat = (formats.length > 1) ? formats[1] : null,
-                amOrPm     = (formats.length > 2) ? formats[2] : null,
-                sections   = value.split(' '),
-                date       = sections[0],
-                time       = (sections.length > 1) ? sections[1] : null;
+                amOrPm = (formats.length > 2) ? formats[2] : null,
+                sections = value.split(' '),
+                date = sections[0],
+                time = (sections.length > 1) ? sections[1] : null;
 
             if (formats.length !== sections.length) {
                 return {
@@ -2722,7 +2741,7 @@ if (typeof jQuery === 'undefined') {
             }
 
             // Determine the date
-            date       = date.split(separator);
+            date = date.split(separator);
             dateFormat = dateFormat.split(separator);
             if (date.length !== dateFormat.length) {
                 return {
@@ -2731,9 +2750,9 @@ if (typeof jQuery === 'undefined') {
                 };
             }
 
-            var year  = date[$.inArray('YYYY', dateFormat)],
+            var year = date[$.inArray('YYYY', dateFormat)],
                 month = date[$.inArray('MM', dateFormat)],
-                day   = date[$.inArray('DD', dateFormat)];
+                day = date[$.inArray('DD', dateFormat)];
 
             if (!year || !month || !day || year.length !== 4) {
                 return {
@@ -2743,10 +2762,12 @@ if (typeof jQuery === 'undefined') {
             }
 
             // Determine the time
-            var minutes = null, hours = null, seconds = null;
+            var minutes = null,
+                hours = null,
+                seconds = null;
             if (timeFormat) {
                 timeFormat = timeFormat.split(':');
-                time       = time.split(':');
+                time = time.split(':');
 
                 if (timeFormat.length !== time.length) {
                     return {
@@ -2755,7 +2776,7 @@ if (typeof jQuery === 'undefined') {
                     };
                 }
 
-                hours   = time.length > 0 ? time[0] : null;
+                hours = time.length > 0 ? time[0] : null;
                 minutes = time.length > 1 ? time[1] : null;
                 seconds = time.length > 2 ? time[2] : null;
 
@@ -2812,12 +2833,12 @@ if (typeof jQuery === 'undefined') {
             }
 
             // Validate day, month, and year
-            var valid   = $.fn.bootstrapValidator.helpers.date(year, month, day),
+            var valid = $.fn.bootstrapValidator.helpers.date(year, month, day),
                 message = options.message || $.fn.bootstrapValidator.i18n.date['default'];
 
             // declare the date, min and max objects
-            var min       = null,
-                max       = null,
+            var min = null,
+                max = null,
                 minOption = options.min,
                 maxOption = options.max;
 
@@ -2839,17 +2860,17 @@ if (typeof jQuery === 'undefined') {
 
             switch (true) {
                 case (minOption && !maxOption && valid):
-                    valid   = date.getTime() >= min.getTime();
+                    valid = date.getTime() >= min.getTime();
                     message = options.message || $.fn.bootstrapValidator.helpers.format($.fn.bootstrapValidator.i18n.date.min, minOption);
                     break;
 
                 case (maxOption && !minOption && valid):
-                    valid   = date.getTime() <= max.getTime();
+                    valid = date.getTime() <= max.getTime();
                     message = options.message || $.fn.bootstrapValidator.helpers.format($.fn.bootstrapValidator.i18n.date.max, maxOption);
                     break;
 
                 case (maxOption && minOption && valid):
-                    valid   = date.getTime() <= max.getTime() && date.getTime() >= min.getTime();
+                    valid = date.getTime() <= max.getTime() && date.getTime() >= min.getTime();
                     message = options.message || $.fn.bootstrapValidator.helpers.format($.fn.bootstrapValidator.i18n.date.range, [minOption, maxOption]);
                     break;
 
@@ -2876,27 +2897,29 @@ if (typeof jQuery === 'undefined') {
          * @returns {Date}
          */
         _parseDate: function(date, format, separator) {
-            var minutes     = 0, hours = 0, seconds = 0,
-                sections    = date.split(' '),
+            var minutes = 0,
+                hours = 0,
+                seconds = 0,
+                sections = date.split(' '),
                 dateSection = sections[0],
                 timeSection = (sections.length > 1) ? sections[1] : null;
 
             dateSection = dateSection.split(separator);
-            var year  = dateSection[$.inArray('YYYY', format)],
+            var year = dateSection[$.inArray('YYYY', format)],
                 month = dateSection[$.inArray('MM', format)],
-                day   = dateSection[$.inArray('DD', format)];
+                day = dateSection[$.inArray('DD', format)];
             if (timeSection) {
                 timeSection = timeSection.split(':');
-                hours       = timeSection.length > 0 ? timeSection[0] : null;
-                minutes     = timeSection.length > 1 ? timeSection[1] : null;
-                seconds     = timeSection.length > 2 ? timeSection[2] : null;
+                hours = timeSection.length > 0 ? timeSection[0] : null;
+                minutes = timeSection.length > 1 ? timeSection[1] : null;
+                seconds = timeSection.length > 2 ? timeSection[2] : null;
             }
 
             return new Date(year, month, day, hours, minutes, seconds);
         }
     };
-}(window.jQuery));
-;(function($) {
+}(window.jQuery));;
+(function($) {
     $.fn.bootstrapValidator.i18n.different = $.extend($.fn.bootstrapValidator.i18n.different || {}, {
         'default': 'Please enter a different value'
     });
@@ -2923,7 +2946,7 @@ if (typeof jQuery === 'undefined') {
                 return true;
             }
 
-            var fields  = options.field.split(','),
+            var fields = options.field.split(','),
                 isValid = true;
 
             for (var i = 0; i < fields.length; i++) {
@@ -2943,8 +2966,8 @@ if (typeof jQuery === 'undefined') {
             return isValid;
         }
     };
-}(window.jQuery));
-;(function($) {
+}(window.jQuery));;
+(function($) {
     $.fn.bootstrapValidator.i18n.digits = $.extend($.fn.bootstrapValidator.i18n.digits || {}, {
         'default': 'Please enter only digits'
     });
@@ -2967,8 +2990,8 @@ if (typeof jQuery === 'undefined') {
             return /^\d+$/.test(value);
         }
     };
-}(window.jQuery));
-;(function($) {
+}(window.jQuery));;
+(function($) {
     $.fn.bootstrapValidator.i18n.ean = $.extend($.fn.bootstrapValidator.i18n.ean || {}, {
         'default': 'Please enter a valid EAN number'
     });
@@ -2998,7 +3021,7 @@ if (typeof jQuery === 'undefined') {
             }
 
             var length = value.length,
-                sum    = 0,
+                sum = 0,
                 weight = (length === 8) ? [3, 1] : [1, 3];
             for (var i = 0; i < length - 1; i++) {
                 sum += parseInt(value.charAt(i), 10) * weight[i % 2];
@@ -3007,8 +3030,8 @@ if (typeof jQuery === 'undefined') {
             return (sum + '' === value.charAt(length - 1));
         }
     };
-}(window.jQuery));
-;(function($) {
+}(window.jQuery));;
+(function($) {
     $.fn.bootstrapValidator.i18n.emailAddress = $.extend($.fn.bootstrapValidator.i18n.emailAddress || {}, {
         'default': 'Please enter a valid email address'
     });
@@ -3042,7 +3065,7 @@ if (typeof jQuery === 'undefined') {
 
             // Email address regular expression
             // http://stackoverflow.com/questions/46155/validate-email-address-in-javascript
-            var emailRegExp   = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/,
+            var emailRegExp = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/,
                 allowMultiple = options.multiple === true || options.multiple === 'true';
 
             if (allowMultiple) {
@@ -3062,14 +3085,14 @@ if (typeof jQuery === 'undefined') {
         },
 
         _splitEmailAddresses: function(emailAddresses, separator) {
-            var quotedFragments     = emailAddresses.split(/"/),
+            var quotedFragments = emailAddresses.split(/"/),
                 quotedFragmentCount = quotedFragments.length,
-                emailAddressArray   = [],
-                nextEmailAddress    = '';
+                emailAddressArray = [],
+                nextEmailAddress = '';
 
             for (var i = 0; i < quotedFragmentCount; i++) {
                 if (i % 2 === 0) {
-                    var splitEmailAddressFragments     = quotedFragments[i].split(separator),
+                    var splitEmailAddressFragments = quotedFragments[i].split(separator),
                         splitEmailAddressFragmentCount = splitEmailAddressFragments.length;
 
                     if (splitEmailAddressFragmentCount === 1) {
@@ -3094,8 +3117,8 @@ if (typeof jQuery === 'undefined') {
             return emailAddressArray;
         }
     };
-}(window.jQuery));
-;(function($) {
+}(window.jQuery));;
+(function($) {
     $.fn.bootstrapValidator.i18n.file = $.extend($.fn.bootstrapValidator.i18n.file || {}, {
         'default': 'Please choose a valid file'
     });
@@ -3138,36 +3161,41 @@ if (typeof jQuery === 'undefined') {
 
             var ext,
                 extensions = options.extension ? options.extension.toLowerCase().split(',') : null,
-                types      = options.type      ? options.type.toLowerCase().split(',')      : null,
-                html5      = (window.File && window.FileList && window.FileReader);
+                types = options.type ? options.type.toLowerCase().split(',') : null,
+                html5 = (window.File && window.FileList && window.FileReader);
 
             if (html5) {
                 // Get FileList instance
-                var files     = $field.get(0).files,
-                    total     = files.length,
+                var files = $field.get(0).files,
+                    total = files.length,
                     totalSize = 0;
 
-                if ((options.maxFiles && total > parseInt(options.maxFiles, 10))        // Check the maxFiles
-                    || (options.minFiles && total < parseInt(options.minFiles, 10)))    // Check the minFiles
+                if ((options.maxFiles && total > parseInt(options.maxFiles, 10)) // Check the maxFiles
+                    ||
+                    (options.minFiles && total < parseInt(options.minFiles, 10))) // Check the minFiles
                 {
                     return false;
                 }
 
                 for (var i = 0; i < total; i++) {
                     totalSize += files[i].size;
-                    ext        = files[i].name.substr(files[i].name.lastIndexOf('.') + 1);
+                    ext = files[i].name.substr(files[i].name.lastIndexOf('.') + 1);
 
-                    if ((options.minSize && files[i].size < parseInt(options.minSize, 10))                      // Check the minSize
-                        || (options.maxSize && files[i].size > parseInt(options.maxSize, 10))                   // Check the maxSize
-                        || (extensions && $.inArray(ext.toLowerCase(), extensions) === -1)                      // Check file extension
-                        || (files[i].type && types && $.inArray(files[i].type.toLowerCase(), types) === -1))    // Check file type
+                    if ((options.minSize && files[i].size < parseInt(options.minSize, 10)) // Check the minSize
+                        ||
+                        (options.maxSize && files[i].size > parseInt(options.maxSize, 10)) // Check the maxSize
+                        ||
+                        (extensions && $.inArray(ext.toLowerCase(), extensions) === -1) // Check file extension
+                        ||
+                        (files[i].type && types && $.inArray(files[i].type.toLowerCase(), types) === -1)) // Check file type
                     {
                         return false;
                     }
                 }
 
-                if ((options.maxTotalSize && totalSize > parseInt(options.maxTotalSize, 10))        // Check the maxTotalSize
-                    || (options.minTotalSize && totalSize < parseInt(options.minTotalSize, 10)))    // Check the minTotalSize
+                if ((options.maxTotalSize && totalSize > parseInt(options.maxTotalSize, 10)) // Check the maxTotalSize
+                    ||
+                    (options.minTotalSize && totalSize < parseInt(options.minTotalSize, 10))) // Check the minTotalSize
                 {
                     return false;
                 }
@@ -3182,8 +3210,8 @@ if (typeof jQuery === 'undefined') {
             return true;
         }
     };
-}(window.jQuery));
-;(function($) {
+}(window.jQuery));;
+(function($) {
     $.fn.bootstrapValidator.i18n.greaterThan = $.extend($.fn.bootstrapValidator.i18n.greaterThan || {}, {
         'default': 'Please enter a value greater than or equal to %s',
         notInclusive: 'Please enter a value greater than %s'
@@ -3198,7 +3226,7 @@ if (typeof jQuery === 'undefined') {
 
         enableByHtml5: function($field) {
             var type = $field.attr('type'),
-                min  = $field.attr('min');
+                min = $field.attr('min');
             if (min && type !== 'date') {
                 return {
                     value: min
@@ -3229,33 +3257,31 @@ if (typeof jQuery === 'undefined') {
             if (value === '') {
                 return true;
             }
-            
+
             value = this._format(value);
             if (!$.isNumeric(value)) {
                 return false;
             }
 
-            var compareTo      = $.isNumeric(options.value) ? options.value : validator.getDynamicOption($field, options.value),
+            var compareTo = $.isNumeric(options.value) ? options.value : validator.getDynamicOption($field, options.value),
                 compareToValue = this._format(compareTo);
 
             value = parseFloat(value);
-			return (options.inclusive === true || options.inclusive === undefined)
-                    ? {
-                        valid: value >= compareToValue,
-                        message: $.fn.bootstrapValidator.helpers.format(options.message || $.fn.bootstrapValidator.i18n.greaterThan['default'], compareTo)
-                    }
-                    : {
-                        valid: value > compareToValue,
-                        message: $.fn.bootstrapValidator.helpers.format(options.message || $.fn.bootstrapValidator.i18n.greaterThan.notInclusive, compareTo)
-                    };
+            return (options.inclusive === true || options.inclusive === undefined) ? {
+                valid: value >= compareToValue,
+                message: $.fn.bootstrapValidator.helpers.format(options.message || $.fn.bootstrapValidator.i18n.greaterThan['default'], compareTo)
+            } : {
+                valid: value > compareToValue,
+                message: $.fn.bootstrapValidator.helpers.format(options.message || $.fn.bootstrapValidator.i18n.greaterThan.notInclusive, compareTo)
+            };
         },
 
         _format: function(value) {
             return (value + '').replace(',', '.');
         }
     };
-}(window.jQuery));
-;(function($) {
+}(window.jQuery));;
+(function($) {
     $.fn.bootstrapValidator.i18n.grid = $.extend($.fn.bootstrapValidator.i18n.grid || {}, {
         'default': 'Please enter a valid GRId number'
     });
@@ -3291,8 +3317,8 @@ if (typeof jQuery === 'undefined') {
             return $.fn.bootstrapValidator.helpers.mod37And36(value);
         }
     };
-}(window.jQuery));
-;(function($) {
+}(window.jQuery));;
+(function($) {
     $.fn.bootstrapValidator.i18n.hex = $.extend($.fn.bootstrapValidator.i18n.hex || {}, {
         'default': 'Please enter a valid hexadecimal number'
     });
@@ -3316,8 +3342,8 @@ if (typeof jQuery === 'undefined') {
             return /^[0-9a-fA-F]+$/.test(value);
         }
     };
-}(window.jQuery));
-;(function($) {
+}(window.jQuery));;
+(function($) {
     $.fn.bootstrapValidator.i18n.hexColor = $.extend($.fn.bootstrapValidator.i18n.hexColor || {}, {
         'default': 'Please enter a valid hex color'
     });
@@ -3343,14 +3369,15 @@ if (typeof jQuery === 'undefined') {
             }
 
             return ('color' === $field.attr('type'))
-                        // Only accept 6 hex character values due to the HTML 5 spec
-                        // See http://www.w3.org/TR/html-markup/input.color.html#input.color.attrs.value
-                        ? /^#[0-9A-F]{6}$/i.test(value)
-                        : /(^#[0-9A-F]{6}$)|(^#[0-9A-F]{3}$)/i.test(value);
+                // Only accept 6 hex character values due to the HTML 5 spec
+                // See http://www.w3.org/TR/html-markup/input.color.html#input.color.attrs.value
+                ?
+                /^#[0-9A-F]{6}$/i.test(value) :
+                /(^#[0-9A-F]{6}$)|(^#[0-9A-F]{3}$)/i.test(value);
         }
     };
-}(window.jQuery));
-;(function($) {
+}(window.jQuery));;
+(function($) {
     $.fn.bootstrapValidator.i18n.iban = $.extend($.fn.bootstrapValidator.i18n.iban || {}, {
         'default': 'Please enter a valid IBAN number',
         countryNotSupported: 'The country code %s is not supported',
@@ -3447,85 +3474,85 @@ if (typeof jQuery === 'undefined') {
         // http://www.swift.com/dsp/resources/documents/IBAN_Registry.pdf
         // http://en.wikipedia.org/wiki/International_Bank_Account_Number#IBAN_formats_by_country
         REGEX: {
-            AD: 'AD[0-9]{2}[0-9]{4}[0-9]{4}[A-Z0-9]{12}',                       // Andorra
-            AE: 'AE[0-9]{2}[0-9]{3}[0-9]{16}',                                  // United Arab Emirates
-            AL: 'AL[0-9]{2}[0-9]{8}[A-Z0-9]{16}',                               // Albania
-            AO: 'AO[0-9]{2}[0-9]{21}',                                          // Angola
-            AT: 'AT[0-9]{2}[0-9]{5}[0-9]{11}',                                  // Austria
-            AZ: 'AZ[0-9]{2}[A-Z]{4}[A-Z0-9]{20}',                               // Azerbaijan
-            BA: 'BA[0-9]{2}[0-9]{3}[0-9]{3}[0-9]{8}[0-9]{2}',                   // Bosnia and Herzegovina
-            BE: 'BE[0-9]{2}[0-9]{3}[0-9]{7}[0-9]{2}',                           // Belgium
-            BF: 'BF[0-9]{2}[0-9]{23}',                                          // Burkina Faso
-            BG: 'BG[0-9]{2}[A-Z]{4}[0-9]{4}[0-9]{2}[A-Z0-9]{8}',                // Bulgaria
-            BH: 'BH[0-9]{2}[A-Z]{4}[A-Z0-9]{14}',                               // Bahrain
-            BI: 'BI[0-9]{2}[0-9]{12}',                                          // Burundi
-            BJ: 'BJ[0-9]{2}[A-Z]{1}[0-9]{23}',                                  // Benin
-            BR: 'BR[0-9]{2}[0-9]{8}[0-9]{5}[0-9]{10}[A-Z][A-Z0-9]',             // Brazil
-            CH: 'CH[0-9]{2}[0-9]{5}[A-Z0-9]{12}',                               // Switzerland
-            CI: 'CI[0-9]{2}[A-Z]{1}[0-9]{23}',                                  // Ivory Coast
-            CM: 'CM[0-9]{2}[0-9]{23}',                                          // Cameroon
-            CR: 'CR[0-9]{2}[0-9]{3}[0-9]{14}',                                  // Costa Rica
-            CV: 'CV[0-9]{2}[0-9]{21}',                                          // Cape Verde
-            CY: 'CY[0-9]{2}[0-9]{3}[0-9]{5}[A-Z0-9]{16}',                       // Cyprus
-            CZ: 'CZ[0-9]{2}[0-9]{20}',                                          // Czech Republic
-            DE: 'DE[0-9]{2}[0-9]{8}[0-9]{10}',                                  // Germany
-            DK: 'DK[0-9]{2}[0-9]{14}',                                          // Denmark
-            DO: 'DO[0-9]{2}[A-Z0-9]{4}[0-9]{20}',                               // Dominican Republic
-            DZ: 'DZ[0-9]{2}[0-9]{20}',                                          // Algeria
-            EE: 'EE[0-9]{2}[0-9]{2}[0-9]{2}[0-9]{11}[0-9]{1}',                  // Estonia
-            ES: 'ES[0-9]{2}[0-9]{4}[0-9]{4}[0-9]{1}[0-9]{1}[0-9]{10}',          // Spain
-            FI: 'FI[0-9]{2}[0-9]{6}[0-9]{7}[0-9]{1}',                           // Finland
-            FO: 'FO[0-9]{2}[0-9]{4}[0-9]{9}[0-9]{1}',                           // Faroe Islands
-            FR: 'FR[0-9]{2}[0-9]{5}[0-9]{5}[A-Z0-9]{11}[0-9]{2}',               // France
-            GB: 'GB[0-9]{2}[A-Z]{4}[0-9]{6}[0-9]{8}',                           // United Kingdom
-            GE: 'GE[0-9]{2}[A-Z]{2}[0-9]{16}',                                  // Georgia
-            GI: 'GI[0-9]{2}[A-Z]{4}[A-Z0-9]{15}',                               // Gibraltar
-            GL: 'GL[0-9]{2}[0-9]{4}[0-9]{9}[0-9]{1}',                           // Greenland
-            GR: 'GR[0-9]{2}[0-9]{3}[0-9]{4}[A-Z0-9]{16}',                       // Greece
-            GT: 'GT[0-9]{2}[A-Z0-9]{4}[A-Z0-9]{20}',                            // Guatemala
-            HR: 'HR[0-9]{2}[0-9]{7}[0-9]{10}',                                  // Croatia
-            HU: 'HU[0-9]{2}[0-9]{3}[0-9]{4}[0-9]{1}[0-9]{15}[0-9]{1}',          // Hungary
-            IE: 'IE[0-9]{2}[A-Z]{4}[0-9]{6}[0-9]{8}',                           // Ireland
-            IL: 'IL[0-9]{2}[0-9]{3}[0-9]{3}[0-9]{13}',                          // Israel
-            IR: 'IR[0-9]{2}[0-9]{22}',                                          // Iran
-            IS: 'IS[0-9]{2}[0-9]{4}[0-9]{2}[0-9]{6}[0-9]{10}',                  // Iceland
-            IT: 'IT[0-9]{2}[A-Z]{1}[0-9]{5}[0-9]{5}[A-Z0-9]{12}',               // Italy
-            JO: 'JO[0-9]{2}[A-Z]{4}[0-9]{4}[0]{8}[A-Z0-9]{10}',                 // Jordan
-            KW: 'KW[0-9]{2}[A-Z]{4}[0-9]{22}',                                  // Kuwait
-            KZ: 'KZ[0-9]{2}[0-9]{3}[A-Z0-9]{13}',                               // Kazakhstan
-            LB: 'LB[0-9]{2}[0-9]{4}[A-Z0-9]{20}',                               // Lebanon
-            LI: 'LI[0-9]{2}[0-9]{5}[A-Z0-9]{12}',                               // Liechtenstein
-            LT: 'LT[0-9]{2}[0-9]{5}[0-9]{11}',                                  // Lithuania
-            LU: 'LU[0-9]{2}[0-9]{3}[A-Z0-9]{13}',                               // Luxembourg
-            LV: 'LV[0-9]{2}[A-Z]{4}[A-Z0-9]{13}',                               // Latvia
-            MC: 'MC[0-9]{2}[0-9]{5}[0-9]{5}[A-Z0-9]{11}[0-9]{2}',               // Monaco
-            MD: 'MD[0-9]{2}[A-Z0-9]{20}',                                       // Moldova
-            ME: 'ME[0-9]{2}[0-9]{3}[0-9]{13}[0-9]{2}',                          // Montenegro
-            MG: 'MG[0-9]{2}[0-9]{23}',                                          // Madagascar
-            MK: 'MK[0-9]{2}[0-9]{3}[A-Z0-9]{10}[0-9]{2}',                       // Macedonia
-            ML: 'ML[0-9]{2}[A-Z]{1}[0-9]{23}',                                  // Mali
-            MR: 'MR13[0-9]{5}[0-9]{5}[0-9]{11}[0-9]{2}',                        // Mauritania
-            MT: 'MT[0-9]{2}[A-Z]{4}[0-9]{5}[A-Z0-9]{18}',                       // Malta
-            MU: 'MU[0-9]{2}[A-Z]{4}[0-9]{2}[0-9]{2}[0-9]{12}[0-9]{3}[A-Z]{3}',  // Mauritius
-            MZ: 'MZ[0-9]{2}[0-9]{21}',                                          // Mozambique
-            NL: 'NL[0-9]{2}[A-Z]{4}[0-9]{10}',                                  // Netherlands
-            NO: 'NO[0-9]{2}[0-9]{4}[0-9]{6}[0-9]{1}',                           // Norway
-            PK: 'PK[0-9]{2}[A-Z]{4}[A-Z0-9]{16}',                               // Pakistan
-            PL: 'PL[0-9]{2}[0-9]{8}[0-9]{16}',                                  // Poland
-            PS: 'PS[0-9]{2}[A-Z]{4}[A-Z0-9]{21}',                               // Palestinian
-            PT: 'PT[0-9]{2}[0-9]{4}[0-9]{4}[0-9]{11}[0-9]{2}',                  // Portugal
-            QA: 'QA[0-9]{2}[A-Z]{4}[A-Z0-9]{21}',                               // Qatar
-            RO: 'RO[0-9]{2}[A-Z]{4}[A-Z0-9]{16}',                               // Romania
-            RS: 'RS[0-9]{2}[0-9]{3}[0-9]{13}[0-9]{2}',                          // Serbia
-            SA: 'SA[0-9]{2}[0-9]{2}[A-Z0-9]{18}',                               // Saudi Arabia
-            SE: 'SE[0-9]{2}[0-9]{3}[0-9]{16}[0-9]{1}',                          // Sweden
-            SI: 'SI[0-9]{2}[0-9]{5}[0-9]{8}[0-9]{2}',                           // Slovenia
-            SK: 'SK[0-9]{2}[0-9]{4}[0-9]{6}[0-9]{10}',                          // Slovakia
-            SM: 'SM[0-9]{2}[A-Z]{1}[0-9]{5}[0-9]{5}[A-Z0-9]{12}',               // San Marino
-            SN: 'SN[0-9]{2}[A-Z]{1}[0-9]{23}',                                  // Senegal
-            TN: 'TN59[0-9]{2}[0-9]{3}[0-9]{13}[0-9]{2}',                        // Tunisia
-            TR: 'TR[0-9]{2}[0-9]{5}[A-Z0-9]{1}[A-Z0-9]{16}',                    // Turkey
-            VG: 'VG[0-9]{2}[A-Z]{4}[0-9]{16}'                                   // Virgin Islands, British
+            AD: 'AD[0-9]{2}[0-9]{4}[0-9]{4}[A-Z0-9]{12}', // Andorra
+            AE: 'AE[0-9]{2}[0-9]{3}[0-9]{16}', // United Arab Emirates
+            AL: 'AL[0-9]{2}[0-9]{8}[A-Z0-9]{16}', // Albania
+            AO: 'AO[0-9]{2}[0-9]{21}', // Angola
+            AT: 'AT[0-9]{2}[0-9]{5}[0-9]{11}', // Austria
+            AZ: 'AZ[0-9]{2}[A-Z]{4}[A-Z0-9]{20}', // Azerbaijan
+            BA: 'BA[0-9]{2}[0-9]{3}[0-9]{3}[0-9]{8}[0-9]{2}', // Bosnia and Herzegovina
+            BE: 'BE[0-9]{2}[0-9]{3}[0-9]{7}[0-9]{2}', // Belgium
+            BF: 'BF[0-9]{2}[0-9]{23}', // Burkina Faso
+            BG: 'BG[0-9]{2}[A-Z]{4}[0-9]{4}[0-9]{2}[A-Z0-9]{8}', // Bulgaria
+            BH: 'BH[0-9]{2}[A-Z]{4}[A-Z0-9]{14}', // Bahrain
+            BI: 'BI[0-9]{2}[0-9]{12}', // Burundi
+            BJ: 'BJ[0-9]{2}[A-Z]{1}[0-9]{23}', // Benin
+            BR: 'BR[0-9]{2}[0-9]{8}[0-9]{5}[0-9]{10}[A-Z][A-Z0-9]', // Brazil
+            CH: 'CH[0-9]{2}[0-9]{5}[A-Z0-9]{12}', // Switzerland
+            CI: 'CI[0-9]{2}[A-Z]{1}[0-9]{23}', // Ivory Coast
+            CM: 'CM[0-9]{2}[0-9]{23}', // Cameroon
+            CR: 'CR[0-9]{2}[0-9]{3}[0-9]{14}', // Costa Rica
+            CV: 'CV[0-9]{2}[0-9]{21}', // Cape Verde
+            CY: 'CY[0-9]{2}[0-9]{3}[0-9]{5}[A-Z0-9]{16}', // Cyprus
+            CZ: 'CZ[0-9]{2}[0-9]{20}', // Czech Republic
+            DE: 'DE[0-9]{2}[0-9]{8}[0-9]{10}', // Germany
+            DK: 'DK[0-9]{2}[0-9]{14}', // Denmark
+            DO: 'DO[0-9]{2}[A-Z0-9]{4}[0-9]{20}', // Dominican Republic
+            DZ: 'DZ[0-9]{2}[0-9]{20}', // Algeria
+            EE: 'EE[0-9]{2}[0-9]{2}[0-9]{2}[0-9]{11}[0-9]{1}', // Estonia
+            ES: 'ES[0-9]{2}[0-9]{4}[0-9]{4}[0-9]{1}[0-9]{1}[0-9]{10}', // Spain
+            FI: 'FI[0-9]{2}[0-9]{6}[0-9]{7}[0-9]{1}', // Finland
+            FO: 'FO[0-9]{2}[0-9]{4}[0-9]{9}[0-9]{1}', // Faroe Islands
+            FR: 'FR[0-9]{2}[0-9]{5}[0-9]{5}[A-Z0-9]{11}[0-9]{2}', // France
+            GB: 'GB[0-9]{2}[A-Z]{4}[0-9]{6}[0-9]{8}', // United Kingdom
+            GE: 'GE[0-9]{2}[A-Z]{2}[0-9]{16}', // Georgia
+            GI: 'GI[0-9]{2}[A-Z]{4}[A-Z0-9]{15}', // Gibraltar
+            GL: 'GL[0-9]{2}[0-9]{4}[0-9]{9}[0-9]{1}', // Greenland
+            GR: 'GR[0-9]{2}[0-9]{3}[0-9]{4}[A-Z0-9]{16}', // Greece
+            GT: 'GT[0-9]{2}[A-Z0-9]{4}[A-Z0-9]{20}', // Guatemala
+            HR: 'HR[0-9]{2}[0-9]{7}[0-9]{10}', // Croatia
+            HU: 'HU[0-9]{2}[0-9]{3}[0-9]{4}[0-9]{1}[0-9]{15}[0-9]{1}', // Hungary
+            IE: 'IE[0-9]{2}[A-Z]{4}[0-9]{6}[0-9]{8}', // Ireland
+            IL: 'IL[0-9]{2}[0-9]{3}[0-9]{3}[0-9]{13}', // Israel
+            IR: 'IR[0-9]{2}[0-9]{22}', // Iran
+            IS: 'IS[0-9]{2}[0-9]{4}[0-9]{2}[0-9]{6}[0-9]{10}', // Iceland
+            IT: 'IT[0-9]{2}[A-Z]{1}[0-9]{5}[0-9]{5}[A-Z0-9]{12}', // Italy
+            JO: 'JO[0-9]{2}[A-Z]{4}[0-9]{4}[0]{8}[A-Z0-9]{10}', // Jordan
+            KW: 'KW[0-9]{2}[A-Z]{4}[0-9]{22}', // Kuwait
+            KZ: 'KZ[0-9]{2}[0-9]{3}[A-Z0-9]{13}', // Kazakhstan
+            LB: 'LB[0-9]{2}[0-9]{4}[A-Z0-9]{20}', // Lebanon
+            LI: 'LI[0-9]{2}[0-9]{5}[A-Z0-9]{12}', // Liechtenstein
+            LT: 'LT[0-9]{2}[0-9]{5}[0-9]{11}', // Lithuania
+            LU: 'LU[0-9]{2}[0-9]{3}[A-Z0-9]{13}', // Luxembourg
+            LV: 'LV[0-9]{2}[A-Z]{4}[A-Z0-9]{13}', // Latvia
+            MC: 'MC[0-9]{2}[0-9]{5}[0-9]{5}[A-Z0-9]{11}[0-9]{2}', // Monaco
+            MD: 'MD[0-9]{2}[A-Z0-9]{20}', // Moldova
+            ME: 'ME[0-9]{2}[0-9]{3}[0-9]{13}[0-9]{2}', // Montenegro
+            MG: 'MG[0-9]{2}[0-9]{23}', // Madagascar
+            MK: 'MK[0-9]{2}[0-9]{3}[A-Z0-9]{10}[0-9]{2}', // Macedonia
+            ML: 'ML[0-9]{2}[A-Z]{1}[0-9]{23}', // Mali
+            MR: 'MR13[0-9]{5}[0-9]{5}[0-9]{11}[0-9]{2}', // Mauritania
+            MT: 'MT[0-9]{2}[A-Z]{4}[0-9]{5}[A-Z0-9]{18}', // Malta
+            MU: 'MU[0-9]{2}[A-Z]{4}[0-9]{2}[0-9]{2}[0-9]{12}[0-9]{3}[A-Z]{3}', // Mauritius
+            MZ: 'MZ[0-9]{2}[0-9]{21}', // Mozambique
+            NL: 'NL[0-9]{2}[A-Z]{4}[0-9]{10}', // Netherlands
+            NO: 'NO[0-9]{2}[0-9]{4}[0-9]{6}[0-9]{1}', // Norway
+            PK: 'PK[0-9]{2}[A-Z]{4}[A-Z0-9]{16}', // Pakistan
+            PL: 'PL[0-9]{2}[0-9]{8}[0-9]{16}', // Poland
+            PS: 'PS[0-9]{2}[A-Z]{4}[A-Z0-9]{21}', // Palestinian
+            PT: 'PT[0-9]{2}[0-9]{4}[0-9]{4}[0-9]{11}[0-9]{2}', // Portugal
+            QA: 'QA[0-9]{2}[A-Z]{4}[A-Z0-9]{21}', // Qatar
+            RO: 'RO[0-9]{2}[A-Z]{4}[A-Z0-9]{16}', // Romania
+            RS: 'RS[0-9]{2}[0-9]{3}[0-9]{13}[0-9]{2}', // Serbia
+            SA: 'SA[0-9]{2}[0-9]{2}[A-Z0-9]{18}', // Saudi Arabia
+            SE: 'SE[0-9]{2}[0-9]{3}[0-9]{16}[0-9]{1}', // Sweden
+            SI: 'SI[0-9]{2}[0-9]{5}[0-9]{8}[0-9]{2}', // Slovenia
+            SK: 'SK[0-9]{2}[0-9]{4}[0-9]{6}[0-9]{10}', // Slovakia
+            SM: 'SM[0-9]{2}[A-Z]{1}[0-9]{5}[0-9]{5}[A-Z0-9]{12}', // San Marino
+            SN: 'SN[0-9]{2}[A-Z]{1}[0-9]{23}', // Senegal
+            TN: 'TN59[0-9]{2}[0-9]{3}[0-9]{13}[0-9]{2}', // Tunisia
+            TR: 'TR[0-9]{2}[0-9]{5}[A-Z0-9]{1}[A-Z0-9]{16}', // Turkey
+            VG: 'VG[0-9]{2}[A-Z]{4}[0-9]{16}' // Virgin Islands, British
         },
 
         /**
@@ -3577,13 +3604,14 @@ if (typeof jQuery === 'undefined') {
             value = $.map(value.split(''), function(n) {
                 var code = n.charCodeAt(0);
                 return (code >= 'A'.charCodeAt(0) && code <= 'Z'.charCodeAt(0))
-                        // Replace A, B, C, ..., Z with 10, 11, ..., 35
-                        ? (code - 'A'.charCodeAt(0) + 10)
-                        : n;
+                    // Replace A, B, C, ..., Z with 10, 11, ..., 35
+                    ?
+                    (code - 'A'.charCodeAt(0) + 10) :
+                    n;
             });
             value = value.join('');
 
-            var temp   = parseInt(value.substr(0, 1), 10),
+            var temp = parseInt(value.substr(0, 1), 10),
                 length = value.length;
             for (var i = 1; i < length; ++i) {
                 temp = (temp * 10 + parseInt(value.substr(i, 1), 10)) % 97;
@@ -3595,8 +3623,8 @@ if (typeof jQuery === 'undefined') {
             };
         }
     };
-}(window.jQuery));
-;(function($) {
+}(window.jQuery));;
+(function($) {
     $.fn.bootstrapValidator.i18n.id = $.extend($.fn.bootstrapValidator.i18n.id || {}, {
         'default': 'Please enter a valid identification number',
         countryNotSupported: 'The country code %s is not supported',
@@ -3674,16 +3702,18 @@ if (typeof jQuery === 'undefined') {
             }
 
             if ($.inArray(country, this.COUNTRY_CODES) === -1) {
-                return { valid: false, message: $.fn.bootstrapValidator.helpers.format($.fn.bootstrapValidator.i18n.id.countryNotSupported, country) };
+                return {
+                    valid: false,
+                    message: $.fn.bootstrapValidator.helpers.format($.fn.bootstrapValidator.i18n.id.countryNotSupported, country)
+                };
             }
 
-            var method  = ['_', country.toLowerCase()].join('');
-            return this[method](value)
-                    ? true
-                    : {
-                        valid: false,
-                        message: $.fn.bootstrapValidator.helpers.format(options.message || $.fn.bootstrapValidator.i18n.id.country, $.fn.bootstrapValidator.i18n.id.countries[country.toUpperCase()])
-                    };
+            var method = ['_', country.toLowerCase()].join('');
+            return this[method](value) ?
+                true : {
+                    valid: false,
+                    message: $.fn.bootstrapValidator.helpers.format(options.message || $.fn.bootstrapValidator.i18n.id.country, $.fn.bootstrapValidator.i18n.id.countries[country.toUpperCase()])
+                };
         },
 
         /**
@@ -3703,11 +3733,11 @@ if (typeof jQuery === 'undefined') {
             if (!/^\d{13}$/.test(value)) {
                 return false;
             }
-            var day   = parseInt(value.substr(0, 2), 10),
+            var day = parseInt(value.substr(0, 2), 10),
                 month = parseInt(value.substr(2, 2), 10),
-                year  = parseInt(value.substr(4, 3), 10),
-                rr    = parseInt(value.substr(7, 2), 10),
-                k     = parseInt(value.substr(12, 1), 10);
+                year = parseInt(value.substr(4, 3), 10),
+                rr = parseInt(value.substr(7, 2), 10),
+                k = parseInt(value.substr(12, 1), 10);
 
             // Validate date of birth
             // FIXME: Validate the year of birth
@@ -3790,9 +3820,9 @@ if (typeof jQuery === 'undefined') {
             }
             value = value.replace(/\s/g, '');
             // Check the birth date
-            var year  = parseInt(value.substr(0, 2), 10) + 1900,
+            var year = parseInt(value.substr(0, 2), 10) + 1900,
                 month = parseInt(value.substr(2, 2), 10),
-                day   = parseInt(value.substr(4, 2), 10);
+                day = parseInt(value.substr(4, 2), 10);
             if (month > 40) {
                 year += 100;
                 month -= 40;
@@ -3805,7 +3835,7 @@ if (typeof jQuery === 'undefined') {
                 return false;
             }
 
-            var sum    = 0,
+            var sum = 0,
                 weight = [2, 4, 8, 5, 10, 9, 7, 3, 6];
             for (var i = 0; i < 9; i++) {
                 sum += parseInt(value.charAt(i), 10) * weight[i];
@@ -3873,7 +3903,7 @@ if (typeof jQuery === 'undefined') {
             }
             value = value.replace(/\D/g, '').substr(3);
             var length = value.length,
-                sum    = 0,
+                sum = 0,
                 weight = (length === 8) ? [3, 1] : [1, 3];
             for (var i = 0; i < length - 1; i++) {
                 sum += parseInt(value.charAt(i), 10) * weight[i % 2];
@@ -3900,7 +3930,7 @@ if (typeof jQuery === 'undefined') {
             while (value.length < 9) {
                 value = '0' + value;
             }
-            var sum    = 0,
+            var sum = 0,
                 weight = [3, 2, 7, 6, 5, 4, 3, 2];
             for (var i = 0; i < 8; i++) {
                 sum += parseInt(value.charAt(i), 10) * weight[i];
@@ -3944,372 +3974,1023 @@ if (typeof jQuery === 'undefined') {
             if (!/^\d{15}$/.test(value) && !/^\d{17}[\dXx]{1}$/.test(value)) {
                 return false;
             }
-            
+
             // Check China PR Administrative division code
             var adminDivisionCodes = {
                 11: {
                     0: [0],
-                    1: [[0, 9], [11, 17]],
+                    1: [
+                        [0, 9],
+                        [11, 17]
+                    ],
                     2: [0, 28, 29]
                 },
                 12: {
                     0: [0],
-                    1: [[0, 16]],
+                    1: [
+                        [0, 16]
+                    ],
                     2: [0, 21, 23, 25]
                 },
                 13: {
                     0: [0],
-                    1: [[0, 5], 7, 8, 21, [23, 33], [81, 85]],
-                    2: [[0, 5], [7, 9], [23, 25], 27, 29, 30, 81, 83],
-                    3: [[0, 4], [21, 24]],
-                    4: [[0, 4], 6, 21, [23, 35], 81],
-                    5: [[0, 3], [21, 35], 81, 82],
-                    6: [[0, 4], [21, 38], [81, 84]],
-                    7: [[0, 3], 5, 6, [21, 33]],
-                    8: [[0, 4], [21, 28]],
-                    9: [[0, 3], [21, 30], [81, 84]],
-                    10: [[0, 3], [22, 26], 28, 81, 82],
-                    11: [[0, 2], [21, 28], 81, 82]
+                    1: [
+                        [0, 5], 7, 8, 21, [23, 33],
+                        [81, 85]
+                    ],
+                    2: [
+                        [0, 5],
+                        [7, 9],
+                        [23, 25], 27, 29, 30, 81, 83
+                    ],
+                    3: [
+                        [0, 4],
+                        [21, 24]
+                    ],
+                    4: [
+                        [0, 4], 6, 21, [23, 35], 81
+                    ],
+                    5: [
+                        [0, 3],
+                        [21, 35], 81, 82
+                    ],
+                    6: [
+                        [0, 4],
+                        [21, 38],
+                        [81, 84]
+                    ],
+                    7: [
+                        [0, 3], 5, 6, [21, 33]
+                    ],
+                    8: [
+                        [0, 4],
+                        [21, 28]
+                    ],
+                    9: [
+                        [0, 3],
+                        [21, 30],
+                        [81, 84]
+                    ],
+                    10: [
+                        [0, 3],
+                        [22, 26], 28, 81, 82
+                    ],
+                    11: [
+                        [0, 2],
+                        [21, 28], 81, 82
+                    ]
                 },
                 14: {
                     0: [0],
-                    1: [0, 1, [5, 10], [21, 23], 81],
-                    2: [[0, 3], 11, 12, [21, 27]],
-                    3: [[0, 3], 11, 21, 22],
-                    4: [[0, 2], 11, 21, [23, 31], 81],
-                    5: [[0, 2], 21, 22, 24, 25, 81],
-                    6: [[0, 3], [21, 24]],
-                    7: [[0, 2], [21, 29], 81],
-                    8: [[0, 2], [21, 30], 81, 82],
-                    9: [[0, 2], [21, 32], 81],
-                    10: [[0, 2], [21, 34], 81, 82],
-                    11: [[0, 2], [21, 30], 81, 82],
-                    23: [[0, 3], 22, 23, [25, 30], 32, 33]
+                    1: [0, 1, [5, 10],
+                        [21, 23], 81
+                    ],
+                    2: [
+                        [0, 3], 11, 12, [21, 27]
+                    ],
+                    3: [
+                        [0, 3], 11, 21, 22
+                    ],
+                    4: [
+                        [0, 2], 11, 21, [23, 31], 81
+                    ],
+                    5: [
+                        [0, 2], 21, 22, 24, 25, 81
+                    ],
+                    6: [
+                        [0, 3],
+                        [21, 24]
+                    ],
+                    7: [
+                        [0, 2],
+                        [21, 29], 81
+                    ],
+                    8: [
+                        [0, 2],
+                        [21, 30], 81, 82
+                    ],
+                    9: [
+                        [0, 2],
+                        [21, 32], 81
+                    ],
+                    10: [
+                        [0, 2],
+                        [21, 34], 81, 82
+                    ],
+                    11: [
+                        [0, 2],
+                        [21, 30], 81, 82
+                    ],
+                    23: [
+                        [0, 3], 22, 23, [25, 30], 32, 33
+                    ]
                 },
                 15: {
                     0: [0],
-                    1: [[0, 5], [21, 25]],
-                    2: [[0, 7], [21, 23]],
-                    3: [[0, 4]],
-                    4: [[0, 4], [21, 26], [28, 30]],
-                    5: [[0, 2], [21, 26], 81],
-                    6: [[0, 2], [21, 27]],
-                    7: [[0, 3], [21, 27], [81, 85]],
-                    8: [[0, 2], [21, 26]],
-                    9: [[0, 2], [21, 29], 81],
-                    22: [[0, 2], [21, 24]],
-                    25: [[0, 2], [22, 31]],
-                    26: [[0, 2], [24, 27], [29, 32], 34],
+                    1: [
+                        [0, 5],
+                        [21, 25]
+                    ],
+                    2: [
+                        [0, 7],
+                        [21, 23]
+                    ],
+                    3: [
+                        [0, 4]
+                    ],
+                    4: [
+                        [0, 4],
+                        [21, 26],
+                        [28, 30]
+                    ],
+                    5: [
+                        [0, 2],
+                        [21, 26], 81
+                    ],
+                    6: [
+                        [0, 2],
+                        [21, 27]
+                    ],
+                    7: [
+                        [0, 3],
+                        [21, 27],
+                        [81, 85]
+                    ],
+                    8: [
+                        [0, 2],
+                        [21, 26]
+                    ],
+                    9: [
+                        [0, 2],
+                        [21, 29], 81
+                    ],
+                    22: [
+                        [0, 2],
+                        [21, 24]
+                    ],
+                    25: [
+                        [0, 2],
+                        [22, 31]
+                    ],
+                    26: [
+                        [0, 2],
+                        [24, 27],
+                        [29, 32], 34
+                    ],
                     28: [0, 1, [22, 27]],
                     29: [0, [21, 23]]
                 },
                 21: {
                     0: [0],
-                    1: [[0, 6], [11, 14], [22, 24], 81],
-                    2: [[0, 4], [11, 13], 24, [81, 83]],
-                    3: [[0, 4], 11, 21, 23, 81],
-                    4: [[0, 4], 11, [21, 23]],
-                    5: [[0, 5], 21, 22],
-                    6: [[0, 4], 24, 81, 82],
-                    7: [[0, 3], 11, 26, 27, 81, 82],
-                    8: [[0, 4], 11, 81, 82],
-                    9: [[0, 5], 11, 21, 22],
-                    10: [[0, 5], 11, 21, 81],
-                    11: [[0, 3], 21, 22],
-                    12: [[0, 2], 4, 21, 23, 24, 81, 82],
-                    13: [[0, 3], 21, 22, 24, 81, 82],
-                    14: [[0, 4], 21, 22, 81]
+                    1: [
+                        [0, 6],
+                        [11, 14],
+                        [22, 24], 81
+                    ],
+                    2: [
+                        [0, 4],
+                        [11, 13], 24, [81, 83]
+                    ],
+                    3: [
+                        [0, 4], 11, 21, 23, 81
+                    ],
+                    4: [
+                        [0, 4], 11, [21, 23]
+                    ],
+                    5: [
+                        [0, 5], 21, 22
+                    ],
+                    6: [
+                        [0, 4], 24, 81, 82
+                    ],
+                    7: [
+                        [0, 3], 11, 26, 27, 81, 82
+                    ],
+                    8: [
+                        [0, 4], 11, 81, 82
+                    ],
+                    9: [
+                        [0, 5], 11, 21, 22
+                    ],
+                    10: [
+                        [0, 5], 11, 21, 81
+                    ],
+                    11: [
+                        [0, 3], 21, 22
+                    ],
+                    12: [
+                        [0, 2], 4, 21, 23, 24, 81, 82
+                    ],
+                    13: [
+                        [0, 3], 21, 22, 24, 81, 82
+                    ],
+                    14: [
+                        [0, 4], 21, 22, 81
+                    ]
                 },
                 22: {
                     0: [0],
-                    1: [[0, 6], 12, 22, [81, 83]],
-                    2: [[0, 4], 11, 21, [81, 84]],
-                    3: [[0, 3], 22, 23, 81, 82],
-                    4: [[0, 3], 21, 22],
-                    5: [[0, 3], 21, 23, 24, 81, 82],
-                    6: [[0, 2], 4, 5, [21, 23], 25, 81],
-                    7: [[0, 2], [21, 24], 81],
-                    8: [[0, 2], 21, 22, 81, 82],
-                    24: [[0, 6], 24, 26]
+                    1: [
+                        [0, 6], 12, 22, [81, 83]
+                    ],
+                    2: [
+                        [0, 4], 11, 21, [81, 84]
+                    ],
+                    3: [
+                        [0, 3], 22, 23, 81, 82
+                    ],
+                    4: [
+                        [0, 3], 21, 22
+                    ],
+                    5: [
+                        [0, 3], 21, 23, 24, 81, 82
+                    ],
+                    6: [
+                        [0, 2], 4, 5, [21, 23], 25, 81
+                    ],
+                    7: [
+                        [0, 2],
+                        [21, 24], 81
+                    ],
+                    8: [
+                        [0, 2], 21, 22, 81, 82
+                    ],
+                    24: [
+                        [0, 6], 24, 26
+                    ]
                 },
                 23: {
                     0: [0],
-                    1: [[0, 12], 21, [23, 29], [81, 84]],
-                    2: [[0, 8], 21, [23, 25], 27, [29, 31], 81],
-                    3: [[0, 7], 21, 81, 82],
-                    4: [[0, 7], 21, 22],
-                    5: [[0, 3], 5, 6, [21, 24]],
-                    6: [[0, 6], [21, 24]],
-                    7: [[0, 16], 22, 81],
-                    8: [[0, 5], 11, 22, 26, 28, 33, 81, 82],
-                    9: [[0, 4], 21],
-                    10: [[0, 5], 24, 25, 81, [83, 85]],
-                    11: [[0, 2], 21, 23, 24, 81, 82],
-                    12: [[0, 2], [21, 26], [81, 83]],
-                    27: [[0, 4], [21, 23]]
+                    1: [
+                        [0, 12], 21, [23, 29],
+                        [81, 84]
+                    ],
+                    2: [
+                        [0, 8], 21, [23, 25], 27, [29, 31], 81
+                    ],
+                    3: [
+                        [0, 7], 21, 81, 82
+                    ],
+                    4: [
+                        [0, 7], 21, 22
+                    ],
+                    5: [
+                        [0, 3], 5, 6, [21, 24]
+                    ],
+                    6: [
+                        [0, 6],
+                        [21, 24]
+                    ],
+                    7: [
+                        [0, 16], 22, 81
+                    ],
+                    8: [
+                        [0, 5], 11, 22, 26, 28, 33, 81, 82
+                    ],
+                    9: [
+                        [0, 4], 21
+                    ],
+                    10: [
+                        [0, 5], 24, 25, 81, [83, 85]
+                    ],
+                    11: [
+                        [0, 2], 21, 23, 24, 81, 82
+                    ],
+                    12: [
+                        [0, 2],
+                        [21, 26],
+                        [81, 83]
+                    ],
+                    27: [
+                        [0, 4],
+                        [21, 23]
+                    ]
                 },
                 31: {
                     0: [0],
-                    1: [0, 1, [3, 10], [12, 20]],
+                    1: [0, 1, [3, 10],
+                        [12, 20]
+                    ],
                     2: [0, 30]
                 },
                 32: {
                     0: [0],
-                    1: [[0, 7], 11, [13, 18], 24, 25],
-                    2: [[0, 6], 11, 81, 82],
-                    3: [[0, 5], 11, 12, [21, 24], 81, 82],
-                    4: [[0, 2], 4, 5, 11, 12, 81, 82],
-                    5: [[0, 9], [81, 85]],
-                    6: [[0, 2], 11, 12, 21, 23, [81, 84]],
+                    1: [
+                        [0, 7], 11, [13, 18], 24, 25
+                    ],
+                    2: [
+                        [0, 6], 11, 81, 82
+                    ],
+                    3: [
+                        [0, 5], 11, 12, [21, 24], 81, 82
+                    ],
+                    4: [
+                        [0, 2], 4, 5, 11, 12, 81, 82
+                    ],
+                    5: [
+                        [0, 9],
+                        [81, 85]
+                    ],
+                    6: [
+                        [0, 2], 11, 12, 21, 23, [81, 84]
+                    ],
                     7: [0, 1, 3, 5, 6, [21, 24]],
-                    8: [[0, 4], 11, 26, [29, 31]],
-                    9: [[0, 3], [21, 25], 28, 81, 82],
-                    10: [[0, 3], 11, 12, 23, 81, 84, 88],
-                    11: [[0, 2], 11, 12, [81, 83]],
-                    12: [[0, 4], [81, 84]],
-                    13: [[0, 2], 11, [21, 24]]
+                    8: [
+                        [0, 4], 11, 26, [29, 31]
+                    ],
+                    9: [
+                        [0, 3],
+                        [21, 25], 28, 81, 82
+                    ],
+                    10: [
+                        [0, 3], 11, 12, 23, 81, 84, 88
+                    ],
+                    11: [
+                        [0, 2], 11, 12, [81, 83]
+                    ],
+                    12: [
+                        [0, 4],
+                        [81, 84]
+                    ],
+                    13: [
+                        [0, 2], 11, [21, 24]
+                    ]
                 },
                 33: {
                     0: [0],
-                    1: [[0, 6], [8, 10], 22, 27, 82, 83, 85],
+                    1: [
+                        [0, 6],
+                        [8, 10], 22, 27, 82, 83, 85
+                    ],
                     2: [0, 1, [3, 6], 11, 12, 25, 26, [81, 83]],
-                    3: [[0, 4], 22, 24, [26, 29], 81, 82],
-                    4: [[0, 2], 11, 21, 24, [81, 83]],
-                    5: [[0, 3], [21, 23]],
-                    6: [[0, 2], 21, 24, [81, 83]],
-                    7: [[0, 3], 23, 26, 27, [81, 84]],
-                    8: [[0, 3], 22, 24, 25, 81],
-                    9: [[0, 3], 21, 22],
-                    10: [[0, 4], [21, 24], 81, 82],
-                    11: [[0, 2], [21, 27], 81]
+                    3: [
+                        [0, 4], 22, 24, [26, 29], 81, 82
+                    ],
+                    4: [
+                        [0, 2], 11, 21, 24, [81, 83]
+                    ],
+                    5: [
+                        [0, 3],
+                        [21, 23]
+                    ],
+                    6: [
+                        [0, 2], 21, 24, [81, 83]
+                    ],
+                    7: [
+                        [0, 3], 23, 26, 27, [81, 84]
+                    ],
+                    8: [
+                        [0, 3], 22, 24, 25, 81
+                    ],
+                    9: [
+                        [0, 3], 21, 22
+                    ],
+                    10: [
+                        [0, 4],
+                        [21, 24], 81, 82
+                    ],
+                    11: [
+                        [0, 2],
+                        [21, 27], 81
+                    ]
                 },
                 34: {
                     0: [0],
-                    1: [[0, 4], 11, [21, 24], 81],
-                    2: [[0, 4], 7, 8, [21, 23], 25],
-                    3: [[0, 4], 11, [21, 23]],
-                    4: [[0, 6], 21],
-                    5: [[0, 4], 6, [21, 23]],
-                    6: [[0, 4], 21],
-                    7: [[0, 3], 11, 21],
-                    8: [[0, 3], 11, [22, 28], 81],
-                    10: [[0, 4], [21, 24]],
-                    11: [[0, 3], 22, [24, 26], 81, 82],
-                    12: [[0, 4], 21, 22, 25, 26, 82],
-                    13: [[0, 2], [21, 24]],
-                    14: [[0, 2], [21, 24]],
-                    15: [[0, 3], [21, 25]],
-                    16: [[0, 2], [21, 23]],
-                    17: [[0, 2], [21, 23]],
-                    18: [[0, 2], [21, 25], 81]
+                    1: [
+                        [0, 4], 11, [21, 24], 81
+                    ],
+                    2: [
+                        [0, 4], 7, 8, [21, 23], 25
+                    ],
+                    3: [
+                        [0, 4], 11, [21, 23]
+                    ],
+                    4: [
+                        [0, 6], 21
+                    ],
+                    5: [
+                        [0, 4], 6, [21, 23]
+                    ],
+                    6: [
+                        [0, 4], 21
+                    ],
+                    7: [
+                        [0, 3], 11, 21
+                    ],
+                    8: [
+                        [0, 3], 11, [22, 28], 81
+                    ],
+                    10: [
+                        [0, 4],
+                        [21, 24]
+                    ],
+                    11: [
+                        [0, 3], 22, [24, 26], 81, 82
+                    ],
+                    12: [
+                        [0, 4], 21, 22, 25, 26, 82
+                    ],
+                    13: [
+                        [0, 2],
+                        [21, 24]
+                    ],
+                    14: [
+                        [0, 2],
+                        [21, 24]
+                    ],
+                    15: [
+                        [0, 3],
+                        [21, 25]
+                    ],
+                    16: [
+                        [0, 2],
+                        [21, 23]
+                    ],
+                    17: [
+                        [0, 2],
+                        [21, 23]
+                    ],
+                    18: [
+                        [0, 2],
+                        [21, 25], 81
+                    ]
                 },
                 35: {
                     0: [0],
-                    1: [[0, 5], 11, [21, 25], 28, 81, 82],
-                    2: [[0, 6], [11, 13]],
-                    3: [[0, 5], 22],
-                    4: [[0, 3], 21, [23, 30], 81],
-                    5: [[0, 5], 21, [24, 27], [81, 83]],
-                    6: [[0, 3], [22, 29], 81],
-                    7: [[0, 2], [21, 25], [81, 84]],
-                    8: [[0, 2], [21, 25], 81],
-                    9: [[0, 2], [21, 26], 81, 82]
+                    1: [
+                        [0, 5], 11, [21, 25], 28, 81, 82
+                    ],
+                    2: [
+                        [0, 6],
+                        [11, 13]
+                    ],
+                    3: [
+                        [0, 5], 22
+                    ],
+                    4: [
+                        [0, 3], 21, [23, 30], 81
+                    ],
+                    5: [
+                        [0, 5], 21, [24, 27],
+                        [81, 83]
+                    ],
+                    6: [
+                        [0, 3],
+                        [22, 29], 81
+                    ],
+                    7: [
+                        [0, 2],
+                        [21, 25],
+                        [81, 84]
+                    ],
+                    8: [
+                        [0, 2],
+                        [21, 25], 81
+                    ],
+                    9: [
+                        [0, 2],
+                        [21, 26], 81, 82
+                    ]
                 },
                 36: {
                     0: [0],
-                    1: [[0, 5], 11, [21, 24]],
-                    2: [[0, 3], 22, 81],
-                    3: [[0, 2], 13, [21, 23]],
-                    4: [[0, 3], 21, [23, 30], 81, 82],
-                    5: [[0, 2], 21],
-                    6: [[0, 2], 22, 81],
-                    7: [[0, 2], [21, 35], 81, 82],
-                    8: [[0, 3], [21, 30], 81],
-                    9: [[0, 2], [21, 26], [81, 83]],
-                    10: [[0, 2], [21, 30]],
-                    11: [[0, 2], [21, 30], 81]
+                    1: [
+                        [0, 5], 11, [21, 24]
+                    ],
+                    2: [
+                        [0, 3], 22, 81
+                    ],
+                    3: [
+                        [0, 2], 13, [21, 23]
+                    ],
+                    4: [
+                        [0, 3], 21, [23, 30], 81, 82
+                    ],
+                    5: [
+                        [0, 2], 21
+                    ],
+                    6: [
+                        [0, 2], 22, 81
+                    ],
+                    7: [
+                        [0, 2],
+                        [21, 35], 81, 82
+                    ],
+                    8: [
+                        [0, 3],
+                        [21, 30], 81
+                    ],
+                    9: [
+                        [0, 2],
+                        [21, 26],
+                        [81, 83]
+                    ],
+                    10: [
+                        [0, 2],
+                        [21, 30]
+                    ],
+                    11: [
+                        [0, 2],
+                        [21, 30], 81
+                    ]
                 },
                 37: {
                     0: [0],
-                    1: [[0, 5], 12, 13, [24, 26], 81],
-                    2: [[0, 3], 5, [11, 14], [81, 85]],
-                    3: [[0, 6], [21, 23]],
-                    4: [[0, 6], 81],
-                    5: [[0, 3], [21, 23]],
-                    6: [[0, 2], [11, 13], 34, [81, 87]],
-                    7: [[0, 5], 24, 25, [81, 86]],
-                    8: [[0, 2], 11, [26, 32], [81, 83]],
-                    9: [[0, 3], 11, 21, 23, 82, 83],
-                    10: [[0, 2], [81, 83]],
-                    11: [[0, 3], 21, 22],
-                    12: [[0, 3]],
-                    13: [[0, 2], 11, 12, [21, 29]],
-                    14: [[0, 2], [21, 28], 81, 82],
-                    15: [[0, 2], [21, 26], 81],
-                    16: [[0, 2], [21, 26]],
-                    17: [[0, 2], [21, 28]]
+                    1: [
+                        [0, 5], 12, 13, [24, 26], 81
+                    ],
+                    2: [
+                        [0, 3], 5, [11, 14],
+                        [81, 85]
+                    ],
+                    3: [
+                        [0, 6],
+                        [21, 23]
+                    ],
+                    4: [
+                        [0, 6], 81
+                    ],
+                    5: [
+                        [0, 3],
+                        [21, 23]
+                    ],
+                    6: [
+                        [0, 2],
+                        [11, 13], 34, [81, 87]
+                    ],
+                    7: [
+                        [0, 5], 24, 25, [81, 86]
+                    ],
+                    8: [
+                        [0, 2], 11, [26, 32],
+                        [81, 83]
+                    ],
+                    9: [
+                        [0, 3], 11, 21, 23, 82, 83
+                    ],
+                    10: [
+                        [0, 2],
+                        [81, 83]
+                    ],
+                    11: [
+                        [0, 3], 21, 22
+                    ],
+                    12: [
+                        [0, 3]
+                    ],
+                    13: [
+                        [0, 2], 11, 12, [21, 29]
+                    ],
+                    14: [
+                        [0, 2],
+                        [21, 28], 81, 82
+                    ],
+                    15: [
+                        [0, 2],
+                        [21, 26], 81
+                    ],
+                    16: [
+                        [0, 2],
+                        [21, 26]
+                    ],
+                    17: [
+                        [0, 2],
+                        [21, 28]
+                    ]
                 },
                 41: {
                     0: [0],
-                    1: [[0, 6], 8, 22, [81, 85]],
-                    2: [[0, 5], 11, [21, 25]],
-                    3: [[0, 7], 11, [22, 29], 81],
-                    4: [[0, 4], 11, [21, 23], 25, 81, 82],
-                    5: [[0, 3], 5, 6, 22, 23, 26, 27, 81],
-                    6: [[0, 3], 11, 21, 22],
-                    7: [[0, 4], 11, 21, [24, 28], 81, 82],
-                    8: [[0, 4], 11, [21, 23], 25, [81, 83]],
-                    9: [[0, 2], 22, 23, [26, 28]],
-                    10: [[0, 2], [23, 25], 81, 82],
-                    11: [[0, 4], [21, 23]],
-                    12: [[0, 2], 21, 22, 24, 81, 82],
-                    13: [[0, 3], [21, 30], 81],
-                    14: [[0, 3], [21, 26], 81],
-                    15: [[0, 3], [21, 28]],
-                    16: [[0, 2], [21, 28], 81],
-                    17: [[0, 2], [21, 29]],
+                    1: [
+                        [0, 6], 8, 22, [81, 85]
+                    ],
+                    2: [
+                        [0, 5], 11, [21, 25]
+                    ],
+                    3: [
+                        [0, 7], 11, [22, 29], 81
+                    ],
+                    4: [
+                        [0, 4], 11, [21, 23], 25, 81, 82
+                    ],
+                    5: [
+                        [0, 3], 5, 6, 22, 23, 26, 27, 81
+                    ],
+                    6: [
+                        [0, 3], 11, 21, 22
+                    ],
+                    7: [
+                        [0, 4], 11, 21, [24, 28], 81, 82
+                    ],
+                    8: [
+                        [0, 4], 11, [21, 23], 25, [81, 83]
+                    ],
+                    9: [
+                        [0, 2], 22, 23, [26, 28]
+                    ],
+                    10: [
+                        [0, 2],
+                        [23, 25], 81, 82
+                    ],
+                    11: [
+                        [0, 4],
+                        [21, 23]
+                    ],
+                    12: [
+                        [0, 2], 21, 22, 24, 81, 82
+                    ],
+                    13: [
+                        [0, 3],
+                        [21, 30], 81
+                    ],
+                    14: [
+                        [0, 3],
+                        [21, 26], 81
+                    ],
+                    15: [
+                        [0, 3],
+                        [21, 28]
+                    ],
+                    16: [
+                        [0, 2],
+                        [21, 28], 81
+                    ],
+                    17: [
+                        [0, 2],
+                        [21, 29]
+                    ],
                     90: [0, 1]
                 },
                 42: {
                     0: [0],
-                    1: [[0, 7], [11, 17]],
-                    2: [[0, 5], 22, 81],
-                    3: [[0, 3], [21, 25], 81],
-                    5: [[0, 6], [25, 29], [81, 83]],
-                    6: [[0, 2], 6, 7, [24, 26], [82, 84]],
-                    7: [[0, 4]],
-                    8: [[0, 2], 4, 21, 22, 81],
-                    9: [[0, 2], [21, 23], 81, 82, 84],
-                    10: [[0, 3], [22, 24], 81, 83, 87],
-                    11: [[0, 2], [21, 27], 81, 82],
-                    12: [[0, 2], [21, 24], 81],
-                    13: [[0, 3], 21, 81],
-                    28: [[0, 2], 22, 23, [25, 28]],
+                    1: [
+                        [0, 7],
+                        [11, 17]
+                    ],
+                    2: [
+                        [0, 5], 22, 81
+                    ],
+                    3: [
+                        [0, 3],
+                        [21, 25], 81
+                    ],
+                    5: [
+                        [0, 6],
+                        [25, 29],
+                        [81, 83]
+                    ],
+                    6: [
+                        [0, 2], 6, 7, [24, 26],
+                        [82, 84]
+                    ],
+                    7: [
+                        [0, 4]
+                    ],
+                    8: [
+                        [0, 2], 4, 21, 22, 81
+                    ],
+                    9: [
+                        [0, 2],
+                        [21, 23], 81, 82, 84
+                    ],
+                    10: [
+                        [0, 3],
+                        [22, 24], 81, 83, 87
+                    ],
+                    11: [
+                        [0, 2],
+                        [21, 27], 81, 82
+                    ],
+                    12: [
+                        [0, 2],
+                        [21, 24], 81
+                    ],
+                    13: [
+                        [0, 3], 21, 81
+                    ],
+                    28: [
+                        [0, 2], 22, 23, [25, 28]
+                    ],
                     90: [0, [4, 6], 21]
                 },
                 43: {
                     0: [0],
-                    1: [[0, 5], 11, 12, 21, 22, 24, 81],
-                    2: [[0, 4], 11, 21, [23, 25], 81],
-                    3: [[0, 2], 4, 21, 81, 82],
+                    1: [
+                        [0, 5], 11, 12, 21, 22, 24, 81
+                    ],
+                    2: [
+                        [0, 4], 11, 21, [23, 25], 81
+                    ],
+                    3: [
+                        [0, 2], 4, 21, 81, 82
+                    ],
                     4: [0, 1, [5, 8], 12, [21, 24], 26, 81, 82],
-                    5: [[0, 3], 11, [21, 25], [27, 29], 81],
-                    6: [[0, 3], 11, 21, 23, 24, 26, 81, 82],
-                    7: [[0, 3], [21, 26], 81],
-                    8: [[0, 2], 11, 21, 22],
-                    9: [[0, 3], [21, 23], 81],
-                    10: [[0, 3], [21, 28], 81],
-                    11: [[0, 3], [21, 29]],
-                    12: [[0, 2], [21, 30], 81],
-                    13: [[0, 2], 21, 22, 81, 82],
+                    5: [
+                        [0, 3], 11, [21, 25],
+                        [27, 29], 81
+                    ],
+                    6: [
+                        [0, 3], 11, 21, 23, 24, 26, 81, 82
+                    ],
+                    7: [
+                        [0, 3],
+                        [21, 26], 81
+                    ],
+                    8: [
+                        [0, 2], 11, 21, 22
+                    ],
+                    9: [
+                        [0, 3],
+                        [21, 23], 81
+                    ],
+                    10: [
+                        [0, 3],
+                        [21, 28], 81
+                    ],
+                    11: [
+                        [0, 3],
+                        [21, 29]
+                    ],
+                    12: [
+                        [0, 2],
+                        [21, 30], 81
+                    ],
+                    13: [
+                        [0, 2], 21, 22, 81, 82
+                    ],
                     31: [0, 1, [22, 27], 30]
                 },
                 44: {
                     0: [0],
-                    1: [[0, 7], [11, 16], 83, 84],
-                    2: [[0, 5], 21, 22, 24, 29, 32, 33, 81, 82],
+                    1: [
+                        [0, 7],
+                        [11, 16], 83, 84
+                    ],
+                    2: [
+                        [0, 5], 21, 22, 24, 29, 32, 33, 81, 82
+                    ],
                     3: [0, 1, [3, 8]],
-                    4: [[0, 4]],
+                    4: [
+                        [0, 4]
+                    ],
                     5: [0, 1, [6, 15], 23, 82, 83],
                     6: [0, 1, [4, 8]],
                     7: [0, 1, [3, 5], 81, [83, 85]],
-                    8: [[0, 4], 11, 23, 25, [81, 83]],
-                    9: [[0, 3], 23, [81, 83]],
-                    12: [[0, 3], [23, 26], 83, 84],
-                    13: [[0, 3], [22, 24], 81],
-                    14: [[0, 2], [21, 24], 26, 27, 81],
-                    15: [[0, 2], 21, 23, 81],
-                    16: [[0, 2], [21, 25]],
-                    17: [[0, 2], 21, 23, 81],
-                    18: [[0, 3], 21, 23, [25, 27], 81, 82],
+                    8: [
+                        [0, 4], 11, 23, 25, [81, 83]
+                    ],
+                    9: [
+                        [0, 3], 23, [81, 83]
+                    ],
+                    12: [
+                        [0, 3],
+                        [23, 26], 83, 84
+                    ],
+                    13: [
+                        [0, 3],
+                        [22, 24], 81
+                    ],
+                    14: [
+                        [0, 2],
+                        [21, 24], 26, 27, 81
+                    ],
+                    15: [
+                        [0, 2], 21, 23, 81
+                    ],
+                    16: [
+                        [0, 2],
+                        [21, 25]
+                    ],
+                    17: [
+                        [0, 2], 21, 23, 81
+                    ],
+                    18: [
+                        [0, 3], 21, 23, [25, 27], 81, 82
+                    ],
                     19: [0],
                     20: [0],
-                    51: [[0, 3], 21, 22],
-                    52: [[0, 3], 21, 22, 24, 81],
-                    53: [[0, 2], [21, 23], 81]
+                    51: [
+                        [0, 3], 21, 22
+                    ],
+                    52: [
+                        [0, 3], 21, 22, 24, 81
+                    ],
+                    53: [
+                        [0, 2],
+                        [21, 23], 81
+                    ]
                 },
                 45: {
                     0: [0],
-                    1: [[0, 9], [21, 27]],
-                    2: [[0, 5], [21, 26]],
-                    3: [[0, 5], 11, 12, [21, 32]],
+                    1: [
+                        [0, 9],
+                        [21, 27]
+                    ],
+                    2: [
+                        [0, 5],
+                        [21, 26]
+                    ],
+                    3: [
+                        [0, 5], 11, 12, [21, 32]
+                    ],
                     4: [0, 1, [3, 6], 11, [21, 23], 81],
-                    5: [[0, 3], 12, 21],
-                    6: [[0, 3], 21, 81],
-                    7: [[0, 3], 21, 22],
-                    8: [[0, 4], 21, 81],
-                    9: [[0, 3], [21, 24], 81],
-                    10: [[0, 2], [21, 31]],
-                    11: [[0, 2], [21, 23]],
-                    12: [[0, 2], [21, 29], 81],
-                    13: [[0, 2], [21, 24], 81],
-                    14: [[0, 2], [21, 25], 81]
+                    5: [
+                        [0, 3], 12, 21
+                    ],
+                    6: [
+                        [0, 3], 21, 81
+                    ],
+                    7: [
+                        [0, 3], 21, 22
+                    ],
+                    8: [
+                        [0, 4], 21, 81
+                    ],
+                    9: [
+                        [0, 3],
+                        [21, 24], 81
+                    ],
+                    10: [
+                        [0, 2],
+                        [21, 31]
+                    ],
+                    11: [
+                        [0, 2],
+                        [21, 23]
+                    ],
+                    12: [
+                        [0, 2],
+                        [21, 29], 81
+                    ],
+                    13: [
+                        [0, 2],
+                        [21, 24], 81
+                    ],
+                    14: [
+                        [0, 2],
+                        [21, 25], 81
+                    ]
                 },
                 46: {
                     0: [0],
                     1: [0, 1, [5, 8]],
                     2: [0, 1],
                     3: [0, [21, 23]],
-                    90: [[0, 3], [5, 7], [21, 39]]
+                    90: [
+                        [0, 3],
+                        [5, 7],
+                        [21, 39]
+                    ]
                 },
                 50: {
                     0: [0],
-                    1: [[0, 19]],
-                    2: [0, [22, 38], [40, 43]],
+                    1: [
+                        [0, 19]
+                    ],
+                    2: [0, [22, 38],
+                        [40, 43]
+                    ],
                     3: [0, [81, 84]]
                 },
                 51: {
                     0: [0],
-                    1: [0, 1, [4, 8], [12, 15], [21, 24], 29, 31, 32, [81, 84]],
-                    3: [[0, 4], 11, 21, 22],
-                    4: [[0, 3], 11, 21, 22],
-                    5: [[0, 4], 21, 22, 24, 25],
+                    1: [0, 1, [4, 8],
+                        [12, 15],
+                        [21, 24], 29, 31, 32, [81, 84]
+                    ],
+                    3: [
+                        [0, 4], 11, 21, 22
+                    ],
+                    4: [
+                        [0, 3], 11, 21, 22
+                    ],
+                    5: [
+                        [0, 4], 21, 22, 24, 25
+                    ],
                     6: [0, 1, 3, 23, 26, [81, 83]],
                     7: [0, 1, 3, 4, [22, 27], 81],
-                    8: [[0, 2], 11, 12, [21, 24]],
-                    9: [[0, 4], [21, 23]],
-                    10: [[0, 2], 11, 24, 25, 28],
-                    11: [[0, 2], [11, 13], 23, 24, 26, 29, 32, 33, 81],
-                    13: [[0, 4], [21, 25], 81],
-                    14: [[0, 2], [21, 25]],
-                    15: [[0, 3], [21, 29]],
-                    16: [[0, 3], [21, 23], 81],
-                    17: [[0, 3], [21, 25], 81],
-                    18: [[0, 3], [21, 27]],
-                    19: [[0, 3], [21, 23]],
-                    20: [[0, 2], 21, 22, 81],
+                    8: [
+                        [0, 2], 11, 12, [21, 24]
+                    ],
+                    9: [
+                        [0, 4],
+                        [21, 23]
+                    ],
+                    10: [
+                        [0, 2], 11, 24, 25, 28
+                    ],
+                    11: [
+                        [0, 2],
+                        [11, 13], 23, 24, 26, 29, 32, 33, 81
+                    ],
+                    13: [
+                        [0, 4],
+                        [21, 25], 81
+                    ],
+                    14: [
+                        [0, 2],
+                        [21, 25]
+                    ],
+                    15: [
+                        [0, 3],
+                        [21, 29]
+                    ],
+                    16: [
+                        [0, 3],
+                        [21, 23], 81
+                    ],
+                    17: [
+                        [0, 3],
+                        [21, 25], 81
+                    ],
+                    18: [
+                        [0, 3],
+                        [21, 27]
+                    ],
+                    19: [
+                        [0, 3],
+                        [21, 23]
+                    ],
+                    20: [
+                        [0, 2], 21, 22, 81
+                    ],
                     32: [0, [21, 33]],
                     33: [0, [21, 38]],
                     34: [0, 1, [22, 37]]
                 },
                 52: {
                     0: [0],
-                    1: [[0, 3], [11, 15], [21, 23], 81],
+                    1: [
+                        [0, 3],
+                        [11, 15],
+                        [21, 23], 81
+                    ],
                     2: [0, 1, 3, 21, 22],
-                    3: [[0, 3], [21, 30], 81, 82],
-                    4: [[0, 2], [21, 25]],
-                    5: [[0, 2], [21, 27]],
-                    6: [[0, 3], [21, 28]],
+                    3: [
+                        [0, 3],
+                        [21, 30], 81, 82
+                    ],
+                    4: [
+                        [0, 2],
+                        [21, 25]
+                    ],
+                    5: [
+                        [0, 2],
+                        [21, 27]
+                    ],
+                    6: [
+                        [0, 3],
+                        [21, 28]
+                    ],
                     22: [0, 1, [22, 30]],
                     23: [0, 1, [22, 28]],
                     24: [0, 1, [22, 28]],
                     26: [0, 1, [22, 36]],
-                    27: [[0, 2], 22, 23, [25, 32]]
+                    27: [
+                        [0, 2], 22, 23, [25, 32]
+                    ]
                 },
                 53: {
                     0: [0],
-                    1: [[0, 3], [11, 14], 21, 22, [24, 29], 81],
-                    3: [[0, 2], [21, 26], 28, 81],
-                    4: [[0, 2], [21, 28]],
-                    5: [[0, 2], [21, 24]],
-                    6: [[0, 2], [21, 30]],
-                    7: [[0, 2], [21, 24]],
-                    8: [[0, 2], [21, 29]],
-                    9: [[0, 2], [21, 27]],
+                    1: [
+                        [0, 3],
+                        [11, 14], 21, 22, [24, 29], 81
+                    ],
+                    3: [
+                        [0, 2],
+                        [21, 26], 28, 81
+                    ],
+                    4: [
+                        [0, 2],
+                        [21, 28]
+                    ],
+                    5: [
+                        [0, 2],
+                        [21, 24]
+                    ],
+                    6: [
+                        [0, 2],
+                        [21, 30]
+                    ],
+                    7: [
+                        [0, 2],
+                        [21, 24]
+                    ],
+                    8: [
+                        [0, 2],
+                        [21, 29]
+                    ],
+                    9: [
+                        [0, 2],
+                        [21, 27]
+                    ],
                     23: [0, 1, [22, 29], 31],
-                    25: [[0, 4], [22, 32]],
+                    25: [
+                        [0, 4],
+                        [22, 32]
+                    ],
                     26: [0, 1, [21, 28]],
-                    27: [0, 1, [22, 30]], 28: [0, 1, 22, 23],
+                    27: [0, 1, [22, 30]],
+                    28: [0, 1, 22, 23],
                     29: [0, 1, [22, 32]],
                     31: [0, 2, 3, [22, 24]],
                     34: [0, [21, 23]],
@@ -4318,9 +4999,14 @@ if (typeof jQuery === 'undefined') {
                 },
                 54: {
                     0: [0],
-                    1: [[0, 2], [21, 27]],
+                    1: [
+                        [0, 2],
+                        [21, 27]
+                    ],
                     21: [0, [21, 29], 32, 33],
-                    22: [0, [21, 29], [31, 33]],
+                    22: [0, [21, 29],
+                        [31, 33]
+                    ],
                     23: [0, 1, [22, 38]],
                     24: [0, [21, 31]],
                     25: [0, [21, 27]],
@@ -4328,31 +5014,92 @@ if (typeof jQuery === 'undefined') {
                 },
                 61: {
                     0: [0],
-                    1: [[0, 4], [11, 16], 22, [24, 26]],
-                    2: [[0, 4], 22],
-                    3: [[0, 4], [21, 24], [26, 31]],
-                    4: [[0, 4], [22, 31], 81],
-                    5: [[0, 2], [21, 28], 81, 82],
-                    6: [[0, 2], [21, 32]],
-                    7: [[0, 2], [21, 30]],
-                    8: [[0, 2], [21, 31]],
-                    9: [[0, 2], [21, 29]],
-                    10: [[0, 2], [21, 26]]
+                    1: [
+                        [0, 4],
+                        [11, 16], 22, [24, 26]
+                    ],
+                    2: [
+                        [0, 4], 22
+                    ],
+                    3: [
+                        [0, 4],
+                        [21, 24],
+                        [26, 31]
+                    ],
+                    4: [
+                        [0, 4],
+                        [22, 31], 81
+                    ],
+                    5: [
+                        [0, 2],
+                        [21, 28], 81, 82
+                    ],
+                    6: [
+                        [0, 2],
+                        [21, 32]
+                    ],
+                    7: [
+                        [0, 2],
+                        [21, 30]
+                    ],
+                    8: [
+                        [0, 2],
+                        [21, 31]
+                    ],
+                    9: [
+                        [0, 2],
+                        [21, 29]
+                    ],
+                    10: [
+                        [0, 2],
+                        [21, 26]
+                    ]
                 },
                 62: {
                     0: [0],
-                    1: [[0, 5], 11, [21, 23]],
+                    1: [
+                        [0, 5], 11, [21, 23]
+                    ],
                     2: [0, 1],
-                    3: [[0, 2], 21],
-                    4: [[0, 3], [21, 23]],
-                    5: [[0, 3], [21, 25]],
-                    6: [[0, 2], [21, 23]],
-                    7: [[0, 2], [21, 25]],
-                    8: [[0, 2], [21, 26]],
-                    9: [[0, 2], [21, 24], 81, 82],
-                    10: [[0, 2], [21, 27]],
-                    11: [[0, 2], [21, 26]],
-                    12: [[0, 2], [21, 28]],
+                    3: [
+                        [0, 2], 21
+                    ],
+                    4: [
+                        [0, 3],
+                        [21, 23]
+                    ],
+                    5: [
+                        [0, 3],
+                        [21, 25]
+                    ],
+                    6: [
+                        [0, 2],
+                        [21, 23]
+                    ],
+                    7: [
+                        [0, 2],
+                        [21, 25]
+                    ],
+                    8: [
+                        [0, 2],
+                        [21, 26]
+                    ],
+                    9: [
+                        [0, 2],
+                        [21, 24], 81, 82
+                    ],
+                    10: [
+                        [0, 2],
+                        [21, 27]
+                    ],
+                    11: [
+                        [0, 2],
+                        [21, 26]
+                    ],
+                    12: [
+                        [0, 2],
+                        [21, 28]
+                    ],
                     24: [0, 21, [24, 29]],
                     26: [0, 21, [23, 30]],
                     29: [0, 1, [21, 27]],
@@ -4360,58 +5107,96 @@ if (typeof jQuery === 'undefined') {
                 },
                 63: {
                     0: [0],
-                    1: [[0, 5], [21, 23]],
+                    1: [
+                        [0, 5],
+                        [21, 23]
+                    ],
                     2: [0, 2, [21, 25]],
-                    21: [0, [21, 23], [26, 28]],
+                    21: [0, [21, 23],
+                        [26, 28]
+                    ],
                     22: [0, [21, 24]],
                     23: [0, [21, 24]],
                     25: [0, [21, 25]],
                     26: [0, [21, 26]],
                     27: [0, 1, [21, 26]],
-                    28: [[0, 2], [21, 23]]
+                    28: [
+                        [0, 2],
+                        [21, 23]
+                    ]
                 },
                 64: {
                     0: [0],
                     1: [0, 1, [4, 6], 21, 22, 81],
-                    2: [[0, 3], 5, [21, 23]],
-                    3: [[0, 3], [21, 24], 81],
-                    4: [[0, 2], [21, 25]],
-                    5: [[0, 2], 21, 22]
+                    2: [
+                        [0, 3], 5, [21, 23]
+                    ],
+                    3: [
+                        [0, 3],
+                        [21, 24], 81
+                    ],
+                    4: [
+                        [0, 2],
+                        [21, 25]
+                    ],
+                    5: [
+                        [0, 2], 21, 22
+                    ]
                 },
                 65: {
                     0: [0],
-                    1: [[0, 9], 21],
-                    2: [[0, 5]],
+                    1: [
+                        [0, 9], 21
+                    ],
+                    2: [
+                        [0, 5]
+                    ],
                     21: [0, 1, 22, 23],
                     22: [0, 1, 22, 23],
-                    23: [[0, 3], [23, 25], 27, 28],
+                    23: [
+                        [0, 3],
+                        [23, 25], 27, 28
+                    ],
                     28: [0, 1, [22, 29]],
                     29: [0, 1, [22, 29]],
-                    30: [0, 1, [22, 24]], 31: [0, 1, [21, 31]],
+                    30: [0, 1, [22, 24]],
+                    31: [0, 1, [21, 31]],
                     32: [0, 1, [21, 27]],
                     40: [0, 2, 3, [21, 28]],
-                    42: [[0, 2], 21, [23, 26]],
+                    42: [
+                        [0, 2], 21, [23, 26]
+                    ],
                     43: [0, 1, [21, 26]],
-                    90: [[0, 4]], 27: [[0, 2], 22, 23]
+                    90: [
+                        [0, 4]
+                    ],
+                    27: [
+                        [0, 2], 22, 23
+                    ]
                 },
-                71: { 0: [0] },
-                81: { 0: [0] },
-                82: { 0: [0] }
+                71: {
+                    0: [0]
+                },
+                81: {
+                    0: [0]
+                },
+                82: {
+                    0: [0]
+                }
             };
-            
-            var provincial  = parseInt(value.substr(0, 2), 10),
+
+            var provincial = parseInt(value.substr(0, 2), 10),
                 prefectural = parseInt(value.substr(2, 2), 10),
-                county      = parseInt(value.substr(4, 2), 10);
-            
+                county = parseInt(value.substr(4, 2), 10);
+
             if (!adminDivisionCodes[provincial] || !adminDivisionCodes[provincial][prefectural]) {
                 return false;
             }
-            var inRange  = false,
+            var inRange = false,
                 rangeDef = adminDivisionCodes[provincial][prefectural];
             for (var i = 0; i < rangeDef.length; i++) {
-                if (($.isArray(rangeDef[i]) && rangeDef[i][0] <= county && county <= rangeDef[i][1])
-                    || (!$.isArray(rangeDef[i]) && county === rangeDef[i]))
-                {
+                if (($.isArray(rangeDef[i]) && rangeDef[i][0] <= county && county <= rangeDef[i][1]) ||
+                    (!$.isArray(rangeDef[i]) && county === rangeDef[i])) {
                     inRange = true;
                     break;
                 }
@@ -4420,24 +5205,24 @@ if (typeof jQuery === 'undefined') {
             if (!inRange) {
                 return false;
             }
-            
+
             // Check date of birth
             var dob;
             if (value.length === 18) {
                 dob = value.substr(6, 8);
-            } else /* length == 15 */ { 
+            } else /* length == 15 */ {
                 dob = '19' + value.substr(6, 6);
             }
-            var year  = parseInt(dob.substr(0, 4), 10),
+            var year = parseInt(dob.substr(0, 4), 10),
                 month = parseInt(dob.substr(4, 2), 10),
-                day   = parseInt(dob.substr(6, 2), 10);
+                day = parseInt(dob.substr(6, 2), 10);
             if (!$.fn.bootstrapValidator.helpers.date(year, month, day)) {
                 return false;
             }
-            
+
             // Check checksum (18-digit system only)
             if (value.length === 18) {
-                var sum    = 0,
+                var sum = 0,
                     weight = [7, 9, 10, 5, 8, 4, 2, 1, 6, 3, 7, 9, 10, 5, 8, 4, 2];
                 for (i = 0; i < 17; i++) {
                     sum += parseInt(value.charAt(i), 10) * weight[i];
@@ -4446,10 +5231,10 @@ if (typeof jQuery === 'undefined') {
                 var checksum = (value.charAt(17).toUpperCase() !== 'X') ? parseInt(value.charAt(17), 10) : 10;
                 return checksum === sum;
             }
-            
+
             return true;
         },
-        
+
         /**
          * Validate Czech national identification number (RC)
          * Examples:
@@ -4463,9 +5248,9 @@ if (typeof jQuery === 'undefined') {
             if (!/^\d{9,10}$/.test(value)) {
                 return false;
             }
-            var year  = 1900 + parseInt(value.substr(0, 2), 10),
+            var year = 1900 + parseInt(value.substr(0, 2), 10),
                 month = parseInt(value.substr(2, 2), 10) % 50 % 20,
-                day   = parseInt(value.substr(4, 2), 10);
+                day = parseInt(value.substr(4, 2), 10);
             if (value.length === 9) {
                 if (year >= 1980) {
                     year -= 100;
@@ -4508,9 +5293,9 @@ if (typeof jQuery === 'undefined') {
                 return false;
             }
             value = value.replace(/-/g, '');
-            var day   = parseInt(value.substr(0, 2), 10),
+            var day = parseInt(value.substr(0, 2), 10),
                 month = parseInt(value.substr(2, 2), 10),
-                year  = parseInt(value.substr(4, 2), 10);
+                year = parseInt(value.substr(4, 2), 10);
 
             switch (true) {
                 case ('5678'.indexOf(value.charAt(6)) !== -1 && year >= 58):
@@ -4555,8 +5340,9 @@ if (typeof jQuery === 'undefined') {
          * @returns {Boolean}
          */
         _es: function(value) {
-            if (!/^[0-9A-Z]{8}[-]{0,1}[0-9A-Z]$/.test(value)                    // DNI
-                && !/^[XYZ][-]{0,1}[0-9]{7}[-]{0,1}[0-9A-Z]$/.test(value)) {    // NIE
+            if (!/^[0-9A-Z]{8}[-]{0,1}[0-9A-Z]$/.test(value) // DNI
+                &&
+                !/^[XYZ][-]{0,1}[0-9]{7}[-]{0,1}[0-9A-Z]$/.test(value)) { // NIE
                 return false;
             }
 
@@ -4568,7 +5354,7 @@ if (typeof jQuery === 'undefined') {
             }
 
             var check = parseInt(value.substr(0, 8), 10);
-            check = 'TRWAGMYFPDXBNJZSQVHLCKE'[check % 23];
+            check = 'TRWAGMYFPDXBNJZSQVHLCKE' [check % 23];
             return (check === value.substr(8, 1));
         },
 
@@ -4585,9 +5371,9 @@ if (typeof jQuery === 'undefined') {
             if (!/^[0-9]{6}[-+A][0-9]{3}[0-9ABCDEFHJKLMNPRSTUVWXY]$/.test(value)) {
                 return false;
             }
-            var day       = parseInt(value.substr(0, 2), 10),
-                month     = parseInt(value.substr(2, 2), 10),
-                year      = parseInt(value.substr(4, 2), 10),
+            var day = parseInt(value.substr(0, 2), 10),
+                month = parseInt(value.substr(2, 2), 10),
+                year = parseInt(value.substr(4, 2), 10),
                 centuries = {
                     '+': 1800,
                     '-': 1900,
@@ -4644,7 +5430,7 @@ if (typeof jQuery === 'undefined') {
                     value = '0' + value;
                 }
                 var alphabet = 'WABCDEFGHIJKLMNOPQRSTUV',
-                    sum      = 0;
+                    sum = 0;
                 for (var i = 0; i < 7; i++) {
                     sum += parseInt(value.charAt(i), 10) * (8 - i);
                 }
@@ -4676,9 +5462,9 @@ if (typeof jQuery === 'undefined') {
                 return false;
             }
             value = value.replace(/-/g, '');
-            var day     = parseInt(value.substr(0, 2), 10),
-                month   = parseInt(value.substr(2, 2), 10),
-                year    = parseInt(value.substr(4, 2), 10),
+            var day = parseInt(value.substr(0, 2), 10),
+                month = parseInt(value.substr(2, 2), 10),
+                year = parseInt(value.substr(4, 2), 10),
                 century = parseInt(value.charAt(9), 10);
 
             year = (century === 9) ? (1900 + year) : ((20 + century) * 100 + year);
@@ -4686,7 +5472,7 @@ if (typeof jQuery === 'undefined') {
                 return false;
             }
             // Validate the check digit
-            var sum    = 0,
+            var sum = 0,
                 weight = [3, 2, 7, 6, 5, 4, 3, 2];
             for (var i = 0; i < 8; i++) {
                 sum += parseInt(value.charAt(i), 10) * weight[i];
@@ -4710,10 +5496,10 @@ if (typeof jQuery === 'undefined') {
             if (!/^[0-9]{11}$/.test(value)) {
                 return false;
             }
-            var gender  = parseInt(value.charAt(0), 10),
-                year    = parseInt(value.substr(1, 2), 10),
-                month   = parseInt(value.substr(3, 2), 10),
-                day     = parseInt(value.substr(5, 2), 10),
+            var gender = parseInt(value.charAt(0), 10),
+                year = parseInt(value.substr(1, 2), 10),
+                month = parseInt(value.substr(3, 2), 10),
+                day = parseInt(value.substr(5, 2), 10),
                 century = (gender % 2 === 0) ? (17 + gender / 2) : (17 + (gender + 1) / 2);
             year = century * 100 + year;
             if (!$.fn.bootstrapValidator.helpers.date(year, month, day, true)) {
@@ -4721,7 +5507,7 @@ if (typeof jQuery === 'undefined') {
             }
 
             // Validate the check digit
-            var sum    = 0,
+            var sum = 0,
                 weight = [1, 2, 3, 4, 5, 6, 7, 8, 9, 1];
             for (var i = 0; i < 10; i++) {
                 sum += parseInt(value.charAt(i), 10) * weight[i];
@@ -4732,7 +5518,7 @@ if (typeof jQuery === 'undefined') {
             }
 
             // Re-calculate the check digit
-            sum    = 0;
+            sum = 0;
             weight = [3, 4, 5, 6, 7, 8, 9, 1, 2, 3];
             for (i = 0; i < 10; i++) {
                 sum += parseInt(value.charAt(i), 10) * weight[i];
@@ -4760,9 +5546,9 @@ if (typeof jQuery === 'undefined') {
             }
             value = value.replace(/\D/g, '');
             // Check birth date
-            var day   = parseInt(value.substr(0, 2), 10),
+            var day = parseInt(value.substr(0, 2), 10),
                 month = parseInt(value.substr(2, 2), 10),
-                year  = parseInt(value.substr(4, 2), 10);
+                year = parseInt(value.substr(4, 2), 10);
             year = year + 1800 + parseInt(value.charAt(6), 10) * 100;
 
             if (!$.fn.bootstrapValidator.helpers.date(year, month, day, true)) {
@@ -4770,7 +5556,7 @@ if (typeof jQuery === 'undefined') {
             }
 
             // Check personal code
-            var sum    = 0,
+            var sum = 0,
                 weight = [10, 5, 8, 4, 2, 1, 6, 3, 7, 9];
             for (var i = 0; i < 10; i++) {
                 sum += parseInt(value.charAt(i), 10) * weight[i];
@@ -4800,7 +5586,7 @@ if (typeof jQuery === 'undefined') {
             if (parseInt(value, 10) === 0) {
                 return false;
             }
-            var sum    = 0,
+            var sum = 0,
                 length = value.length;
             for (var i = 0; i < length - 1; i++) {
                 sum += (9 - i) * parseInt(value.charAt(i), 10);
@@ -4832,17 +5618,17 @@ if (typeof jQuery === 'undefined') {
             }
 
             // Determine the date of birth
-            var year      = parseInt(value.substr(1, 2), 10),
-                month     = parseInt(value.substr(3, 2), 10),
-                day       = parseInt(value.substr(5, 2), 10),
+            var year = parseInt(value.substr(1, 2), 10),
+                month = parseInt(value.substr(3, 2), 10),
+                day = parseInt(value.substr(5, 2), 10),
                 // The year of date is determined base on the gender
                 centuries = {
-                    '1': 1900,  // Male born between 1900 and 1999
-                    '2': 1900,  // Female born between 1900 and 1999
-                    '3': 1800,  // Male born between 1800 and 1899
-                    '4': 1800,  // Female born between 1800 and 1899
-                    '5': 2000,  // Male born after 2000
-                    '6': 2000   // Female born after 2000
+                    '1': 1900, // Male born between 1900 and 1999
+                    '2': 1900, // Female born between 1900 and 1999
+                    '3': 1800, // Male born between 1800 and 1899
+                    '4': 1800, // Female born between 1800 and 1899
+                    '5': 2000, // Male born after 2000
+                    '6': 2000 // Female born after 2000
                 };
             if (day > 31 && month > 12) {
                 return false;
@@ -4855,7 +5641,7 @@ if (typeof jQuery === 'undefined') {
             }
 
             // Validate the check digit
-            var sum    = 0,
+            var sum = 0,
                 weight = [2, 7, 9, 1, 4, 6, 3, 5, 8, 2, 7, 9],
                 length = value.length;
             for (var i = 0; i < length - 1; i++) {
@@ -4884,9 +5670,9 @@ if (typeof jQuery === 'undefined') {
             }
             value = value.replace(/[^0-9]/g, '');
 
-            var year  = parseInt(value.substr(0, 2), 10) + 1900,
+            var year = parseInt(value.substr(0, 2), 10) + 1900,
                 month = parseInt(value.substr(2, 2), 10),
-                day   = parseInt(value.substr(4, 2), 10);
+                day = parseInt(value.substr(4, 2), 10);
             if (!$.fn.bootstrapValidator.helpers.date(year, month, day)) {
                 return false;
             }
@@ -4957,10 +5743,10 @@ if (typeof jQuery === 'undefined') {
             if (!/^[0-9]{10}[0|1][8|9][0-9]$/.test(value)) {
                 return false;
             }
-            var year        = parseInt(value.substr(0, 2), 10),
+            var year = parseInt(value.substr(0, 2), 10),
                 currentYear = new Date().getFullYear() % 100,
-                month       = parseInt(value.substr(2, 2), 10),
-                day         = parseInt(value.substr(4, 2), 10);
+                month = parseInt(value.substr(2, 2), 10),
+                day = parseInt(value.substr(4, 2), 10);
             year = (year >= currentYear) ? (year + 1900) : (year + 2000);
 
             if (!$.fn.bootstrapValidator.helpers.date(year, month, day)) {
@@ -4971,8 +5757,8 @@ if (typeof jQuery === 'undefined') {
             return $.fn.bootstrapValidator.helpers.luhn(value);
         }
     };
-}(window.jQuery));
-;(function($) {
+}(window.jQuery));;
+(function($) {
     $.fn.bootstrapValidator.i18n.identical = $.extend($.fn.bootstrapValidator.i18n.identical || {}, {
         'default': 'Please enter the same value'
     });
@@ -5011,8 +5797,8 @@ if (typeof jQuery === 'undefined') {
             }
         }
     };
-}(window.jQuery));
-;(function($) {
+}(window.jQuery));;
+(function($) {
     $.fn.bootstrapValidator.i18n.imei = $.extend($.fn.bootstrapValidator.i18n.imei || {}, {
         'default': 'Please enter a valid IMEI number'
     });
@@ -5055,8 +5841,8 @@ if (typeof jQuery === 'undefined') {
             }
         }
     };
-}(window.jQuery));
-;(function($) {
+}(window.jQuery));;
+(function($) {
     $.fn.bootstrapValidator.i18n.imo = $.extend($.fn.bootstrapValidator.i18n.imo || {}, {
         'default': 'Please enter a valid IMO number'
     });
@@ -5084,11 +5870,11 @@ if (typeof jQuery === 'undefined') {
             if (!/^IMO \d{7}$/i.test(value)) {
                 return false;
             }
-            
+
             // Grab just the digits
-            var sum    = 0,
+            var sum = 0,
                 digits = value.replace(/^.*(\d{7})$/, '$1');
-            
+
             // Go over each char, multiplying by the inverse of it's position
             // IMO 9176187
             // (9 * 7) + (1 * 6) + (7 * 5) + (6 * 4) + (1 * 3) + (8 * 2) = 147
@@ -5100,8 +5886,8 @@ if (typeof jQuery === 'undefined') {
             return sum % 10 === parseInt(digits.charAt(6), 10);
         }
     };
-}(window.jQuery));
-;(function($) {
+}(window.jQuery));;
+(function($) {
     $.fn.bootstrapValidator.i18n.integer = $.extend($.fn.bootstrapValidator.i18n.integer || {}, {
         'default': 'Please enter a valid number'
     });
@@ -5132,8 +5918,8 @@ if (typeof jQuery === 'undefined') {
             return /^(?:-?(?:0|[1-9][0-9]*))$/.test(value);
         }
     };
-}(window.jQuery));
-;(function($) {
+}(window.jQuery));;
+(function($) {
     $.fn.bootstrapValidator.i18n.ip = $.extend($.fn.bootstrapValidator.i18n.ip || {}, {
         'default': 'Please enter a valid IP address',
         ipv4: 'Please enter a valid IPv4 address',
@@ -5163,28 +5949,31 @@ if (typeof jQuery === 'undefined') {
             if (value === '') {
                 return true;
             }
-            options = $.extend({}, { ipv4: true, ipv6: true }, options);
+            options = $.extend({}, {
+                ipv4: true,
+                ipv6: true
+            }, options);
 
             var ipv4Regex = /^(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/,
                 ipv6Regex = /^\s*((([0-9A-Fa-f]{1,4}:){7}([0-9A-Fa-f]{1,4}|:))|(([0-9A-Fa-f]{1,4}:){6}(:[0-9A-Fa-f]{1,4}|((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3})|:))|(([0-9A-Fa-f]{1,4}:){5}(((:[0-9A-Fa-f]{1,4}){1,2})|:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3})|:))|(([0-9A-Fa-f]{1,4}:){4}(((:[0-9A-Fa-f]{1,4}){1,3})|((:[0-9A-Fa-f]{1,4})?:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:))|(([0-9A-Fa-f]{1,4}:){3}(((:[0-9A-Fa-f]{1,4}){1,4})|((:[0-9A-Fa-f]{1,4}){0,2}:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:))|(([0-9A-Fa-f]{1,4}:){2}(((:[0-9A-Fa-f]{1,4}){1,5})|((:[0-9A-Fa-f]{1,4}){0,3}:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:))|(([0-9A-Fa-f]{1,4}:){1}(((:[0-9A-Fa-f]{1,4}){1,6})|((:[0-9A-Fa-f]{1,4}){0,4}:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:))|(:(((:[0-9A-Fa-f]{1,4}){1,7})|((:[0-9A-Fa-f]{1,4}){0,5}:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:)))(%.+)?\s*$/,
-                valid     = false,
+                valid = false,
                 message;
 
             switch (true) {
                 case (options.ipv4 && !options.ipv6):
-                    valid   = ipv4Regex.test(value);
+                    valid = ipv4Regex.test(value);
                     message = options.message || $.fn.bootstrapValidator.i18n.ip.ipv4;
                     break;
 
                 case (!options.ipv4 && options.ipv6):
-                    valid   = ipv6Regex.test(value);
+                    valid = ipv6Regex.test(value);
                     message = options.message || $.fn.bootstrapValidator.i18n.ip.ipv6;
                     break;
 
                 case (options.ipv4 && options.ipv6):
-                /* falls through */
+                    /* falls through */
                 default:
-                    valid   = ipv4Regex.test(value) || ipv6Regex.test(value);
+                    valid = ipv4Regex.test(value) || ipv6Regex.test(value);
                     message = options.message || $.fn.bootstrapValidator.i18n.ip['default'];
                     break;
             }
@@ -5195,7 +5984,8 @@ if (typeof jQuery === 'undefined') {
             };
         }
     };
-}(window.jQuery));;(function($) {
+}(window.jQuery));;
+(function($) {
     $.fn.bootstrapValidator.i18n.isbn = $.extend($.fn.bootstrapValidator.i18n.isbn || {}, {
         'default': 'Please enter a valid ISBN number'
     });
@@ -5244,9 +6034,9 @@ if (typeof jQuery === 'undefined') {
 
             // Replace all special characters except digits and X
             value = value.replace(/[^0-9X]/gi, '');
-            var chars  = value.split(''),
+            var chars = value.split(''),
                 length = chars.length,
-                sum    = 0,
+                sum = 0,
                 i,
                 checksum;
 
@@ -5280,8 +6070,8 @@ if (typeof jQuery === 'undefined') {
             }
         }
     };
-}(window.jQuery));
-;(function($) {
+}(window.jQuery));;
+(function($) {
     $.fn.bootstrapValidator.i18n.isin = $.extend($.fn.bootstrapValidator.i18n.isin || {}, {
         'default': 'Please enter a valid ISIN number'
     });
@@ -5317,7 +6107,7 @@ if (typeof jQuery === 'undefined') {
             }
 
             var converted = '',
-                length    = value.length;
+                length = value.length;
             // Convert letters to number
             for (var i = 0; i < length - 1; i++) {
                 var c = value.charCodeAt(i);
@@ -5325,8 +6115,8 @@ if (typeof jQuery === 'undefined') {
             }
 
             var digits = '',
-                n      = converted.length,
-                group  = (n % 2 !== 0) ? 0 : 1;
+                n = converted.length,
+                group = (n % 2 !== 0) ? 0 : 1;
             for (i = 0; i < n; i++) {
                 digits += (parseInt(converted[i], 10) * ((i % 2) === group ? 2 : 1) + '');
             }
@@ -5339,8 +6129,8 @@ if (typeof jQuery === 'undefined') {
             return sum + '' === value.charAt(length - 1);
         }
     };
-}(window.jQuery));
-;(function($) {
+}(window.jQuery));;
+(function($) {
     $.fn.bootstrapValidator.i18n.ismn = $.extend($.fn.bootstrapValidator.i18n.ismn || {}, {
         'default': 'Please enter a valid ISMN number'
     });
@@ -5389,7 +6179,7 @@ if (typeof jQuery === 'undefined') {
             // Replace all special characters except digits
             value = value.replace(/[^0-9]/gi, '');
             var length = value.length,
-                sum    = 0,
+                sum = 0,
                 weight = [1, 3];
             for (var i = 0; i < length - 1; i++) {
                 sum += parseInt(value.charAt(i), 10) * weight[i % 2];
@@ -5398,8 +6188,8 @@ if (typeof jQuery === 'undefined') {
             return (sum + '' === value.charAt(length - 1));
         }
     };
-}(window.jQuery));
-;(function($) {
+}(window.jQuery));;
+(function($) {
     $.fn.bootstrapValidator.i18n.issn = $.extend($.fn.bootstrapValidator.i18n.issn || {}, {
         'default': 'Please enter a valid ISSN number'
     });
@@ -5431,9 +6221,9 @@ if (typeof jQuery === 'undefined') {
 
             // Replace all special characters except digits and X
             value = value.replace(/[^0-9X]/gi, '');
-            var chars  = value.split(''),
+            var chars = value.split(''),
                 length = chars.length,
-                sum    = 0;
+                sum = 0;
 
             if (chars[7] === 'X') {
                 chars[7] = 10;
@@ -5444,8 +6234,8 @@ if (typeof jQuery === 'undefined') {
             return (sum % 11 === 0);
         }
     };
-}(window.jQuery));
-;(function($) {
+}(window.jQuery));;
+(function($) {
     $.fn.bootstrapValidator.i18n.lessThan = $.extend($.fn.bootstrapValidator.i18n.lessThan || {}, {
         'default': 'Please enter a value less than or equal to %s',
         notInclusive: 'Please enter a value less than %s'
@@ -5460,7 +6250,7 @@ if (typeof jQuery === 'undefined') {
 
         enableByHtml5: function($field) {
             var type = $field.attr('type'),
-                max  = $field.attr('max');
+                max = $field.attr('max');
             if (max && type !== 'date') {
                 return {
                     value: max
@@ -5491,33 +6281,31 @@ if (typeof jQuery === 'undefined') {
             if (value === '') {
                 return true;
             }
-            
-			value = this._format(value);
+
+            value = this._format(value);
             if (!$.isNumeric(value)) {
                 return false;
             }
 
-            var compareTo      = $.isNumeric(options.value) ? options.value : validator.getDynamicOption($field, options.value),
+            var compareTo = $.isNumeric(options.value) ? options.value : validator.getDynamicOption($field, options.value),
                 compareToValue = this._format(compareTo);
 
             value = parseFloat(value);
-            return (options.inclusive === true || options.inclusive === undefined)
-                    ? {
-                        valid: value <= compareToValue,
-                        message: $.fn.bootstrapValidator.helpers.format(options.message || $.fn.bootstrapValidator.i18n.lessThan['default'], compareTo)
-                    }
-                    : {
-                        valid: value < compareToValue,
-                        message: $.fn.bootstrapValidator.helpers.format(options.message || $.fn.bootstrapValidator.i18n.lessThan.notInclusive, compareTo)
-                    };
+            return (options.inclusive === true || options.inclusive === undefined) ? {
+                valid: value <= compareToValue,
+                message: $.fn.bootstrapValidator.helpers.format(options.message || $.fn.bootstrapValidator.i18n.lessThan['default'], compareTo)
+            } : {
+                valid: value < compareToValue,
+                message: $.fn.bootstrapValidator.helpers.format(options.message || $.fn.bootstrapValidator.i18n.lessThan.notInclusive, compareTo)
+            };
         },
 
         _format: function(value) {
             return (value + '').replace(',', '.');
         }
     };
-}(window.jQuery));
-;(function($) {
+}(window.jQuery));;
+(function($) {
     $.fn.bootstrapValidator.i18n.mac = $.extend($.fn.bootstrapValidator.i18n.mac || {}, {
         'default': 'Please enter a valid MAC address'
     });
@@ -5541,8 +6329,8 @@ if (typeof jQuery === 'undefined') {
             return /^([0-9A-F]{2}[:-]){5}([0-9A-F]{2})$/.test(value);
         }
     };
-}(window.jQuery));
-;(function($) {
+}(window.jQuery));;
+(function($) {
     $.fn.bootstrapValidator.i18n.meid = $.extend($.fn.bootstrapValidator.i18n.meid || {}, {
         'default': 'Please enter a valid MEID number'
     });
@@ -5570,11 +6358,11 @@ if (typeof jQuery === 'undefined') {
             switch (true) {
                 // 14 digit hex representation (no check digit)
                 case /^[0-9A-F]{15}$/i.test(value):
-                // 14 digit hex representation + dashes or spaces (no check digit)
+                    // 14 digit hex representation + dashes or spaces (no check digit)
                 case /^[0-9A-F]{2}[- ][0-9A-F]{6}[- ][0-9A-F]{6}[- ][0-9A-F]$/i.test(value):
-                // 18 digit decimal representation (no check digit)
+                    // 18 digit decimal representation (no check digit)
                 case /^\d{19}$/.test(value):
-                // 18 digit decimal representation + dashes or spaces (no check digit)
+                    // 18 digit decimal representation + dashes or spaces (no check digit)
                 case /^\d{5}[- ]\d{5}[- ]\d{4}[- ]\d{4}[- ]\d$/.test(value):
                     // Grab the check digit
                     var cd = value.charAt(value.length - 1);
@@ -5603,19 +6391,20 @@ if (typeof jQuery === 'undefined') {
                     }
 
                     // If the last digit of the calc is 0, the check digit is 0
-                    return (sum % 10 === 0)
-                            ? (cd === '0')
-                            // Subtract it from the next highest 10s number (64 goes to 70) and subtract the sum
-                            // Double it and turn it into a hex char
-                            : (cd === ((Math.floor((sum + 10) / 10) * 10 - sum) * 2).toString(16));
+                    return (sum % 10 === 0) ?
+                        (cd === '0')
+                        // Subtract it from the next highest 10s number (64 goes to 70) and subtract the sum
+                        // Double it and turn it into a hex char
+                        :
+                        (cd === ((Math.floor((sum + 10) / 10) * 10 - sum) * 2).toString(16));
 
-                // 14 digit hex representation (no check digit)
+                    // 14 digit hex representation (no check digit)
                 case /^[0-9A-F]{14}$/i.test(value):
-                // 14 digit hex representation + dashes or spaces (no check digit)
+                    // 14 digit hex representation + dashes or spaces (no check digit)
                 case /^[0-9A-F]{2}[- ][0-9A-F]{6}[- ][0-9A-F]{6}$/i.test(value):
-                // 18 digit decimal representation (no check digit)
+                    // 18 digit decimal representation (no check digit)
                 case /^\d{18}$/.test(value):
-                // 18 digit decimal representation + dashes or spaces (no check digit)
+                    // 18 digit decimal representation + dashes or spaces (no check digit)
                 case /^\d{5}[- ]\d{5}[- ]\d{4}[- ]\d{4}$/.test(value):
                     return true;
 
@@ -5624,8 +6413,8 @@ if (typeof jQuery === 'undefined') {
             }
         }
     };
-}(window.jQuery));
-;(function($) {
+}(window.jQuery));;
+(function($) {
     $.fn.bootstrapValidator.i18n.notEmpty = $.extend($.fn.bootstrapValidator.i18n.notEmpty || {}, {
         'default': 'Please enter a value'
     });
@@ -5648,9 +6437,9 @@ if (typeof jQuery === 'undefined') {
             var type = $field.attr('type');
             if ('radio' === type || 'checkbox' === type) {
                 return validator
-                            .getFieldElements($field.attr('data-bv-field'))
-                            .filter(':checked')
-                            .length > 0;
+                    .getFieldElements($field.attr('data-bv-field'))
+                    .filter(':checked')
+                    .length > 0;
             }
 
             if ('number' === type && $field.get(0).validity && $field.get(0).validity.badInput === true) {
@@ -5660,8 +6449,8 @@ if (typeof jQuery === 'undefined') {
             return $.trim($field.val()) !== '';
         }
     };
-}(window.jQuery));
-;(function($) {
+}(window.jQuery));;
+(function($) {
     $.fn.bootstrapValidator.i18n.numeric = $.extend($.fn.bootstrapValidator.i18n.numeric || {}, {
         'default': 'Please enter a valid float number'
     });
@@ -5703,8 +6492,8 @@ if (typeof jQuery === 'undefined') {
             return !isNaN(parseFloat(value)) && isFinite(value);
         }
     };
-}(window.jQuery));
-;(function($) {
+}(window.jQuery));;
+(function($) {
     $.fn.bootstrapValidator.i18n.phone = $.extend($.fn.bootstrapValidator.i18n.phone || {}, {
         'default': 'Please enter a valid phone number',
         countryNotSupported: 'The country code %s is not supported',
@@ -5777,13 +6566,13 @@ if (typeof jQuery === 'undefined') {
             switch (country.toUpperCase()) {
                 case 'BR':
                     // Test: http://regexr.com/399m1
-                    value   = $.trim(value);
+                    value = $.trim(value);
                     isValid = (/^(([\d]{4}[-.\s]{1}[\d]{2,3}[-.\s]{1}[\d]{2}[-.\s]{1}[\d]{2})|([\d]{4}[-.\s]{1}[\d]{3}[-.\s]{1}[\d]{4})|((\(?\+?[0-9]{2}\)?\s?)?(\(?\d{2}\)?\s?)?\d{4,5}[-.\s]?\d{4}))$/).test(value);
                     break;
 
                 case 'CN':
                     // http://regexr.com/39dq4
-                    value   = $.trim(value);
+                    value = $.trim(value);
                     isValid = (/^((00|\+)?(86(?:-| )))?((\d{11})|(\d{3}[- ]{1}\d{4}[- ]{1}\d{4})|((\d{2,4}[- ]){1}(\d{7,8}|(\d{3,4}[- ]{1}\d{4}))([- ]{1}\d{1,4})?))$/).test(value);
                     break;
 
@@ -5794,7 +6583,7 @@ if (typeof jQuery === 'undefined') {
 
                 case 'DE':
                     // Test: http://regexr.com/39pkg
-                    value   = $.trim(value);
+                    value = $.trim(value);
                     isValid = (/^(((((((00|\+)49[ \-/]?)|0)[1-9][0-9]{1,4})[ \-/]?)|((((00|\+)49\()|\(0)[1-9][0-9]{1,4}\)[ \-/]?))[0-9]{1,7}([ \-/]?[0-9]{1,5})?)$/).test(value);
                     break;
 
@@ -5803,47 +6592,47 @@ if (typeof jQuery === 'undefined') {
                     // 8 digit phone number not starting with a 0 or 1. Can have 1 space
                     // between each character except inside the country code.
                     // Test: http://regex101.com/r/sS8fO4/1
-                    value   = $.trim(value);
+                    value = $.trim(value);
                     isValid = (/^(\+45|0045|\(45\))?\s?[2-9](\s?\d){7}$/).test(value);
                     break;
 
                 case 'ES':
                     // http://regex101.com/r/rB9mA9/1
-                    value   = $.trim(value);
+                    value = $.trim(value);
                     isValid = (/^(?:(?:(?:\+|00)34\D?))?(?:9|6)(?:\d\D?){8}$/).test(value);
                     break;
 
                 case 'FR':
                     // http://regexr.com/39a2p
-                    value   = $.trim(value);
+                    value = $.trim(value);
                     isValid = (/^(?:(?:(?:\+|00)33[ ]?(?:\(0\)[ ]?)?)|0){1}[1-9]{1}([ .-]?)(?:\d{2}\1?){3}\d{2}$/).test(value);
                     break;
 
-            	case 'GB':
-            		// http://aa-asterisk.org.uk/index.php/Regular_Expressions_for_Validating_and_Formatting_GB_Telephone_Numbers#Match_GB_telephone_number_in_any_format
-            		// Test: http://regexr.com/38uhv
-            		value   = $.trim(value);
-            		isValid = (/^\(?(?:(?:0(?:0|11)\)?[\s-]?\(?|\+)44\)?[\s-]?\(?(?:0\)?[\s-]?\(?)?|0)(?:\d{2}\)?[\s-]?\d{4}[\s-]?\d{4}|\d{3}\)?[\s-]?\d{3}[\s-]?\d{3,4}|\d{4}\)?[\s-]?(?:\d{5}|\d{3}[\s-]?\d{3})|\d{5}\)?[\s-]?\d{4,5}|8(?:00[\s-]?11[\s-]?11|45[\s-]?46[\s-]?4\d))(?:(?:[\s-]?(?:x|ext\.?\s?|\#)\d+)?)$/).test(value);
+                case 'GB':
+                    // http://aa-asterisk.org.uk/index.php/Regular_Expressions_for_Validating_and_Formatting_GB_Telephone_Numbers#Match_GB_telephone_number_in_any_format
+                    // Test: http://regexr.com/38uhv
+                    value = $.trim(value);
+                    isValid = (/^\(?(?:(?:0(?:0|11)\)?[\s-]?\(?|\+)44\)?[\s-]?\(?(?:0\)?[\s-]?\(?)?|0)(?:\d{2}\)?[\s-]?\d{4}[\s-]?\d{4}|\d{3}\)?[\s-]?\d{3}[\s-]?\d{3,4}|\d{4}\)?[\s-]?(?:\d{5}|\d{3}[\s-]?\d{3})|\d{5}\)?[\s-]?\d{4,5}|8(?:00[\s-]?11[\s-]?11|45[\s-]?46[\s-]?4\d))(?:(?:[\s-]?(?:x|ext\.?\s?|\#)\d+)?)$/).test(value);
                     break;
 
                 case 'MA':
                     // http://en.wikipedia.org/wiki/Telephone_numbers_in_Morocco
                     // Test: http://regexr.com/399n8
-                    value   = $.trim(value);
+                    value = $.trim(value);
                     isValid = (/^(?:(?:(?:\+|00)212[\s]?(?:[\s]?\(0\)[\s]?)?)|0){1}(?:5[\s.-]?[2-3]|6[\s.-]?[13-9]){1}[0-9]{1}(?:[\s.-]?\d{2}){3}$/).test(value);
                     break;
 
                 case 'PK':
                     // http://regex101.com/r/yH8aV9/2
-                    value   = $.trim(value);
+                    value = $.trim(value);
                     isValid = (/^0?3[0-9]{2}[0-9]{7}$/).test(value);
                     break;
 
-        		case 'RO':
-        		    // All mobile network and land line
+                case 'RO':
+                    // All mobile network and land line
                     // http://regexr.com/39fv1
-        		    isValid = (/^(\+4|)?(07[0-8]{1}[0-9]{1}|02[0-9]{2}|03[0-9]{2}){1}?(\s|\.|\-)?([0-9]{3}(\s|\.|\-|)){2}$/g).test(value);
-        		    break;
+                    isValid = (/^(\+4|)?(07[0-8]{1}[0-9]{1}|02[0-9]{2}|03[0-9]{2}){1}?(\s|\.|\-)?([0-9]{3}(\s|\.|\-|)){2}$/g).test(value);
+                    break;
 
                 case 'RU':
                     // http://regex101.com/r/gW7yT5/5
@@ -5856,24 +6645,24 @@ if (typeof jQuery === 'undefined') {
                     break;
 
                 case 'TH':
-        		    // http://regex101.com/r/vM5mZ4/2
-        		    isValid = (/^0\(?([6|8-9]{2})*-([0-9]{3})*-([0-9]{4})$/).test(value);
-        		    break;
+                    // http://regex101.com/r/vM5mZ4/2
+                    isValid = (/^0\(?([6|8-9]{2})*-([0-9]{3})*-([0-9]{4})$/).test(value);
+                    break;
 
                 case 'VE':
                     // http://regex101.com/r/eM2yY0/6
-                    value   = $.trim(value);
+                    value = $.trim(value);
                     isValid = (/^0(?:2(?:12|4[0-9]|5[1-9]|6[0-9]|7[0-8]|8[1-35-8]|9[1-5]|3[45789])|4(?:1[246]|2[46]))\d{7}$/).test(value);
                     break;
 
                 case 'US':
-                /* falls through */
+                    /* falls through */
                 default:
                     // Make sure US phone numbers have 10 digits
                     // May start with 1, +1, or 1-; should discard
                     // Area code may be delimited with (), & sections may be delimited with . or -
                     // Test: http://regexr.com/38mqi
-                    value   = value.replace(/\D/g, '');
+                    value = value.replace(/\D/g, '');
                     isValid = (/^(?:(1\-?)|(\+1 ?))?\(?(\d{3})[\)\-\.]?(\d{3})[\-\.]?(\d{4})$/).test(value) && (value.length === 10);
                     break;
             }
@@ -5884,8 +6673,8 @@ if (typeof jQuery === 'undefined') {
             };
         }
     };
-}(window.jQuery));
-;(function($) {
+}(window.jQuery));;
+(function($) {
     $.fn.bootstrapValidator.i18n.regexp = $.extend($.fn.bootstrapValidator.i18n.regexp || {}, {
         'default': 'Please enter a value matching the pattern'
     });
@@ -5926,8 +6715,8 @@ if (typeof jQuery === 'undefined') {
             return regexp.test(value);
         }
     };
-}(window.jQuery));
-;(function($) {
+}(window.jQuery));;
+(function($) {
     $.fn.bootstrapValidator.i18n.remote = $.extend($.fn.bootstrapValidator.i18n.remote || {}, {
         'default': 'Please enter a valid value'
     });
@@ -5972,16 +6761,18 @@ if (typeof jQuery === 'undefined') {
          */
         validate: function(validator, $field, options) {
             var value = $field.val(),
-                dfd   = new $.Deferred();
+                dfd = new $.Deferred();
             if (value === '') {
-                dfd.resolve($field, 'remote', { valid: true });
+                dfd.resolve($field, 'remote', {
+                    valid: true
+                });
                 return dfd;
             }
 
-            var name    = $field.attr('data-bv-field'),
-                data    = options.data || {},
-                url     = options.url,
-                type    = options.type || 'GET',
+            var name = $field.attr('data-bv-field'),
+                data = options.data || {},
+                url = options.url,
+                type = options.type || 'GET',
                 headers = options.headers || {};
 
             // Support dynamic data
@@ -6000,6 +6791,7 @@ if (typeof jQuery === 'undefined') {
             }
 
             data[options.name || name] = value;
+
             function runCallback() {
                 var xhr = $.ajax({
                     type: type,
@@ -6019,7 +6811,7 @@ if (typeof jQuery === 'undefined') {
 
                 return dfd;
             }
-            
+
             if (options.delay) {
                 // Since the form might have multiple fields with the same name
                 // I have to attach the timer to the field element
@@ -6034,8 +6826,8 @@ if (typeof jQuery === 'undefined') {
             }
         }
     };
-}(window.jQuery));
-;(function($) {
+}(window.jQuery));;
+(function($) {
     $.fn.bootstrapValidator.i18n.rtn = $.extend($.fn.bootstrapValidator.i18n.rtn || {}, {
         'default': 'Please enter a valid RTN number'
     });
@@ -6065,15 +6857,15 @@ if (typeof jQuery === 'undefined') {
 
             var sum = 0;
             for (var i = 0; i < value.length; i += 3) {
-                sum += parseInt(value.charAt(i),     10) * 3
-                    +  parseInt(value.charAt(i + 1), 10) * 7
-                    +  parseInt(value.charAt(i + 2), 10);
+                sum += parseInt(value.charAt(i), 10) * 3 +
+                    parseInt(value.charAt(i + 1), 10) * 7 +
+                    parseInt(value.charAt(i + 2), 10);
             }
             return (sum !== 0 && sum % 10 === 0);
         }
     };
-}(window.jQuery));
-;(function($) {
+}(window.jQuery));;
+(function($) {
     $.fn.bootstrapValidator.i18n.sedol = $.extend($.fn.bootstrapValidator.i18n.sedol || {}, {
         'default': 'Please enter a valid SEDOL number'
     });
@@ -6102,51 +6894,51 @@ if (typeof jQuery === 'undefined') {
                 return false;
             }
 
-            var sum    = 0,
+            var sum = 0,
                 weight = [1, 3, 1, 7, 3, 9, 1],
                 length = value.length;
             for (var i = 0; i < length - 1; i++) {
-	            sum += weight[i] * parseInt(value.charAt(i), 36);
-	        }
-	        sum = (10 - sum % 10) % 10;
+                sum += weight[i] * parseInt(value.charAt(i), 36);
+            }
+            sum = (10 - sum % 10) % 10;
             return sum + '' === value.charAt(length - 1);
         }
     };
-}(window.jQuery));
-;(function($) {
+}(window.jQuery));;
+(function($) {
     $.fn.bootstrapValidator.i18n.siren = $.extend($.fn.bootstrapValidator.i18n.siren || {}, {
         'default': 'Please enter a valid SIREN number'
     });
 
-	$.fn.bootstrapValidator.validators.siren = {
-		/**
-		 * Check if a string is a siren number
-		 *
-		 * @param {BootstrapValidator} validator The validator plugin instance
-		 * @param {jQuery} $field Field element
-		 * @param {Object} options Consist of key:
+    $.fn.bootstrapValidator.validators.siren = {
+        /**
+         * Check if a string is a siren number
+         *
+         * @param {BootstrapValidator} validator The validator plugin instance
+         * @param {jQuery} $field Field element
+         * @param {Object} options Consist of key:
          * - message: The invalid message
-		 * @returns {Boolean}
-		 */
-		validate: function(validator, $field, options) {
-			var value = $field.val();
-			if (value === '') {
-				return true;
-			}
+         * @returns {Boolean}
+         */
+        validate: function(validator, $field, options) {
+            var value = $field.val();
+            if (value === '') {
+                return true;
+            }
 
             if (!/^\d{9}$/.test(value)) {
                 return false;
             }
             return $.fn.bootstrapValidator.helpers.luhn(value);
-		}
-	};
-}(window.jQuery));
-;(function($) {
+        }
+    };
+}(window.jQuery));;
+(function($) {
     $.fn.bootstrapValidator.i18n.siret = $.extend($.fn.bootstrapValidator.i18n.siret || {}, {
         'default': 'Please enter a valid SIRET number'
     });
 
-	$.fn.bootstrapValidator.validators.siret = {
+    $.fn.bootstrapValidator.validators.siret = {
         /**
          * Check if a string is a siret number
          *
@@ -6156,30 +6948,30 @@ if (typeof jQuery === 'undefined') {
          * - message: The invalid message
          * @returns {Boolean}
          */
-		validate: function(validator, $field, options) {
-			var value = $field.val();
-			if (value === '') {
-				return true;
-			}
+        validate: function(validator, $field, options) {
+            var value = $field.val();
+            if (value === '') {
+                return true;
+            }
 
-			var sum    = 0,
+            var sum = 0,
                 length = value.length,
                 tmp;
-			for (var i = 0; i < length; i++) {
+            for (var i = 0; i < length; i++) {
                 tmp = parseInt(value.charAt(i), 10);
-				if ((i % 2) === 0) {
-					tmp = tmp * 2;
-					if (tmp > 9) {
-						tmp -= 9;
-					}
-				}
-				sum += tmp;
-			}
-			return (sum % 10 === 0);
-		}
-	};
-}(window.jQuery));
-;(function($) {
+                if ((i % 2) === 0) {
+                    tmp = tmp * 2;
+                    if (tmp > 9) {
+                        tmp -= 9;
+                    }
+                }
+                sum += tmp;
+            }
+            return (sum % 10 === 0);
+        }
+    };
+}(window.jQuery));;
+(function($) {
     $.fn.bootstrapValidator.i18n.step = $.extend($.fn.bootstrapValidator.i18n.step || {}, {
         'default': 'Please enter a valid step of %s'
     });
@@ -6208,8 +7000,11 @@ if (typeof jQuery === 'undefined') {
                 return true;
             }
 
-            options = $.extend({}, { baseValue: 0, step: 1 }, options);
-            value   = parseFloat(value);
+            options = $.extend({}, {
+                baseValue: 0,
+                step: 1
+            }, options);
+            value = parseFloat(value);
             if (!$.isNumeric(value)) {
                 return false;
             }
@@ -6217,7 +7012,7 @@ if (typeof jQuery === 'undefined') {
             var round = function(x, precision) {
                     var m = Math.pow(10, precision);
                     x = x * m;
-                    var sign   = (x > 0) | -(x < 0),
+                    var sign = (x > 0) | -(x < 0),
                         isHalf = (x % 1 === 0.5 * sign);
                     if (isHalf) {
                         return (Math.floor(x) + (sign > 0)) / m;
@@ -6229,8 +7024,8 @@ if (typeof jQuery === 'undefined') {
                     if (y === 0.0) {
                         return 1.0;
                     }
-                    var dotX      = (x + '').split('.'),
-                        dotY      = (y + '').split('.'),
+                    var dotX = (x + '').split('.'),
+                        dotY = (y + '').split('.'),
                         precision = ((dotX.length === 1) ? 0 : dotX[1].length) + ((dotY.length === 1) ? 0 : dotY[1].length);
                     return round(x - y * Math.floor(x / y), precision);
                 };
@@ -6242,8 +7037,8 @@ if (typeof jQuery === 'undefined') {
             };
         }
     };
-}(window.jQuery));
-;(function($) {
+}(window.jQuery));;
+(function($) {
     $.fn.bootstrapValidator.i18n.stringCase = $.extend($.fn.bootstrapValidator.i18n.stringCase || {}, {
         'default': 'Please enter only lowercase characters',
         upper: 'Please enter only uppercase characters'
@@ -6278,8 +7073,8 @@ if (typeof jQuery === 'undefined') {
             };
         }
     };
-}(window.jQuery));
-;(function($) {
+}(window.jQuery));;
+(function($) {
     $.fn.bootstrapValidator.i18n.stringLength = $.extend($.fn.bootstrapValidator.i18n.stringLength || {}, {
         'default': 'Please enter a value with valid length',
         less: 'Please enter less than %s characters',
@@ -6297,7 +7092,7 @@ if (typeof jQuery === 'undefined') {
         },
 
         enableByHtml5: function($field) {
-            var options   = {},
+            var options = {},
                 maxLength = $field.attr('maxlength'),
                 minLength = $field.attr('minlength');
             if (maxLength) {
@@ -6340,27 +7135,27 @@ if (typeof jQuery === 'undefined') {
                 return true;
             }
 
-            var min        = $.isNumeric(options.min) ? options.min : validator.getDynamicOption($field, options.min),
-                max        = $.isNumeric(options.max) ? options.max : validator.getDynamicOption($field, options.max),
+            var min = $.isNumeric(options.min) ? options.min : validator.getDynamicOption($field, options.min),
+                max = $.isNumeric(options.max) ? options.max : validator.getDynamicOption($field, options.max),
                 // Credit to http://stackoverflow.com/a/23329386 (@lovasoa) for UTF-8 byte length code
                 utf8Length = function(str) {
-                                 var s = str.length;
-                                 for (var i = str.length - 1; i >= 0; i--) {
-                                     var code = str.charCodeAt(i);
-                                     if (code > 0x7f && code <= 0x7ff) {
-                                         s++;
-                                     } else if (code > 0x7ff && code <= 0xffff) {
-                                         s += 2;
-                                     }
-                                     if (code >= 0xDC00 && code <= 0xDFFF) {
-                                         i--;
-                                     }
-                                 }
-                                 return s;
-                             },
-                length     = options.utf8Bytes ? utf8Length(value) : value.length,
-                isValid    = true,
-                message    = options.message || $.fn.bootstrapValidator.i18n.stringLength['default'];
+                    var s = str.length;
+                    for (var i = str.length - 1; i >= 0; i--) {
+                        var code = str.charCodeAt(i);
+                        if (code > 0x7f && code <= 0x7ff) {
+                            s++;
+                        } else if (code > 0x7ff && code <= 0xffff) {
+                            s += 2;
+                        }
+                        if (code >= 0xDC00 && code <= 0xDFFF) {
+                            i--;
+                        }
+                    }
+                    return s;
+                },
+                length = options.utf8Bytes ? utf8Length(value) : value.length,
+                isValid = true,
+                message = options.message || $.fn.bootstrapValidator.i18n.stringLength['default'];
 
             if ((min && length < parseInt(min, 10)) || (max && length > parseInt(max, 10))) {
                 isValid = false;
@@ -6383,11 +7178,14 @@ if (typeof jQuery === 'undefined') {
                     break;
             }
 
-            return { valid: isValid, message: message };
+            return {
+                valid: isValid,
+                message: message
+            };
         }
     };
-}(window.jQuery));
-;(function($) {
+}(window.jQuery));;
+(function($) {
     $.fn.bootstrapValidator.i18n.uri = $.extend($.fn.bootstrapValidator.i18n.uri || {}, {
         'default': 'Please enter a valid URI'
     });
@@ -6452,8 +7250,8 @@ if (typeof jQuery === 'undefined') {
             // - Added possibility of choosing a custom protocol
             //
             var allowLocal = options.allowLocal === true || options.allowLocal === 'true',
-                protocol   = (options.protocol || 'http, https, ftp').split(',').join('|').replace(/\s/g, ''),
-                urlExp     = new RegExp(
+                protocol = (options.protocol || 'http, https, ftp').split(',').join('|').replace(/\s/g, ''),
+                urlExp = new RegExp(
                     "^" +
                     // protocol identifier
                     "(?:(?:" + protocol + ")://)" +
@@ -6462,11 +7260,11 @@ if (typeof jQuery === 'undefined') {
                     "(?:" +
                     // IP address exclusion
                     // private & local networks
-                    (allowLocal
-                        ? ''
-                        : ("(?!(?:10|127)(?:\\.\\d{1,3}){3})" +
-                           "(?!(?:169\\.254|192\\.168)(?:\\.\\d{1,3}){2})" +
-                           "(?!172\\.(?:1[6-9]|2\\d|3[0-1])(?:\\.\\d{1,3}){2})")) +
+                    (allowLocal ?
+                        '' :
+                        ("(?!(?:10|127)(?:\\.\\d{1,3}){3})" +
+                            "(?!(?:169\\.254|192\\.168)(?:\\.\\d{1,3}){2})" +
+                            "(?!172\\.(?:1[6-9]|2\\d|3[0-1])(?:\\.\\d{1,3}){2})")) +
                     // IP address dotted notation octets
                     // excludes loopback network 0.0.0.0
                     // excludes reserved space >= 224.0.0.0
@@ -6490,13 +7288,13 @@ if (typeof jQuery === 'undefined') {
                     // resource path
                     "(?:/[^\\s]*)?" +
                     "$", "i"
-            );
+                );
 
             return urlExp.test(value);
         }
     };
-}(window.jQuery));
-;(function($) {
+}(window.jQuery));;
+(function($) {
     $.fn.bootstrapValidator.i18n.uuid = $.extend($.fn.bootstrapValidator.i18n.uuid || {}, {
         'default': 'Please enter a valid UUID number',
         version: 'Please enter a valid UUID version %s number'
@@ -6535,14 +7333,13 @@ if (typeof jQuery === 'undefined') {
                 version = options.version ? (options.version + '') : 'all';
             return {
                 valid: (null === patterns[version]) ? true : patterns[version].test(value),
-                message: options.version
-                            ? $.fn.bootstrapValidator.helpers.format(options.message || $.fn.bootstrapValidator.i18n.uuid.version, options.version)
-                            : (options.message || $.fn.bootstrapValidator.i18n.uuid['default'])
+                message: options.version ?
+                    $.fn.bootstrapValidator.helpers.format(options.message || $.fn.bootstrapValidator.i18n.uuid.version, options.version) : (options.message || $.fn.bootstrapValidator.i18n.uuid['default'])
             };
         }
     };
-}(window.jQuery));
-;(function($) {
+}(window.jQuery));;
+(function($) {
     $.fn.bootstrapValidator.i18n.vat = $.extend($.fn.bootstrapValidator.i18n.vat || {}, {
         'default': 'Please enter a valid VAT number',
         countryNotSupported: 'The country code %s is not supported',
@@ -6636,10 +7433,9 @@ if (typeof jQuery === 'undefined') {
                 };
             }
 
-            var method  = ['_', country.toLowerCase()].join('');
-            return this[method](value)
-                ? true
-                : {
+            var method = ['_', country.toLowerCase()].join('');
+            return this[method](value) ?
+                true : {
                     valid: false,
                     message: $.fn.bootstrapValidator.helpers.format(options.message || $.fn.bootstrapValidator.i18n.vat.country, $.fn.bootstrapValidator.i18n.vat.countries[country.toUpperCase()])
                 };
@@ -6665,9 +7461,9 @@ if (typeof jQuery === 'undefined') {
             }
 
             value = value.substr(1);
-            var sum    = 0,
+            var sum = 0,
                 weight = [1, 2, 1, 2, 1, 2, 1],
-                temp   = 0;
+                temp = 0;
             for (var i = 0; i < 7; i++) {
                 temp = parseInt(value.charAt(i), 10) * weight[i];
                 if (temp > 9) {
@@ -6732,7 +7528,8 @@ if (typeof jQuery === 'undefined') {
                 return false;
             }
 
-            var sum = 0, i = 0;
+            var sum = 0,
+                i = 0;
 
             // Legal entities
             if (value.length === 9) {
@@ -6754,9 +7551,9 @@ if (typeof jQuery === 'undefined') {
                 // Validate Bulgarian national identification numbers
                 var egn = function(value) {
                         // Check the birth date
-                        var year  = parseInt(value.substr(0, 2), 10) + 1900,
+                        var year = parseInt(value.substr(0, 2), 10) + 1900,
                             month = parseInt(value.substr(2, 2), 10),
-                            day   = parseInt(value.substr(4, 2), 10);
+                            day = parseInt(value.substr(4, 2), 10);
                         if (month > 40) {
                             year += 100;
                             month -= 40;
@@ -6769,7 +7566,7 @@ if (typeof jQuery === 'undefined') {
                             return false;
                         }
 
-                        var sum    = 0,
+                        var sum = 0,
                             weight = [2, 4, 8, 5, 10, 9, 7, 3, 6];
                         for (var i = 0; i < 9; i++) {
                             sum += parseInt(value.charAt(i), 10) * weight[i];
@@ -6779,7 +7576,7 @@ if (typeof jQuery === 'undefined') {
                     },
                     // Validate Bulgarian personal number of a foreigner
                     pnf = function(value) {
-                        var sum    = 0,
+                        var sum = 0,
                             weight = [21, 19, 17, 13, 11, 9, 7, 3, 1];
                         for (var i = 0; i < 9; i++) {
                             sum += parseInt(value.charAt(i), 10) * weight[i];
@@ -6789,7 +7586,7 @@ if (typeof jQuery === 'undefined') {
                     },
                     // Finally, consider it as a VAT number
                     vat = function(value) {
-                        var sum    = 0,
+                        var sum = 0,
                             weight = [4, 3, 2, 7, 6, 5, 4, 3, 2];
                         for (var i = 0; i < 9; i++) {
                             sum += parseInt(value.charAt(i), 10) * weight[i];
@@ -6808,7 +7605,7 @@ if (typeof jQuery === 'undefined') {
 
             return false;
         },
-        
+
         /**
          * Validate Brazilian VAT number (CNPJ)
          *
@@ -6828,17 +7625,16 @@ if (typeof jQuery === 'undefined') {
             if (cnpj === '00000000000000' || cnpj === '11111111111111' || cnpj === '22222222222222' ||
                 cnpj === '33333333333333' || cnpj === '44444444444444' || cnpj === '55555555555555' ||
                 cnpj === '66666666666666' || cnpj === '77777777777777' || cnpj === '88888888888888' ||
-                cnpj === '99999999999999')
-            {
+                cnpj === '99999999999999') {
                 return false;
             }
 
             // Validate verification digits
-            var length  = cnpj.length - 2,
+            var length = cnpj.length - 2,
                 numbers = cnpj.substring(0, length),
-                digits  = cnpj.substring(length),
-                sum     = 0,
-                pos     = length - 7;
+                digits = cnpj.substring(length),
+                sum = 0,
+                pos = length - 7;
 
             for (var i = length; i >= 1; i--) {
                 sum += parseInt(numbers.charAt(length - i), 10) * pos--;
@@ -6852,10 +7648,10 @@ if (typeof jQuery === 'undefined') {
                 return false;
             }
 
-            length  = length + 1;
+            length = length + 1;
             numbers = cnpj.substring(0, length);
-            sum     = 0;
-            pos     = length - 7;
+            sum = 0;
+            pos = length - 7;
             for (i = length; i >= 1; i--) {
                 sum += parseInt(numbers.charAt(length - i), 10) * pos--;
                 if (pos < 2) {
@@ -6882,7 +7678,7 @@ if (typeof jQuery === 'undefined') {
             }
 
             value = value.substr(1);
-            var sum    = 0,
+            var sum = 0,
                 weight = [5, 4, 3, 2, 7, 6, 5, 4];
             for (var i = 0; i < 8; i++) {
                 sum += parseInt(value.charAt(i), 10) * weight[i];
@@ -6922,10 +7718,18 @@ if (typeof jQuery === 'undefined') {
             }
 
             // Extract the next digit and multiply by the counter.
-            var sum         = 0,
+            var sum = 0,
                 translation = {
-                    '0': 1,  '1': 0,  '2': 5,  '3': 7,  '4': 9,
-                    '5': 13, '6': 15, '7': 17, '8': 19, '9': 21
+                    '0': 1,
+                    '1': 0,
+                    '2': 5,
+                    '3': 7,
+                    '4': 9,
+                    '5': 13,
+                    '6': 15,
+                    '7': 17,
+                    '8': 19,
+                    '9': 21
                 };
             for (var i = 0; i < 8; i++) {
                 var temp = parseInt(value.charAt(i), 10);
@@ -6935,7 +7739,7 @@ if (typeof jQuery === 'undefined') {
                 sum += temp;
             }
 
-            sum = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'[sum % 26];
+            sum = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ' [sum % 26];
             return (sum + '' === value.substr(8, 1));
         },
 
@@ -6962,7 +7766,7 @@ if (typeof jQuery === 'undefined') {
             }
 
             var sum = 0,
-                i   = 0;
+                i = 0;
             if (value.length === 8) {
                 // Do not allow to start with '9'
                 if (value.charAt(0) + '' === '9') {
@@ -6999,9 +7803,9 @@ if (typeof jQuery === 'undefined') {
                 return (sum + '' === value.substr(8, 1));
             } else if (value.length === 9 || value.length === 10) {
                 // Validate Czech birth number (Rodné číslo), which is also national identifier
-                var year  = 1900 + parseInt(value.substr(0, 2), 10),
+                var year = 1900 + parseInt(value.substr(0, 2), 10),
                     month = parseInt(value.substr(2, 2), 10) % 50 % 20,
-                    day   = parseInt(value.substr(4, 2), 10);
+                    day = parseInt(value.substr(4, 2), 10);
                 if (value.length === 9) {
                     if (year >= 1980) {
                         year -= 100;
@@ -7069,7 +7873,7 @@ if (typeof jQuery === 'undefined') {
                 return false;
             }
 
-            var sum    = 0,
+            var sum = 0,
                 weight = [2, 7, 6, 5, 4, 3, 2, 1];
             for (var i = 0; i < 8; i++) {
                 sum += parseInt(value.charAt(i), 10) * weight[i];
@@ -7095,7 +7899,7 @@ if (typeof jQuery === 'undefined') {
                 return false;
             }
 
-            var sum    = 0,
+            var sum = 0,
                 weight = [3, 7, 1, 3, 7, 1, 3, 7, 1];
             for (var i = 0; i < 9; i++) {
                 sum += parseInt(value.charAt(i), 10) * weight[i];
@@ -7128,28 +7932,29 @@ if (typeof jQuery === 'undefined') {
 
             var dni = function(value) {
                     var check = parseInt(value.substr(0, 8), 10);
-                    check = 'TRWAGMYFPDXBNJZSQVHLCKE'[check % 23];
+                    check = 'TRWAGMYFPDXBNJZSQVHLCKE' [check % 23];
                     return (check + '' === value.substr(8, 1));
                 },
                 nie = function(value) {
                     var check = ['XYZ'.indexOf(value.charAt(0)), value.substr(1)].join('');
                     check = parseInt(check, 10);
-                    check = 'TRWAGMYFPDXBNJZSQVHLCKE'[check % 23];
+                    check = 'TRWAGMYFPDXBNJZSQVHLCKE' [check % 23];
                     return (check + '' === value.substr(8, 1));
                 },
                 cif = function(value) {
-                    var first = value.charAt(0), check;
+                    var first = value.charAt(0),
+                        check;
                     if ('KLM'.indexOf(first) !== -1) {
                         // K: Spanish younger than 14 year old
                         // L: Spanish living outside Spain without DNI
                         // M: Granted the tax to foreigners who have no NIE
                         check = parseInt(value.substr(1, 8), 10);
-                        check = 'TRWAGMYFPDXBNJZSQVHLCKE'[check % 23];
+                        check = 'TRWAGMYFPDXBNJZSQVHLCKE' [check % 23];
                         return (check + '' === value.substr(8, 1));
                     } else if ('ABCDEFGHJNPQRSUVW'.indexOf(first) !== -1) {
-                        var sum    = 0,
+                        var sum = 0,
                             weight = [2, 1, 2, 1, 2, 1, 2],
-                            temp   = 0;
+                            temp = 0;
 
                         for (var i = 0; i < 7; i++) {
                             temp = parseInt(value.charAt(i + 1), 10) * weight[i];
@@ -7159,7 +7964,7 @@ if (typeof jQuery === 'undefined') {
                             sum += temp;
                         }
                         sum = 10 - sum % 10;
-                        return (sum + '' === value.substr(8, 1) || 'JABCDEFGHI'[sum] === value.substr(8, 1));
+                        return (sum + '' === value.substr(8, 1) || 'JABCDEFGHI' [sum] === value.substr(8, 1));
                     }
 
                     return false;
@@ -7192,7 +7997,7 @@ if (typeof jQuery === 'undefined') {
                 return false;
             }
 
-            var sum    = 0,
+            var sum = 0,
                 weight = [7, 9, 10, 5, 8, 4, 2, 1];
             for (var i = 0; i < 8; i++) {
                 sum += parseInt(value.charAt(i), 10) * weight[i];
@@ -7251,37 +8056,34 @@ if (typeof jQuery === 'undefined') {
          * @returns {Boolean}
          */
         _gb: function(value) {
-            if (/^GB[0-9]{9}$/.test(value)             /* Standard */
-                || /^GB[0-9]{12}$/.test(value)         /* Branches */
-                || /^GBGD[0-9]{3}$/.test(value)        /* Government department */
-                || /^GBHA[0-9]{3}$/.test(value)        /* Health authority */
-                || /^GB(GD|HA)8888[0-9]{5}$/.test(value))
-            {
+            if (/^GB[0-9]{9}$/.test(value) /* Standard */ ||
+                /^GB[0-9]{12}$/.test(value) /* Branches */ ||
+                /^GBGD[0-9]{3}$/.test(value) /* Government department */ ||
+                /^GBHA[0-9]{3}$/.test(value) /* Health authority */ ||
+                /^GB(GD|HA)8888[0-9]{5}$/.test(value)) {
                 value = value.substr(2);
             }
-            if (!/^[0-9]{9}$/.test(value)
-                && !/^[0-9]{12}$/.test(value)
-                && !/^GD[0-9]{3}$/.test(value)
-                && !/^HA[0-9]{3}$/.test(value)
-                && !/^(GD|HA)8888[0-9]{5}$/.test(value))
-            {
+            if (!/^[0-9]{9}$/.test(value) &&
+                !/^[0-9]{12}$/.test(value) &&
+                !/^GD[0-9]{3}$/.test(value) &&
+                !/^HA[0-9]{3}$/.test(value) &&
+                !/^(GD|HA)8888[0-9]{5}$/.test(value)) {
                 return false;
             }
 
             var length = value.length;
             if (length === 5) {
-                var firstTwo  = value.substr(0, 2),
+                var firstTwo = value.substr(0, 2),
                     lastThree = parseInt(value.substr(2), 10);
                 return ('GD' === firstTwo && lastThree < 500) || ('HA' === firstTwo && lastThree >= 500);
             } else if (length === 11 && ('GD8888' === value.substr(0, 6) || 'HA8888' === value.substr(0, 6))) {
-                if (('GD' === value.substr(0, 2) && parseInt(value.substr(6, 3), 10) >= 500)
-                    || ('HA' === value.substr(0, 2) && parseInt(value.substr(6, 3), 10) < 500))
-                {
+                if (('GD' === value.substr(0, 2) && parseInt(value.substr(6, 3), 10) >= 500) ||
+                    ('HA' === value.substr(0, 2) && parseInt(value.substr(6, 3), 10) < 500)) {
                     return false;
                 }
                 return (parseInt(value.substr(6, 3), 10) % 97 === parseInt(value.substr(9, 2), 10));
             } else if (length === 9 || length === 12) {
-                var sum    = 0,
+                var sum = 0,
                     weight = [8, 7, 6, 5, 4, 3, 2, 10, 1];
                 for (var i = 0; i < 9; i++) {
                     sum += parseInt(value.charAt(i), 10) * weight[i];
@@ -7319,7 +8121,7 @@ if (typeof jQuery === 'undefined') {
                 value = '0' + value;
             }
 
-            var sum    = 0,
+            var sum = 0,
                 weight = [256, 128, 64, 32, 16, 8, 4, 2];
             for (var i = 0; i < 8; i++) {
                 sum += parseInt(value.charAt(i), 10) * weight[i];
@@ -7351,7 +8153,7 @@ if (typeof jQuery === 'undefined') {
                 return false;
             }
 
-            var sum    = 0,
+            var sum = 0,
                 weight = [9, 7, 3, 1, 9, 7, 3, 1];
 
             for (var i = 0; i < 8; i++) {
@@ -7403,7 +8205,7 @@ if (typeof jQuery === 'undefined') {
                     value = '0' + value;
                 }
                 var alphabet = 'WABCDEFGHIJKLMNOPQRSTUV',
-                    sum      = 0;
+                    sum = 0;
                 for (var i = 0; i < 7; i++) {
                     sum += parseInt(value.charAt(i), 10) * (8 - i);
                 }
@@ -7494,7 +8296,7 @@ if (typeof jQuery === 'undefined') {
             }
 
             var length = value.length,
-                sum    = 0,
+                sum = 0,
                 i;
             for (i = 0; i < length - 1; i++) {
                 sum += parseInt(value.charAt(i), 10) * (1 + i % 9);
@@ -7547,14 +8349,14 @@ if (typeof jQuery === 'undefined') {
                 return false;
             }
 
-            var first  = parseInt(value.charAt(0), 10),
-                sum    = 0,
+            var first = parseInt(value.charAt(0), 10),
+                sum = 0,
                 weight = [],
                 i,
                 length = value.length;
             if (first > 3) {
                 // Legal entity
-                sum    = 0;
+                sum = 0;
                 weight = [9, 1, 4, 8, 3, 10, 2, 5, 7, 6, 1];
                 for (i = 0; i < length; i++) {
                     sum += parseInt(value.charAt(i), 10) * weight[i];
@@ -7563,9 +8365,9 @@ if (typeof jQuery === 'undefined') {
                 return (sum === 3);
             } else {
                 // Check birth date
-                var day   = parseInt(value.substr(0, 2), 10),
+                var day = parseInt(value.substr(0, 2), 10),
                     month = parseInt(value.substr(2, 2), 10),
-                    year  = parseInt(value.substr(4, 2), 10);
+                    year = parseInt(value.substr(4, 2), 10);
                 year = year + 1800 + parseInt(value.charAt(6), 10) * 100;
 
                 if (!$.fn.bootstrapValidator.helpers.date(year, month, day)) {
@@ -7573,7 +8375,7 @@ if (typeof jQuery === 'undefined') {
                 }
 
                 // Check personal code
-                sum    = 0;
+                sum = 0;
                 weight = [10, 5, 8, 4, 2, 1, 6, 3, 7, 9];
                 for (i = 0; i < length - 1; i++) {
                     sum += parseInt(value.charAt(i), 10) * weight[i];
@@ -7600,7 +8402,7 @@ if (typeof jQuery === 'undefined') {
                 return false;
             }
 
-            var sum    = 0,
+            var sum = 0,
                 weight = [3, 4, 6, 7, 8, 9, 10, 1];
 
             for (var i = 0; i < 8; i++) {
@@ -7621,13 +8423,13 @@ if (typeof jQuery === 'undefined') {
          */
         _nl: function(value) {
             if (/^NL[0-9]{9}B[0-9]{2}$/.test(value)) {
-               value = value.substr(2);
+                value = value.substr(2);
             }
             if (!/^[0-9]{9}B[0-9]{2}$/.test(value)) {
-               return false;
+                return false;
             }
 
-            var sum    = 0,
+            var sum = 0,
                 weight = [9, 8, 7, 6, 5, 4, 3, 2];
             for (var i = 0; i < 8; i++) {
                 sum += parseInt(value.charAt(i), 10) * weight[i];
@@ -7649,13 +8451,13 @@ if (typeof jQuery === 'undefined') {
          */
         _no: function(value) {
             if (/^NO[0-9]{9}$/.test(value)) {
-               value = value.substr(2);
+                value = value.substr(2);
             }
             if (!/^[0-9]{9}$/.test(value)) {
-               return false;
+                return false;
             }
 
-            var sum    = 0,
+            var sum = 0,
                 weight = [3, 2, 7, 6, 5, 4, 3, 2];
             for (var i = 0; i < 8; i++) {
                 sum += parseInt(value.charAt(i), 10) * weight[i];
@@ -7685,7 +8487,7 @@ if (typeof jQuery === 'undefined') {
                 return false;
             }
 
-            var sum    = 0,
+            var sum = 0,
                 weight = [6, 5, 7, 2, 3, 4, 5, 6, 7, -1];
 
             for (var i = 0; i < 10; i++) {
@@ -7712,7 +8514,7 @@ if (typeof jQuery === 'undefined') {
                 return false;
             }
 
-            var sum    = 0,
+            var sum = 0,
                 weight = [9, 8, 7, 6, 5, 4, 3, 2];
 
             for (var i = 0; i < 8; i++) {
@@ -7744,7 +8546,7 @@ if (typeof jQuery === 'undefined') {
 
             var length = value.length,
                 weight = [7, 5, 3, 2, 1, 7, 5, 3, 2].slice(10 - length),
-                sum    = 0;
+                sum = 0;
             for (var i = 0; i < length - 1; i++) {
                 sum += parseInt(value.charAt(i), 10) * weight[i];
             }
@@ -7769,7 +8571,7 @@ if (typeof jQuery === 'undefined') {
 
             var i = 0;
             if (value.length === 10) {
-                var sum    = 0,
+                var sum = 0,
                     weight = [2, 4, 10, 3, 5, 9, 4, 6, 8, 0];
                 for (i = 0; i < 10; i++) {
                     sum += parseInt(value.charAt(i), 10) * weight[i];
@@ -7781,9 +8583,9 @@ if (typeof jQuery === 'undefined') {
 
                 return (sum + '' === value.substr(9, 1));
             } else if (value.length === 12) {
-                var sum1    = 0,
+                var sum1 = 0,
                     weight1 = [7, 2, 4, 10, 3, 5, 9, 4, 6, 8, 0],
-                    sum2    = 0,
+                    sum2 = 0,
                     weight2 = [3, 7, 2, 4, 10, 3, 5, 9, 4, 6, 8, 0];
 
                 for (i = 0; i < 11; i++) {
@@ -7819,7 +8621,7 @@ if (typeof jQuery === 'undefined') {
                 return false;
             }
 
-            var sum  = 10,
+            var sum = 10,
                 temp = 0;
             for (var i = 0; i < 8; i++) {
                 temp = (parseInt(value.charAt(i), 10) + sum) % 10;
@@ -7870,7 +8672,7 @@ if (typeof jQuery === 'undefined') {
                 return false;
             }
 
-            var sum    = 0,
+            var sum = 0,
                 weight = [8, 7, 6, 5, 4, 3, 2];
 
             for (var i = 0; i < 7; i++) {
@@ -7920,14 +8722,14 @@ if (typeof jQuery === 'undefined') {
                 return false;
             }
 
-            var types  = {
+            var types = {
                     'V': 4,
                     'E': 8,
                     'J': 12,
                     'P': 16,
                     'G': 20
                 },
-                sum    = types[value.charAt(0)],
+                sum = types[value.charAt(0)],
                 weight = [3, 2, 7, 6, 5, 4, 3, 2];
 
             for (var i = 0; i < 8; i++) {
@@ -7950,7 +8752,7 @@ if (typeof jQuery === 'undefined') {
          * @params {String} value VAT number
          * @returns {Boolean}
          */
-         _za: function(value) {
+        _za: function(value) {
             if (/^ZA4[0-9]{9}$/.test(value)) {
                 value = value.substr(2);
             }
@@ -7958,8 +8760,8 @@ if (typeof jQuery === 'undefined') {
             return /^4[0-9]{9}$/.test(value);
         }
     };
-}(window.jQuery));
-;(function($) {
+}(window.jQuery));;
+(function($) {
     $.fn.bootstrapValidator.i18n.vin = $.extend($.fn.bootstrapValidator.i18n.vin || {}, {
         'default': 'Please enter a valid VIN number'
     });
@@ -7986,15 +8788,44 @@ if (typeof jQuery === 'undefined') {
             }
 
             value = value.toUpperCase();
-            var chars   = {
-                    A: 1,   B: 2,   C: 3,   D: 4,   E: 5,   F: 6,   G: 7,   H: 8,
-                    J: 1,   K: 2,   L: 3,   M: 4,   N: 5,           P: 7,           R: 9,
-                            S: 2,   T: 3,   U: 4,   V: 5,   W: 6,   X: 7,   Y: 8,   Z: 9,
-                    '1': 1, '2': 2, '3': 3, '4': 4, '5': 5, '6': 6, '7': 7, '8': 8, '9': 9, '0': 0
+            var chars = {
+                    A: 1,
+                    B: 2,
+                    C: 3,
+                    D: 4,
+                    E: 5,
+                    F: 6,
+                    G: 7,
+                    H: 8,
+                    J: 1,
+                    K: 2,
+                    L: 3,
+                    M: 4,
+                    N: 5,
+                    P: 7,
+                    R: 9,
+                    S: 2,
+                    T: 3,
+                    U: 4,
+                    V: 5,
+                    W: 6,
+                    X: 7,
+                    Y: 8,
+                    Z: 9,
+                    '1': 1,
+                    '2': 2,
+                    '3': 3,
+                    '4': 4,
+                    '5': 5,
+                    '6': 6,
+                    '7': 7,
+                    '8': 8,
+                    '9': 9,
+                    '0': 0
                 },
                 weights = [8, 7, 6, 5, 4, 3, 2, 10, 0, 9, 8, 7, 6, 5, 4, 3, 2],
-                sum     = 0,
-                length  = value.length;
+                sum = 0,
+                length = value.length;
             for (var i = 0; i < length; i++) {
                 sum += chars[value.charAt(i) + ''] * weights[i];
             }
@@ -8007,8 +8838,8 @@ if (typeof jQuery === 'undefined') {
             return (reminder + '') === value.charAt(8);
         }
     };
-}(window.jQuery));
-;(function($) {
+}(window.jQuery));;
+(function($) {
     $.fn.bootstrapValidator.i18n.zipCode = $.extend($.fn.bootstrapValidator.i18n.zipCode || {}, {
         'default': 'Please enter a valid postal code',
         countryNotSupported: 'The country code %s is not supported',
@@ -8043,7 +8874,7 @@ if (typeof jQuery === 'undefined') {
             country: 'country'
         },
 
-        COUNTRY_CODES: [ 'AT', 'BR', 'CA', 'CH', 'CZ', 'DE', 'DK', 'FR', 'GB', 'IE', 'IT', 'MA', 'NL', 'PT', 'RO', 'RU', 'SE', 'SG', 'SK', 'US'],
+        COUNTRY_CODES: ['AT', 'BR', 'CA', 'CH', 'CZ', 'DE', 'DK', 'FR', 'GB', 'IE', 'IT', 'MA', 'NL', 'PT', 'RO', 'RU', 'SE', 'SG', 'SK', 'US'],
 
         /**
          * Return true if and only if the input value is a valid country zip code
@@ -8081,7 +8912,10 @@ if (typeof jQuery === 'undefined') {
             }
 
             if (!country || $.inArray(country.toUpperCase(), this.COUNTRY_CODES) === -1) {
-                return { valid: false, message: $.fn.bootstrapValidator.helpers.format($.fn.bootstrapValidator.i18n.zipCode.countryNotSupported, country) };
+                return {
+                    valid: false,
+                    message: $.fn.bootstrapValidator.helpers.format($.fn.bootstrapValidator.i18n.zipCode.countryNotSupported, country)
+                };
             }
 
             var isValid = false;
@@ -8109,7 +8943,7 @@ if (typeof jQuery === 'undefined') {
                     isValid = /^(\d{3})([ ]?)(\d{2})$/.test(value);
                     break;
 
-                // http://stackoverflow.com/questions/7926687/regular-expression-german-zip-codes
+                    // http://stackoverflow.com/questions/7926687/regular-expression-german-zip-codes
                 case 'DE':
                     isValid = /^(?!01000|99999)(0[1-9]\d{3}|[1-9]\d{4})$/.test(value);
                     break;
@@ -8118,7 +8952,7 @@ if (typeof jQuery === 'undefined') {
                     isValid = /^(DK(-|\s)?)?\d{4}$/i.test(value);
                     break;
 
-                // http://en.wikipedia.org/wiki/Postal_codes_in_France
+                    // http://en.wikipedia.org/wiki/Postal_codes_in_France
                 case 'FR':
                     isValid = /^[0-9]{5}$/i.test(value);
                     break;
@@ -8127,28 +8961,28 @@ if (typeof jQuery === 'undefined') {
                     isValid = this._gb(value);
                     break;
 
-                // http://www.eircode.ie/docs/default-source/Common/prepare-your-business-for-eircode---published-v2.pdf?sfvrsn=2
-                // Test: http://refiddle.com/1kpl
+                    // http://www.eircode.ie/docs/default-source/Common/prepare-your-business-for-eircode---published-v2.pdf?sfvrsn=2
+                    // Test: http://refiddle.com/1kpl
                 case 'IE':
                     isValid = /^(D6W|[ACDEFHKNPRTVWXY]\d{2})\s[0-9ACDEFHKNPRTVWXY]{4}$/.test(value);
                     break;
 
-                // http://en.wikipedia.org/wiki/List_of_postal_codes_in_Italy
+                    // http://en.wikipedia.org/wiki/List_of_postal_codes_in_Italy
                 case 'IT':
                     isValid = /^(I-|IT-)?\d{5}$/i.test(value);
                     break;
 
-                // http://en.wikipedia.org/wiki/List_of_postal_codes_in_Morocco
+                    // http://en.wikipedia.org/wiki/List_of_postal_codes_in_Morocco
                 case 'MA':
                     isValid = /^[1-9][0-9]{4}$/i.test(value);
                     break;
 
-                // http://en.wikipedia.org/wiki/Postal_codes_in_the_Netherlands
+                    // http://en.wikipedia.org/wiki/Postal_codes_in_the_Netherlands
                 case 'NL':
                     isValid = /^[1-9][0-9]{3} ?(?!sa|sd|ss)[a-z]{2}$/i.test(value);
                     break;
 
-                // Test: http://refiddle.com/1l2t
+                    // Test: http://refiddle.com/1l2t
                 case 'PT':
                     isValid = /^[1-9]\d{3}-\d{3}$/.test(value);
                     break;
@@ -8175,7 +9009,7 @@ if (typeof jQuery === 'undefined') {
                     break;
 
                 case 'US':
-                /* falls through */
+                    /* falls through */
                 default:
                     isValid = /^\d{4,5}([\-]?\d{4})?$/.test(value);
                     break;
@@ -8199,12 +9033,12 @@ if (typeof jQuery === 'undefined') {
          * @returns {Boolean}
          */
         _gb: function(value) {
-            var firstChar  = '[ABCDEFGHIJKLMNOPRSTUWYZ]',     // Does not accept QVX
-                secondChar = '[ABCDEFGHKLMNOPQRSTUVWXY]',     // Does not accept IJZ
-                thirdChar  = '[ABCDEFGHJKPMNRSTUVWXY]',
+            var firstChar = '[ABCDEFGHIJKLMNOPRSTUWYZ]', // Does not accept QVX
+                secondChar = '[ABCDEFGHKLMNOPQRSTUVWXY]', // Does not accept IJZ
+                thirdChar = '[ABCDEFGHJKPMNRSTUVWXY]',
                 fourthChar = '[ABEHMNPRVWXY]',
-                fifthChar  = '[ABDEFGHJLNPQRSTUWXYZ]',
-                regexps    = [
+                fifthChar = '[ABDEFGHJLNPQRSTUWXYZ]',
+                regexps = [
                     // AN NAA, ANN NAA, AAN NAA, AANN NAA format
                     new RegExp('^(' + firstChar + '{1}' + secondChar + '?[0-9]{1,2})(\\s*)([0-9]{1}' + fifthChar + '{2})$', 'i'),
                     // ANA NAA
@@ -8212,12 +9046,12 @@ if (typeof jQuery === 'undefined') {
                     // AANA NAA
                     new RegExp('^(' + firstChar + '{1}' + secondChar + '{1}?[0-9]{1}' + fourthChar + '{1})(\\s*)([0-9]{1}' + fifthChar + '{2})$', 'i'),
 
-                    new RegExp('^(BF1)(\\s*)([0-6]{1}[ABDEFGHJLNPQRST]{1}[ABDEFGHJLNPQRSTUWZYZ]{1})$', 'i'),        // BFPO postcodes
-                    /^(GIR)(\s*)(0AA)$/i,                       // Special postcode GIR 0AA
-                    /^(BFPO)(\s*)([0-9]{1,4})$/i,               // Standard BFPO numbers
-                    /^(BFPO)(\s*)(c\/o\s*[0-9]{1,3})$/i,        // c/o BFPO numbers
-                    /^([A-Z]{4})(\s*)(1ZZ)$/i,                  // Overseas Territories
-                    /^(AI-2640)$/i                              // Anguilla
+                    new RegExp('^(BF1)(\\s*)([0-6]{1}[ABDEFGHJLNPQRST]{1}[ABDEFGHJLNPQRSTUWZYZ]{1})$', 'i'), // BFPO postcodes
+                    /^(GIR)(\s*)(0AA)$/i, // Special postcode GIR 0AA
+                    /^(BFPO)(\s*)([0-9]{1,4})$/i, // Standard BFPO numbers
+                    /^(BFPO)(\s*)(c\/o\s*[0-9]{1,3})$/i, // c/o BFPO numbers
+                    /^([A-Z]{4})(\s*)(1ZZ)$/i, // Overseas Territories
+                    /^(AI-2640)$/i // Anguilla
                 ];
             for (var i = 0; i < regexps.length; i++) {
                 if (regexps[i].test(value)) {

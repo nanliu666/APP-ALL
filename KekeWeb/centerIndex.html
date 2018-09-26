@@ -51,7 +51,7 @@
         <div class="topInfo">
             <img src="images/logo (2).png" class="logo" />
             <span style="float: right">
-				<span class="mui-icon mui-icon-contact" id="JSCenter" style="font-size:38px; padding: 10px"></span>
+                <span class="mui-icon mui-icon-contact" id="JSCenter" style="font-size:38px; padding: 10px"></span>
             </span>
         </div>
         <div style="width: 100%; background-color: rgb(239, 239, 244)" class="flexSpaceAround">
@@ -90,7 +90,9 @@
         $(document).ready(() => {
             $("#JSLoginOut").click(function(e) {
 
-                const [loginOutUrl, now_time, platform, ] = ['/site/login-out', parseInt(moment().unix()), 'web', ]
+                const [loginOutUrl, now_time, platform, ] = ['/site/login-out', parseInt(moment().unix()),
+                    'web',
+                ]
                 let signObj = {
                     now_time,
                     platform,
