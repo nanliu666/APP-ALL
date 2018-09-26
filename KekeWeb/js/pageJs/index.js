@@ -117,7 +117,6 @@ if (sessionStorage.loginSuccess && sessionStorage.loginSuccess === 'success') {
 
         // HTML创建
         const HTMLCreate = (remData) => {
-            console.log(remData)
             for (let i = 0; i < remData.length; i++) {
                 remHTML += `
                 <div class="list_content" data-toggle="modal" data-target="#downModal" data-index=${i}>
