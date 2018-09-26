@@ -55,16 +55,6 @@
 <script type="text/javascript">
     if (sessionStorage.loginSuccess && sessionStorage.loginSuccess === 'success') {
         $(document).ready(() => {
-            mui.init();
-            var width = document.body.clientWidth;
-            if (width > 640) {
-                $(".zhaoBox a img").css("margin-left", "25%");
-                $(".zhaoBox a img").css('width', "50%");
-                $(".zhaoBox a img").css('height', "50%");
-            }
-            $('#JSCenter').on('click', function() {
-                window.location.href = './centerIndex.html'
-            })
             let [imgSrc, liHTML] = [
                 [{
                     img: 'images/sz.jpg',

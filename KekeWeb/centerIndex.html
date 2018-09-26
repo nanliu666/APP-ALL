@@ -88,14 +88,7 @@
     <script type="text/javascript" src="js/common.js"></script>
     <script type="text/javascript">
         $(document).ready(() => {
-            $('#JSCenter').on('click', function() {
-                window.location.href = './centerIndex.html'
-            })
             $("#JSLoginOut").click(function(e) {
-
-                //axios请求配置
-                axios.defaults.baseURL = 'http://192.168.2.159:7002';
-                axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
 
                 const [loginOutUrl, now_time, platform, ] = ['/site/login-out', parseInt(moment().unix()), 'web', ]
                 let signObj = {
