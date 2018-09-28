@@ -1,0 +1,127 @@
+/*flex布局*/
+
+.flexcolumn {
+    display: flex;
+    flex-direction: column;
+}
+
+.flexspaceAround {
+    display: flex;
+    justify-content: space-around;
+}
+
+.flexspaceBetween {
+    display: flex;
+    justify-content: space-between;
+}
+
+.flexAstretch {
+    display: flex;
+    align-content: stretch;
+}
+
+.flexWcenter {
+    display: flex;
+    justify-content: center;
+}
+
+.flexHcenter {
+    display: flex;
+    align-items: center;
+}
+
+.flexALLcenter {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+/*固定布局*/
+
+.fixed-bottom {
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 1030;
+}
+
+
+/*显示与隐藏*/
+
+.displayBlock {
+    display: block
+}
+
+.displayNone {
+    display: none
+}
+
+
+/*icon图标*/
+
+.icon {
+    width: 1.6em;
+    height: 1.6em;
+    vertical-align: -0.15em;
+    fill: currentColor;
+    overflow: hidden;
+}
+
+.iconLG {
+    width: 10em;
+    height: 10em;
+    vertical-align: -0.15em;
+    fill: currentColor;
+    overflow: hidden;
+}
+
+
+/*padding10*/
+
+.padding10 {
+    padding: 10px;
+}
+
+.margin10 {
+    margin: 10px 0;
+}
+
+.margin30 {
+    margin: 30px 0;
+}
+
+.margin_10 {
+    margin: 0 -10px;
+}
+
+
+/*font-size*/
+
+.fontSize20 {
+    font-size: 20px
+}
+
+
+/*color相关*/
+
+.textSuccess {
+    color: rgb(0, 128, 132)
+}
+
+.textErr {
+    color: rgb(255, 0, 0)
+}
+
+.textP {
+    color: rgb(153, 153, 153)
+}
+
+
+/*border相关*/
+
+.borderTB {
+    border: 1px solid rgb(121, 121, 121);
+    border-style: solid none;
+}
