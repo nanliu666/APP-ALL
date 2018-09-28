@@ -1,0 +1,74 @@
+/*nav部分*/
+
+nav {
+    border-top: 1px solid rgb(121, 121, 121);
+}
+
+nav li {
+    display: flex;
+    flex-direction: column;
+    padding-top: 6px;
+    border-right: 1px solid rgb(121, 121, 121);
+}
+
+nav li:last-child {
+    border-right: 0
+}
+
+svg {
+    margin-bottom: 4px;
+}
+
+.active {
+    color: rgb(0, 85, 255);
+}
+
+
+/*header部分*/
+
+header {
+    margin: 20px 0;
+}
+
+
+/*main部分*/
+
+main {
+    padding: 0 10px
+}
+
+
+/*exchange部分*/
+
+.groupDiv {
+    height: 80px;
+    border: 1px solid rgb(121, 121, 121);
+    margin-bottom: 10px;
+}
+
+.groupDiv label {
+    height: 40px;
+    background-color: rgb(204, 204, 204);
+    border-bottom: 1px solid rgb(121, 121, 121);
+}
+
+
+/*record部分*/
+
+#Js-record ul {
+    border: 1px solid rgb(121, 121, 121);
+    border-bottom-style: none;
+}
+
+#Js-record ul li {
+    border-bottom: 1px solid rgb(121, 121, 121);
+}
+
+
+/*center部分*/
+
+.light30 {
+    height: 50px;
+    line-height: 50px;
+    padding: 0px 10px;
+}
