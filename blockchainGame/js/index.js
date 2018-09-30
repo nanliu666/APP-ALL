@@ -50,7 +50,6 @@ $(document).ready(() => {
     document.title = '兑换';
     $("header h2").text("兑换")
 
-
     // 记录
     record.Erecord.map((item) => {
         recordLiHTML.push(`<p>${item.date}</p>`)
