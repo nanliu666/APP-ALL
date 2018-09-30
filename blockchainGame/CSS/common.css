@@ -51,11 +51,11 @@
 /*显示与隐藏*/
 
 .displayBlock {
-    display: block
+    display: block;
 }
 
 .displayNone {
-    display: none
+    display: none;
 }
 
 

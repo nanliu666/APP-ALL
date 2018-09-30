@@ -85,9 +85,7 @@ $(document).ready(() => {
             document.title = data[i].title;
             $("header h2").text(data[i].title)
             $(navList[i]).addClass('active').siblings().removeClass('active')
-            $(mainChildren[i]).siblings().addClass('displayNone')
-            $(mainChildren[i]).removeClass('displayNone')
-            $(mainChildren[i]).addClass('displayBlock').siblings().removeClass('displayBlock')
+            $(mainChildren[i]).show().siblings().hide()
         })
     }
 
