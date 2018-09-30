@@ -55,13 +55,13 @@ main {
 
 /*record部分*/
 
-#Js-record ul {
+#Js-record ul li {
     border: 1px solid rgb(121, 121, 121);
-    border-bottom-style: none;
+    border-top-style: none;
 }
 
-#Js-record ul li {
-    border-bottom: 1px solid rgb(121, 121, 121);
+#Js-record ul li:first-of-type {
+    border-top: 1px solid rgb(121, 121, 121);
 }
 
 

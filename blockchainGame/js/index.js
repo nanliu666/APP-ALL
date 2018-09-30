@@ -50,20 +50,20 @@ $(document).ready(() => {
     document.title = '兑换';
     $("header h2").text("兑换")
 
-    $(".JSDate").html(`<p>${record.Erecord[0].date}</p>`)
 
     // 记录
     record.Erecord.map((item) => {
+        recordLiHTML.push(`<p>${item.date}</p>`)
         item.number.map((item) => {
             recordLiHTML.push(`
-            <li class="padding10">
-              <div class="flexspaceBetween"><span class="fontSize20"><strong>￥${item.RMB}</strong></span> <span class="jsSuccess textSuccess">${item.success}</span></div>
-              <div class="flexspaceBetween textP">
-                  <span>消耗${item.gold}个区块链币</span>
-                  <span>${item.time}</span>
-              </div>
-            </li>
-          `)
+                <li class="padding10">
+                <div class="flexspaceBetween"><span class="fontSize20"><strong>￥${item.RMB}</strong></span> <span class="jsSuccess textSuccess">${item.success}</span></div>
+                <div class="flexspaceBetween textP">
+                    <span>消耗${item.gold}个区块链币</span>
+                    <span>${item.time}</span>
+                </div>
+                </li>
+            `)
         })
     })
     $('#Js-record ul').html(recordLiHTML)
@@ -84,7 +84,7 @@ $(document).ready(() => {
     for (let i = 0; i < navList.length; i++) {
         $(navList[i]).click(() => {
             document.title = data[i].title;
-            $("header h1").text(data[i].title)
+            $("header h2").text(data[i].title)
             $(navList[i]).addClass('active').siblings().removeClass('active')
             $(mainChildren[i]).siblings().addClass('displayNone')
             $(mainChildren[i]).removeClass('displayNone')
