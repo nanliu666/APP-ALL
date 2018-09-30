@@ -1,81 +1,76 @@
 /*nav部分*/
 
 nav {
-    border-top: 1px solid rgb(121, 121, 121);
+  border-top: 1px solid rgb(121, 121, 121);
 }
 
 nav li {
-    display: flex;
-    flex-direction: column;
-    padding-top: 6px;
-    border-right: 1px solid rgb(121, 121, 121);
+  display: flex;
+  flex-direction: column;
+  padding-top: 6px;
+  border-right: 1px solid rgb(121, 121, 121);
 }
 
 nav li:last-child {
-    border-right: 0
+  border-right: 0;
 }
 
 svg {
-    margin-bottom: 4px;
+  margin-bottom: 4px;
 }
 
 .active {
-    color: rgb(0, 85, 255);
+  color: rgb(0, 85, 255);
 }
-
 
 /*header部分*/
 
 header {
-    margin: 20px 0;
+  margin: 20px 0;
 }
-
 
 /*main部分*/
 
 main {
-    padding: 0 10px
+  padding: 0 10px;
 }
-
 
 /*exchange部分*/
 
 .groupDiv {
-    height: 80px;
-    border: 1px solid rgb(121, 121, 121);
-    margin-bottom: 10px;
+  height: 80px;
+  border: 1px solid rgb(121, 121, 121);
+  margin-bottom: 10px;
 }
 
 .groupDiv label {
-    height: 40px;
-    background-color: rgb(204, 204, 204);
-    border-bottom: 1px solid rgb(121, 121, 121);
+  height: 40px;
+  background-color: rgb(204, 204, 204);
+  border-bottom: 1px solid rgb(121, 121, 121);
 }
-
 
 /*record部分*/
 
 #Js-record ul li {
-    border: 1px solid rgb(121, 121, 121);
-    border-top-style: none;
+  border: 1px solid rgb(121, 121, 121);
+  border-top-style: none;
 }
 
 #Js-record ul li:first-of-type {
-    border-top: 1px solid rgb(121, 121, 121);
+  border-top: 1px solid rgb(121, 121, 121);
 }
-
 
 /*center部分*/
 
 .light30 {
-    height: 50px;
-    line-height: 50px;
-    padding: 0px 10px;
+  height: 50px;
+  line-height: 50px;
+  padding: 0px 10px;
 }
 
 .jsPassword {
-    width: 0;
-    height: 0;
-    border: 12px solid;
-    border-color: transparent transparent transparent orange;
+  width: 0;
+  height: 0;
+  border: 12px solid;
+  border-color: transparent transparent transparent orange;
 }
