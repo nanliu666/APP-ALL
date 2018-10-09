@@ -1,5 +1,4 @@
-/*flex布局*/
-
+/* flex布局 */
 .flexcolumn {
   display: flex;
   flex-direction: column;
@@ -99,7 +98,6 @@
 }
 
 /*color相关*/
-
 .textSuccess {
   color: rgb(0, 128, 132);
 }
