@@ -40,6 +40,39 @@ $(document).ready(() => {
             gold: 10
           }
         ]
+      }, {
+        date: moment().format('YYYY-MM-DD'),
+        number: [{
+            success: 0,
+            time,
+            RMB: 10,
+            gold: 10
+          },
+          {
+            success: 0,
+            time,
+            RMB: 10,
+            gold: 10
+          },
+          {
+            success: 0,
+            time,
+            RMB: 10,
+            gold: 10
+          },
+          {
+            success: 0,
+            time,
+            RMB: 10,
+            gold: 10
+          },
+          {
+            success: 1,
+            time,
+            RMB: 10,
+            gold: 10
+          }
+        ]
       }]
     },
     {
@@ -57,10 +90,10 @@ $(document).ready(() => {
 
   // 记录
   record.Erecord.map(item => {
-    recordLiHTML.push(`<p>${item.date}</p>`)
+    recordLiHTML.push(`<p class="dateP">${item.date}</p>`)
     item.number.map(item => {
       recordLiHTML.push(`
-                      <li class="padding10">
+                      <li class="padding10 recordLi">
                 <div class="flexspaceBetween"><span class="fontSize20"><strong>￥${
                   item.RMB
                 }</strong></span> <span class="jsSuccess textSuccess">${

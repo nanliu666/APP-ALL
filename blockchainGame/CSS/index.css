@@ -1,21 +1,22 @@
 /*nav部分*/
 
-nav {
+.footer-nav {
   border-top: 1px solid rgb(121, 121, 121);
+  background-color: #fff;
 }
 
-nav li {
+.navli {
   display: flex;
   flex-direction: column;
   padding-top: 6px;
   border-right: 1px solid rgb(121, 121, 121);
 }
 
-nav li:last-child {
+.navli:last-child {
   border-right: 0;
 }
 
-svg {
+.svgICON {
   margin-bottom: 4px;
 }
 
@@ -25,14 +26,15 @@ svg {
 
 /*header部分*/
 
-header {
+.header {
   margin: 20px 0;
 }
 
 /*main部分*/
 
-main {
+.main {
   padding: 0 10px;
+  margin-bottom: 70px;
 }
 
 /*exchange部分*/
@@ -50,15 +52,18 @@ main {
 }
 
 /*record部分*/
+/* 日期段落P单独处理 */
+.dateP {  
+  border-bottom: 1px solid rgb(121, 121, 121);
+  margin: 10px 0 0 0;
+}
 
-#Js-record ul li {
+/* 去除每个里的上面边框 */
+.recordLi{
   border: 1px solid rgb(121, 121, 121);
   border-top-style: none;
 }
 
-#Js-record ul li:first-of-type {
-  border-top: 1px solid rgb(121, 121, 121);
-}
 
 /*center部分*/
 

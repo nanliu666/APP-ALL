@@ -36,6 +36,34 @@ $(document).ready(function () {
         RMB: 10,
         gold: 10
       }]
+    }, {
+      date: moment().format('YYYY-MM-DD'),
+      number: [{
+        success: 0,
+        time: time,
+        RMB: 10,
+        gold: 10
+      }, {
+        success: 0,
+        time: time,
+        RMB: 10,
+        gold: 10
+      }, {
+        success: 0,
+        time: time,
+        RMB: 10,
+        gold: 10
+      }, {
+        success: 0,
+        time: time,
+        RMB: 10,
+        gold: 10
+      }, {
+        success: 1,
+        time: time,
+        RMB: 10,
+        gold: 10
+      }]
     }]
   }, {
     title: '个人中心',
@@ -52,9 +80,9 @@ $(document).ready(function () {
 
   // 记录
   record.Erecord.map(function (item) {
-    recordLiHTML.push('<p>' + item.date + '</p>');
+    recordLiHTML.push('<p class="dateP">' + item.date + '</p>');
     item.number.map(function (item) {
-      recordLiHTML.push('\n                      <li class="padding10">\n                <div class="flexspaceBetween"><span class="fontSize20"><strong>\uFFE5' + item.RMB + '</strong></span> <span class="jsSuccess textSuccess">' + item.success + '</span></div>\n                <div class="flexspaceBetween textP">\n                    <span>\u6D88\u8017' + item.gold + '\u4E2A\u533A\u5757\u94FE\u5E01</span>\n                    <span>' + item.time + '</span>\n                </div>\n                </li>\n            ');
+      recordLiHTML.push('\n                      <li class="padding10 recordLi">\n                <div class="flexspaceBetween"><span class="fontSize20"><strong>\uFFE5' + item.RMB + '</strong></span> <span class="jsSuccess textSuccess">' + item.success + '</span></div>\n                <div class="flexspaceBetween textP">\n                    <span>\u6D88\u8017' + item.gold + '\u4E2A\u533A\u5757\u94FE\u5E01</span>\n                    <span>' + item.time + '</span>\n                </div>\n                </li>\n            ');
     });
   });
   $('#Js-record ul').html(recordLiHTML);
