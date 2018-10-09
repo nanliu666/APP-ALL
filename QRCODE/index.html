@@ -6,9 +6,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
+    <link href="https://cdn.bootcss.com/bootstrap/4.1.1/css/bootstrap.css" rel="stylesheet">
+
     <style>
 
-    #wrapper {
+        #wrapper {
         position: relative;
         padding: 100% 0 0;
     }
@@ -28,7 +30,24 @@
         top: 37%;
         z-index: 1;
     }
-
+    #imgBox {
+        top: 50%;
+        position: absolute;
+        margin-top: -46%;
+    }
+  /* img {
+        position: absolute;
+        left: 50%;
+        margin-left: -190px;
+        top: 50%;
+        margin-top: -190px;
+        vertical-align: middle;
+        border-style: none;
+    } */
+    .hide {
+        display: none;
+        opacity: 0;
+    }
     </style>
 </head>
 
@@ -38,58 +57,110 @@
             <img class="IMG" src="./qrbgmap.jpg">
             <div id="qrcode"></div>
         </div>
-        <div id="imgBox"></div>
+        <div id="imgBox" data-toggle="modal" data-target="#myModal"></div>
     </div>
+    <!-- 模态框（Modal） -->
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    </div>
+
 </body>
 
 </html>
 <script src="jquery.js"></script>
 <script src="./qrcode.min.js"></script>
 <script src="./html2canvas.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.1/js/bootstrap.js"></script>
 <script type="text/javascript">
-    // 生成二维码
-    var makecode = function () {
-        var width = $(".container").width();
-        var codeWidth = width / 3,
-            codeHeight = width / 3;
-        $("#qrcode").empty()
-        var qrcode = new QRCode(document.getElementById("qrcode"), {
-            text: 'http://www.css88.com/archives/8510',
-            width: codeWidth,
-            height: codeHeight
-        });
-    }
-    makecode()
-
-    //防抖
-    var resizeTimer = null;
-    $(window).bind('resize', function () {
-        if (resizeTimer) clearTimeout(resizeTimer);
-        resizeTimer = setTimeout(function () {
-            makecode()
-        }, 100);
-    })
-
-    var w = $("#wrapper").width();
-    var h = $("#wrapper").height();
-
-    // 要将 canvas 的宽高设置成容器宽高的 2 倍
-    var canvas = document.createElement("canvas");
-    canvas.width = w * 2;
-    canvas.height = h * 2;
-    canvas.style.width = w + "px";
-    canvas.style.height = h + "px";
-    var context = canvas.getContext("2d");
-    //然后将画布缩放，将图像放大两倍画到画布上
-    context.scale(2, 2);
-    var str = $('#wrapper')
-    console.log(str)
-    html2canvas([str.get(0)], {
-        onrendered: function (canvas) {
-            var image = canvas.toDataURL("image/jpg");
-            var pHtml = "<img src=" + image + " />";
-            $('#imgBox').html(pHtml);
-            $('#wrapper').hide();
+    $(document).ready(function () {
+        // 生成二维码
+        var makecode = function () {
+            var width = $(".container").width();
+            var codeWidth = width / 3,
+                codeHeight = width / 3;
+            $("#qrcode").empty()
+            var qrcode = new QRCode(document.getElementById("qrcode"), {
+                text: 'http://www.css88.com/archives/8510',
+                width: codeWidth,
+                height: codeHeight
+            });
         }
-    });
+        makecode()
+
+        //防抖
+        var resizeTimer = null;
+        $(window).bind('resize', function () {
+            if (resizeTimer) clearTimeout(resizeTimer);
+            resizeTimer = setTimeout(function () {
+                makecode()
+            }, 100);
+        })
+
+        var w = $("#wrapper").width();
+        var h = $("#wrapper").height();
+
+        // 要将 canvas 的宽高设置成容器宽高的 2 倍
+        var canvas = document.createElement("canvas");
+        canvas.width = w * 2;
+        canvas.height = h * 2;
+        canvas.style.width = w + "px";
+        canvas.style.height = h + "px";
+        var context = canvas.getContext("2d");
+        //然后将画布缩放，将图像放大两倍画到画布上
+        context.scale(2, 2);
+        var str = $('#wrapper')
+        html2canvas([str.get(0)], {
+            onrendered: function (canvas) {
+                var image = canvas.toDataURL("image/jpg");
+                var pHtml = "<img src=" + image + " />";
+                $('#imgBox').html(pHtml);
+                $('#myModal').height(window.screen.height)
+                $('#myModal').html(pHtml);
+                $('#wrapper').hide();
+            }
+        })
+        $(".modal").on('click', function () {
+            $("#imgBox").toggle()
+            $("#myModal").toggle()
+            $(".modal-backdrop").toggle()
+        })
+
+        $("#imgBox").on('click', function () {
+            $("#imgBox").toggle()
+            $("#myModal").toggle()
+            $(".modal-backdrop").toggle()
+        })
+
+
+        // if (document.body.clientWidth > 1024) {
+        //     $("#myModal").eq(0).css({
+        //         'dispaly': 'block',
+        //         "opacity": "1",
+        //         "margin": "0px",
+        //         "top": '50%',
+        //         "left": '50%',
+        //         "margin-left": '-30%',
+        //         "margin-top": '-30%',
+        //     });
+
+        //     $("#imgBox").css({
+        //         "position": 'absolute',
+        //         "margin": "0px",
+        //         "top": '50%',
+        //         "left": '50%',
+        //         "margin-left": '-30%',
+        //         "margin-top": '-30%',
+        //     })
+        // } else {
+        //     $("#myModal").eq(0).css({
+        //         'dispaly': 'block',
+        //         "opacity": "1",
+        //         "margin": "0px",
+        //         "top": '50%',
+        //         "left": '50%',
+        //         "margin-left": '-46%',
+        //         "margin-top": '-46%',
+        //     });
+        // }
+
+    })
 </script>
