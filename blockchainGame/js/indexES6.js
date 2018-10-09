@@ -1,50 +1,46 @@
 $(document).ready(() => {
   const time = moment().format('YYYY-MM-DD HH:mm')
-  const data = [
-    {
+  const data = [{
       title: '兑换',
       gameID: '12324587',
       balance: 11
     },
     {
       title: '兑换记录',
-      Erecord: [
-        {
-          date: moment().format('YYYY-MM-DD'),
-          number: [
-            {
-              success: 0,
-              time,
-              RMB: 10,
-              gold: 10
-            },
-            {
-              success: 0,
-              time,
-              RMB: 10,
-              gold: 10
-            },
-            {
-              success: 0,
-              time,
-              RMB: 10,
-              gold: 10
-            },
-            {
-              success: 0,
-              time,
-              RMB: 10,
-              gold: 10
-            },
-            {
-              success: 1,
-              time,
-              RMB: 10,
-              gold: 10
-            }
-          ]
-        }
-      ]
+      Erecord: [{
+        date: moment().format('YYYY-MM-DD'),
+        number: [{
+            success: 0,
+            time,
+            RMB: 10,
+            gold: 10
+          },
+          {
+            success: 0,
+            time,
+            RMB: 10,
+            gold: 10
+          },
+          {
+            success: 0,
+            time,
+            RMB: 10,
+            gold: 10
+          },
+          {
+            success: 0,
+            time,
+            RMB: 10,
+            gold: 10
+          },
+          {
+            success: 1,
+            time,
+            RMB: 10,
+            gold: 10
+          }
+        ]
+      }]
     },
     {
       title: '个人中心',
@@ -52,7 +48,10 @@ $(document).ready(() => {
     }
   ]
   let [exchange, record, center] = data
-  let [recordLiHTML, successHTML] = [[], []]
+  let [recordLiHTML, successHTML] = [
+    [],
+    []
+  ]
   document.title = '兑换'
   $('header h2').text('兑换')
 
