@@ -118,3 +118,8 @@
   border: 1px solid rgb(121, 121, 121);
   border-style: solid none;
 }
+
+/*百分比布局相关*/
+.percent80 {
+  width: 80%;
+}
