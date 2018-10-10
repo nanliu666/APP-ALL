@@ -30,23 +30,9 @@
         top: 37%;
         z-index: 1;
     }
-    #imgBox {
-        top: 50%;
-        position: absolute;
-        margin-top: -46%;
-    }
-  /* img {
-        position: absolute;
-        left: 50%;
-        margin-left: -190px;
-        top: 50%;
-        margin-top: -190px;
-        vertical-align: middle;
-        border-style: none;
-    } */
-    .hide {
-        display: none;
-        opacity: 0;
+    .flexWcenter {
+        display: flex;
+        justify-content: center;
     }
     </style>
 </head>
@@ -59,6 +45,7 @@
         </div>
         <div id="imgBox" data-toggle="modal" data-target="#myModal"></div>
     </div>
+    <button type="button" class="btn btn-success" id="js-saveImg">保存图片</button>
     <!-- 模态框（Modal） -->
     <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     </div>
@@ -112,55 +99,86 @@
             onrendered: function (canvas) {
                 var image = canvas.toDataURL("image/jpg");
                 var pHtml = "<img src=" + image + " />";
+
+
                 $('#imgBox').html(pHtml);
                 $('#myModal').height(window.screen.height)
                 $('#myModal').html(pHtml);
                 $('#wrapper').hide();
+
+                // 切换模态框
+                $("#myModal").on('click', function () {
+                    $("#imgBox").toggle()
+                    $("#myModal").toggle()
+                    $(".modal-backdrop").toggle()
+                    downloadImg()
+                })
+                $("#imgBox").on('click', function () {
+                    $("#imgBox").toggle()
+                    $("#myModal").toggle()
+                    $(".modal-backdrop").toggle()
+                    $('#myModal>img').on('click', function () {
+                        event.stopPropagation(); // 阻止冒泡
+                    })
+                    downloadImg()
+                })
+                var downloadImg = function () {
+                    var imgData = image.replace('image/png', 'image/octet-stream');
+
+                    function save_click(obj) {
+                        var _event = document.createEvent("MouseEvents");
+                        console.log(_event)
+                        _event.initMouseEvent("click", true, false, window, 0, 0, 0, 0, 0,
+                            false, false,
+                            false, false, 0,
+                            null);
+                        obj.dispatchEvent(_event);
+                    }
+
+                    function saveImage(data, filename) {
+                        var _link = document.createElementNS('http://www.w3.org/1999/xhtml',
+                            'a');
+                        _link.href = data;
+                        _link.download = filename;
+                        save_click(_link);
+                    }
+
+                    var filename = 'jialeqipai.png';
+                    saveImage(imgData, filename);
+                }
+        $("#js-saveImg").on('click', function() {
+            downloadImg()
+        })
             }
         })
-        $(".modal").on('click', function () {
+        // 切换模态框，提供手机右键可以下载
+        $("#myModal").on('click', function () {
             $("#imgBox").toggle()
             $("#myModal").toggle()
             $(".modal-backdrop").toggle()
         })
-
         $("#imgBox").on('click', function () {
             $("#imgBox").toggle()
             $("#myModal").toggle()
             $(".modal-backdrop").toggle()
+            $('#myModal>img').on('click', function () {
+                event.stopPropagation(); // 阻止冒泡
+            })
         })
 
 
-        // if (document.body.clientWidth > 1024) {
-        //     $("#myModal").eq(0).css({
-        //         'dispaly': 'block',
-        //         "opacity": "1",
-        //         "margin": "0px",
-        //         "top": '50%',
-        //         "left": '50%',
-        //         "margin-left": '-30%',
-        //         "margin-top": '-30%',
-        //     });
+        // 兼容大屏幕
+        if (window.screen.width > 1024) {
+            $('#myModal').css({
+                // 'padding-left': '21%',
+                "margin-left": "20%"
+            })
+        } else {
+            $('#myModal').css({
+                'padding-left': '4%'
+            })
+        }
 
-        //     $("#imgBox").css({
-        //         "position": 'absolute',
-        //         "margin": "0px",
-        //         "top": '50%',
-        //         "left": '50%',
-        //         "margin-left": '-30%',
-        //         "margin-top": '-30%',
-        //     })
-        // } else {
-        //     $("#myModal").eq(0).css({
-        //         'dispaly': 'block',
-        //         "opacity": "1",
-        //         "margin": "0px",
-        //         "top": '50%',
-        //         "left": '50%',
-        //         "margin-left": '-46%',
-        //         "margin-top": '-46%',
-        //     });
-        // }
 
     })
 </script>

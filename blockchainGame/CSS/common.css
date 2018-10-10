@@ -83,12 +83,16 @@
   margin: 10px 0;
 }
 
+.margin20 {
+  margin: 20px 0;
+}
+
 .margin30 {
   margin: 30px 0;
 }
 
-.margin_10 {
-  margin: 0 -10px;
+.margin_25 {
+  margin: 0 -25px;
 }
 
 /*font-size*/
@@ -99,11 +103,17 @@
 
 /*color相关*/
 .textSuccess {
-  color: rgb(0, 128, 132);
+  font-family: 'Arial Negreta', 'Arial Normal', 'Arial';
+  font-weight: 700;
+  font-style: normal;
+  color: #008000;
 }
 
 .textErr {
-  color: rgb(255, 0, 0);
+  font-family: 'Arial Negreta', 'Arial Normal', 'Arial';
+  font-weight: 700;
+  font-style: normal;
+  color: #FF0000;
 }
 
 .textP {
@@ -120,4 +130,20 @@
 /*百分比布局相关*/
 .percent80 {
   width: 80%;
+}
+
+.h50 {
+  height: 50%;
+}
+
+.h20 {
+  height: 20%;
+}
+
+.h80 {
+  height: 80%;
+}
+
+.h100 {
+  height: 100%;
 }
