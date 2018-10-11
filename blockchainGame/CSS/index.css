@@ -53,13 +53,22 @@
 
 /*record部分*/
 /* 日期段落P单独处理 */
-.dateP {  
+.dateP {
   border-bottom: 1px solid rgb(121, 121, 121);
-  margin: 10px 0 0 0;
+  margin: 20px 0 0 0;
+}
+
+/* 日期段落P样式 */
+.pfontsize {
+  font-family: 'Arial Negreta', 'Arial Normal', 'Arial';
+  font-weight: 700;
+  font-style: normal;
+  font-size: 16px;
+  color: #000000;
 }
 
 /* 去除每个里的上面边框 */
-.recordLi{
+.recordLi {
   border: 1px solid rgb(121, 121, 121);
   border-top-style: none;
 }

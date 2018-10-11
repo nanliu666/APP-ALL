@@ -90,7 +90,7 @@ $(document).ready(() => {
 
   // 记录
   record.Erecord.map(item => {
-    recordLiHTML.push(`<p class="dateP">${item.date}</p>`)
+    recordLiHTML.push(`<p class="dateP pfontsize">${item.date}</p>`)
     item.number.map(item => {
       recordLiHTML.push(`
                       <li class="padding10 recordLi">

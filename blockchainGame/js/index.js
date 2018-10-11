@@ -76,11 +76,11 @@ $(document).ready(function () {
       successHTML = [];
 
   document.title = '兑换';
-  $('header h2').text('兑换');
+  $('header h3').text('兑换');
 
   // 记录
   record.Erecord.map(function (item) {
-    recordLiHTML.push('<p class="dateP">' + item.date + '</p>');
+    recordLiHTML.push('<p class="dateP pfontsize">' + item.date + '</p>');
     item.number.map(function (item) {
       recordLiHTML.push('\n                      <li class="padding10 recordLi">\n                <div class="flexspaceBetween"><span class="fontSize20"><strong>\uFFE5' + item.RMB + '</strong></span> <span class="jsSuccess textSuccess">' + item.success + '</span></div>\n                <div class="flexspaceBetween textP">\n                    <span>\u6D88\u8017' + item.gold + '\u4E2A\u533A\u5757\u94FE\u5E01</span>\n                    <span>' + item.time + '</span>\n                </div>\n                </li>\n            ');
     });
@@ -104,7 +104,7 @@ $(document).ready(function () {
   var _loop = function _loop(_i) {
     $(navList[_i]).click(function () {
       document.title = data[_i].title;
-      $('header h2').text(data[_i].title);
+      $('header h3').text(data[_i].title);
       $(navList[_i]).addClass('active').siblings().removeClass('active');
       $(mainChildren[_i]).show().siblings().hide();
     });
