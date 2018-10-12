@@ -1,4 +1,3 @@
-<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -6,16 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
-    <link href="https://cdn.bootcss.com/bootstrap/4.1.1/css/bootstrap.css" rel="stylesheet">
-
     <style>
-
         #wrapper {
         position: relative;
         padding: 100% 0 0;
     }
-
-    #wrapper>.IMG {
+     #wrapper>.IMG {
         z-index: -1;
         position: absolute;
         width: 100%;
@@ -23,18 +18,13 @@
         left: 0;
         top: 0;
     }
-
-    #qrcode {
+     #qrcode {
         position: absolute;
         left: 15%;
         top: 37%;
         z-index: 1;
     }
-    .flexWcenter {
-        display: flex;
-        justify-content: center;
-    }
-    </style>
+     </style>
 </head>
 
 <body>
@@ -43,142 +33,56 @@
             <img class="IMG" src="./qrbgmap.jpg">
             <div id="qrcode"></div>
         </div>
-        <div id="imgBox" data-toggle="modal" data-target="#myModal"></div>
+        <div id="imgBox"></div>
     </div>
-    <button type="button" class="btn btn-success" id="js-saveImg">保存图片</button>
-    <!-- 模态框（Modal） -->
-    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    </div>
-
 </body>
 
 </html>
 <script src="jquery.js"></script>
 <script src="./qrcode.min.js"></script>
 <script src="./html2canvas.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.1/js/bootstrap.js"></script>
 <script type="text/javascript">
-    $(document).ready(function () {
-        // 生成二维码
-        var makecode = function () {
-            var width = $(".container").width();
-            var codeWidth = width / 3,
-                codeHeight = width / 3;
-            $("#qrcode").empty()
-            var qrcode = new QRCode(document.getElementById("qrcode"), {
-                text: 'http://www.css88.com/archives/8510',
-                width: codeWidth,
-                height: codeHeight
-            });
+    // 生成二维码
+    var makecode = function () {
+        var width = $(".container").width();
+        var codeWidth = width / 3,
+            codeHeight = width / 3;
+        $("#qrcode").empty()
+        var qrcode = new QRCode(document.getElementById("qrcode"), {
+            text: 'http://www.css88.com/archives/8510',
+            width: codeWidth,
+            height: codeHeight
+        });
+    }
+    makecode()
+    //防抖
+    var resizeTimer = null;
+    $(window).bind('resize', function () {
+        if (resizeTimer) clearTimeout(resizeTimer);
+        resizeTimer = setTimeout(function () {
+            makecode()
+        }, 100);
+    })
+    var w = $("#wrapper").width();
+    var h = $("#wrapper").height();
+    // 要将 canvas 的宽高设置成容器宽高的 2 倍
+    var canvas = document.createElement("canvas");
+    canvas.width = w * 2;
+    canvas.height = h * 2;
+    canvas.style.width = w + "px";
+    canvas.style.height = h + "px";
+    var context = canvas.getContext("2d");
+    //然后将画布缩放，将图像放大两倍画到画布上
+    context.scale(2, 2);
+    var str = $('#wrapper')
+    html2canvas([str.get(0)], {
+        onrendered: function (canvas) {
+            var image = canvas.toDataURL("image/jpg");
+            var pHtml
+            window.screen.width > 1024 ? pHtml = "<img src=" + image + " />" : pHtml = '<a href=' + image +
+                ' download="jialeqipai"><img border="0" src=' + image + ' alt="佳乐棋牌"  ></a>'
+            $('#imgBox').html(pHtml);
+            $('#wrapper').hide();
         }
-        makecode()
-
-        //防抖
-        var resizeTimer = null;
-        $(window).bind('resize', function () {
-            if (resizeTimer) clearTimeout(resizeTimer);
-            resizeTimer = setTimeout(function () {
-                makecode()
-            }, 100);
-        })
-
-        var w = $("#wrapper").width();
-        var h = $("#wrapper").height();
-
-        // 要将 canvas 的宽高设置成容器宽高的 2 倍
-        var canvas = document.createElement("canvas");
-        canvas.width = w * 2;
-        canvas.height = h * 2;
-        canvas.style.width = w + "px";
-        canvas.style.height = h + "px";
-        var context = canvas.getContext("2d");
-        //然后将画布缩放，将图像放大两倍画到画布上
-        context.scale(2, 2);
-        var str = $('#wrapper')
-        html2canvas([str.get(0)], {
-            onrendered: function (canvas) {
-                var image = canvas.toDataURL("image/jpg");
-                var pHtml = "<img src=" + image + " />";
-
-
-                $('#imgBox').html(pHtml);
-                $('#myModal').height(window.screen.height)
-                $('#myModal').html(pHtml);
-                $('#wrapper').hide();
-
-                // 切换模态框
-                $("#myModal").on('click', function () {
-                    $("#imgBox").toggle()
-                    $("#myModal").toggle()
-                    $(".modal-backdrop").toggle()
-                    downloadImg()
-                })
-                $("#imgBox").on('click', function () {
-                    $("#imgBox").toggle()
-                    $("#myModal").toggle()
-                    $(".modal-backdrop").toggle()
-                    $('#myModal>img').on('click', function () {
-                        event.stopPropagation(); // 阻止冒泡
-                    })
-                    downloadImg()
-                })
-                var downloadImg = function () {
-                    var imgData = image.replace('image/png', 'image/octet-stream');
-
-                    function save_click(obj) {
-                        var _event = document.createEvent("MouseEvents");
-                        console.log(_event)
-                        _event.initMouseEvent("click", true, false, window, 0, 0, 0, 0, 0,
-                            false, false,
-                            false, false, 0,
-                            null);
-                        obj.dispatchEvent(_event);
-                    }
-
-                    function saveImage(data, filename) {
-                        var _link = document.createElementNS('http://www.w3.org/1999/xhtml',
-                            'a');
-                        _link.href = data;
-                        _link.download = filename;
-                        save_click(_link);
-                    }
-
-                    var filename = 'jialeqipai.png';
-                    saveImage(imgData, filename);
-                }
-        $("#js-saveImg").on('click', function() {
-            downloadImg()
-        })
-            }
-        })
-        // 切换模态框，提供手机右键可以下载
-        $("#myModal").on('click', function () {
-            $("#imgBox").toggle()
-            $("#myModal").toggle()
-            $(".modal-backdrop").toggle()
-        })
-        $("#imgBox").on('click', function () {
-            $("#imgBox").toggle()
-            $("#myModal").toggle()
-            $(".modal-backdrop").toggle()
-            $('#myModal>img').on('click', function () {
-                event.stopPropagation(); // 阻止冒泡
-            })
-        })
-
-
-        // 兼容大屏幕
-        if (window.screen.width > 1024) {
-            $('#myModal').css({
-                // 'padding-left': '21%',
-                "margin-left": "20%"
-            })
-        } else {
-            $('#myModal').css({
-                'padding-left': '4%'
-            })
-        }
-
-
     })
 </script>

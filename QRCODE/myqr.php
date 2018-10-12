@@ -54,7 +54,9 @@ $qrcodeString = '"'.Yii::$app->request->hostInfo.$redirect_uri.'?invitationCode=
     html2canvas([str.get(0)], {
         onrendered: function (canvas) {
             var image = canvas.toDataURL("image/jpg");
-            var pHtml = "<img src=" + image + " />";
+            var pHtml
+            window.screen.width > 1024 ? pHtml = "<img src=" + image + " />" : pHtml = '<a href=' + image +
+                ' download="jialeqipai"><img border="0" src=' + image + ' alt="佳乐棋牌"  ></a>'
             $('#imgBox').html(pHtml);
             $('#wrapper').hide();
         }
