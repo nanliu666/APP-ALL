@@ -39,18 +39,16 @@
 
 /*exchange部分*/
 
-.groupDiv {
-  height: 80px;
+.exchangeForm {
   border: 1px solid rgb(121, 121, 121);
-  margin-bottom: 15px;
+  margin: 20px 20px 40px;
 }
-
-.groupDiv label {
-  height: 40px;
-  background-color: rgb(204, 204, 204);
-  border-bottom: 1px solid rgb(121, 121, 121);
+.exchangeForm div {
+  padding: 6px 14px;
 }
-
+.borderBottom {
+  border-bottom: 1px solid rgb(121, 121, 121)
+}
 /*record部分*/
 /* 日期段落P单独处理 */
 .dateP {

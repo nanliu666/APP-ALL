@@ -82,7 +82,7 @@ $(document).ready(function () {
   // 后端拼接的数据，通过插入渲染进去HTML
 
   document.title = '兑换';
-  $('header h2').text('兑换');
+  $('header h3').text('兑换');
 
   // 记录HTML拼接
   record.Erecord.map(function (item) {
@@ -97,9 +97,9 @@ $(document).ready(function () {
   var jsSuccess = $('.jsSuccess');
   for (var i = 0; i < jsSuccess.length; i++) {
     if (jsSuccess[i].innerHTML === '0') {
-      jsSuccess[i].innerHTML = '成功';
+      jsSuccess[i].innerHTML = '兑换成功';
     } else {
-      jsSuccess[i].innerHTML = '失败';
+      jsSuccess[i].innerHTML = '兑换失败';
       jsSuccess[i].classList.remove('textSuccess');
       jsSuccess[i].classList.add('textErr');
     }
@@ -112,7 +112,7 @@ $(document).ready(function () {
   var _loop = function _loop(_i) {
     $(navList[_i]).click(function () {
       document.title = data[_i].title;
-      $('header h2').text(data[_i].title);
+      $('header h3').text(data[_i].title);
       $(navList[_i]).addClass('active').siblings().removeClass('active');
       $(mainChildren[_i]).show().siblings().hide();
     });
