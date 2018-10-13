@@ -2,6 +2,8 @@
 
 $(document).ready(function () {
   var time = moment().format('YYYY-MM-DD HH:mm');
+
+  //模拟后台数据，后端的数据接入字段data
   var data = [{
     title: '兑换',
     gameID: '12324587',
@@ -69,16 +71,20 @@ $(document).ready(function () {
     title: '个人中心',
     gameID: '12324587'
   }];
+
+  //兑换字段为exchange， 记录页面字段为record， 个人中心页面字段为center
   var exchange = data[0],
       record = data[1],
       center = data[2];
   var recordLiHTML = [],
       successHTML = [];
 
+  // 后端拼接的数据，通过插入渲染进去HTML
+
   document.title = '兑换';
   $('header h2').text('兑换');
 
-  // 记录
+  // 记录HTML拼接
   record.Erecord.map(function (item) {
     recordLiHTML.push('<p class="dateP pfontsize">' + item.date + '</p>');
     item.number.map(function (item) {
@@ -86,6 +92,8 @@ $(document).ready(function () {
     });
   });
   $('#Js-record ul').html(recordLiHTML);
+
+  // 成功失败样式显示
   var jsSuccess = $('.jsSuccess');
   for (var i = 0; i < jsSuccess.length; i++) {
     if (jsSuccess[i].innerHTML === '0') {

@@ -1,5 +1,7 @@
 $(document).ready(() => {
   const time = moment().format('YYYY-MM-DD HH:mm')
+
+  //模拟后台数据，后端的数据接入字段data
   const data = [{
       title: '兑换',
       gameID: '12324587',
@@ -80,15 +82,19 @@ $(document).ready(() => {
       gameID: '12324587'
     }
   ]
+
+  //兑换字段为exchange， 记录页面字段为record， 个人中心页面字段为center
   let [exchange, record, center] = data
   let [recordLiHTML, successHTML] = [
     [],
     []
   ]
+
+  // 后端拼接的数据，通过插入渲染进去HTML
   document.title = '兑换'
   $('header h2').text('兑换')
 
-  // 记录
+  // 记录HTML拼接
   record.Erecord.map(item => {
     recordLiHTML.push(`<p class="dateP pfontsize">${item.date}</p>`)
     item.number.map(item => {
@@ -108,6 +114,8 @@ $(document).ready(() => {
     })
   })
   $('#Js-record ul').html(recordLiHTML)
+
+  // 成功失败样式显示
   const jsSuccess = $('.jsSuccess')
   for (let i = 0; i < jsSuccess.length; i++) {
     if (jsSuccess[i].innerHTML === '0') {
