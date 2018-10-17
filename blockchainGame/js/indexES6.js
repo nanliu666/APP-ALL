@@ -134,6 +134,7 @@ $(document).ready(() => {
     $(navList[i]).click(() => {
       document.title = data[i].title
       $('header h3').text(data[i].title)
+      
       $(navList[i])
         .addClass('active')
         .siblings()
