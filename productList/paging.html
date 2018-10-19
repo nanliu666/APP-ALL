@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>商城分页</title>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0/css/bootstrap.css" rel="stylesheet">
+  <link rel="stylesheet" href="./common.css">
+  <style>
+    .null {
+      width: 100px;
+      background-color:  transparent;
+    }
+  </style>
+</head>
+
+<body>
+  <form action="" role="form" class="borderTB container">
+    <div class="flexspaceAround paddingTopBottom10 borderBottom margin_15 flexHcenter">
+      <div class="null"></div>
+      <h2>商城分页</h2>
+      <button type="button" class="btn btn-success marginR30">添加新商城</button>
+    </div>
+    <main class="paddingTopBottom10">
+      <div class="row margin10">
+        <div class="col-6  input-group">
+          <label for="" class="flex-end input-group-addon col-3">商品编号:</label>
+          <div class="flexHcenter col-6">99999</div>
+        </div>
+        <div class="col-6  input-group">
+          <label for="" class="flex-end input-group-addon col-3">商城排序序号:</label>
+          <input type="text" class="form-control col-6" placeholder="99999"></div>
+      </div>
+      <div class="row margin10">
+        <div class="col-6  input-group">
+          <label for="" class="flex-end input-group-addon col-3">商城名称:</label>
+          <input type="text" class="form-control col-6" placeholder="100元话费"></div>
+        <div class="col-6  input-group">
+          <label for="" class="flex-end input-group-addon col-3">商城开关:</label>
+          <select class="form-control col-6">
+            <option value="">开</option>
+            <option value="">关</option>
+          </select>
+        </div>
+      </div>
+      <div class="row">
+        <div class="null col-7"></div>
+        <div class="col-4 flexspaceAround">
+          <button type="button" class="btn btn-primary">确认修改</button>
+          <button type="button" class="btn btn-danger">删除本商城</button>
+        </div>
+      </div>
+    </main>
+  </form>
+</body>
+
+</html>
