@@ -66,6 +66,10 @@ const storeAddHTML = function () {
     )
   }
 }
+
+storeAddHTML()
+$('.js-main').html(storeList)
+
 //保存数据
 const dataAddIn = function () {
   const formData = JSON.parse(sessionStorage.getItem('formData'))
@@ -89,12 +93,11 @@ const dataSave = function () {
   $.each(t, function () {
     formD[this.name] = this.value;
   });
+
   sessionStorage.setItem(`formData`, JSON.stringify(formD))
 }
 
-storeAddHTML()
-dataAddIn()
-$('.js-main').html(storeList)
+
 
 
 
@@ -126,14 +129,14 @@ const removeHTML = function (i) {
 //动态生成 事件失焦失败解决
 $(document).delegate("input, textarea", "blur", function () {
   dataSave()
-})
+}) 
 
 // 重置表格所有数据
-$("#formReset").on('click', function() {
+$("#formReset").on('click', function () {
   formReset()
   dataSave()
-},)
-const formReset = function() {
+}, )
+const formReset = function () {
   for (let i = 0; i < stroeData; i++) {
     $(`[name=storeChangeNumber${i}]`).val('')
     $(`[name=storeID${i}]`).val('')
@@ -148,4 +151,3 @@ const formReset = function() {
     $(`[name=storeDes${i}]`).val('')
   }
 }
-
