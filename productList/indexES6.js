@@ -90,7 +90,6 @@ const dataSave = function () {
     formD[this.name] = this.value;
   });
   sessionStorage.setItem(`formData`, JSON.stringify(formD))
-  localStorage.removeItem(`formData`)
 }
 
 storeAddHTML()
@@ -128,4 +127,25 @@ const removeHTML = function (i) {
 $(document).delegate("input, textarea", "blur", function () {
   dataSave()
 })
+
+// 重置表格所有数据
+$("#formReset").on('click', function() {
+  formReset()
+  dataSave()
+},)
+const formReset = function() {
+  for (let i = 0; i < stroeData; i++) {
+    $(`[name=storeChangeNumber${i}]`).val('')
+    $(`[name=storeID${i}]`).val('')
+    $(`[name=storeNum${i}]`).val('')
+    $(`[name=storeType${i}]`).val('')
+    $(`[name=storeName${i}]`).val('')
+    $(`[name=storeLeftNumber${i}]`).val('')
+    $(`[name=storeDayNumber${i}]`).val('')
+    $(`[name=storeIcon${i}]`).val('')
+    $(`[name=storeCurrency${i}]`).val('')
+    $(`[name=storeCurrencyNum${i}]`).val('')
+    $(`[name=storeDes${i}]`).val('')
+  }
+}
 

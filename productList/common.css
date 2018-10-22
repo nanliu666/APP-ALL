@@ -114,16 +114,45 @@
   padding: 10px;
 }
 
+.paddingTopBott10 {
+  padding: 10px 0;
+}
+
 .paddingTopBottom10 {
   padding: 10px 0;
+}
+
+
+.padding30 {
+  padding: 0 30px
+}
+
+.padding60 {
+  padding: 0 60px
 }
 
 .margin10 {
   margin: 10px 0;
 }
 
+.marginTop10 {
+  margin: 10px -15px;
+}
+
+.marginLR10 {
+  margin: 0 10px ;
+}
+
+.marginL_12 {
+  margin-left: -12px;
+}
+
 .margin20 {
   margin: 20px 0;
+}
+
+.marginBootom20 {
+  margin-bottom: 20px
 }
 
 .margin30 {
@@ -131,7 +160,7 @@
 }
 
 .marginR30 {
-  margin-right: 30px ;
+  margin-right: 30px;
 }
 
 .margin18 {
@@ -144,14 +173,6 @@
 
 .margin_15 {
   margin: 0 -15px;
-}
-
-.padding30 {
-  padding: 0 30px
-}
-
-.padding60 {
-  padding: 0 60px
 }
 
 /*font-size*/
@@ -180,15 +201,29 @@
 }
 
 /*border相关*/
+/* 1边框 */
+.borderall {
+  border: 1px solid rgb(121, 121, 121);
+}
 
 .borderTB {
   border: 1px solid rgb(121, 121, 121);
   /* border-style: solid none; */
 }
 
+/* 下边框没有 */
+.borderBottomNone {
+  border: 1px solid rgb(121, 121, 121);
+  border-style: solid solid none;
+
+}
+
 .borderBottom {
   border-bottom: 1px solid rgb(121, 121, 121);
-  /* border-style: solid none; */
+}
+
+.borderTop {
+  border-top: 1px solid rgb(121, 121, 121);
 }
 
 /*百分比布局相关*/
@@ -210,4 +245,9 @@
 
 .h100 {
   height: 100%;
+}
+
+/* 按钮 */
+.button-width {
+  width: 106px;
 }

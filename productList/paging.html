@@ -17,43 +17,88 @@
 </head>
 
 <body>
-  <form action="" role="form" class="borderTB container">
-    <div class="flexspaceAround paddingTopBottom10 borderBottom margin_15 flexHcenter">
+  <form action="" role="form" class="borderall container">
+    <div class="flexspaceAround paddingTopBottom10  margin_15 flexHcenter">
       <div class="null"></div>
       <h2>商城分页</h2>
-      <button type="button" class="btn btn-success marginR30">添加新商城</button>
+      <button type="button" class="btn btn-success marginR30 js-addNewStore">添加新商城</button>
     </div>
-    <main class="paddingTopBottom10">
-      <div class="row margin10">
-        <div class="col-6  input-group">
-          <label for="" class="flex-end input-group-addon col-3">商品编号:</label>
-          <div class="flexHcenter col-6">99999</div>
-        </div>
-        <div class="col-6  input-group">
-          <label for="" class="flex-end input-group-addon col-3">商城排序序号:</label>
-          <input type="text" class="form-control col-6" placeholder="99999"></div>
-      </div>
-      <div class="row margin10">
-        <div class="col-6  input-group">
-          <label for="" class="flex-end input-group-addon col-3">商城名称:</label>
-          <input type="text" class="form-control col-6" placeholder="100元话费"></div>
-        <div class="col-6  input-group">
-          <label for="" class="flex-end input-group-addon col-3">商城开关:</label>
-          <select class="form-control col-6">
-            <option value="">开</option>
-            <option value="">关</option>
-          </select>
-        </div>
-      </div>
-      <div class="row">
-        <div class="null col-7"></div>
-        <div class="col-4 flexspaceAround">
-          <button type="button" class="btn btn-primary">确认修改</button>
-          <button type="button" class="btn btn-danger">删除本商城</button>
-        </div>
-      </div>
-    </main>
+    <main class="paddingTopBottom10 js-main"></main>
   </form>
 </body>
+<script src="https://cdn.bootcss.com/lodash.js/4.17.11/lodash.js"></script>
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
+<script>
+  let stroeData = [{
+    storeID: 1,
+    storeNum: 66,
+    storeName: '商城名称1',
+    storeOpen: 1, //1 表示开
+  }]
+  let storeList = []
+  const storeAddHTML = function () {
+    for (let i = 0; i < stroeData.length; i++) {
+      storeList.push(
+        `
+        <div class="stroeList borderTop marginTop10 ">
+          <div class="row margin10">
+            <div class="col-6  input-group">
+              <label for="" class="flex-end input-group-addon col-3">商品编号:</label>
+              <div class="flexHcenter col-6">${stroeData[i].storeID}</div>
+            </div>
+            <div class="col-6  input-group">
+              <label for="" class="flex-end input-group-addon col-3">商城排序序号:</label>
+              <input type="text" class="form-control col-6" placeholder="${stroeData[i].storeNum}"></div>
+          </div>
+          <div class="row margin10">
+            <div class="col-6  input-group">
+              <label for="" class="flex-end input-group-addon col-3">商城名称:</label>
+              <input type="text" class="form-control col-6" placeholder="${stroeData[i].storeName}"></div>
+            <div class="col-6  input-group">
+              <label for="" class="flex-end input-group-addon col-3">商城开关:</label>
+              <select class="form-control col-6">
+                <option value="">开</option>
+                <option value="">关</option>
+              </select>
+            </div>
+          </div>
+          <div class="row">
+            <div class="null col-7"></div>
+            <div class="col-4 flexspaceAround marginL_12">
+              <button type="button" class="btn btn-primary">确认修改</button>
+              <button type="button" class="btn btn-danger js-delete${i}" onclick="removeHTML(${i})">删除本分页</button>
+            </div>
+          </div>
+        </div>
+        `
+      )
+    }
+  }
+  storeAddHTML()
+  $('.js-main').html(storeList)
+
+  $(".js-addNewStore").on('click', function () {
+    stroeData.push({
+      storeID: 1,
+      storeNum: 66,
+      storeName: '商城名称1',
+      storeOpen: 1, //1 表示开
+    })
+    storeList = []
+    storeAddHTML()
+    $('.js-main').html(storeList)
+  })
+
+  Array.prototype.remove = function (from, to) {
+    var rest = this.slice((to || from) + 1 || this.length);
+    this.length = from < 0 ? this.length + from : from;
+    return this.push.apply(this, rest);
+  };
+  const removeHTML = function (i) {
+    stroeData.remove(i)
+    storeList.remove(i)
+    $('.js-main').html(storeList)
+  }
+</script>
 
 </html>
