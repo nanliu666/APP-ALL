@@ -1,6 +1,9 @@
-let stroeData = 1
-let storeList = [] //html列表数组
-// html列表数组添加数据
+let[ stroeData, storeList]= [1, []] //stroeData列表个数， 添加的HTML数组
+
+/**
+ *操作HTML，加入
+ *
+ */
 const storeAddHTML = function () {
   for (let i = 0; i < stroeData; i++) {
     storeList.push(
@@ -65,12 +68,14 @@ const storeAddHTML = function () {
       `
     )
   }
-}
-
-storeAddHTML()
 $('.js-main').html(storeList)
+}
+storeAddHTML()
 
-//保存数据
+/**
+ *保存的数据加入新生的HTML
+ *
+ */
 const dataAddIn = function () {
   const formData = JSON.parse(sessionStorage.getItem('formData'))
   for (let i = 0; i < stroeData; i++) {
@@ -87,19 +92,19 @@ const dataAddIn = function () {
     $(`[name=storeDes${i}]`).val(formData[`storeDes${i}`])
   }
 }
+
+/**
+ *form输入的数据通过回话存储保存
+ *
+ */
 const dataSave = function () {
   var formD = {};
   var t = $(`form`).serializeArray();
   $.each(t, function () {
     formD[this.name] = this.value;
   });
-
   sessionStorage.setItem(`formData`, JSON.stringify(formD))
 }
-
-
-
-
 
 //添加新商品
 $(".js-addNewStore").on('click', function () {
@@ -110,14 +115,24 @@ $(".js-addNewStore").on('click', function () {
   dataAddIn()
 })
 
-
+/**
+ *数组指定移除i位元素
+ *
+ * @param {*} from 从第几位开始
+ * @param {*} to 到第几位结束
+ * @returns 返回移除后的数组
+ */
 Array.prototype.remove = function (from, to) {
   var rest = this.slice((to || from) + 1 || this.length);
   this.length = from < 0 ? this.length + from : from;
   return this.push.apply(this, rest);
 };
 
-// 删除列表
+/**
+ *
+ *
+ * @param {*} 移除第i位HTML数组
+ */
 const removeHTML = function (i) {
   stroeData -= 1
   storeList.remove(i)
@@ -136,6 +151,10 @@ $("#formReset").on('click', function () {
   formReset()
   dataSave()
 }, )
+/**
+ *重置表单
+ *
+ */
 const formReset = function () {
   for (let i = 0; i < stroeData; i++) {
     $(`[name=storeChangeNumber${i}]`).val('')
