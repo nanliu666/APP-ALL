@@ -1,250 +1,228 @@
-    $(document).ready(() => {
-        // 添加nav
-        const navHTML = nav(0)
-        $("nav").html(navHTML)
+'use strict';
 
-        const [newSortUrl, IndexUrl, recommendURL, CDKeydURL, now_time, platform, ] = ['/game/new-sort', '/game-server/index', '/game/recommend', '/gift-bag-user-cdkey/index', parseInt(moment().unix()), 'web', ]
-        let signObj = {
-            now_time,
-            platform,
-        }
-        const sign = getSign(signObj) //调用签名函数获取签名
-        let axiosConfig = {
-            method: "GET",
-            params: {
-                now_time,
-                platform,
-                sign,
-            },
+var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
+
+$(document).ready(function () {
+    // 添加nav
+    var navHTML = nav(0);
+    $("nav").html(navHTML);
+
+    var _ref = ['/game/new-sort', '/game-server/index', '/game/recommend', '/gift-bag-user-cdkey/index', parseInt(moment().unix()), 'web'],
+        newSortUrl = _ref[0],
+        IndexUrl = _ref[1],
+        recommendURL = _ref[2],
+        CDKeydURL = _ref[3],
+        now_time = _ref[4],
+        platform = _ref[5];
+
+    var signObj = {
+        now_time: now_time,
+        platform: platform
+    };
+    var sign = getSign(signObj); //调用签名函数获取签名
+    var axiosConfig = {
+        method: "GET",
+        params: {
+            now_time: now_time,
+            platform: platform,
+            sign: sign
         }
 
         //变量统一管理
-        let [remHTML, openHTML] = ['', []]
-        let [newGameHTML, imgSrcArr, gift_bag_id] = [
-            '', [
-                'images/one.png',
-                'images/two.png',
-                'images/three.png',
-            ],
-            []
-        ]
-        // URL请求
-        const getnewSortUrl = () => {
-            return axios(newSortUrl, axiosConfig);
-        }
+    };var remHTML = '',
+        openHTML = [];
+    var newGameHTML = '',
+        imgSrcArr = ['images/one.png', 'images/two.png', 'images/three.png'],
+        gift_bag_id = [];
+    // URL请求
 
-        const getrecommendURL = () => {
-            return axios(recommendURL, axiosConfig);
-        }
+    var getnewSortUrl = function getnewSortUrl() {
+        return axios(newSortUrl, axiosConfig);
+    };
 
-        const getIndexUrl = () => {
-            return axios(IndexUrl, axiosConfig);
-        }
+    var getrecommendURL = function getrecommendURL() {
+        return axios(recommendURL, axiosConfig);
+    };
 
-        //礼包领取
-        const CDKey = (gift_bag_id) => {
-            const giftList = document.querySelectorAll('.gift_bag_id')
-            if (gift_bag_id && !!gift_bag_id) {
-                for (let i = 0; i < giftList.length; i++) {
-                    giftList[i].addEventListener('click', () => {
-                        Object.assign(signObj, {
-                            gift_bag_id: gift_bag_id[i]
-                        })
-                        let sign = getSign(signObj) //调用签名函数获取签名
-                        let axiosConfig = {
-                            method: "GET",
-                            params: {
-                                now_time,
-                                platform,
-                                sign,
-                                gift_bag_id: gift_bag_id[i]
-                            },
-                        }
-                        axios(CDKeydURL, axiosConfig)
-                            .then(function(response) {
-                                let data = response.data
-                                console.log("礼包data=>", data);
-                                //  获取礼包ID后去获取CDKEY
-                                modalStart("td[data-indexCD]", 0, data)
-                            })
-                            .catch(function(error) {
-                                console.log(error);
-                            });
-                    }, false)
-                }
+    var getIndexUrl = function getIndexUrl() {
+        return axios(IndexUrl, axiosConfig);
+    };
 
-            } else {
-                // 无礼包时layer提示
-                mui("#tb1").on('tap', '.gf', function(event) {
-                    layer.open({
-                        content: '暂无礼包领取',
-                        skin: 'msg',
-                        time: 2 //2秒后自动关闭
+    //礼包领取
+    var CDKey = function CDKey(gift_bag_id) {
+        var giftList = document.querySelectorAll('.gift_bag_id');
+        if (gift_bag_id && !!gift_bag_id) {
+            var _loop = function _loop(i) {
+                giftList[i].addEventListener('click', function () {
+                    Object.assign(signObj, {
+                        gift_bag_id: gift_bag_id[i]
                     });
-                });
+                    var sign = getSign(signObj); //调用签名函数获取签名
+                    var axiosConfig = {
+                        method: "GET",
+                        params: {
+                            now_time: now_time,
+                            platform: platform,
+                            sign: sign,
+                            gift_bag_id: gift_bag_id[i]
+                        }
+                    };
+                    axios(CDKeydURL, axiosConfig).then(function (response) {
+                        var data = response.data;
+                        console.log("礼包data=>", data);
+                        //  获取礼包ID后去获取CDKEY
+                        modalStart("td[data-indexCD]", 0, data);
+                    }).catch(function (error) {
+                        console.log(error);
+                    });
+                }, false);
+            };
 
+            for (var i = 0; i < giftList.length; i++) {
+                _loop(i);
             }
+        } else {
+            // 无礼包时layer提示
+            mui("#tb1").on('tap', '.gf', function (event) {
+                layer.open({
+                    content: '暂无礼包领取',
+                    skin: 'msg',
+                    time: 2 //2秒后自动关闭
+                });
+            });
         }
+    };
 
-        // 开启模态框
-        const modalStart = (NodeList, index, data) => {
-            //模态框加载数据
-            let divList = $(NodeList)
+    // 开启模态框
+    var modalStart = function modalStart(NodeList, index, data) {
+        //模态框加载数据
+        var divList = $(NodeList);
 
-            //礼包modal开启
-            if (index === 0) {
-                let [game_name] = data
-                for (let i = 0; i < divList.length; i++) {
-                    divList[i].onclick = function() {
+        //礼包modal开启
+        if (index === 0) {
+            (function () {
+                var _data = _slicedToArray(data, 1),
+                    game_name = _data[0];
+
+                var _loop2 = function _loop2(i) {
+                    divList[i].onclick = function () {
 
                         // FIX 同一个礼包接口返回不同数据要求后端处理
-                        let params = [describe[i], game_name[i]]
-                        let modalHTML = modal(params, 0)
-                        $('#modal').html(modalHTML)
-                    }
-                }
-            } else {
-                //下载modal开启
-                for (let i = 0; i < divList.length; i++) {
-                    divList[i].onclick = function() {
-                        let params = [data[i].logo, data[i].name, data[i].describe, data[i].android_download_url, data[i].ios_download_url, ]
-                        let modalHTML = modal(params)
-                        $('#modal').html(modalHTML)
-                    }
-                }
+                        var params = [describe[i], game_name[i]];
+                        var modalHTML = modal(params, 0);
+                        $('#modal').html(modalHTML);
+                    };
+                };
 
+                for (var i = 0; i < divList.length; i++) {
+                    _loop2(i);
+                }
+            })();
+        } else {
+            var _loop3 = function _loop3(i) {
+                divList[i].onclick = function () {
+                    var params = [data[i].logo, data[i].name, data[i].describe, data[i].android_download_url, data[i].ios_download_url];
+                    var modalHTML = modal(params);
+                    $('#modal').html(modalHTML);
+                };
+            };
+
+            //下载modal开启
+            for (var i = 0; i < divList.length; i++) {
+                _loop3(i);
             }
         }
+    };
 
-        // HTML创建
-        const HTMLCreate = (remData) => {
-            for (let i = 0; i < remData.length; i++) {
-                remHTML += `
-                <div class="list_content" data-toggle="modal" data-target="#downModal" data-index=${i}>
-                    <div class="left_img">
-                        <img src="${remData[i].logo}" />
-                    </div>
-                    <div class="right_info">
-                        <p>${remData[i].name}<img src="images/free.png" class="icon"></p>
-                        <p>
-                            <img src="images/angle.svg" />
-                            <img src="images/angle.svg" />
-                            <img src="images/angle.svg" />
-                            <img src="images/angle.svg" />
-                            <img src="images/angle.svg" />
-                        </p>
-                        <p>${remData[i].describe}</p>
-                    </div>
-                </div>
-                `
-            }
+    // HTML创建
+    var HTMLCreate = function HTMLCreate(remData) {
+        for (var i = 0; i < remData.length; i++) {
+            remHTML += '\n                <div class="list_content" data-toggle="modal" data-target="#downModal" data-index=' + i + '>\n                    <div class="left_img">\n                        <img src="' + remData[i].logo + '" />\n                    </div>\n                    <div class="right_info">\n                        <p>' + remData[i].name + '<img src="images/free.png" class="icon"></p>\n                        <p>\n                            <img src="images/angle.svg" />\n                            <img src="images/angle.svg" />\n                            <img src="images/angle.svg" />\n                            <img src="images/angle.svg" />\n                            <img src="images/angle.svg" />\n                        </p>\n                        <p>' + remData[i].describe + '</p>\n                    </div>\n                </div>\n                ';
         }
-        axios.all([getnewSortUrl(), getrecommendURL(), getIndexUrl()])
-            .then(axios.spread(function(newSort, rem, start, ) {
+    };
+    axios.all([getnewSortUrl(), getrecommendURL(), getIndexUrl()]).then(axios.spread(function (newSort, rem, start) {
 
-                // 推荐游戏请求
-                if (!!rem.data.data && rem.data.data) {
-                    let remData = rem.data.data
-                    remData = _.sortBy(remData, function(item) {
-                        return item.hot;
-                    });
+        // 推荐游戏请求
+        if (!!rem.data.data && rem.data.data) {
+            var remData = rem.data.data;
+            remData = _.sortBy(remData, function (item) {
+                return item.hot;
+            });
 
-                    HTMLCreate(remData)
-                    $('.list_Body').html(remHTML)
+            HTMLCreate(remData);
+            $('.list_Body').html(remHTML);
 
-                    //模态框加载数据
-                    modalStart("div[data-index]", index = 1, remData)
+            //模态框加载数据
+            modalStart("div[data-index]", 1, remData);
+        }
+
+        //  新游请求
+        if (!!newSort.data.data && newSort.data.data) {
+            (function () {
+                var data = newSort.data.data;
+                data = _.sortBy(data, function (item) {
+                    return item.hot;
+                });
+
+                for (var i = 0; i < data.length; i++) {
+                    newGameHTML += '\n                                    <div class="content"  data-indexNEW=' + i + '>\n                                        <div class="left">\n                                            <img src = "images/one.png"/>\n                                        </div>\n                                        <div class="middle">\n                                            <div class="left_img">\n                                                <img src="' + data[i].logo + '" style="width: 90%;" />\n                                            </div>\n                                            <div class="right_info">\n                                                <p class="d_name">' + data[i].name + '</p>\n                                                <p style="line-height: 1.1rem;">\n                                                    <img src="images/angle.svg" />\n                                                    <img src="images/angle.svg" />\n                                                    <img src="images/angle.svg" />\n                                                    <img src="images/angle.svg" />\n                                                    <img src="images/angle.svg" />\n                                                </p>\n                                                <p class="d_describe">' + data[i].describe + '</p>\n                                            </div>\n                                        </div>\n                                        <div class="right">\n                                            <button class="dlBtn" data-toggle="modal" data-target="#downModal">\u4E0B\u8F7D</button>\n                                        </div>\n                                    </div>\n                                ';
                 }
+                $("#tb2").html(newGameHTML);
 
-                //  新游请求
-                if (!!newSort.data.data && newSort.data.data) {
-                    let data = newSort.data.data
-                    data = _.sortBy(data, function(item) {
-                        return item.hot;
-                    });
+                //添加图片
+                var imgWrap = $('.content .left img');
 
-
-                    for (let i = 0; i < data.length; i++) {
-                        newGameHTML += `
-                                    <div class="content"  data-indexNEW=${i}>
-                                        <div class="left">
-                                            <img src = "images/one.png"/>
-                                        </div>
-                                        <div class="middle">
-                                            <div class="left_img">
-                                                <img src="${data[i].logo}" style="width: 90%;" />
-                                            </div>
-                                            <div class="right_info">
-                                                <p class="d_name">${data[i].name}</p>
-                                                <p style="line-height: 1.1rem;">
-                                                    <img src="images/angle.svg" />
-                                                    <img src="images/angle.svg" />
-                                                    <img src="images/angle.svg" />
-                                                    <img src="images/angle.svg" />
-                                                    <img src="images/angle.svg" />
-                                                </p>
-                                                <p class="d_describe">${data[i].describe}</p>
-                                            </div>
-                                        </div>
-                                        <div class="right">
-                                            <button class="dlBtn" data-toggle="modal" data-target="#downModal">下载</button>
-                                        </div>
-                                    </div>
-                                `
+                var preloadImg = function (arr) {
+                    for (var i = 0; i < arr.length; i++) {
+                        imgWrap[i].src = arr[i];
                     }
-                    $("#tb2").html(newGameHTML)
+                }(imgSrcArr);
 
-                    //添加图片
-                    let imgWrap = $('.content .left img');
+                //模态框加载数据
+                var divList = $("div[data-indexNEW]");
 
-                    const preloadImg = (function(arr) {
-                        for (var i = 0; i < arr.length; i++) {
-                            imgWrap[i].src = arr[i];
-                        }
-                    }(imgSrcArr))
+                var _loop4 = function _loop4(_i) {
+                    divList[_i].onclick = function () {
+                        var params = [data[_i].logo, data[_i].name, data[_i].describe, data[_i].android_download_url, data[_i].ios_download_url];
+                        var modalHTML = modal(params);
+                        $('#modal').html(modalHTML);
+                    };
+                };
 
-                    //模态框加载数据
-                    let divList = $("div[data-indexNEW]")
-                    for (let i = 0; i < divList.length; i++) {
-                        divList[i].onclick = function() {
-                            let params = [data[i].logo, data[i].name, data[i].describe, data[i].android_download_url, data[i].ios_download_url]
-                            let modalHTML = modal(params)
-                            $('#modal').html(modalHTML)
-                        }
-                    }
+                for (var _i = 0; _i < divList.length; _i++) {
+                    _loop4(_i);
                 }
+            })();
+        }
 
-
-                //开服游戏
-                if (!!start.data.data && start.data.data) {
-                    let data = start.data.data
-                    _.sortBy(data, function(item) {
-                        return item.opening_time;
-                    });
-                    for (let i = 0; i < data.length; i++) {
-                        gift_bag_id.push(data[i].gift_bag_id)
-                        openHTML.push(`
-                            <tr >
-                                <td>${data[i].name}</td>
-                                <td>${data[i].opening_time}</td>
-                                <td class='gift_bag_id' data-indexCD=${i}><img src="images/gf.svg" class="gf" data-toggle="modal" data-target="#downModal"></td>
-                                <td data-indexNEW=${i}><img src="images/download.svg"  data-toggle="modal" data-target="#downModal"></td>
-                            </tr>
-                        `)
-                    }
-                    $("tbody").html(openHTML)
-                    let divList = $("td[data-indexNEW]")
-                    for (let i = 0; i < divList.length; i++) {
-                        divList[i].onclick = function() {
-                                let params = [data[i].game_server_id, data[i].name, data[i].gift_bag_id, data[i].android_download_url, data[i].ios_download_url]
-                                let modalHTML = modal(params)
-                                $('#modal').html(modalHTML)
-                            }
-                            //礼包领取逻辑
-                    }
-                    CDKey(gift_bag_id)
+        //开服游戏
+        if (!!start.data.data && start.data.data) {
+            (function () {
+                var data = start.data.data;
+                _.sortBy(data, function (item) {
+                    return item.opening_time;
+                });
+                for (var i = 0; i < data.length; i++) {
+                    gift_bag_id.push(data[i].gift_bag_id);
+                    openHTML.push('\n                            <tr >\n                                <td>' + data[i].name + '</td>\n                                <td>' + data[i].opening_time + '</td>\n                                <td class=\'gift_bag_id\' data-indexCD=' + i + '><img src="images/gf.svg" class="gf" data-toggle="modal" data-target="#downModal"></td>\n                                <td data-indexNEW=' + i + '><img src="images/download.svg"  data-toggle="modal" data-target="#downModal"></td>\n                            </tr>\n                        ');
                 }
+                $("tbody").html(openHTML);
+                var divList = $("td[data-indexNEW]");
 
-            }))
+                var _loop5 = function _loop5(_i2) {
+                    divList[_i2].onclick = function () {
+                        var params = [data[_i2].game_server_id, data[_i2].name, data[_i2].gift_bag_id, data[_i2].android_download_url, data[_i2].ios_download_url];
+                        var modalHTML = modal(params);
+                        $('#modal').html(modalHTML);
+                    };
+                    //礼包领取逻辑
+                };
 
-    })
+                for (var _i2 = 0; _i2 < divList.length; _i2++) {
+                    _loop5(_i2);
+                }
+                CDKey(gift_bag_id);
+            })();
+        }
+    }));
+});

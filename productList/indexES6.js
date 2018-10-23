@@ -58,8 +58,7 @@ const storeAddHTML = function () {
           </div>
         </div>
         <div class="row marginBootom20">
-          <div class="col-4 offset-md-6 flexspaceAround">
-            <button type="button" class="btn btn-info button-width">保存本商品</button>
+          <div class="col-4 offset-md-6 flex-end">
             <button type="button" class="btn btn-danger button-width" onclick="removeHTML(${i})">删除新商品</button>
           </div>
         </div>
