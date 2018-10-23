@@ -93,7 +93,6 @@
 <script src="./js/UI/nav.js"></script>
 
 <script type="text/javascript">
-    if (sessionStorage.loginSuccess && sessionStorage.loginSuccess === 'success') {
         $(document).ready(() => {
             mui.init();
             $('#JSCenter').on('click', function() {
@@ -130,10 +129,6 @@
             const navHTML = nav(4)
             $("nav").html(navHTML)
         })
-
-    } else {
-        location.href = './login.html'
-    }
 </script>
 
 </html>

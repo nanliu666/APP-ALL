@@ -2,10 +2,9 @@
  * @Author: NaNSix 
  * @Date: 2018-09-25 17:24:19 
  * @Last Modified by: NaNSix
- * @Last Modified time: 2018-09-26 16:28:33
+ * @Last Modified time: 2018-10-23 17:03:52
  */
 
-if (sessionStorage.loginSuccess && sessionStorage.loginSuccess === 'success') {
     $(document).ready(() => {
 
 
@@ -154,6 +153,3 @@ if (sessionStorage.loginSuccess && sessionStorage.loginSuccess === 'success') {
         }
 
     })
-} else {
-    location.href = './login.html'
-}

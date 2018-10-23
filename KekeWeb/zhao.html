@@ -53,7 +53,6 @@
 <script src="./js/UI/nav.js"></script>
 
 <script type="text/javascript">
-    if (sessionStorage.loginSuccess && sessionStorage.loginSuccess === 'success') {
         $(document).ready(() => {
             let [imgSrc, liHTML] = [
                 [{
@@ -91,9 +90,6 @@
             const navHTML = nav(3)
             $("nav").html(navHTML)
         })
-    } else {
-        location.href = './login.html'
-    }
 </script>
 
 </html>

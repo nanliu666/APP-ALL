@@ -1,4 +1,3 @@
-if (sessionStorage.loginSuccess && sessionStorage.loginSuccess === 'success') {
     $(document).ready(() => {
         // 添加nav
         const navHTML = nav(0)
@@ -249,7 +248,3 @@ if (sessionStorage.loginSuccess && sessionStorage.loginSuccess === 'success') {
             }))
 
     })
-
-} else {
-    location.href = './login.html'
-}

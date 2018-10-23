@@ -2,11 +2,10 @@
  * @Author: NaNSix 
  * @Date: 2018-09-25 17:22:59 
  * @Last Modified by: NaNSix
- * @Last Modified time: 2018-09-25 17:23:24
+ * @Last Modified time: 2018-10-23 17:03:27
  */
 
 const recruitTableFun = (() => {
-    if (sessionStorage.loginSuccess && sessionStorage.loginSuccess === 'success') {
         $(document).ready(() => {
             if (sessionStorage && sessionStorage.recruit === 'school') {
                 document.title = "校园招聘"
@@ -92,7 +91,4 @@ const recruitTableFun = (() => {
                 window.location.href = './centerIndex.html'
             })
         })
-    } else {
-        location.href = './login.html'
-    }
 })()

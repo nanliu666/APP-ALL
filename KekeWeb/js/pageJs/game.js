@@ -2,10 +2,9 @@
  * @Author: NaNSix 
  * @Date: 2018-09-25 17:23:54 
  * @Last Modified by: NaNSix
- * @Last Modified time: 2018-09-26 14:05:12
+ * @Last Modified time: 2018-10-23 17:29:48
  */
 const gameJs = (() => {
-    if (sessionStorage.loginSuccess && sessionStorage.loginSuccess === 'success') {
         $(document).ready(() => {
             // 添加nav
             const navHTML = nav(1)
@@ -32,14 +31,15 @@ const gameJs = (() => {
             axios.all([getnewSortUrl(), getrecommendURL(), ])
                 .then(axios.spread((newSort, rem) => {
                     if (!!newSort.data.data && newSort.data.data) {
-                        HTMLAdd(newSort.data.data, index = 0)
+                        HTMLAdd(newSort.data.data,  0)
                     }
                     if (!!rem.data.data && rem.data.data) {
-                        HTMLAdd(rem.data.data, index = 1)
+                        HTMLAdd(rem.data.data, 1)
                     }
                 }))
 
             const HTMLAdd = ((data, index) => {
+                console.log(index)
                 data = _.sortBy(data, function(item) {
                     return item.hot;
                 });
@@ -121,7 +121,4 @@ const gameJs = (() => {
                 }
             })
         })
-    } else {
-        location.href = './login.html'
-    }
 })()
