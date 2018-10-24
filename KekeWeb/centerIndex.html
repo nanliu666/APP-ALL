@@ -8,6 +8,17 @@
     <link href="css/mui.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="css/common/common.css" />
     <style>
+        .centerImgBox {
+            height: 120px;
+            margin-bottom: 20px;    
+        }
+        .centerImgBox img {
+            max-width: 120px;
+            max-height: 120px;
+            border-radius: 50%;
+            margin: 4px 0;
+        }
+
         .flexSpaceAround img {
             height: 80px;
             width: 80px;
@@ -16,6 +27,8 @@
         .detailImg {
             border: 2px solid rgb(204, 204, 204)
         }
+
+
     </style>
 </head>
 
@@ -54,11 +67,11 @@
                 <span class="mui-icon mui-icon-contact" id="JSCenter" style="font-size:38px; padding: 10px"></span>
             </span>
         </div>
-        <div style="width: 100%; background-color: rgb(239, 239, 244)" class="flexSpaceAround">
-            <div>
-                <i class="mui-icon mui-icon-contact" style="font-size:80px"></i>
+        <div class="flexRow centerBox">
+            <div class="centerImgBox flexCenterW">
+                <img src="./images/1.jpg" alt="">
             </div>
-            <div class="flexCenterH">
+            <div class="flexCenterH flexCenterW">
                 <p>昵称</p>
             </div>
         </div>
@@ -88,7 +101,7 @@
     <script type="text/javascript" src="js/common.js"></script>
     <script type="text/javascript">
         $(document).ready(() => {
-            $("#JSLoginOut").click(function(e) {
+            $("#JSLoginOut").click(function (e) {
 
                 const [loginOutUrl, now_time, platform, ] = ['/site/login-out', parseInt(moment().unix()),
                     'web',
@@ -108,7 +121,6 @@
                 }
                 axios(loginOutUrl, axiosConfig)
                     .then((result) => {
-                        console.log(result)
                         if (result.data.state === "success") {
                             location.href = 'login.html'
                         }

@@ -122,9 +122,17 @@
   padding: 10px 0;
 }
 
+.null {
+  width: 100px;
+  background-color:  transparent;
+}
 
 .padding30 {
   padding: 0 30px
+}
+
+.paddingR30 {
+  padding-right: 30px
 }
 
 .padding60 {
@@ -135,12 +143,20 @@
   margin: 10px 0;
 }
 
+.marginAll10 {
+  margin: 10px;
+}
+
+.marginAll7 {
+  margin: 7px;
+}
+
 .marginTop10 {
   margin: 10px -15px;
 }
 
 .marginLR10 {
-  margin: 0 10px ;
+  margin: 0 10px;
 }
 
 .marginL_12 {
@@ -149,6 +165,10 @@
 
 .margin20 {
   margin: 20px 0;
+}
+
+.marginAll20 {
+  margin: 20px;
 }
 
 .marginBootom20 {

@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <title>兑换</title>
     <link rel="stylesheet" href="../css/reset.css">
     <link rel="stylesheet" href="../css/bootstrap.css">
     <link href="../css/common.css" rel="stylesheet" type="text/css" />
@@ -23,31 +23,32 @@
                 <div class="exchangeForm">
                     <div class="flexspaceBetween borderBottom">
                         <label class="" for="">角色ID：</label>
-                        <span>123456</span>
+                        <span class="js-roleID">123456</span>
                     </div>
                     <div class="flexspaceBetween borderBottom">
                         <label class="" for="">游戏币余额：</label>
-                        <span>154545</span>
+                        <span class="js-copper">154545</span>
                     </div>
                     <div class="flexspaceBetween borderBottom">
                         <label class="" for="">区块链币余额：</label>
-                        <span>11000</span>
+                        <span class="js-block">11000</span>
                     </div>
                     <div class="flexspaceBetween borderBottom">
                         <label class="" for="">每1游戏币兑换区块链币：</label>
-                        <span>0.1</span>
+                        <span class="js-ratio">0.1</span>
                     </div>
                     <div class="">
                         <input type="text" name="" id="" class="form-control" placeholder="请填写要兑换的区块链币数量">
                     </div>
                 </div>
-                    <div class=" flexALLcenter">
-                        <button type="button" class="btn btn-warning col-6 btn-lg">确定</button>
-                    </div>
+                <div class=" flexALLcenter">
+                    <button type="button" class="btn btn-warning col-6 btn-lg">确定</button>
+                </div>
             </form>
             <div class="displayNone" id="Js-record">
                 <div class="JSDate"></div>
-                <ul></ul>
+                <ul>
+                </ul>
             </div>
         </main>
         <footer>

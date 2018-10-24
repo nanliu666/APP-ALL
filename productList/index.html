@@ -6,13 +6,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>商品列表</title>
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0/css/bootstrap.css" rel="stylesheet">
+  <link rel="stylesheet" href="./bootstrap.css">
   <link rel="stylesheet" href="./common.css">
+  <link rel="stylesheet" href="./reset.css">
   <style>
-    .null {
-      width: 100px;
-      background-color:  transparent;
-    }
 
   </style>
 </head>
@@ -25,15 +22,89 @@
       <button type="button" class="btn btn-success marginR30 js-addNewStore button-width">添加新商品</button>
     </div>
     <form action="" role="form">
-      <main class="js-main"></main>
+      <ul class="js-main">
+        <li class="shopLi">
+          <div class="stroeList borderTop marginTop10 ">
+            <div class="row marginAll7">
+              <div class="col-md-6">
+                <div class="input-group">
+                  <span for="" class="input-group-addon ">商品编号:</span>
+                  <input type="text" class="form-control" name="storeID${i}"></div>
+              </div>
+              <div class="col-md-6  input-group">
+                <span for="" class="input-group-addon ">商品排序序号:</span>
+                <input type="text" class="form-control" name="storeNum${i}"></div>
+            </div>
+            <div class="row marginAll7">
+              <div class="col-md-6">
+                <div class="input-group">
+                  <span for="" class="input-group-addon ">商品名称:</span>
+                  <input type="text" class="form-control" name="storeName${i}"></div>
+              </div>
+              <div class="col-md-6  input-group">
+                <span for="" class="input-group-addon ">单词兑换数量:</span>
+                <input type="text" class="form-control" name="storeChangeNumbe${i}"></div>
+            </div>
+            <div class="row marginAll7">
+              <div class="col-md-6">
+                <div class="input-group">
+                  <span for="" class="input-group-addon ">商品库存:</span>
+                  <input type="text" class="form-control" name="storeLeftNumber${i}"></div>
+              </div>
+              <div class="col-md-6  input-group">
+                <span for="" class="input-group-addon ">每天兑换数量:</span>
+                <input type="text" class="form-control" name="storeDayNumber${i}"></div>
+            </div>
+            <div class="row marginAll7">
+              <div class="col-md-6">
+                <div class="input-group">
+                  <span for="" class="input-group-addon ">商品图标:</span>
+                  <input type="text" class="form-control" name="storeIcon${i}"></div>
+              </div>
+              <div class="col-md-6  input-group">
+                <span for="" class="input-group-addon ">商品类型:</span>
+                <input type="text" class="form-control" name="storeType${i}"></div>
+            </div>
+            <div class="row marginAll7">
+              <div class="col-md-6">
+                <div class="input-group">
+                  <span for="" class="input-group-addon ">兑换货币:</span>
+                  <input type="text" class="form-control" name="storeCurrency${i} "></div>
+              </div>
+              <div class="col-md-6  input-group">
+                <span for="" class="input-group-addon ">兑换货币数量:</span>
+                <input type="text" class="form-control" name="storeCurrencyNum${i}"></div>
+            </div>
+            <div class="row marginAll20">
+              <div class="col-lg-12  input-group ">
+                <span class="input-group-addon">商品描述:</span>
+                <textarea class="form-control" rows="3" name="storeDes${i}"></textarea>
+              </div>
+            </div>
+            <div class="paddingR30 marginBootom20 paddingR30 flex-end">
+              <button type="button" class="btn btn-danger button-width removeHTML">删除新商品</button>
+            </div>
+          </div>
+        </li>
+
+      </ul>
       <div class="row flexALLcenter paddingTopBott10 borderTop">
         <button type="submit" class="btn btn-primary marginLR10 button-width">提交修改</button>
-        <button type="button" class="btn btn-warning button-width" id="formReset">重置</button>
       </div>
     </form>
   </div>
 </body>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<script src="./indexES6.js"> </script>
+<script>
+  
+  $('.js-addNewStore').on('click', function () {
+    var html = "<li class=\"shopLi\">\n          <div class=\"stroeList borderTop marginTop10 \">\n            <div class=\"row marginAll7\">\n              <div class=\"col-md-6\">\n                <div class=\"input-group\">\n                  <span for=\"\" class=\"input-group-addon \">\u5546\u54C1\u7F16\u53F7:</span>\n                  <input type=\"text\" class=\"form-control\" name=\"storeID\"></div>\n              </div>\n              <div class=\"col-md-6  input-group\">\n                <span for=\"\" class=\"input-group-addon \">\u5546\u54C1\u6392\u5E8F\u5E8F\u53F7:</span>\n                <input type=\"text\" class=\"form-control\" name=\"storeNum\"></div>\n            </div>\n            <div class=\"row marginAll7\">\n              <div class=\"col-md-6\">\n                <div class=\"input-group\">\n                  <span for=\"\" class=\"input-group-addon \">\u5546\u54C1\u540D\u79F0:</span>\n                  <input type=\"text\" class=\"form-control\" name=\"storeName\"></div>\n              </div>\n              <div class=\"col-md-6  input-group\">\n                <span for=\"\" class=\"input-group-addon \">\u5355\u8BCD\u5151\u6362\u6570\u91CF:</span>\n                <input type=\"text\" class=\"form-control\" name=\"storeChangeNumbe\"></div>\n            </div>\n            <div class=\"row marginAll7\">\n              <div class=\"col-md-6\">\n                <div class=\"input-group\">\n                  <span for=\"\" class=\"input-group-addon \">\u5546\u54C1\u5E93\u5B58:</span>\n                  <input type=\"text\" class=\"form-control\" name=\"storeLeftNumber\"></div>\n              </div>\n              <div class=\"col-md-6  input-group\">\n                <span for=\"\" class=\"input-group-addon \">\u6BCF\u5929\u5151\u6362\u6570\u91CF:</span>\n                <input type=\"text\" class=\"form-control\" name=\"storeDayNumber\"></div>\n            </div>\n            <div class=\"row marginAll7\">\n              <div class=\"col-md-6\">\n                <div class=\"input-group\">\n                  <span for=\"\" class=\"input-group-addon \">\u5546\u54C1\u56FE\u6807:</span>\n                  <input type=\"text\" class=\"form-control\" name=\"storeIcon\"></div>\n              </div>\n              <div class=\"col-md-6  input-group\">\n                <span for=\"\" class=\"input-group-addon \">\u5546\u54C1\u7C7B\u578B:</span>\n                <input type=\"text\" class=\"form-control\" name=\"storeType\"></div>\n            </div>\n            <div class=\"row marginAll7\">\n              <div class=\"col-md-6\">\n                <div class=\"input-group\">\n                  <span for=\"\" class=\"input-group-addon \">\u5151\u6362\u8D27\u5E01:</span>\n                  <input type=\"text\" class=\"form-control\" name=\"storeCurrency \"></div>\n              </div>\n              <div class=\"col-md-6  input-group\">\n                <span for=\"\" class=\"input-group-addon \">\u5151\u6362\u8D27\u5E01\u6570\u91CF:</span>\n                <input type=\"text\" class=\"form-control\" name=\"storeCurrencyNum\"></div>\n            </div>\n            <div class=\"row marginAll20\">\n              <div class=\"col-lg-12  input-group \">\n                <span class=\"input-group-addon\">\u5546\u54C1\u63CF\u8FF0:</span>\n                <textarea class=\"form-control\" rows=\"3\" name=\"storeDes\"></textarea>\n              </div>\n            </div>\n            <div class=\"paddingR30 marginBootom20 paddingR30 flex-end\">\n              <button type=\"button\" class=\"btn btn-danger button-width removeHTML\">\u5220\u9664\u65B0\u5546\u54C1</button>\n            </div>\n          </div>\n        </li>";
+    $(".js-main").append(html)
+  }, )
+
+  $('.js-main').on('click', '.removeHTML', function () {
+    $(this).parent().parent().remove();
+  })
+</script>
 
 </html>

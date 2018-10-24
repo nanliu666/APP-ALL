@@ -151,7 +151,7 @@ body {
 }
 
 a {
-    color: #8a8a8a!important;
+    color: #8a8a8a !important;
 }
 
 .mui-bar-tab {
@@ -231,7 +231,7 @@ a {
 }
 
 .icon {
-    width: 2.4rem!important;
+    width: 2.4rem !important;
     margin-top: .2rem;
     position: absolute;
     right: 0;
@@ -428,6 +428,7 @@ table {
     width: 100%;
 }
 
+
 .flexCenterALL {
     display: flex;
     justify-content: center;
@@ -548,9 +549,9 @@ table {
 /*display相关*/
 
 .displayBlock {
-    display: block!important
+    display: block !important
 }
 
 .displayNone {
-    display: none!important;
+    display: none !important;
 }

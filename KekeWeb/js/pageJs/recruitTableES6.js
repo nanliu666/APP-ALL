@@ -2,7 +2,7 @@
  * @Author: NaNSix 
  * @Date: 2018-09-25 17:24:38 
  * @Last Modified by: NaNSix
- * @Last Modified time: 2018-10-23 17:03:34
+ * @Last Modified time: 2018-10-24 14:21:17
  */
 const recruitTableFun = (() => {
         $(document).ready(() => {
@@ -75,10 +75,10 @@ const recruitTableFun = (() => {
 
             // nav导航
             const navLi = ((params) => {
-                LiHTML[0] = `<li class="div25 flexCenterW  active">全部</li>`
+                LiHTML[0] = `<li class=" flexCenterW  liActive">全部</li>`
                 for (let i = 0; i < params.length; i++) {
                     LiHTML.push(`
-                    <li class="flexCenterW div25" data-index='${params[i].recruit_type_id}'>${params[i].recruit_type_name}</li>
+                    <li class="flexCenterW " data-index='${params[i].recruit_type_id}'>${params[i].recruit_type_name}</li>
                 `)
                 }
                 $('nav').html(LiHTML)
@@ -98,8 +98,8 @@ const recruitTableFun = (() => {
             const navLiClick = () => {
                 $("nav li").click(function() {
                     const recruit_type_id = $(this).attr('data-index')
-                    $(this).siblings().removeClass('active')
-                    $(this).addClass('active')
+                    $(this).addClass('liActive').siblings().removeClass('liActive')
+                    $(this).removeClass('liborder').siblings().addClass('liborder')
                     TBodyAxios(recruit_type_id)
                 })
             }

@@ -1,113 +1,55 @@
 $(document).ready(() => {
-  const time = moment().format('YYYY-MM-DD HH:mm')
+  //模拟兑换页面数据
+  const exchangeData = {
+    role_id: "nanliu", //角色ID
+    copper: 10, //角色ID
+    block: 100, //角色ID
+    exchange_ratio: 1.5, //角色ID
+  }
+  //模拟数据填充
+  $(".js-roleID").html(exchangeData.role_id) 
+  $(".js-copper").html(exchangeData.copper) 
+  $(".js-block").html(exchangeData.block) 
+  $(".js-ratio").html(exchangeData.exchange_ratio) 
 
-  //模拟后台数据，后端的数据接入字段data
-  const data = [{
-      title: '兑换',
-      gameID: '12324587',
-      balance: 11
-    },
-    {
-      title: '兑换记录',
-      Erecord: [{
-        date: moment().format('YYYY-MM-DD'),
-        number: [{
-            success: 0,
-            time,
-            RMB: 10,
-            gold: 10
-          },
-          {
-            success: 0,
-            time,
-            RMB: 10,
-            gold: 10
-          },
-          {
-            success: 0,
-            time,
-            RMB: 10,
-            gold: 10
-          },
-          {
-            success: 0,
-            time,
-            RMB: 10,
-            gold: 10
-          },
-          {
-            success: 1,
-            time,
-            RMB: 10,
-            gold: 10
-          }
-        ]
+  // 模拟兑换记录数据
+  const recordData = [{
+    code:1,// 成功
+    msg: '成功',// 成功
+    data: [
+      {
+        copper: 200,
+        banlance: 300, //区块链币
+        status: 1, // 成功与否
+        date_time: "2018-6-10",//时间
+        create_time: "2018-6-10 12:13:55",
       }, {
-        date: moment().format('YYYY-MM-DD'),
-        number: [{
-            success: 0,
-            time,
-            RMB: 10,
-            gold: 10
-          },
-          {
-            success: 0,
-            time,
-            RMB: 10,
-            gold: 10
-          },
-          {
-            success: 0,
-            time,
-            RMB: 10,
-            gold: 10
-          },
-          {
-            success: 0,
-            time,
-            RMB: 10,
-            gold: 10
-          },
-          {
-            success: 1,
-            time,
-            RMB: 10,
-            gold: 10
-          }
-        ]
-      }]
-    },
-    {
-      title: '个人中心',
-      gameID: '12324587'
-    }
-  ]
+        copper: 200,
+        banlance: 300, //区块链币
+        status: 1, // 成功与否
+        date_time: "2018-6-10",//时间
+        create_time: "2018-6-10 12:13:55",
+      },
+    ]
+  }]
 
-  //兑换字段为exchange， 记录页面字段为record， 个人中心页面字段为center
-  let [exchange, record, center] = data
-  let [recordLiHTML, successHTML] = [
-    [],
-    []
-  ]
-
+  let recordLiHTML = []
   // 后端拼接的数据，通过插入渲染进去HTML
-  document.title = '兑换'
-  $('header h3').text('兑换')
 
   // 记录HTML拼接
-  record.Erecord.map(item => {
-    recordLiHTML.push(`<p class="dateP pfontsize">${item.date}</p>`)
-    item.number.map(item => {
+  recordData.map(item => {
+    item.data.map(item => {
+      recordLiHTML.push(`<p class="dateP pfontsize">${item.date_time}</p>`)
       recordLiHTML.push(`
                       <li class="padding10 recordLi">
                 <div class="flexspaceBetween"><span class="fontSize20"><strong>￥${
-                  item.RMB
+                  item.copper
                 }</strong></span> <span class="jsSuccess textSuccess">${
-        item.success
+        item.status
       }</span></div>
                 <div class="flexspaceBetween textP">
-                    <span>消耗${item.gold}个区块链币</span>
-                    <span>${item.time}</span>
+                    <span>消耗${item.banlance}个区块链币</span>
+                    <span>${item.create_time}</span>
                 </div>
                 </li>
             `)
@@ -118,7 +60,8 @@ $(document).ready(() => {
   // 成功失败样式显示
   const jsSuccess = $('.jsSuccess')
   for (let i = 0; i < jsSuccess.length; i++) {
-    if (jsSuccess[i].innerHTML === '0') {
+    console.log(jsSuccess[i].innerHTML)
+    if (jsSuccess[i].innerHTML === '1') {
       jsSuccess[i].innerHTML = '兑换成功'
     } else {
       jsSuccess[i].innerHTML = '兑换失败'
@@ -129,11 +72,12 @@ $(document).ready(() => {
 
   // nav栏切换效果
   const navList = $('nav li')
+  const title = ['兑换', '兑换记录',]
   const mainChildren = $('main').children()
   for (let i = 0; i < navList.length; i++) {
     $(navList[i]).click(() => {
-      document.title = data[i].title
-      $('header h3').text(data[i].title)
+      document.title = title[i]
+      $('header h3').text(title[i])
       
       $(navList[i])
         .addClass('active')
