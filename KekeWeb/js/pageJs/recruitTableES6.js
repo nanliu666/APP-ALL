@@ -2,7 +2,7 @@
  * @Author: NaNSix 
  * @Date: 2018-09-25 17:24:38 
  * @Last Modified by: NaNSix
- * @Last Modified time: 2018-10-24 14:21:17
+ * @Last Modified time: 2018-10-24 15:37:43
  */
 const recruitTableFun = (() => {
         $(document).ready(() => {
@@ -75,10 +75,10 @@ const recruitTableFun = (() => {
 
             // nav导航
             const navLi = ((params) => {
-                LiHTML[0] = `<li class=" flexCenterW  liActive">全部</li>`
+                LiHTML[0] = `<li class=" flexCenterALL liActive">全部</li>`
                 for (let i = 0; i < params.length; i++) {
                     LiHTML.push(`
-                    <li class="flexCenterW " data-index='${params[i].recruit_type_id}'>${params[i].recruit_type_name}</li>
+                    <li class="flexCenterALL liborder" data-index='${params[i].recruit_type_id}'>${params[i].recruit_type_name}</li>
                 `)
                 }
                 $('nav').html(LiHTML)
