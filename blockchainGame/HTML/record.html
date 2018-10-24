@@ -65,6 +65,7 @@
         var result = '';
         $.ajax({
           type: 'GET',
+          // todo 等你接口哦
           url: 'http://ons.me/tools/dropload/json.php?page=' + page + '&size=' + size,
           dataType: 'json',
           success: function (data) {
@@ -125,19 +126,16 @@
   // 后端拼接的数据，通过插入渲染进去HTML
 
   // 记录HTML拼接
-  recordData.map(item => {
-    item.data.map(item => {
+  recordData.map(function(item) {
+    item.data.map(function(item) {
       recordLiHTML.push(
-        `
-      <p class="dateP pfontsize">${item.date_time}</p>
-                      <li class="padding10 recordLi">
-                <div class="flexspaceBetween"><span class="fontSize20"><strong>￥${item.copper}</strong></span> <span class="jsSuccess textSuccess">${item.status}</span></div>
-                <div class="flexspaceBetween textP">
-                    <span>消耗${item.banlance}个区块链币</span>
-                    <span>${item.create_time}</span>
-                </div>
-                </li>
-            `
+      '<p class="dateP pfontsize">'+item.time+'</p> <li class="padding10 recordLi">' + 
+        '<div class="flexspaceBetween"><span class="fontSize20"><strong>￥' +
+        item.copper + '</strong></span> <span class="jsSuccess textSuccess">' +
+            item.status +'</span></div><div class="flexspaceBetween textP">'+
+                    '<span>消耗'+item.banlance +'个区块链币</span>' +
+                    '<span>'+item.create_time+'</span>' + ' </div></li>'
+      
       );
     });
   });
