@@ -45,19 +45,14 @@
                     <button type="button" class="btn btn-warning col-6 btn-lg">确定</button>
                 </div>
             </form>
-            <div class="displayNone" id="Js-record">
-                <div class="JSDate"></div>
-                <ul>
-                </ul>
-            </div>
         </main>
         <footer>
             <nav class="fixed-bottom flexspaceBetween footer-nav">
-                <li class="col-6 flexALLcenter active navli">
+                <li class="col-6 flexALLcenter active navli js-duihuan">
                     <i class="iconfont icon-jiaoyi-"></i>
                     <span>兑换</span>
                 </li>
-                <li class="col-6 flexALLcenter navli">
+                <li class="col-6 flexALLcenter navli js-record">
                     <i class="iconfont icon-jiaoyijilu"></i>
                     <span>兑换记录</span>
                 </li>
@@ -66,9 +61,32 @@
     </div>
 </body>
 
-<script src="../js/jquery.js"></script>
-<script src="../js/moment.js"></script>
-<script src="../js/index.js"></script>
-<!-- <script src="../js/indexES6.js"></script> -->
+<script src="./jquery.js"></script>
+<script>
+    var exchangeData = {
+        role_id: "nanliu", //角色ID
+        copper: 10, //角色ID
+        block: 100, //角色ID
+        exchange_ratio: 1.5 //角色ID
+    };
+
+    //模拟数据填充
+    $(".js-roleID").html(exchangeData.role_id);
+    $(".js-copper").html(exchangeData.copper);
+    $(".js-block").html(exchangeData.block);
+    $(".js-ratio").html(exchangeData.exchange_ratio);
+
+    // nav栏切换效果
+    $('.footer-nav').on('click', '.navli', function () {
+        $(this).addClass('active').siblings().removeClass('active')
+        if($(this).hasClass('js-record')) {
+            console.log(1)
+            location.href = './record.html'
+        } else {
+            location.href = './index.html'
+
+        }
+    })
+</script>
 
 </html>
