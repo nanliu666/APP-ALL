@@ -44,20 +44,49 @@
 </head>
 
 <body>
-    <!-- 导航条（Nav） -->
-    <nav class="mui-bar mui-bar-tab" id="nav"></nav>
+    <!-- nav -->
+    <nav class="mui-bar mui-bar-tab" id="nav">
+        <a id="tab_home" class="mui-tab-item " href="index.html">
+            <img src="images/common/index.svg" />
+            <img src="images/common/index_light.svg" style="display: none;" />
+            <span class="mui-tab-label">首页</span>
+        </a>
+        <a id="tab_message" class="mui-tab-item" href="games.html">
+            <img src="images/common/game.svg" />
+            <img src="images/common/game_light.svg" style="display: none;" />
+            <span class="mui-tab-label">游戏</span>
+        </a>
+        <a id="tab_contact" class="mui-tab-item" href="gifts.html">
+            <img src="images/common/gift.svg" />
+            <img src="images/common/gift_light.svg" style="display: none;" />
+            <span class="mui-tab-label">礼包</span>
+        </a>
+        <a id="tab_setting" class="mui-tab-item" href="zhao.html">
+            <img src="images/common/zhao.svg"  />
+            <img src="images/common/zhao_light.svg" style="display: none;"/>
+            <span class="mui-tab-label">招聘</span>
+        </a>
+        <a id="tab_setting" class="mui-tab-item  actives" href="about.html">
+            <img src="images/common/about.svg" style="margin-top: .6rem; display: none;" />
+            <img src="images/common/about_light.svg" style="margin-top: 5px;" />
+            <span class="mui-tab-label">关于</span>
+        </a>
+    </nav>
     <div class="mui-content">
         <div class="topInfo">
             <img src="images/logo (2).png" class="logo" />
             <span style="float: right">
-						<span class="mui-icon mui-icon-contact" id="JSCenter" style="font-size:38px; padding: 10px"></span>
+                <span class="mui-icon mui-icon-contact" id="JSCenter" style="font-size:38px; padding: 10px"></span>
             </span>
         </div>
         <div class="top_list">
             <p>关于我们</p>
         </div>
         <div class="content">
-            <p>广州众玩网络有限公司成立于2015年，作为一家专业的网络游戏自主研发公司，公司核心研发人员均具备大型网络游戏项目开发经验，对网络游戏的设计研发具备深刻的了解与独到的见解。 公司下设策划部、研发部、职能部、美术部等部门，在职员工有80多人并在不断壮大队伍，正处于快速发展上升期，欢迎各路人才的加入。 秉承“一切以用户体验为核心”的经营理念，以打造精品游戏为目标，致力于不断优化用户体验，持续提高自身核心技术研发能力，为用户提供更优质的产品。 公司目前雄踞在广州繁华的天河北商圈，交通快捷便利。如果你是个有梦想并且肯为之奋斗的人，我们不仅能给你提供的是一个工作机会，更能为你提供一个实现梦想的平台
+            <p>广州众玩网络有限公司成立于2015年，作为一家专业的网络游戏自主研发公司，公司核心研发人员均具备大型网络游戏项目开发经验，对网络游戏的设计研发具备深刻的了解与独到的见解。
+                公司下设策划部、研发部、职能部、美术部等部门，在职员工有80多人并在不断壮大队伍，正处于快速发展上升期，欢迎各路人才的加入。
+                秉承“一切以用户体验为核心”的经营理念，以打造精品游戏为目标，致力于不断优化用户体验，持续提高自身核心技术研发能力，为用户提供更优质的产品。
+                公司目前雄踞在广州繁华的天河北商圈，交通快捷便利。如果你是个有梦想并且肯为之奋斗的人，我们不仅能给你提供的是一个工作机会，更能为你提供一个实现梦想的平台
             </p>
         </div>
         <div class="top_list">
@@ -78,54 +107,13 @@
     </div>
 </body>
 <script src="https://cdn.bootcss.com/jquery/2.1.1/jquery.min.js"></script>
-<script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-<script src="js/mui.min.js"></script>
-<script src="js/layer.js"></script>
-<script type="text/javascript" src="js/common.js"></script>
-<script src="https://cdn.bootcss.com/blueimp-md5/2.10.0/js/md5.js"></script>
-<script src="js/moment.min.js"></script>
-<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-<script src="https://cdn.bootcss.com/lodash.js/4.17.10/lodash.core.js"></script>
-<script src="./js/util/getSign.js"></script>
-<script src="./js/UI/nav.js"></script>
 
 <script type="text/javascript">
-        $(document).ready(() => {
-            mui.init();
-            $('#JSCenter').on('click', function() {
-                window.location.href = './centerIndex.html'
-            })
-            axios.defaults.baseURL = 'http://192.168.2.159:7002';
-            axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
-            const [aboutUrl, now_time, platform, ] = ['/about-us/index', parseInt(moment().unix()), 'web', ]
-            let [signObj, data] = [{
-                    now_time,
-                    platform,
-                },
-                ''
-            ]
-            const sign = getSign(signObj) //调用签名函数获取签名
-
-            let axiosConfig = {
-                method: "GET",
-                params: {
-                    now_time,
-                    platform,
-                    sign,
-                },
-            }
-            axios(aboutUrl, axiosConfig)
-                .then((result) => {
-                    data = result.data.data
-                    console.log(data)
-                })
-                .catch((err) => {
-                    console.log(err)
-                })
-                // 添加nav
-            const navHTML = nav(4)
-            $("nav").html(navHTML)
+    $(document).ready(() => {
+        $('#JSCenter').on('click', function () {
+            window.location.href = './centerIndex.html'
         })
+    })
 </script>
 
 </html>

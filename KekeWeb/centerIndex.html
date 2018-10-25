@@ -8,17 +8,6 @@
     <link href="css/mui.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="css/common/common.css" />
     <style>
-        .centerImgBox {
-            height: 120px;
-            margin-bottom: 20px;    
-        }
-        .centerImgBox img {
-            max-width: 120px;
-            max-height: 120px;
-            border-radius: 50%;
-            margin: 4px 0;
-        }
-
         .flexSpaceAround img {
             height: 80px;
             width: 80px;
@@ -26,6 +15,47 @@
         
         .detailImg {
             border: 2px solid rgb(204, 204, 204)
+        }
+
+        /* 背景虚化 */
+        .bg {
+        background: url('./images/1.jpg') no-repeat center center fixed; 
+        height: 300px;
+        background-size: 100%
+        }
+        .centerImgBox {
+            position: relative;
+            height: 300px;
+        }
+        .bg-blur {
+        float: left;
+        width: 100%;
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: cover;
+        -webkit-filter: blur(3px);
+        -moz-filter: blur(3px);
+        -o-filter: blur(3px);
+        -ms-filter: blur(3px);
+        filter: blur(3px);
+        }
+        .img {
+            max-width: 120px;
+            max-height: 120px;
+            border-radius: 50%;
+            margin: 4px 0;
+        }
+        .centerImg {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            -webkit-transform: translate(-50%, -50%);
+            -moz-transform: translate(-50%, -50%);
+            transform: translate(-50%, -50%);
+        }
+        .centerImg p {
+            color: #fff;
+            margin: 10px 0;
         }
 
 
@@ -67,12 +97,11 @@
                 <span class="mui-icon mui-icon-contact" id="JSCenter" style="font-size:38px; padding: 10px"></span>
             </span>
         </div>
-        <div class="flexRow centerBox">
-            <div class="centerImgBox flexCenterW">
-                <img src="./images/1.jpg" alt="">
-            </div>
-            <div class="flexCenterH flexCenterW">
-                <p>昵称</p>
+        <div class=" centerImgBox">
+            <div class="bg bg-blur"></div>
+            <div class="centerImg">
+                <img src="./images/1.jpg" alt="" class="img">
+                <p class="flexCenterW">昵称</p>
             </div>
         </div>
         <div class="flexSpaceAround" style="margin-top: 30px">
@@ -92,26 +121,24 @@
     </div>
 
     <script src="https://cdn.bootcss.com/jquery/2.1.1/jquery.min.js"></script>
-    <script src="js/mui.min.js"></script>
     <script src="https://cdn.bootcss.com/blueimp-md5/2.10.0/js/md5.js"></script>
     <script src="js/moment.min.js"></script>
     <script src="./js/util/getSign.js"></script>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script src="https://cdn.bootcss.com/lodash.js/4.17.10/lodash.core.js"></script>
-    <script type="text/javascript" src="js/common.js"></script>
     <script type="text/javascript">
         $(document).ready(() => {
             $("#JSLoginOut").click(function (e) {
 
-                const [loginOutUrl, now_time, platform, ] = ['/site/login-out', parseInt(moment().unix()),
+                var [loginOutUrl, now_time, platform, ] = ['/site/login-out', parseInt(moment().unix()),
                     'web',
                 ]
-                let signObj = {
+                var signObj = {
                     now_time,
                     platform,
                 }
-                const sign = getSign(signObj) //调用签名函数获取签名
-                let axiosConfig = {
+                var sign = getSign(signObj) //调用签名函数获取签名
+                var axiosConfig = {
                     method: "GET",
                     params: {
                         now_time,
@@ -119,6 +146,7 @@
                         sign,
                     },
                 }
+                console.log(axiosConfig)
                 axios(loginOutUrl, axiosConfig)
                     .then((result) => {
                         if (result.data.state === "success") {

@@ -147,21 +147,18 @@ body {
 
 .mui-tab-label {
     font-size: 1.1rem;
-    /*color: #8a8a8a;*/
+    /*color:  #1296db;*/
 }
 
-a {
-    color: #8a8a8a !important;
-}
 
 .mui-bar-tab {
     height: 56px;
 }
 
 
-/* .actives {
+.actives {
     color: #1296db!important;
-} */
+}
 
 
 /*标题样式*/

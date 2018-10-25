@@ -34,13 +34,39 @@
 </head>
 
 <body>
-    <!-- 导航条（Nav） -->
-    <nav class="mui-bar mui-bar-tab" id="nav"></nav>
+    <!-- nav -->
+    <nav class="mui-bar mui-bar-tab" id="nav">
+        <a id="tab_home" class="mui-tab-item " href="index.html">
+            <img src="images/common/index.svg" />
+            <img src="images/common/index_light.svg" style="display: none;" />
+            <span class="mui-tab-label">首页</span>
+        </a>
+        <a id="tab_message" class="mui-tab-item" href="games.html">
+            <img src="images/common/game.svg"  />
+            <img src="images/common/game_light.svg" style="display: none;"/>
+            <span class="mui-tab-label">游戏</span>
+        </a>
+        <a id="tab_contact" class="mui-tab-item  actives" href="gifts.html">
+            <img src="images/common/gift.svg" style="display: none;"/>
+            <img src="images/common/gift_light.svg"  />
+            <span class="mui-tab-label">礼包</span>
+        </a>
+        <a id="tab_setting" class="mui-tab-item" href="zhao.html">
+            <img src="images/common/zhao.svg" />
+            <img src="images/common/zhao_light.svg" style="display: none;" />
+            <span class="mui-tab-label">招聘</span>
+        </a>
+        <a id="tab_setting" class="mui-tab-item" href="about.html">
+            <img src="images/common/about.svg" style="margin-top: .6rem;" />
+            <img src="images/common/about_light.svg" style="display: none;margin-top: .1rem;" />
+            <span class="mui-tab-label">关于</span>
+        </a>
+    </nav>
     <div class="mui-content">
         <div class="topInfo">
             <img src="images/logo (2).png" class="logo" />
             <span style="float: right">
-					<span class="mui-icon mui-icon-contact" id="JSCenter" style="font-size:38px; padding: 10px"></span>
+                <span class="mui-icon mui-icon-contact" id="JSCenter" style="font-size:38px; padding: 10px"></span>
             </span>
         </div>
         <div class="top_list">
@@ -64,7 +90,6 @@
     <script src="https://cdn.bootcss.com/lodash.js/4.17.10/lodash.core.js"></script>
     <script src="./js/UI/modal.js"></script>
     <script type="text/javascript" src="js/common.js"></script>
-    <script src="./js/UI/nav.js"></script>
     <script src="./js/pageJs/gifts.js"></script>
 </body>
 

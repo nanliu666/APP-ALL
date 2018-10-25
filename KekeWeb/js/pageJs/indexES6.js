@@ -1,7 +1,4 @@
     $(document).ready(() => {
-        // 添加nav
-        const navHTML = nav(0)
-        $("nav").html(navHTML)
 
         const [newSortUrl, IndexUrl, recommendURL, CDKeydURL, now_time, platform, ] = ['/game/new-sort', '/game-server/index', '/game/recommend', '/gift-bag-user-cdkey/index', parseInt(moment().unix()), 'web', ]
         let signObj = {

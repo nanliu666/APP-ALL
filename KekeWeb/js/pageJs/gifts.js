@@ -9,9 +9,7 @@
 
 $(document).ready(function () {
 
-    // 添加nav
-    var navHTML = nav(2);
-    $("nav").html(navHTML);
+
 
     // todo 去除滚动条
     var _ref = ['/gift-bag/index', '/gift-bag-user-cdkey/index', parseInt(moment().unix()), 'web'],

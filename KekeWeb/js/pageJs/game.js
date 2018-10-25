@@ -4,13 +4,10 @@
  * @Author: NaNSix 
  * @Date: 2018-09-25 17:23:54 
  * @Last Modified by: NaNSix
- * @Last Modified time: 2018-10-23 17:32:35
+ * @Last Modified time: 2018-10-25 10:54:32
  */
 var gameJs = function () {
     $(document).ready(function () {
-        // 添加nav
-        var navHTML = nav(1);
-        $("nav").html(navHTML);
 
         // 定义url
         var newSortUrl = '/game/new-sort',

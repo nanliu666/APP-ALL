@@ -2,13 +2,10 @@
  * @Author: NaNSix 
  * @Date: 2018-09-25 17:23:54 
  * @Last Modified by: NaNSix
- * @Last Modified time: 2018-10-23 17:32:35
+ * @Last Modified time: 2018-10-25 10:53:12
  */
 const gameJs = (() => {
         $(document).ready(() => {
-            // 添加nav
-            const navHTML = nav(1)
-            $("nav").html(navHTML)
 
             // 定义url
             const [newSortUrl, recommendURL, ] = ['/game/new-sort', '/game/recommend']
