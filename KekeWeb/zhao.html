@@ -47,12 +47,12 @@
         </a>
         <a id="tab_contact" class="mui-tab-item" href="gifts.html">
             <img src="images/common/gift.svg" />
-            <img src="images/common/gift_light.svg"  style="display: none;"/>
+            <img src="images/common/gift_light.svg" style="display: none;" />
             <span class="mui-tab-label">礼包</span>
         </a>
         <a id="tab_setting" class="mui-tab-item  actives" href="zhao.html">
-            <img src="images/common/zhao.svg" style="display: none;"/>
-            <img src="images/common/zhao_light.svg"  />
+            <img src="images/common/zhao.svg" style="display: none;" />
+            <img src="images/common/zhao_light.svg" />
             <span class="mui-tab-label">招聘</span>
         </a>
         <a id="tab_about" class="mui-tab-item" href="about.html">
@@ -71,34 +71,24 @@
         <div class="top_list">
             <p>招聘</p>
         </div>
-        <ul class="flexRow" id="myList"></ul>
+        <ul class="flexRow" id="myList">
+            <li class="zhaoBox"><img id='society' src="images/sz.jpg" /></li>
+            <li class="zhaoBox"><img id='school' src='images/xz.jpg' /></li>
+        </ul>
     </div>
 
 </body>
+<script src="js/mui.min.js"></script>
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 <script src="https://cdn.bootcss.com/jquery/2.1.1/jquery.min.js"></script>
-<script src="js/mui.min.js"></script>
 <script type="text/javascript" src="js/common.js"></script>
 
 <script type="text/javascript">
-    $(document).ready(() => {
-        let [imgSrc, liHTML] = [
-            [{
-                img: 'images/sz.jpg',
-                ID: "society"
-            }, {
-                img: 'images/xz.jpg',
-                ID: "school"
-            }, ],
-            [],
-        ]
-        imgSrc.map((item, index) => {
-            liHTML.push(`<li class="zhaoBox"><img  id="${item.ID}" src="${item.img}" /></li>`)
-        })
-        $('ul').html(liHTML)
+    $(document).ready(function () {
+        
         var list = document.getElementById('myList');
         list.addEventListener('click', function (event) {
-
+            console.log(1)
             event = event || window.event;
             var target = event.target || event.srcElement;
             console.log(target)

@@ -1,4 +1,4 @@
-$(document).ready(() => {
+$(document).ready(function()  {
     //a标签生效
     mui('body').on('tap', 'a', function() {
         window.top.location.href = this.href;

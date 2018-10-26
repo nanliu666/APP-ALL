@@ -42,13 +42,13 @@
             <span class="mui-tab-label">首页</span>
         </a>
         <a id="tab_message" class="mui-tab-item" href="games.html">
-            <img src="images/common/game.svg"  />
-            <img src="images/common/game_light.svg" style="display: none;"/>
+            <img src="images/common/game.svg" />
+            <img src="images/common/game_light.svg" style="display: none;" />
             <span class="mui-tab-label">游戏</span>
         </a>
         <a id="tab_contact" class="mui-tab-item  actives" href="gifts.html">
-            <img src="images/common/gift.svg" style="display: none;"/>
-            <img src="images/common/gift_light.svg"  />
+            <img src="images/common/gift.svg" style="display: none;" />
+            <img src="images/common/gift_light.svg" />
             <span class="mui-tab-label">礼包</span>
         </a>
         <a id="tab_setting" class="mui-tab-item" href="zhao.html">
@@ -80,17 +80,114 @@
     </div>
     <script src="https://cdn.bootcss.com/jquery/2.1.1/jquery.min.js"></script>
     <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-
     <script src="js/mui.min.js"></script>
     <script src="js/layer.js"></script>
     <script src="https://cdn.bootcss.com/blueimp-md5/2.10.0/js/md5.js"></script>
     <script src="js/moment.min.js"></script>
     <script src="./js/util/getSign.js"></script>
-    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-    <script src="https://cdn.bootcss.com/lodash.js/4.17.10/lodash.core.js"></script>
     <script src="./js/UI/modal.js"></script>
     <script type="text/javascript" src="js/common.js"></script>
-    <script src="./js/pageJs/gifts.js"></script>
+    <!-- <script src="./js/pageJs/gifts.js"></script> -->
 </body>
+<script>
+    var baseURL = 'http://192.168.2.159:7002'
+    var _ref = ['/gift-bag/index', '/game-server/index', '/game/recommend', '/gift-bag-user-cdkey/index', parseInt(
+            moment().unix()), 'web'],
+        giftstUrl = _ref[0],
+        IndexUrl = _ref[1],
+        recommendURL = _ref[2],
+        CDKeydURL = _ref[3],
+        now_time = _ref[4],
+        platform = _ref[5];
+
+    var signObj = {
+        now_time: now_time,
+        platform: platform
+    };
+    var sign = getSign(signObj); //调用签名函数获取签名
+    var ajaxConfig = {
+        platform: 'web',
+        now_time: parseInt(moment().unix()),
+        sign: getSign(signObj),
+    }
+
+    //公共参数
+    $.ajaxSetup({
+        type: 'GET',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        data: ajaxConfig,
+    })
+
+    $.ajax({
+        url: baseURL + giftstUrl,
+        success: function (data) {
+            if (data.data && data.data !== '') {
+                console.log(data.data)
+                remHTML(data.data)
+                modalClick(data.data, 2)
+            }
+        },
+        error: function (err) {
+            console.log(err)
+        },
+    })
+
+    var remHTML = function remHTML(data) {
+        var remTempHTML = ''
+        for (var i = 0; i < data.length; i++) {
+            remTempHTML +=
+                '<div class="content">' +
+                '<div class="middle" style="width: 69%;margin-left: 4%;">' +
+                '<div class="left_img">' +
+                '<img src="images/icon.png" class="imagess" />' +
+                '</div>' +
+                '<div class="right_info">' +
+                ' <p class="d_name">' + data[i].game_name + '</p>' +
+                '<p style="line-height: 1.1rem;">' +
+                '<img src="images/angle.svg" />' +
+                '<img src="images/angle.svg" />' +
+                '<img src="images/angle.svg" />' +
+                ' <img src="images/angle.svg" />' +
+                '<img src="images/angle.svg" />' +
+                '</p>' +
+                '<p class="d_describe">' + data[i].describe + '</p>' +
+                '</div>' +
+                ' </div>' +
+                '<div class="right">' +
+                '<button class="dlBtn gf gift_bag_id" data-toggle="modal" data-target="#downModal">领取礼包</button>' +
+                '                    </div>' +
+                ' </div>'
+
+        }
+        $('.giftBox').html(remTempHTML)
+
+    }
+    var modalClick = function (data, index) {
+        if (index === 0) {
+            //下载今日推荐
+            $(document).delegate(".list_content", "click", function () {
+                $('.downloadName').html(data[$(this).index()].name)
+                $('.downloadDescribe').html(data[$(this).index()].describe)
+                $('.downLoadImg').attr('src', data[$(this).index()].logo)
+                $('.androidLoad').attr('href', data[$(this).index()].android_download_url)
+                $('.iOSLoad').attr('href', data[$(this).index()].ios_download_url)
+            });
+        }
+        // 下载开服
+        if (index === 1) {
+            $(document).delegate(" .kaifuLi", "click", function () {
+                $('.downloadName').html(data[$(this).index()].name)
+                $('.downloadDescribe').html(data[$(this).index()].describe)
+                $('.downLoadImg').attr('src', data[$(this).index()].logo)
+                $('.androidLoad').attr('href', data[$(this).index()].android_download_url)
+                $('.iOSLoad').attr('href', data[$(this).index()].ios_download_url)
+            });
+        } else {
+            
+        }
+    }
+</script>
 
 </html>
