@@ -66,7 +66,7 @@
             <img src="images/common/zhao_light.svg" style="display: none;"/>
             <span class="mui-tab-label">招聘</span>
         </a>
-        <a id="tab_setting" class="mui-tab-item  actives" href="about.html">
+        <a id="tab_about" class="mui-tab-item  actives" href="about.html">
             <img src="images/common/about.svg" style="margin-top: .6rem; display: none;" />
             <img src="images/common/about_light.svg" style="margin-top: 5px;" />
             <span class="mui-tab-label">关于</span>
@@ -75,8 +75,8 @@
     <div class="mui-content">
         <div class="topInfo">
             <img src="images/logo (2).png" class="logo" />
-            <span style="float: right">
-                <span class="mui-icon mui-icon-contact" id="JSCenter" style="font-size:38px; padding: 10px"></span>
+            <span style="float: right" id="JSCenter">
+                <span class="mui-icon mui-icon-contact"  style="font-size:38px; padding: 10px"></span>
             </span>
         </div>
         <div class="top_list">
@@ -109,7 +109,7 @@
 <script src="https://cdn.bootcss.com/jquery/2.1.1/jquery.min.js"></script>
 
 <script type="text/javascript">
-    $(document).ready(() => {
+    $(document).ready(function()  {
         $('#JSCenter').on('click', function () {
             window.location.href = './centerIndex.html'
         })

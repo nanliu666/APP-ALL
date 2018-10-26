@@ -15,10 +15,6 @@ $(document).ready(() => {
         window.location.href = './centerIndex.html'
     })
 
-    //axios请求配置
-    axios.defaults.baseURL = 'http://192.168.2.159:7002';
-    axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
-
 })
 
 function change(e, val) {

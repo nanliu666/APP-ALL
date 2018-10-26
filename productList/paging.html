@@ -58,33 +58,110 @@
 
             </div>
             <div class="paddingR30 marginBootom20 paddingR30 flex-end">
-              <button type="button" class="btn btn-danger button-width removeHTML">删除新商品</button>
+              <button type="button" class="btn btn-danger button-width " data-toggle="modal" data-target="#myModal">删除新商品</button>
+              <!-- 模态框（Modal） -->
+              <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+                aria-hidden="true">
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    </div>
+                    <div class="modal-body text-center center-block ">您确认要删除新商城吗？</div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-default" data-dismiss="modal">放弃删除</button>
+                      <!-- <button type="button" class="btn btn-danger removeHTML" data-dismiss="modal">确认删除</button> -->
+                      <a href="#" type="button" class="btn btn-danger removeHTML" data-dismiss="modal">确认删除</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
+
         </li>
       </ul>
 
       <div class="row flexALLcenter paddingTopBott10 borderTop">
         <button type="submit" class="btn btn-primary marginLR10 button-width">提交修改</button>
-        <button type="button" class="btn btn-warning button-width" id="formReset">重置</button>
       </div>
     </form>
   </div>
+  <div class="temp" style="display: none">
+    <li class="shopLi">
+      <div class=" stroeList borderTop marginTop10 ">
+        <div class="row marginAll7">
+          <div class="col-md-6 ">
+            <div class="input-group">
+              <span for="" class=" input-group-addon">商品编号:</span>
+              <input type="text" class="form-control" name="storeID">
+            </div>
+          </div>
+          <div class="col-md-6 ">
+            <div class="input-group">
+              <span for="" class=" input-group-addon">商城排序序号:</span>
+              <input type="text" class="form-control" name="storeNum">
+            </div>
+          </div>
+
+        </div>
+
+        <div class="row marginAll7">
+          <div class="col-md-6 ">
+            <div class="input-group">
+              <span for="" class=" input-group-addon">商城名称:</span>
+              <input type="text" class="form-control" name="storeName">
+            </div>
+          </div>
+          <div class="col-md-6 ">
+            <div class="input-group">
+              <span for="" class=" input-group-addon ">商城开关:</span>
+              <select class="form-control" name="selectID">
+                <option value="0">开</option>
+                <option value="1">关</option>
+              </select>
+            </div>
+          </div>
+
+        </div>
+        <div class="paddingR30 marginBootom20 paddingR30 flex-end">
+          <button type="button" class="btn btn-danger button-width " data-toggle="modal" data-target="#myModal">删除新商品</button>
+          <!-- 模态框（Modal） -->
+          <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                </div>
+                <div class="modal-body text-center center-block ">您确认要删除新商城吗？</div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-default" data-dismiss="modal">放弃删除</button>
+                  <!-- <button type="button" class="btn btn-danger removeHTML" data-dismiss="modal">确认删除</button> -->
+                  <a href="#" type="button" class="btn btn-danger removeHTML" data-dismiss="modal">确认删除</a>
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </li>
+  </div>
 </body>
 <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
-<!-- <script src="./pagingES6.js"></script> -->
+<script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script>
+  var temp = $('.temp').html()
   $('.js-addNewStore').on('click', function () {
-    var html =
-      "         <li class=\"shopLi\">\n<div class=\" stroeList borderTop marginTop10 \">\n  <div class=\"row marginAll7\">\n    <div class=\"col-md-6 \">\n      <div class=\"input-group\">\n        <span for=\"\" class=\" input-group-addon\">\u5546\u54C1\u7F16\u53F7:</span>\n        <input type=\"text\" class=\"form-control\" name=\"storeID\">\n      </div>\n    </div>\n    <div class=\"col-md-6 \">\n      <div class=\"input-group\">\n        <span for=\"\" class=\" input-group-addon\">\u5546\u57CE\u6392\u5E8F\u5E8F\u53F7:</span>\n        <input type=\"text\" class=\"form-control\" name=\"storeNum\">\n      </div>\n    </div>\n\n  </div>\n\n  <div class=\"row marginAll7\">\n    <div class=\"col-md-6 \">\n      <div class=\"input-group\">\n        <span for=\"\" class=\" input-group-addon\">\u5546\u57CE\u540D\u79F0:</span>\n        <input type=\"text\" class=\"form-control\" name=\"storeName\">\n      </div>\n    </div>\n    <div class=\"col-md-6 \">\n      <div class=\"input-group\">\n        <span for=\"\" class=\" input-group-addon \">\u5546\u57CE\u5F00\u5173:</span>\n        <select class=\"form-control\" name=\"selectID\">\n          <option value=\"0\">\u5F00</option>\n          <option value=\"1\">\u5173</option>\n        </select>\n      </div>\n    </div>\n\n  </div>\n  <div class=\"paddingR30 marginBootom20 paddingR30 flex-end\">\n      <button type=\"button\" class=\"btn btn-danger button-width removeHTML\">\u5220\u9664\u65B0\u5546\u54C1</button>\n    </div>\n</div>\n</li>";
 
-    $(".js-main").append(html)
+    $(".js-main").append(temp)
   }, )
 
-  $('.js-main').on('click', '.removeHTML', function () {
-    console.log(1)
-    $(this).parent().parent().remove();
-  })
+$(document).delegate(".removeHTML", "click", function() { 
+  window.location.href = "./index.html"
+});
+ 
 </script>
 
 </html>

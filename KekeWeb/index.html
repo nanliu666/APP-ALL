@@ -7,21 +7,9 @@
     <title>首页</title>
     <link href="css/mui.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="css/common/common.css" />
+    <link rel="stylesheet" href="css/bootstrap.css">
     <link rel="stylesheet" href="css/index.css" />
-    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <script src="https://cdn.bootcss.com/jquery/2.1.1/jquery.min.js"></script>
-    <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
-    <script src="js/mui.min.js"></script>
-    <script src="js/layer.js"></script>
-    <script src="https://cdn.bootcss.com/blueimp-md5/2.10.0/js/md5.js"></script>
-    <script src="js/moment.min.js"></script>
-    <script src="./js/util/getSign.js"></script>
-    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-    <script src="https://cdn.bootcss.com/lodash.js/4.17.10/lodash.core.js"></script>
-    <script src="./js/UI/modal.js"></script>
-    <script type="text/javascript" src="js/common.js"></script>
-    <script src="./js/pageJs/index.js"></script>
 </head>
 
 <body>
@@ -47,7 +35,7 @@
             <img src="images/common/zhao_light.svg" style="display: none;" />
             <span class="mui-tab-label">招聘</span>
         </a>
-        <a id="tab_setting" class="mui-tab-item" href="about.html">
+        <a id="tab_about" class="mui-tab-item" href="about.html">
             <img src="images/common/about.svg" style="margin-top: .6rem;" />
             <img src="images/common/about_light.svg" style="display: none;margin-top: .1rem;" />
             <span class="mui-tab-label">关于</span>
@@ -100,20 +88,21 @@
                 <div class="mui-indicator"></div>
             </div>
         </div>
+
         <div class="list">
             <div class="top_list">
                 <p>今日推荐<a href="games.html" style="color:#1296db!important;">查看全部</a></p>
             </div>
-            <div class="list_Body"></div>
+            <ul class="list_Body"></ul>
         </div>
         <div id="tableBox">
             <div class="tabBar">
-                <ul>
-                    <li class="active" onclick="change(this,1)">开服表</li>
-                    <li onclick="change(this,2)">新游榜</li>
+                <ul class="tabLi">
+                    <li class="active tb1">开服表</li>
+                    <li>新游榜</li>
                 </ul>
             </div>
-            <div class="tb" id="tb1">
+            <div class="tb " id="tb1">
                 <table class="table  table-responsive" style="background-color: white">
                     <thead>
                         <tr>
@@ -123,17 +112,183 @@
                             <td class="tableHeadTD">下载</td>
                         </tr>
                     </thead>
-                    <tbody></tbody>
+                    <tbody id="serverID"></tbody>
                 </table>
             </div>
             <!-- 新游榜 -->
-            <div class="tb" id="tb2" style="display: none;"></div>
+            <div class="tb hide" id="tb2">
+
+            </div>
         </div>
         <!-- 模态框（Modal） -->
         <div id="modal"></div>
     </div>
 
 </body>
+<script src="https://cdn.bootcss.com/jquery/2.1.1/jquery.min.js"></script>
+<script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
+<script src="js/mui.min.js"></script>
+<script src="js/layer.js"></script>
+<script src="https://cdn.bootcss.com/blueimp-md5/2.10.0/js/md5.js"></script>
+<script src="js/moment.min.js"></script>
+<script src="./js/util/getSign.js"></script>
+<script src="https://cdn.bootcss.com/lodash.js/4.17.10/lodash.core.js"></script>
+<script src="./js/UI/modal.js"></script>
+<script type="text/javascript" src="js/common.js"></script>
+<!-- <script src="./js/pageJs/index.js"></script> -->
+
+<script>
+    var baseURL = 'http://192.168.2.159:7002'
+    var _ref = ['/game/new-sort', '/game-server/index', '/game/recommend', '/gift-bag-user-cdkey/index', parseInt(
+            moment().unix()), 'web'],
+        newSortUrl = _ref[0],
+        IndexUrl = _ref[1],
+        recommendURL = _ref[2],
+        CDKeydURL = _ref[3],
+        now_time = _ref[4],
+        platform = _ref[5];
+
+    var signObj = {
+        now_time: now_time,
+        platform: platform
+    };
+    var sign = getSign(signObj); //调用签名函数获取签名
+    var ajaxConfig = {
+        platform: 'web',
+        now_time: parseInt(moment().unix()),
+        sign: getSign(signObj),
+    }
+
+    //公共参数
+    $.ajaxSetup({
+        type: 'GET',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        data: ajaxConfig,
+    })
+    //推荐游戏HTML
+    $.ajax({
+        url: baseURL + recommendURL,
+        success: function (data) {
+            if (data.data && data.data !== '') {
+                remHTML(data.data)
+            }
+        },
+        error: function (err) {
+            console.log(err)
+        },
+    })
+    var remHTML = function remHTML(data) {
+        var remTempHTML = ''
+        data.map(function (item) {
+            remTempHTML +=
+                '<li class="list_content" data-toggle="modal" data-target="#downModal">' +
+                '<div class="left_img">' +
+                ' <img class="remLogo" src=' + item.logo + ' />' +
+                '</div>' +
+                '<div class="right_info">' +
+                ' <p class="remName">' + item.name + '<img src="images/free.png" class="icon"></p>' +
+                '<p>' +
+                '<img src="images/angle.svg" />' +
+                '<img src="images/angle.svg" />' +
+                '<img src="images/angle.svg" />' +
+                '<img src="images/angle.svg" />' +
+                '<img src="images/angle.svg" />' +
+                ' </p>' +
+                '<p class="remDescribe">' + item.describe + '</p>' +
+                '</div>' +
+                '</li>'
+
+        })
+        $('.list_Body').html(remTempHTML)
+    }
+
+    //开服请求
+    $.ajax({
+        url: baseURL + IndexUrl,
+        success: function (data) {
+            if (data.data && data.data !== '') {
+                serverHTML(data.data)
+            }
+        },
+        error: function (err) {
+            console.log(err)
+        },
+    })
+
+    // 开服表
+    var serverHTML = function remHTML(data) {
+        var remTempHTML = ''
+        data.map(function (item) {
+            remTempHTML +=
+                '<tr>' +
+                '<td>' + item.name + '</td>' +
+                '<td>' + item.opening_time + '</td>' +
+                '<td class="gift_bag_id" data-indexCD=${i}><img src="images/gf.svg" class="gf" data-toggle="modal" data-target="#downModal"></td>' +
+                '<td data-indexNEW=${i}><img src="images/download.svg" data-toggle="modal" data-target="#downModal"></td>' +
+                '</tr>'
+
+        })
+        $('#serverID').html(remTempHTML)
+    }
+
+    $('.tabLi').on('click', 'li', function () {
+        $(this).addClass('active').siblings().removeClass('active')
+        if ($(this).hasClass('tb1')) {
+            $("#tb1").show();
+            $("#tb2").hide();
+        } else {
+            $("#tb2").show().removeClass('hide');
+            $("#tb1").hide();
+        }
+    })
+
+    //开服请求
+    $.ajax({
+        url: baseURL + newSortUrl,
+        success: function (data) {
+            if (data.data && data.data !== '') {
+                newSortHTML(data.data)
+                console.log(data.data)
+            }
+        },
+        error: function (err) {
+            console.log(err)
+        },
+    })
+    var newSortHTML = function newSortHTML(data) {
+        var remTempHTML = ''
+        data.map(function (item) {
+            remTempHTML +=
+                '<li class="content">' +
+                '<div class="left">' +
+                ' <img src="images/one.png" />' +
+                '</div>' +
+                '<div class="middle">' +
+                '<div class="left_img">' +
+                '<img src="" style="width: 90%;" />' +
+                '</div>' +
+                ' <div class="right_info">' +
+                '<p class="d_name"></p>' +
+                '<p style="line-height: 1.1rem;">' +
+                ' <img src="images/angle.svg" />' +
+                '<img src="images/angle.svg" />' +
+                '<img src="images/angle.svg" />' +
+                '<img src="images/angle.svg" />' +
+                '<img src="images/angle.svg" />' +
+                '</p>' +
+                '<p class="d_describe"></p>' +
+                ' </div>' +
+                '</div>' +
+                '<div class="right">' +
+                '<button class="dlBtn" data-toggle="modal" data-target="#downModal">下载</button>' +
+                ' </div>' +
+                '</li>'
+        })
+        $('#tb2').html(remTempHTML)
+    }
+</script>
 
 </html>

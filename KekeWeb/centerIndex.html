@@ -57,39 +57,14 @@
             color: #fff;
             margin: 10px 0;
         }
-
+        .centerP {
+            text-align: center
+        }
 
     </style>
 </head>
 
 <body>
-    <nav class="mui-bar mui-bar-tab" id="nav">
-        <a id="tab_home" class="mui-tab-item" href="index.html">
-            <img src="images/common/index.svg" />
-            <img src="images/common/index_light.svg" style="display: none;" />
-            <span class="mui-tab-label">首页</span>
-        </a>
-        <a id="tab_message" class="mui-tab-item" href="games.html">
-            <img src="images/common/game.svg" />
-            <img src="images/common/game_light.svg" style="display: none;" />
-            <span class="mui-tab-label">游戏</span>
-        </a>
-        <a id="tab_contact" class="mui-tab-item" href="gifts.html">
-            <img src="images/common/gift.svg" />
-            <img src="images/common/gift_light.svg" style="display: none;" />
-            <span class="mui-tab-label">礼包</span>
-        </a>
-        <a id="tab_setting" class="mui-tab-item" href="zhao.html">
-            <img src="images/common/zhao.svg" />
-            <img src="images/common/zhao_light.svg" style="display: none;" />
-            <span class="mui-tab-label">招聘</span>
-        </a>
-        <a id="tab_about" class="mui-tab-item actives" href="about.html">
-            <img src="images/common/about.svg" style="display: none;margin-top: .6rem;" />
-            <img src="images/common/about_light.svg" style="margin-top: .6rem;" />
-            <span class="mui-tab-label">关于</span>
-        </a>
-    </nav>
     <div class="mui-content" style="background-color: rgb(255, 255, 255)">
         <div class="topInfo">
             <img src="images/logo (2).png" class="logo" />
@@ -101,7 +76,7 @@
             <div class="bg bg-blur"></div>
             <div class="centerImg">
                 <img src="./images/1.jpg" alt="" class="img">
-                <p class="flexCenterW">昵称</p>
+                <p class="flexCenterW centerP">昵称</p>
             </div>
         </div>
         <div class="flexSpaceAround" style="margin-top: 30px">
@@ -113,49 +88,45 @@
                 <img src="images/icon.png" alt="" class="detailImg">
                 <div class="flexCenterALL">修改密码</div>
             </a>
-            <div id="JSLoginOut">
+            <a id="JSLoginOut">
                 <img src="images/icon.png" alt="" class="detailImg">
                 <div class="flexCenterALL">退出登录</div>
-            </div>
+            </a>
         </div>
     </div>
 
-    <script src="https://cdn.bootcss.com/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
+
     <script src="https://cdn.bootcss.com/blueimp-md5/2.10.0/js/md5.js"></script>
     <script src="js/moment.min.js"></script>
     <script src="./js/util/getSign.js"></script>
-    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-    <script src="https://cdn.bootcss.com/lodash.js/4.17.10/lodash.core.js"></script>
     <script type="text/javascript">
-        $(document).ready(() => {
+        $(document).ready(function () {
             $("#JSLoginOut").click(function (e) {
-
-                var [loginOutUrl, now_time, platform, ] = ['/site/login-out', parseInt(moment().unix()),
-                    'web',
-                ]
                 var signObj = {
-                    now_time,
-                    platform,
+                    now_time: parseInt(moment().unix()),
+                    platform: 'web',
                 }
-                var sign = getSign(signObj) //调用签名函数获取签名
-                var axiosConfig = {
-                    method: "GET",
-                    params: {
-                        now_time,
-                        platform,
-                        sign,
+                var ajaxConfig = {
+                    platform: 'web',
+                    now_time: parseInt(moment().unix()),
+                    sign: getSign(signObj),
+                }
+                $.ajax({
+                    type: 'GET',
+                    url: 'http://192.168.2.159:7002/site/login-out',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded',
                     },
-                }
-                console.log(axiosConfig)
-                axios(loginOutUrl, axiosConfig)
-                    .then((result) => {
-                        if (result.data.state === "success") {
-                            location.href = 'login.html'
-                        }
-                    }).catch((err) => {
+                    data: ajaxConfig,
+                    success: function (data) {
+                        console.log(data)
+                        location.href = './login.html'
+                    },
+                    error: function (err) {
                         console.log(err)
-                    });
-
+                    },
+                })
             });
 
         })
