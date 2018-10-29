@@ -243,6 +243,7 @@
         $('.list_Body').html(remTempHTML)
 
     }
+    // modal出来啦
     var modalClick = function (data, index) {
         if (index === 0) {
             $(document).delegate(".list_content", "click", function () {
@@ -252,7 +253,8 @@
                 $('.androidLoad').attr('href', data[$(this).index()].android_download_url)
                 $('.iOSLoad').attr('href', data[$(this).index()].ios_download_url)
             });
-        } else {
+        } 
+        if(index === 0) {
             $(document).delegate(" .kaifuLi", "click", function () {
                 $('.downloadName').html(data[$(this).index()].name)
                 $('.downloadDescribe').html(data[$(this).index()].describe)
@@ -260,6 +262,8 @@
                 $('.androidLoad').attr('href', data[$(this).index()].android_download_url)
                 $('.iOSLoad').attr('href', data[$(this).index()].ios_download_url)
             });
+        }
+        else {
 
         }
     }
