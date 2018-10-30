@@ -1,0 +1,151 @@
+.hcenter {
+  display: table-cell;
+  vertical-align: middle;
+}
+
+.text-right {
+  text-align: right
+}
+
+.text-left {
+  text-align: left
+}
+
+.text-center {
+  text-align: center
+}
+
+
+/* margin 与padding部分 */
+.margin10 {
+  margin: 10px 0;
+}
+
+.padding8 {
+  padding: 0 8px;
+}
+
+.padding10 {
+  padding: 0 10px;
+}
+
+.paddingALL10 {
+  padding: 10px;
+}
+
+.padding0 {
+  padding: 0;
+}
+
+.icon14px {
+  font-size: 14px
+}
+
+.border-all {
+  border: 1px solid #cccccc;
+}
+
+.border-bottom-none {
+  border: 1px solid #cccccc;
+  border-bottom: 0;
+}
+
+.border-bottom {
+  border-bottom: 1px solid #cccccc;
+}
+
+.border-top {
+  border-top: 1px solid #cccccc;
+}
+
+.fr {
+  float: right
+}
+
+.fl {
+  float: left
+}
+
+.icon {
+  width: 2em;
+  height: 2em;
+  vertical-align: -0.15em;
+  fill: currentColor;
+  overflow: hidden;
+}
+
+
+/* 背景色 */
+
+.tableBGC {
+  background-color: #e2e2e2;
+}
+
+
+nav>li {
+  width: 19%;
+  display: inline-block;
+  text-align: center;
+  border-right: 1px solid #ccc
+}
+
+nav>li:last-child {
+  border-right: 0
+}
+
+
+.actives {
+  color: #1296db !important;
+}
+
+/* 占比 */
+
+.width50 {
+  width: 50%
+}
+
+.width60 {
+  width: 60%
+}
+
+.width80 {
+  width: 80%
+}
+
+
+/* flex布局 */
+
+.flexRow {
+  display: flex;
+  flex-direction: row;
+}
+
+.flex-column {
+  display: flex;
+  flex-direction: column;
+}
+
+.flex-wrap {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.flex-space-around {
+  display: flex;
+  justify-content: space-around;
+}
+
+.flex-space-between {
+  display: flex;
+  justify-content: space-between;
+}
+
+.flex-justify-content-center {
+  display: flex;
+  justify-content: center;
+}
+
+.flex-align-items-center {
+  display: flex;
+  align-items: center
+}

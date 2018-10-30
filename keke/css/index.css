@@ -1,0 +1,54 @@
+.headerDiv {
+  height: 60px;
+  line-height: 40px;
+  padding: 10px 4px;
+  margin: 10px 0;
+}
+
+.headerDiv img {
+  max-height: 40px
+}
+
+/* 轮播图 */
+.carousel-box {
+  margin: 0 auto;
+  text-align: center;
+}
+
+/* 推荐 */
+.remLi {
+  width: 50%;
+  padding: 4px;
+}
+
+.remLi > img {
+  max-width: 1.1rem;
+  max-height: 1.1rem;
+  padding: .1rem;
+}
+
+.angleImg > img {
+  width: .3rem;
+}
+
+/* 开服 */
+.mainTable {
+  margin-bottom: 52px;
+}
+
+.layui-tab-title-li {
+  margin: 0 !important
+}
+
+
+/* 新游 */
+.new-game-li {
+  padding: 0 10px;
+}
+
+
+.new-game-imgicon {
+  height: 50px;
+  display: inline-block;
+  margin: 5px 10px;
+}
