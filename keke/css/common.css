@@ -1,3 +1,25 @@
+a:link {
+  text-decoration: none;
+  cursor: pointer;
+}
+
+a:visited {
+  text-decoration: none;
+  cursor: pointer
+}
+
+a:active {
+  text-decoration: none;
+  cursor: pointer
+}
+
+a:hover {
+  text-decoration: none;
+  cursor: pointer
+}
+
+
+
 .hcenter {
   display: table-cell;
   vertical-align: middle;
@@ -86,7 +108,9 @@ nav>li {
   width: 19%;
   display: inline-block;
   text-align: center;
-  border-right: 1px solid #ccc
+  border-right: 1px solid #ccc;
+  padding: 6px 0;
+  font-size: 16px;
 }
 
 nav>li:last-child {
@@ -148,4 +172,11 @@ nav>li:last-child {
 .flex-align-items-center {
   display: flex;
   align-items: center
+}
+
+.flex-ALL-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
 }

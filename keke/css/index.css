@@ -21,13 +21,13 @@
   padding: 4px;
 }
 
-.remLi > img {
+.remLi>img {
   max-width: 1.1rem;
   max-height: 1.1rem;
   padding: .1rem;
 }
 
-.angleImg > img {
+.angleImg>img {
   width: .3rem;
 }
 
@@ -51,4 +51,49 @@
   height: 50px;
   display: inline-block;
   margin: 5px 10px;
+}
+
+
+/* 模态框 */
+.modal-footer-fix {
+  border-top: 1px solid #e5e5e5;
+  padding-top: 4px;
+}
+
+.downLoadLi {
+  border-bottom: 1px solid #ccc;
+  width: 100%;
+  padding: 4px;
+}
+
+.textDes>div {
+  margin-bottom: 4px;
+}
+
+.downLoadLiimg {
+  width: 100px;
+  height: 100px;
+  padding: 10px
+}
+
+/* 两个按钮 */
+.downLoadBtn>a {
+  color: white;
+  margin: 6px 0;
+  border-radius: 4px;
+  height: 32px;
+}
+
+.android {
+  background-color: #99d846;
+}
+
+.iOS {
+  background-color: #64bcf5;
+}
+.textColors {
+  border: 1px solid #ccc;
+  width: 96%;
+  font-size: 20px;
+  font-weight: 800;
 }
