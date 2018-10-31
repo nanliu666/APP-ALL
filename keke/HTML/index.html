@@ -16,29 +16,29 @@
 
 <body>
 
-  <div class="padding10 ">
-    <!-- 头部 -->
-    <header class="layui-row headerDiv border-all">
-      <div class="layui-col-xs6">
-        <img src="../images/logo (2).png" alt="">
-      </div>
-      <div class="layui-col-xs6 hcenter text-right">
-        <i class="iconfont icon-ren"></i>
-      </div>
-    </header>
-
-    <!-- 轮播图 -->
-    <div class="layui-carousel" id="carousel">
-      <div carousel-item>
-        <img src="../images/banner3.png" alt="" class="img-responsive center-block">
-        <img src="../images/banner1.png" alt="" class="img-responsive center-block">
-        <img src="../images/banner2.png" alt="" class="img-responsive center-block">
-        <img src="../images/banner3.png" alt="" class="img-responsive center-block">
-      </div>
+  <!-- 头部 -->
+  <header class="layui-row headerDiv">
+    <div class="layui-col-xs6">
+      <img src="../images/logo (2).png" alt="">
     </div>
+    <div class="layui-col-xs6 hcenter text-right">
+      <i class="iconfont icon-ren"></i>
+    </div>
+  </header>
+  <!-- 轮播图 -->
+  <div class="layui-carousel" id="carousel">
+    <div carousel-item>
+      <img src="../images/banner3.png" alt="" class="img-responsive center-block">
+      <img src="../images/banner1.png" alt="" class="img-responsive center-block">
+      <img src="../images/banner2.png" alt="" class="img-responsive center-block">
+      <img src="../images/banner3.png" alt="" class="img-responsive center-block">
+    </div>
+  </div>
+  <div class="padding10 ">
+
 
     <!-- 今日推荐 -->
-    <div class="margin10  border-all font2">
+    <div class="margin10  border-all font3">
       <div class="flex-space-between border-bottom padding8">
         <h4>今日推荐</h4>
         <h4>查看全部 &gt;</h4>
@@ -163,11 +163,11 @@
         </div>
 
         <!-- 新游榜 -->
-        <ul class="layui-tab-item font2">
+        <ul class="layui-tab-item font3">
           <li class="flex-space-between new-game-li flex-align-items-center">
             <div class=" flexRow newgame-box ">
-              <div class="new-game-flag"><img src="../images/one.png" alt="" ></div>
-              <img  src="../images/icon.png" alt="" class="new-game-imgicon">
+              <div class="new-game-flag"><img src="../images/one.png" alt=""></div>
+              <img src="../images/icon.png" alt="" class="new-game-imgicon">
               <div class="flex-column flex-justify-content-center ">
                 <div>
                   <span>大天使</span><span><img src="../images/free.png" alt=""></span>
@@ -191,30 +191,40 @@
 
     <!-- 导航栏 -->
     <nav class="navbar navbar-default navbar-fixed-bottom  layui-row border-top" role="navigation">
-      <li class="actives">
-        <div>首页</div>
-        <i class="iconfont icon-fangzi"></i>
+      <li>
+        <a href="index.html" class="actives">
+          <div>首页</div>
+          <i class="iconfont icon-fangzi"></i>
+        </a>
       </li>
       <li class="">
-        <div>游戏</div>
-        <i class="iconfont icon-youxi"></i>
+        <a href="game.html">
+          <div>游戏</div>
+          <i class="iconfont icon-youxi"></i>
+        </a>
       </li>
       <li class="">
-        <div>礼包</div>
-        <i class="iconfont icon-libao"></i>
+        <a href="gifts.html">
+          <div>礼包</div>
+          <i class="iconfont icon-libao"></i>
+        </a>
       </li>
       <li class="">
-        <div>招聘</div>
-        <i class="iconfont icon-xiaoyuanzhaopin"></i>
+        <a href="job.html">
+          <div>招聘</div>
+          <i class="iconfont icon-xiaoyuanzhaopin"></i>
+        </a>
       </li>
       <li class="">
-        <div>关于</div>
-        <i class="iconfont icon-guanyu"></i>
+        <a href="about.html">
+          <div>关于</div>
+          <i class="iconfont icon-guanyu"></i>
+        </a>
       </li>
     </nav>
 
     <!-- 模态框（Modal） -->
-    <div class="modal fade font2" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal fade font3" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header flex-justify-content-center">

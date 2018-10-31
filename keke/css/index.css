@@ -53,9 +53,9 @@
 
 
 .new-game-imgicon {
-  height: .8rem;
+  height: 1rem;
   display: inline-block;
-  margin: .1rem;
+  margin: .1rem .3rem 0 0;
 }
 
 .newgame-button {
@@ -75,9 +75,6 @@
   padding: 0.1rem;
 }
 
-.textDes>div {
-  margin-bottom: 0.1rem;
-}
 
 .downLoadLiimg {
   max-width: 1.4rem;
@@ -120,14 +117,21 @@
 /* 礼包页面 */
 .libao-ul {
   border: 1px solid #ccc;
+  margin-top: .2rem;
 }
 
 .libao-ul>li {
   border-bottom: 1px solid #ccc;
+  margin: .1rem 0;
 }
 
 .libao-ul>li:last-child {
   border-bottom: 0;
+}
+
+.angleBox >img{
+  height: .4rem;
+  display: inline-block;
 }
 
 /* 游戏页面 */

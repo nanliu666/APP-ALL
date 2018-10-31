@@ -16,9 +16,8 @@
 
 <body>
 
-  <div class="padding10 ">
-    <!-- 头部 -->
-    <header class="layui-row headerDiv border-all">
+  <!-- 头部 -->
+  <header class="layui-row headerDiv border-bottom">
       <div class="layui-col-xs6">
         <img src="../images/logo (2).png" alt="">
       </div>
@@ -27,77 +26,68 @@
       </div>
     </header>
 
+  <div class="padding10 ">
     <!-- 礼包列表 -->
-    <ul class="font2 libao-ul">
-      <li class="flex-space-between new-game-li flex-align-items-center">
-        <div class=" flexRow newgame-box ">
-          <div class="new-game-flag"><img src="../images/one.png" alt=""></div>
-          <img src="../images/icon.png" alt="" class="new-game-imgicon">
-          <div class="flex-column flex-justify-content-center ">
-            <div>
-              <span>大天使</span><span><img src="../images/free.png" alt=""></span>
+    <ul class="font3 libao-ul">
+        <li class="flex-space-between new-game-li flex-align-items-center">
+            <div class=" flexRow newgame-box ">
+              <div class="new-game-flag"><img src="../images/one.png" alt=""></div>
+              <img src="../images/icon.png" alt="" class="new-game-imgicon">
+              <div class="flex-column flex-justify-content-center ">
+                <div>
+                  <span>大天使</span><span><img src="../images/free.png" alt=""></span>
+                </div>
+                <div class="angleBox">
+                  <img src="../images/angle.svg" alt="" >
+                  <img src="../images/angle.svg" alt="">
+                  <img src="../images/angle.svg" alt="">
+                  <img src="../images/angle.svg" alt="">
+                  <img src="../images/angle.svg" alt="">
+                </div>
+                <div>三角合一</div>
+              </div>
             </div>
-            <div>
-              <img src="../images/angle.svg" alt="">
-              <img src="../images/angle.svg" alt="">
-              <img src="../images/angle.svg" alt="">
-              <img src="../images/angle.svg" alt="">
-              <img src="../images/angle.svg" alt="">
-            </div>
-            <div>三角合一</div>
-          </div>
-        </div>
-        <button class="layui-btn layui-btn-normal newgame-button" data-toggle="modal" data-target="#myModal">下载</button>
-      </li>
-      <li class="flex-space-between new-game-li flex-align-items-center">
-        <div class=" flexRow newgame-box ">
-          <div class="new-game-flag"><img src="../images/one.png" alt=""></div>
-          <img src="../images/icon.png" alt="" class="new-game-imgicon">
-          <div class="flex-column flex-justify-content-center ">
-            <div>
-              <span>大天使</span><span><img src="../images/free.png" alt=""></span>
-            </div>
-            <div>
-              <img src="../images/angle.svg" alt="">
-              <img src="../images/angle.svg" alt="">
-              <img src="../images/angle.svg" alt="">
-              <img src="../images/angle.svg" alt="">
-              <img src="../images/angle.svg" alt="">
-            </div>
-            <div>三角合一</div>
-          </div>
-        </div>
-        <button class="layui-btn layui-btn-normal newgame-button" data-toggle="modal" data-target="#myModal">下载</button>
-      </li>
+            <button class="layui-btn layui-btn-normal newgame-button" data-toggle="modal" data-target="#myModal">下载</button>
+          </li>
     </ul>
 
 
     <!-- 导航栏 -->
     <nav class="navbar navbar-default navbar-fixed-bottom  layui-row border-top" role="navigation">
       <li>
-        <div>首页</div>
-        <i class="iconfont icon-fangzi"></i>
-      </li>
-      <li>
-        <div>游戏</div>
-        <i class="iconfont icon-youxi"></i>
-      </li>
-      <li class="actives">
-        <div>礼包</div>
-        <i class="iconfont icon-libao"></i>
+        <a href="index.html">
+          <div>首页</div>
+          <i class="iconfont icon-fangzi"></i>
+        </a>
       </li>
       <li class="">
-        <div>招聘</div>
-        <i class="iconfont icon-xiaoyuanzhaopin"></i>
+        <a href="game.html">
+          <div>游戏</div>
+          <i class="iconfont icon-youxi"></i>
+        </a>
       </li>
       <li class="">
-        <div>关于</div>
-        <i class="iconfont icon-guanyu"></i>
+        <a href="gifts.html" class="actives">
+          <div>礼包</div>
+          <i class="iconfont icon-libao"></i>
+        </a>
+      </li>
+      <li class="">
+        <a href="job.html">
+          <div>招聘</div>
+          <i class="iconfont icon-xiaoyuanzhaopin"></i>
+        </a>
+      </li>
+      <li class="">
+        <a href="about.html">
+          <div>关于</div>
+          <i class="iconfont icon-guanyu"></i>
+        </a>
       </li>
     </nav>
 
     <!-- 模态框（Modal） -->
-    <div class="modal fade font2" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal fade font3" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header flex-justify-content-center">

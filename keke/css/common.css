@@ -197,6 +197,10 @@ nav>li:last-child {
   font-size: .2rem
 }
 
+.font3 {
+  font-size: .3rem
+}
+
 
 
 /* 头部 */
@@ -205,7 +209,6 @@ nav>li:last-child {
   display: flex;
   align-items: center;
   height: 1rem;
-  margin: .1rem 0;
   padding: .1rem;
 }
 
