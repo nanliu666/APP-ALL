@@ -1,19 +1,9 @@
-.headerDiv {
-  height: 60px;
-  line-height: 40px;
-  padding: 10px 4px;
-  margin: 10px 0;
-}
-
-.headerDiv img {
-  max-height: 40px
-}
-
 /* 轮播图 */
 .carousel-box {
   margin: 0 auto;
   text-align: center;
 }
+
 
 /* 推荐 */
 .remLi {
@@ -41,39 +31,58 @@
 }
 
 
-/* 新游 */
+/* 新游  与 礼包列表部分css*/
 .new-game-li {
-  padding: 0 10px;
+  padding: 0 .3rem;
+}
+
+.newgame-box {
+  width: 5rem;
+  display: flex;
+}
+
+.new-game-flag {
+  display: flex;
+  align-items: center;
+  margin-right: .2rem;
+}
+
+.new-game-flag>img {
+  height: .5rem;
 }
 
 
 .new-game-imgicon {
-  height: 50px;
+  height: .8rem;
   display: inline-block;
-  margin: 5px 10px;
+  margin: .1rem;
+}
+
+.newgame-button {
+  width: 1.4rem;
 }
 
 
 /* 模态框 */
 .modal-footer-fix {
   border-top: 1px solid #e5e5e5;
-  padding-top: 4px;
+  padding-top: 0.1rem;
 }
 
 .downLoadLi {
   border-bottom: 1px solid #ccc;
   width: 100%;
-  padding: 4px;
+  padding: 0.1rem;
 }
 
 .textDes>div {
-  margin-bottom: 4px;
+  margin-bottom: 0.1rem;
 }
 
 .downLoadLiimg {
-  width: 100px;
-  height: 100px;
-  padding: 10px
+  max-width: 1.4rem;
+  max-height: 1.4rem;
+  padding: .1rem;
 }
 
 /* 两个按钮 */
@@ -81,7 +90,7 @@
   color: white;
   margin: 6px 0;
   border-radius: 4px;
-  height: 32px;
+  height: .5rem;
 }
 
 .android {
@@ -91,9 +100,62 @@
 .iOS {
   background-color: #64bcf5;
 }
+
 .textColors {
-  border: 1px solid #ccc;
+  border-left: 1px solid #ccc;
   width: 96%;
-  font-size: 20px;
+  font-size: .3rem;
   font-weight: 800;
+}
+
+/* 描述 */
+.des {
+  margin-top: .1rem
+}
+
+
+
+
+
+/* 礼包页面 */
+.libao-ul {
+  border: 1px solid #ccc;
+}
+
+.libao-ul>li {
+  border-bottom: 1px solid #ccc;
+}
+
+.libao-ul>li:last-child {
+  border-bottom: 0;
+}
+
+/* 游戏页面 */
+.gamesBox>li {
+  width: 50%;
+  display: flex;
+  justify-content: center;
+  margin: .1rem 0;
+}
+
+.gamesBox>li img {
+  max-width: 2rem;
+  max-height: 2rem;
+}
+
+.js-game-ul>li {
+  border: 1px solid #ccc
+}
+
+.js-game-ul>li:last-child {
+  border: 0
+}
+
+.gameBig {
+  padding: .2rem;
+  border-top: 1px solid #ccc
+}
+
+.gameh4 {
+  padding-left: .2rem;
 }

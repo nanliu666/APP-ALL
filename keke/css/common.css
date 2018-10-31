@@ -43,6 +43,10 @@ a:hover {
   margin: 10px 0;
 }
 
+.margin1rem {
+  margin: .1rem
+}
+
 .padding8 {
   padding: 0 8px;
 }
@@ -136,6 +140,10 @@ nav>li:last-child {
   width: 80%
 }
 
+.width100 {
+  width: 100%
+}
+
 
 /* flex布局 */
 
@@ -179,4 +187,28 @@ nav>li:last-child {
   align-items: center;
   justify-content: center;
 
+}
+
+
+
+
+/* 公共font-size */
+.font2 {
+  font-size: .2rem
+}
+
+
+
+/* 头部 */
+
+.headerDiv {
+  display: flex;
+  align-items: center;
+  height: 1rem;
+  margin: .1rem 0;
+  padding: .1rem;
+}
+
+.headerDiv img {
+  max-height: 40px
 }

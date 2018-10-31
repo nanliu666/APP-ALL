@@ -38,7 +38,7 @@
     </div>
 
     <!-- 今日推荐 -->
-    <div class="margin10  border-all ">
+    <div class="margin10  border-all font2">
       <div class="flex-space-between border-bottom padding8">
         <h4>今日推荐</h4>
         <h4>查看全部 &gt;</h4>
@@ -59,7 +59,7 @@
               <img src="../images/angle.svg" alt="">
               <img src="../images/angle.svg" alt="">
             </div>
-            <div>三合一</div>
+            <div class="des">三合一</div>
           </div>
         </li>
         <li class="flexRow flex-align-items-center remLi" data-toggle="modal" data-target="#myModal">
@@ -76,43 +76,10 @@
               <img src="../images/angle.svg" alt="">
               <img src="../images/angle.svg" alt="">
             </div>
-            <div>三合一</div>
+            <div class="des">三合一</div>
           </div>
         </li>
-        <li class="flexRow flex-align-items-center remLi" data-toggle="modal" data-target="#myModal">
-          <img src="../images/icon.png" alt="">
-          <div class="flex-column width80">
-            <div class="flexRow">
-              <div>大天使</div>
-              <img src="../images/free.png" alt="">
-            </div>
-            <div class="angleImg">
-              <img src="../images/angle.svg" alt="">
-              <img src="../images/angle.svg" alt="">
-              <img src="../images/angle.svg" alt="">
-              <img src="../images/angle.svg" alt="">
-              <img src="../images/angle.svg" alt="">
-            </div>
-            <div>三合一</div>
-          </div>
-        </li>
-        <li class="flexRow flex-align-items-center remLi" data-toggle="modal" data-target="#myModal">
-          <img src="../images/icon.png" alt="">
-          <div class="flex-column width80">
-            <div class="flexRow">
-              <div>大天使</div>
-              <img src="../images/free.png" alt="">
-            </div>
-            <div class="angleImg">
-              <img src="../images/angle.svg" alt="">
-              <img src="../images/angle.svg" alt="">
-              <img src="../images/angle.svg" alt="">
-              <img src="../images/angle.svg" alt="">
-              <img src="../images/angle.svg" alt="">
-            </div>
-            <div>三合一</div>
-          </div>
-        </li>
+
 
       </ul>
     </div>
@@ -196,13 +163,11 @@
         </div>
 
         <!-- 新游榜 -->
-        <ul class="layui-tab-item ">
+        <ul class="layui-tab-item font2">
           <li class="flex-space-between new-game-li flex-align-items-center">
-            <div class="">
-              <img src="../images/one.png" alt="">
-            </div>
-            <div class=" flexRow width60">
-              <img src="../images/icon.png" alt="" class="new-game-imgicon">
+            <div class=" flexRow newgame-box ">
+              <div class="new-game-flag"><img src="../images/one.png" alt="" ></div>
+              <img  src="../images/icon.png" alt="" class="new-game-imgicon">
               <div class="flex-column flex-justify-content-center ">
                 <div>
                   <span>大天使</span><span><img src="../images/free.png" alt=""></span>
@@ -217,9 +182,7 @@
                 <div>三角合一</div>
               </div>
             </div>
-            <div class="">
-              <button class="layui-btn layui-btn-normal" data-toggle="modal" data-target="#myModal">下载</button>
-            </div>
+            <button class="layui-btn layui-btn-normal newgame-button" data-toggle="modal" data-target="#myModal">下载</button>
           </li>
         </ul>
       </div>
@@ -251,7 +214,7 @@
     </nav>
 
     <!-- 模态框（Modal） -->
-    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal fade font2" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header flex-justify-content-center">
@@ -262,9 +225,7 @@
             <li class="flexRow flex-align-items-center  downLoadLi" data-toggle="modal" data-target="#myModal">
               <img class="downLoadLiimg" src="../images/icon.png" alt="">
               <div class="flex-column textDes">
-                <div class="flexRow">
-                  <div>大天使</div>
-                </div>
+                <div>大天使</div>
                 <div class="angleImg">
                   <img src="../images/angle.svg" alt="">
                   <img src="../images/angle.svg" alt="">
@@ -272,7 +233,7 @@
                   <img src="../images/angle.svg" alt="">
                   <img src="../images/angle.svg" alt="">
                 </div>
-                <div>三合一</div>
+                <div class="des">三合一</div>
               </div>
             </li>
             <div class="flex-column downLoadBtn">
