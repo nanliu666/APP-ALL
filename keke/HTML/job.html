@@ -1,1 +1,135 @@
-11
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, height=device-height, user-scalable=no, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0">
+  <meta name="format-detection" content="telephone=no">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>招聘</title>
+  <link rel="stylesheet" href="../layui/css/layui.css">
+  <link rel="stylesheet" href="../css/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="../icon/iconfont.css">
+  <link rel="stylesheet" href="../css/common.css">
+  <link rel="stylesheet" href="../css/index.css">
+</head>
+
+<body>
+  <!-- 头部 -->
+  <header class="layui-row headerDiv border-bottom">
+    <div class="layui-col-xs6">
+      <img src="../images/logo (2).png" alt="">
+    </div>
+    <div class="layui-col-xs6 hcenter text-right">
+        <a href="./center.html"><i class="iconfont icon-ren"></i></a>
+    </div>
+  </header>
+  <div class="padding10 ">
+    <!-- 招聘 -->
+    <main class="job">
+      <img src="../images/sz.jpg" alt="">
+      <img src="../images/xz.jpg" alt="">
+    </main>
+
+    <!-- 导航栏 -->
+    <nav class="navbar navbar-default navbar-fixed-bottom flex-space-between  layui-row border-top" role="navigation">
+      <li>
+        <a href="index.html">
+          <div>首页</div>
+          <i class="iconfont icon-fangzi"></i>
+        </a>
+      </li>
+      <li class="">
+        <a href="game.html">
+          <div>游戏</div>
+          <i class="iconfont icon-youxi"></i>
+        </a>
+      </li>
+      <li class="">
+        <a href="gifts.html">
+          <div>礼包</div>
+          <i class="iconfont icon-libao"></i>
+        </a>
+      </li>
+      <li class="">
+        <a href="job.html" class="actives">
+          <div>招聘</div>
+          <i class="iconfont icon-xiaoyuanzhaopin"></i>
+        </a>
+      </li>
+      <li class="">
+        <a href="about.html">
+          <div>关于</div>
+          <i class="iconfont icon-guanyu"></i>
+        </a>
+      </li>
+    </nav>
+
+    <!-- 模态框（Modal） -->
+    <div class="modal fade font3" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header flex-justify-content-center">
+            <h4 class="modal-title" id="myModalLabel">下载游戏</h4>
+          </div>
+          <div class="modal-body ">
+
+            <li class="flexRow flex-align-items-center  downLoadLi" data-toggle="modal" data-target="#myModal">
+              <img class="downLoadLiimg" src="../images/icon.png" alt="">
+              <div class="flex-column textDes">
+                <div>大天使</div>
+                <div class="angleImg">
+                  <img src="../images/angle.svg" alt="">
+                  <img src="../images/angle.svg" alt="">
+                  <img src="../images/angle.svg" alt="">
+                  <img src="../images/angle.svg" alt="">
+                  <img src="../images/angle.svg" alt="">
+                </div>
+                <div class="des">三合一</div>
+              </div>
+            </li>
+            <div class="flex-column downLoadBtn">
+              <a href="#" class="androidLoad android   flexRow">
+                <div class="flex-ALL-center ">
+                  <svg class="icon" aria-hidden="true">
+                    <use xlink:href="#icon-anzhuo"></use>
+                  </svg>
+                </div>
+                <span class="flex-ALL-center textColors">安卓版下载</span>
+              </a>
+              <a href="#" class="iOSLoad iOS  flexRow">
+                <div class="flex-ALL-center ">
+                  <svg class="icon" aria-hidden="true">
+                    <use xlink:href="#icon-pingguo"></use>
+                  </svg>
+                </div>
+                <span class="flex-ALL-center textColors">苹果版下载</span>
+              </a>
+            </div>
+          </div>
+          <div class="modal-footer-fix  flex-justify-content-center" data-dismiss="modal">
+            <p>关闭</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</body>
+<!-- 让IE8/9支持媒体查询，从而兼容栅格 -->
+<!--[if lt IE 9]>
+  <script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
+  <script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
+<![endif]-->
+<script src="../layui/layui.js"></script>
+<script src="../js/utils/jquery.js"></script>
+<script src="../js/utils/bootstrap.js"></script>
+<script src="../icon/iconfont.js"></script>
+<script src="https://cdn.bootcss.com/blueimp-md5/2.10.0/js/md5.js"></script>
+<script src="../js/utils/moment.min.js"></script>
+<script src="../js/utils/getSign.js"></script>
+
+<script src="../js/commom.js"></script>
+<script src="../js/pagejs/index.js"></script>
+
+</html>

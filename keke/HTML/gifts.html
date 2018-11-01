@@ -18,42 +18,21 @@
 
   <!-- 头部 -->
   <header class="layui-row headerDiv border-bottom">
-      <div class="layui-col-xs6">
-        <img src="../images/logo (2).png" alt="">
-      </div>
-      <div class="layui-col-xs6 hcenter text-right">
-        <i class="iconfont icon-ren"></i>
-      </div>
-    </header>
+    <div class="layui-col-xs6">
+      <img src="../images/logo (2).png" alt="">
+    </div>
+    <div class="layui-col-xs6 hcenter text-right">
+        <a href="./center.html"><i class="iconfont icon-ren"></i></a>
+    </div>
+  </header>
 
   <div class="padding10 ">
     <!-- 礼包列表 -->
-    <ul class="font3 libao-ul">
-        <li class="flex-space-between new-game-li flex-align-items-center">
-            <div class=" flexRow newgame-box ">
-              <div class="new-game-flag"><img src="../images/one.png" alt=""></div>
-              <img src="../images/icon.png" alt="" class="new-game-imgicon">
-              <div class="flex-column flex-justify-content-center ">
-                <div>
-                  <span>大天使</span><span><img src="../images/free.png" alt=""></span>
-                </div>
-                <div class="angleBox">
-                  <img src="../images/angle.svg" alt="" >
-                  <img src="../images/angle.svg" alt="">
-                  <img src="../images/angle.svg" alt="">
-                  <img src="../images/angle.svg" alt="">
-                  <img src="../images/angle.svg" alt="">
-                </div>
-                <div>三角合一</div>
-              </div>
-            </div>
-            <button class="layui-btn layui-btn-normal newgame-button" data-toggle="modal" data-target="#myModal">下载</button>
-          </li>
-    </ul>
+    <ul class="font3 libao-ul"></ul>
 
 
     <!-- 导航栏 -->
-    <nav class="navbar navbar-default navbar-fixed-bottom  layui-row border-top" role="navigation">
+    <nav class="navbar navbar-default navbar-fixed-bottom  flex-space-between layui-row border-top" role="navigation">
       <li>
         <a href="index.html">
           <div>首页</div>
@@ -91,45 +70,15 @@
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header flex-justify-content-center">
-            <h4 class="modal-title" id="myModalLabel">下载游戏</h4>
+            <h4 class="modal-title" id="myModalLabel">领取成功</h4>
           </div>
-          <div class="modal-body ">
-
-            <li class="flexRow flex-align-items-center  downLoadLi" data-toggle="modal" data-target="#myModal">
-              <img class="downLoadLiimg" src="../images/icon.png" alt="">
-              <div class="flex-column textDes">
-                <div>大天使</div>
-                <div class="angleImg">
-                  <img src="../images/angle.svg" alt="">
-                  <img src="../images/angle.svg" alt="">
-                  <img src="../images/angle.svg" alt="">
-                  <img src="../images/angle.svg" alt="">
-                  <img src="../images/angle.svg" alt="">
-                </div>
-                <div class="des">三合一</div>
-              </div>
-            </li>
-            <div class="flex-column downLoadBtn">
-              <a href="#" class="androidLoad android   flexRow">
-                <div class="flex-ALL-center ">
-                  <svg class="icon" aria-hidden="true">
-                    <use xlink:href="#icon-anzhuo"></use>
-                  </svg>
-                </div>
-                <span class="flex-ALL-center textColors">安卓版下载</span>
-              </a>
-              <a href="#" class="iOSLoad iOS  flexRow">
-                <div class="flex-ALL-center ">
-                  <svg class="icon" aria-hidden="true">
-                    <use xlink:href="#icon-pingguo"></use>
-                  </svg>
-                </div>
-                <span class="flex-ALL-center textColors">苹果版下载</span>
-              </a>
-            </div>
+          <div class="modal-body gifts-modal-body">
+            <p>您已成功领取<span class="js-libao-name">梦幻西游4服</span>礼包</p>
+            <p>CDKEY：<span class="js-libao-CDKEY">123465457</span></p>
+            <button class="layui-btn layui-btn-normal" type="button">复制CDKEY</button>
           </div>
           <div class="modal-footer-fix  flex-justify-content-center" data-dismiss="modal">
-            <p>关闭</p>
+            <p>我知道了</p>
           </div>
         </div>
       </div>
@@ -143,10 +92,15 @@
   <script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
 <![endif]-->
 <script src="../layui/layui.js"></script>
-<script src="../js/jquery.js"></script>
-<script src="../js/bootstrap.js"></script>
+<script src="../js/utils/jquery.js"></script>
+<script src="../js/utils/bootstrap.js"></script>
 <script src="../icon/iconfont.js"></script>
-<script src="../js/index.js"></script>
+<script src="https://cdn.bootcss.com/blueimp-md5/2.10.0/js/md5.js"></script>
+<script src="../js/utils/moment.min.js"></script>
+<script src="../js/utils/getSign.js"></script>
+
+<script src="../js/commom.js"></script>
+<script src="../js/pagejs/gift.js"></script>
 
 
 </html>

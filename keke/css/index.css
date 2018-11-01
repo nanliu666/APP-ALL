@@ -8,12 +8,12 @@
 /* 推荐 */
 .remLi {
   width: 50%;
-  padding: 4px;
+  /* padding: 4px; */
 }
 
 .remLi>img {
-  max-width: 1.1rem;
-  max-height: 1.1rem;
+  max-width: 1.4rem;
+  max-height: 1.4rem;
   padding: .1rem;
 }
 
@@ -34,6 +34,7 @@
 /* 新游  与 礼包列表部分css*/
 .new-game-li {
   padding: 0 .3rem;
+  margin-bottom: .1rem;
 }
 
 .newgame-box {
@@ -55,12 +56,20 @@
 .new-game-imgicon {
   height: 1rem;
   display: inline-block;
-  margin: .1rem .3rem 0 0;
+  margin: .1rem .2rem 0 0;
+}
+
+.new-game-imgicon-gifts {
+  height: 1.2rem;
+  display: inline-block;
+  margin: .1rem .2rem 0 0;
 }
 
 .newgame-button {
   width: 1.4rem;
 }
+
+
 
 
 /* 模态框 */
@@ -129,9 +138,19 @@
   border-bottom: 0;
 }
 
-.angleBox >img{
+.angleBox>img {
   height: .4rem;
   display: inline-block;
+}
+
+.gifts-button {
+  width: 2rem;
+}
+
+.gifts-modal-body {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
 }
 
 /* 游戏页面 */
@@ -162,4 +181,15 @@
 
 .gameh4 {
   padding-left: .2rem;
+}
+
+
+
+/* 招聘css */
+/* .job {
+} */
+
+.job>img {
+  width: 100%;
+  padding-top: .2rem;
 }

@@ -122,7 +122,7 @@
                         <img src="${remData[i].logo}" />
                     </div>
                     <div class="right_info">
-                        <p>${remData[i].name}<img src="images/free.png" class="icon"></p>
+                        <p>${remData[i].name}<img src="images/free.png" class="freeImg" class="icon"></p>
                         <p>
                             <img src="images/angle.svg" />
                             <img src="images/angle.svg" />

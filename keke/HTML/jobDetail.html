@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, height=device-height, user-scalable=no, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0">
   <meta name="format-detection" content="telephone=no">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>关于我们</title>
+  <title>招聘</title>
   <link rel="stylesheet" href="../layui/css/layui.css">
   <link rel="stylesheet" href="../css/bootstrap.css">
   <link rel="stylesheet" type="text/css" href="../icon/iconfont.css">
@@ -21,39 +21,70 @@
       <img src="../images/logo (2).png" alt="">
     </div>
     <div class="layui-col-xs6 hcenter text-right">
-        <a href="./center.html"><i class="iconfont icon-ren"></i></a>
+      <i class="iconfont icon-ren"></i>
     </div>
   </header>
   <div class="padding10 ">
-    <!-- 关于 -->
-    <main class="font3">
-      <div>
-        <h3>关于我们</h3>
-        <hr>
-        <p>广州众玩网络有限公司成立于2015年，作为一家专业的网络游戏自主研发公司，公司核心研发人员均具备大型网络游戏项目开发经验，对网络游戏的设计研发具备深刻的了解与独到的见解。
+    <!-- 招聘 -->
+    <div class="layui-tab layui-tab-card mainTable ">
+      <ul class="layui-tab-title flex-space-between">
+        <li class="layui-this layui-tab-title-li">全部</li>
+        <li class="layui-tab-title-li">技术类</li>
+        <li class="layui-tab-title-li">策划类</li>
+        <li class="layui-tab-title-li">美术类</li>
+        <li class="layui-tab-title-li">职能类</li>
+      </ul>
+      <div class="layui-tab-content padding0">
+        <ul class="layui-tab-item layui-show">
+          <table class="table table-hover table-striped ">
+            <thead class="tableBGC">
+              <tr>
+                <th>招聘职位</th>
+                <th>岗位类别</th>
+                <th>薪资待遇</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
+                <td>Erlang服务端开发工程师</td>
+                <td>技术类</td>
+                <td>面议</td>
+              </tr>
+            </tbody>
+          </table>
+        </ul>
+        <ul class="layui-tab-item font3">
 
-          公司下设策划部、研发部、职能部、美术部等部门，在职员工有80多人并在不断壮大队伍，正处于快速发展上升期，欢迎各路人才的加入。
-
-          秉承“一切以用户体验为核心”的经营理念，以打造精品游戏为目标，致力于不断优化用户体验，持续提高自身核心技术研发能力，为用户提供更优质的产品。
-
-          公司目前雄踞在广州繁华的天河北商圈，交通快捷便利。如果你是个有梦想并且肯为之奋斗的人，我们不仅能给你提供的是一个工作机会，更能为你提供一个实现梦想的平台！</p>
+        </ul>
       </div>
-      <div>
-        <h3>联系我们</h3>
-        <hr>
-        <img src="../images/map.png" alt="" style="max-width:  100%;    margin-bottom: .3rem">
-        <p><strong>联系地址:</strong>广州市天河区龙怡路117号银汇大厦18楼1805室</p>
-        <p><strong>简历投递邮箱:</strong>hr@gzzhongwan.net</p>
-        <p><strong>联系电话:</strong>020-37887202 / 18022890303</p>
-        <p><strong>乘车温馨提示:</strong></p>
-        <p>地铁：广州地铁3号线华师站E出口</p>
-        <p>公交：师大后门站（B10、B17、B11、813、298、775、41）</p>
-        <p>五山路口站(B10、B11、B17、B14、20、32、78a、130、191）</p>
-      </div>
-    </main>
+    </div>
+    <ul>
+      <li id="collapseOne" class="panel-collapse collapse">
+        <h4>Erlang服务端开发工程师</h4>
+        <p>岗位职责：</p>
+        <p>1、使用erlang独立进行服务端框架设计和功能开发</p>
+        <p>2、与策划，客户端沟通，参与游戏功能方案讨论</p>
+        <p>任职要求：</p>
+        <p>1、大专以上学历，计算机或相关专业，1年以上erlang开发经验
 
+          2、精通Erlang编程，无Erlang编程但精通C/C++经验者，可由C/C++转型；
+
+          3、熟悉Linux环境，精通数据结构与算法、Socket编程、多线程编程等；
+
+          4、熟悉网络协议及常用数据库，如MySQL的设计、开发与优化；
+
+          5、良好的沟通能力与团队协作能力，高度的工作责任心和敬业精神。
+
+          6、踏实上进，善于钻研技术，富于团队精神，喜欢游戏行业。
+        </p>
+        <p>简历请投递至邮箱：hr@gzzhongwan.net
+
+          或联系公司HR莫小姐：QQ3393214674
+        </p>
+      </li>
+    </ul>
     <!-- 导航栏 -->
-    <nav class="navbar navbar-default navbar-fixed-bottom flex-space-between layui-row border-top" role="navigation">
+    <nav class="navbar navbar-default navbar-fixed-bottom  layui-row border-top" role="navigation">
       <li>
         <a href="index.html">
           <div>首页</div>
@@ -73,13 +104,13 @@
         </a>
       </li>
       <li class="">
-        <a href="job.html">
+        <a href="job.html" class="actives">
           <div>招聘</div>
           <i class="iconfont icon-xiaoyuanzhaopin"></i>
         </a>
       </li>
       <li class="">
-        <a href="about.html" class="actives">
+        <a href="about.html">
           <div>关于</div>
           <i class="iconfont icon-guanyu"></i>
         </a>
@@ -143,15 +174,9 @@
   <script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
 <![endif]-->
 <script src="../layui/layui.js"></script>
-<script src="../js/utils/jquery.js"></script>
-<script src="../js/utils/bootstrap.js"></script>
+<script src="../js/jquery.js"></script>
+<script src="../js/bootstrap.js"></script>
 <script src="../icon/iconfont.js"></script>
-<script src="https://cdn.bootcss.com/blueimp-md5/2.10.0/js/md5.js"></script>
-<script src="../js/utils/moment.min.js"></script>
-<script src="../js/utils/getSign.js"></script>
-
-<script src="../js/commom.js"></script>
-<script src="../js/pagejs/index.js"></script>
-
+<script src="../js/index.js"></script>
 
 </html>

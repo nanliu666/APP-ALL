@@ -16,19 +16,20 @@
 
 <body>
 
+  <!-- 头部 -->
+  <header class="layui-row headerDiv border-bottom">
+    <div class="layui-col-xs6">
+      <img src="../images/logo (2).png" alt="">
+    </div>
+    <div class="layui-col-xs6 hcenter text-right">
+      <a href="./center.html"><i class="iconfont icon-ren"></i></a>
+    </div>
+  </header>
+
   <div class="padding10 ">
-    <!-- 头部 -->
-    <header class="layui-row headerDiv border-all">
-      <div class="layui-col-xs6">
-        <img src="../images/logo (2).png" alt="">
-      </div>
-      <div class="layui-col-xs6 hcenter text-right">
-        <i class="iconfont icon-ren"></i>
-      </div>
-    </header>
 
 
-    <!-- games -->
+    <!-- 推荐 -->
     <div class="layui-tab layui-tab-card mainTable">
       <ul class="layui-tab-title js-display">
         <li class="layui-this layui-col-xs6 layui-tab-title-li">推荐</li>
@@ -47,10 +48,10 @@
               <div class="flex-space-between new-game-li flex-align-items-center">
                 <div class=" flexRow  js-downLeft">
                   <div class="newgame-box" data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
-                    <img src="../images/icon.png" alt="" class="new-game-imgicon">
+                    <img src="../images/icon.png" alt="" class="new-game-imgicon-gifts">
                     <div class="flex-column flex-justify-content-center ">
-                      <div>
-                        <span>大天使</span><span><img src="../images/free.png" alt=""></span>
+                      <div class="flex-space-between">
+                        <span>大天使</span><span><img class="freeImg" src="../images/free.png" alt=""></span>
                       </div>
                       <div>
                         <img src="../images/angle.svg" alt="">
@@ -59,7 +60,7 @@
                         <img src="../images/angle.svg" alt="">
                         <img src="../images/angle.svg" alt="">
                       </div>
-                      <div>三角合一</div>
+                      <div class="marginTop1rem">三角合一</div>
                     </div>
                   </div>
                 </div>
@@ -135,10 +136,10 @@
             <div class="flex-space-between new-game-li flex-align-items-center">
               <div class=" flexRow  js-downLeft">
                 <div class="newgame-box" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">
-                  <img src="../images/icon.png" alt="" class="new-game-imgicon">
+                  <img src="../images/icon.png" alt="" class="new-game-imgicon-gifts">
                   <div class="flex-column flex-justify-content-center ">
-                    <div>
-                      <span>大天使</span><span><img src="../images/free.png" alt=""></span>
+                    <div class="flex-space-between">
+                      <span>大天使</span><span><img class="freeImg" src="../images/free.png" alt=""></span>
                     </div>
                     <div>
                       <img src="../images/angle.svg" alt="">
@@ -147,7 +148,7 @@
                       <img src="../images/angle.svg" alt="">
                       <img src="../images/angle.svg" alt="">
                     </div>
-                    <div>三角合一</div>
+                    <div class="marginTop1rem">三角合一</div>
                   </div>
                 </div>
               </div>
@@ -221,21 +222,21 @@
 
 
     <!-- 导航栏 -->
-    <nav class="navbar navbar-default navbar-fixed-bottom  layui-row border-top" role="navigation">
+    <nav class="navbar navbar-default navbar-fixed-bottom flex-space-between layui-row border-top" role="navigation">
       <li>
         <a href="index.html">
           <div>首页</div>
           <i class="iconfont icon-fangzi"></i>
         </a>
       </li>
-      <li class="" >
+      <li class="">
         <a href="game.html" class="actives">
           <div>游戏</div>
           <i class="iconfont icon-youxi"></i>
         </a>
       </li>
       <li class="">
-        <a href="gifts.html" >
+        <a href="gifts.html">
           <div>礼包</div>
           <i class="iconfont icon-libao"></i>
         </a>
@@ -311,10 +312,15 @@
   <script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
 <![endif]-->
 <script src="../layui/layui.js"></script>
-<script src="../js/jquery.js"></script>
-<script src="../js/bootstrap.js"></script>
+<script src="../js/utils/jquery.js"></script>
+<script src="../js/utils/bootstrap.js"></script>
 <script src="../icon/iconfont.js"></script>
-<script src="../js/index.js"></script>
+<script src="https://cdn.bootcss.com/blueimp-md5/2.10.0/js/md5.js"></script>
+<script src="../js/utils/moment.min.js"></script>
+<script src="../js/utils/getSign.js"></script>
+
+<script src="../js/commom.js"></script>
+<script src="../js/pagejs/game.js"></script>
 
 
 </html>

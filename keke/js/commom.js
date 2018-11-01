@@ -1,12 +1,6 @@
-$(document).ready(function () {
-  // var deviceWidth = document.documentElement.clientWidth;
-  // if (deviceWidth > 640) deviceWidth = 640;
-  // document.documentElement.style.fontSize = deviceWidth / 6.4 + 'px';
-
   //designWidth:设计稿的实际宽度值，需要根据实际设置
   //maxWidth:制作稿的最大宽度值，需要根据实际设置
   //这段js的最后面有两个参数记得要设置，一个为设计稿实际宽度，一个为制作稿最大宽度，例如设计稿为750，最大宽度为750，则为(750,750)
-  ;
   (function (designWidth, maxWidth) {
     var doc = document,
       win = window,
@@ -77,7 +71,55 @@ $(document).ready(function () {
     $(this).addClass('actives').siblings().removeClass('actives')
   })
 
-  $('.js-downLeft').on('click',  function() {
+  // 游戏页面的
+  $('.js-downLeft').on('click', function () {
     $(".js-display").toggle();
   })
-})
+
+
+
+  //ajax请求公共参数配置
+  var ajaxConfig = function () {
+    baseURL = 'http://192.168.2.159:7002'
+    signObj = {
+      now_time: parseInt(moment().unix()),
+      platform: 'web'
+    }
+    sign = getSign(signObj)
+
+    ajaxConfig = {
+      platform: 'web',
+      now_time: parseInt(moment().unix()),
+      sign: getSign(signObj),
+    }
+
+    var obj = {
+      baseURL: baseURL,
+      ajaxConfig: ajaxConfig,
+    }
+    return obj
+  }
+
+  // 礼包ajax设置另外设置
+  var giftsConfig = function (giftsID) {
+    baseURL = 'http://192.168.2.159:7002'
+    signObj = {
+      now_time: parseInt(moment().unix()),
+      platform: 'web',
+      gift_bag_id	: giftsID
+    }
+    sign = getSign(signObj)
+
+    ajaxConfig = {
+      platform: 'web',
+      now_time: parseInt(moment().unix()),
+      gift_bag_id	: giftsID,
+      sign: getSign(signObj),
+    }
+
+    var obj = {
+      baseURL: baseURL,
+      ajaxConfig: ajaxConfig,
+    }
+    return obj
+  }

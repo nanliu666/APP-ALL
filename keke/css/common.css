@@ -47,6 +47,10 @@ a:hover {
   margin: .1rem
 }
 
+.marginTop1rem {
+  margin-top: .1rem
+}
+
 .padding8 {
   padding: 0 8px;
 }
@@ -182,6 +186,12 @@ nav>li:last-child {
   align-items: center
 }
 
+.flex-all-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .flex-ALL-center {
   display: flex;
   align-items: center;
@@ -201,7 +211,11 @@ nav>li:last-child {
   font-size: .3rem
 }
 
-
+@media screen and (min-width: 768px) {
+  .freeImg {
+    width: .8rem;
+  }
+}
 
 /* 头部 */
 
@@ -209,7 +223,7 @@ nav>li:last-child {
   display: flex;
   align-items: center;
   height: 1rem;
-  padding: .1rem;
+  padding: .4rem;
 }
 
 .headerDiv img {
