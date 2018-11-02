@@ -106,14 +106,38 @@
     signObj = {
       now_time: parseInt(moment().unix()),
       platform: 'web',
-      gift_bag_id	: giftsID
+      gift_bag_id: giftsID
     }
     sign = getSign(signObj)
 
     ajaxConfig = {
       platform: 'web',
       now_time: parseInt(moment().unix()),
-      gift_bag_id	: giftsID,
+      gift_bag_id: giftsID,
+      sign: getSign(signObj),
+    }
+
+    var obj = {
+      baseURL: baseURL,
+      ajaxConfig: ajaxConfig,
+    }
+    return obj
+  } 
+  
+  // 招聘岗位ajax设置另外设置
+  var recruitConfig = function (recruit_type_id) {
+    baseURL = 'http://192.168.2.159:7002'
+    signObj = {
+      now_time: parseInt(moment().unix()),
+      platform: 'web',
+      recruit_type_id: recruit_type_id
+    }
+    sign = getSign(signObj)
+
+    ajaxConfig = {
+      platform: 'web',
+      now_time: parseInt(moment().unix()),
+      recruit_type_id: recruit_type_id,
       sign: getSign(signObj),
     }
 

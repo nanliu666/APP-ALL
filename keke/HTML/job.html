@@ -21,14 +21,14 @@
       <img src="../images/logo (2).png" alt="">
     </div>
     <div class="layui-col-xs6 hcenter text-right">
-        <a href="./center.html"><i class="iconfont icon-ren"></i></a>
+      <a href="./center.html"><i class="iconfont icon-ren"></i></a>
     </div>
   </header>
   <div class="padding10 ">
     <!-- 招聘 -->
     <main class="job">
-      <img src="../images/sz.jpg" alt="">
-      <img src="../images/xz.jpg" alt="">
+      <li><img data-index="sz" src="../images/sz.jpg" alt=""></li>
+      <li><img data-index="xz" src="../images/xz.jpg" alt=""></li>
     </main>
 
     <!-- 导航栏 -->
@@ -65,54 +65,6 @@
       </li>
     </nav>
 
-    <!-- 模态框（Modal） -->
-    <div class="modal fade font3" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header flex-justify-content-center">
-            <h4 class="modal-title" id="myModalLabel">下载游戏</h4>
-          </div>
-          <div class="modal-body ">
-
-            <li class="flexRow flex-align-items-center  downLoadLi" data-toggle="modal" data-target="#myModal">
-              <img class="downLoadLiimg" src="../images/icon.png" alt="">
-              <div class="flex-column textDes">
-                <div>大天使</div>
-                <div class="angleImg">
-                  <img src="../images/angle.svg" alt="">
-                  <img src="../images/angle.svg" alt="">
-                  <img src="../images/angle.svg" alt="">
-                  <img src="../images/angle.svg" alt="">
-                  <img src="../images/angle.svg" alt="">
-                </div>
-                <div class="des">三合一</div>
-              </div>
-            </li>
-            <div class="flex-column downLoadBtn">
-              <a href="#" class="androidLoad android   flexRow">
-                <div class="flex-ALL-center ">
-                  <svg class="icon" aria-hidden="true">
-                    <use xlink:href="#icon-anzhuo"></use>
-                  </svg>
-                </div>
-                <span class="flex-ALL-center textColors">安卓版下载</span>
-              </a>
-              <a href="#" class="iOSLoad iOS  flexRow">
-                <div class="flex-ALL-center ">
-                  <svg class="icon" aria-hidden="true">
-                    <use xlink:href="#icon-pingguo"></use>
-                  </svg>
-                </div>
-                <span class="flex-ALL-center textColors">苹果版下载</span>
-              </a>
-            </div>
-          </div>
-          <div class="modal-footer-fix  flex-justify-content-center" data-dismiss="modal">
-            <p>关闭</p>
-          </div>
-        </div>
-      </div>
-    </div>
   </div>
 
 </body>
@@ -130,6 +82,11 @@
 <script src="../js/utils/getSign.js"></script>
 
 <script src="../js/commom.js"></script>
-<script src="../js/pagejs/index.js"></script>
+<script>
+  $('.job').on('click', 'li img', function () {
+    window.sessionStorage.setItem('jobClassify', $(this).data('index'))
+    location.href = './jobTable.html'
+  })
+</script>
 
 </html>

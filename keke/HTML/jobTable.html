@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, height=device-height, user-scalable=no, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0">
+  <meta name="format-detection" content="telephone=no">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>招聘</title>
+  <link rel="stylesheet" href="../layui/css/layui.css">
+  <link rel="stylesheet" href="../css/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="../icon/iconfont.css">
+  <link rel="stylesheet" href="../css/common.css">
+  <link rel="stylesheet" href="../css/index.css">
+  <style>
+    .tab-body {
+      display: flex;
+      align-items: center;
+      height: 1rem;
+      padding: .1rem 0;
+      margin: 0;
+      background-color: rgb(240, 235, 239);
+    }
+
+    .tab-body>li {
+      background-color: rgb(255, 254, 255);
+      border: 1px solid #ccc;
+      padding: .1rem .2rem;
+      border-radius: .3rem;
+    }
+
+    .tab-body>.li-actives {
+      border: 1px solid rgb(198, 28, 41);
+      color: rgb(198, 28, 41);
+    }
+  </style>
+</head>
+
+<body>
+  <!-- 头部 -->
+  <header class="layui-row headerDiv ">
+    <div class="layui-col-xs6">
+      <img src="../images/logo (2).png" alt="">
+    </div>
+    <div class="layui-col-xs6 hcenter text-right">
+      <a href="./center.html"><i class="iconfont icon-ren"></i></a>
+    </div>
+  </header>
+
+  <!-- 招聘 -->
+  <main>
+    <ul class="flex-space-around tab-body">
+      <li class="tab-li li-actives">全部</li>
+    </ul>
+    <table class="table table-hover table-striped border-top">
+      <thead class="tableBGC">
+        <tr>
+          <th class="text-center">招聘职位</th>
+          <th class="text-center">岗位类别</th>
+          <th class="text-center">新洲待遇</th>
+        </tr>
+      </thead>
+      <tbody class="text-center js-table-body"></tbody>
+    </table>
+  </main>
+
+  <!-- 导航栏 -->
+  <nav class="navbar navbar-default navbar-fixed-bottom flex-space-between  layui-row border-top" role="navigation">
+    <li>
+      <a href="index.html">
+        <div>首页</div>
+        <i class="iconfont icon-fangzi"></i>
+      </a>
+    </li>
+    <li class="">
+      <a href="game.html">
+        <div>游戏</div>
+        <i class="iconfont icon-youxi"></i>
+      </a>
+    </li>
+    <li class="">
+      <a href="gifts.html">
+        <div>礼包</div>
+        <i class="iconfont icon-libao"></i>
+      </a>
+    </li>
+    <li class="">
+      <a href="job.html" class="actives">
+        <div>招聘</div>
+        <i class="iconfont icon-xiaoyuanzhaopin"></i>
+      </a>
+    </li>
+    <li class="">
+      <a href="about.html">
+        <div>关于</div>
+        <i class="iconfont icon-guanyu"></i>
+      </a>
+    </li>
+  </nav>
+
+
+</body>
+<!-- 让IE8/9支持媒体查询，从而兼容栅格 -->
+<!--[if lt IE 9]>
+  <script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
+  <script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
+<![endif]-->
+<script src="../layui/layui.js"></script>
+<script src="../js/utils/jquery.js"></script>
+<script src="../js/utils/bootstrap.js"></script>
+<script src="../icon/iconfont.js"></script>
+<script src="https://cdn.bootcss.com/blueimp-md5/2.10.0/js/md5.js"></script>
+<script src="https://cdn.bootcss.com/lodash.js/4.17.11/lodash.js"></script>
+<script src="../js/utils/moment.min.js"></script>
+<script src="../js/utils/getSign.js"></script>
+
+<script src="../js/commom.js"></script>
+<script>
+  var jobClassify = sessionStorage.getItem('jobClassify')
+  if (jobClassify === 'sz') {
+    document.title = '社会招聘'
+  } else {
+    document.title = '校园招聘'
+  }
+
+  var recruitTypeUrl = '/recruit/type'
+  var recruitPositionUrl = '/recruit/position'
+  //公共参数
+  var ajaxObj = ajaxConfig()
+  $.ajaxSetup({
+    type: 'GET',
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded',
+    },
+    data: ajaxObj.ajaxConfig,
+  })
+  var typeAjax = $.ajax({
+    url: ajaxObj.baseURL + recruitTypeUrl,
+    success: function (data) {
+      if (data.data && data !== '') {
+        var typeData = data.data
+        typeData.map(function (item, index) {
+          $('.tab-body').append('<li data-recruit_type_id=' + item.recruit_type_id + '>' + item.recruit_type_name +
+            '</li>')
+        })
+      }
+    },
+    err: function (data) {
+      console.log(data)
+    }
+  })
+
+
+  var positionAjax = function (ajaxSetting) {
+    ajaxSetting = ajaxSetting || ajaxObj
+    $.ajax({
+      url: ajaxSetting.baseURL + recruitPositionUrl,
+      success: function (data) {
+        if (data.data && data !== '') {
+          var positionData = data.data
+          // console.log(_.groupBy(positionData, 'recruit_type_name'))
+          var HTML = ''
+          positionData.map(function (item, index) {
+            HTML += ('<tr>' +
+              '<td>' + item.recruit_position_name + '</td>' +
+              '<td>' + item.recruit_type_name + '</td>' +
+              '<td>面议</td>' +
+              '</tr>')
+          })
+          $('.js-table-body').html(HTML)
+        }
+      },
+      err: function (data) {
+        console.log(data)
+      }
+    })
+  }
+  positionAjax()
+
+
+  //切换其他类别
+  $('.tab-body').on('click', 'li', function () {
+    $(this).addClass('li-actives').siblings().removeClass('li-actives')
+    if ($(this).data('recruit_type_id') !== undefined) {
+      var recruit_type_id = $(this).data('recruit_type_id')
+      var recruitconfig = recruitConfig(recruit_type_id)
+      positionAjax(recruitconfig)
+    } else {
+      positionAjax()
+    }
+  })
+
+  // 动态生成的表格每一列
+  $(document).delegate(".js-table-body tr", "click", function () {
+    // console.log($(this))
+  });
+</script>
+
+</html>
