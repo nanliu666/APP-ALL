@@ -127,7 +127,7 @@ nav>li:last-child {
 
 
 .actives {
-  color: rgb(76, 181, 146)!important;
+  color: rgb(76, 181, 146) !important;
 }
 
 /* 占比 */
@@ -150,6 +150,10 @@ nav>li:last-child {
 
 .modal-footer-min {
   min-width: 5rem;
+}
+
+body {
+  margin-bottom: 2rem
 }
 
 

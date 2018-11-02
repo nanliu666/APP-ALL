@@ -162,8 +162,8 @@
 }
 
 .gamesBox>li img {
-  max-width: 2rem;
-  max-height: 2rem;
+  max-width: 3.4rem;
+  max-height: 3.4rem;
 }
 
 .js-game-ul>li {
@@ -189,7 +189,7 @@
 /* .job {
 } */
 
-.job>li  img {
+.job>li img {
   width: 100%;
   padding-top: .2rem;
 }
