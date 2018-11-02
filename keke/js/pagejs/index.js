@@ -99,7 +99,7 @@ $(document).ready(function () {
         '<td>' + item.opening_time + '</td>' +
         '<td>' +
         '<svg class="icon gifts-button" data-index=' + index + ' data-toggle="modal" data-target="#giftsModal" aria-hidden="true">' +
-        '<use xlink:href="#icon-dibuicon-libao-lan"></use>' +
+        '<use xlink:href="#icon-tianmaochaoshixinrenlibao"></use>' +
         ' </svg>' +
         ' </td>' +
         '<td data-toggle="modal" data-target="#myModal">' +
@@ -137,7 +137,7 @@ $(document).ready(function () {
         '<div class="marginTop1rem">三角合一</div>' +
         '</div>' +
         '</div>' +
-        '<button class="layui-btn layui-btn-normal newgame-button" data-toggle="modal" data-target="#myModal">下载</button>' +
+        '<button class="layui-btn  newgame-button" data-toggle="modal" data-target="#myModal">下载</button>' +
         '</li>'
       )
     })

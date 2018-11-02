@@ -56,7 +56,7 @@
     carousel.render({
       elem: '#carousel',
       width: '100%', //设置容器宽度,
-      height: "200px",
+      height: "376px",
       arrow: 'none', //始终显示箭头
       anim: 'fade', //切换动画方式
       interval: '3000', //切换动画方式

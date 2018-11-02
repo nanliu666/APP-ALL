@@ -1,5 +1,5 @@
 <template>
-  <div class="index bgc ">
+  <div class="index ">
     <header>
       <img src="../assets/images/1.jpg" alt="">
       <div class="flex-align-items-center">
@@ -7,7 +7,7 @@
       </div>
     </header>
 
-    <ul class="nav bgc">
+    <ul class="nav">
       <li>首页</li>
       <li>游戏</li>
       <li>礼包</li>

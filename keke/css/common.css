@@ -118,7 +118,7 @@ nav>li {
   text-align: center;
   border-right: 1px solid #ccc;
   padding: 6px 0;
-  font-size: 16px;
+  font-size: .3rem;
 }
 
 nav>li:last-child {
@@ -127,7 +127,7 @@ nav>li:last-child {
 
 
 .actives {
-  color: #1296db !important;
+  color: rgb(76, 181, 146)!important;
 }
 
 /* 占比 */
@@ -146,6 +146,10 @@ nav>li:last-child {
 
 .width100 {
   width: 100%
+}
+
+.modal-footer-min {
+  min-width: 5rem;
 }
 
 

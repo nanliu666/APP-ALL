@@ -34,7 +34,6 @@ $(document).ready(function () {
       HTML.push(
         '<li class="flex-space-between new-game-li flex-align-items-center">' +
         ' <div class=" flexRow newgame-box ">' +
-        '<div class="new-game-flag"><img src="../images/one.png" alt=""></div>' +
         '<img src="../images/icon.png" alt="" class="new-game-imgicon-gifts">' +
         '<div class="flex-column flex-justify-content-center ">' +
         '<div class="flex-space-between">' +
@@ -50,7 +49,7 @@ $(document).ready(function () {
         '<div class="marginTop1rem">三角合一</div>' +
         '</div>' +
         ' </div>' +
-        '<button class="layui-btn layui-btn-normal gifts-button"  data-index=' + index + ' data-toggle="modal" data-target="#myModal">领取礼包</button>' +
+        '<button class="layui-btn  gifts-button"  data-index=' + index + ' data-toggle="modal" data-target="#myModal">领取礼包</button>' +
         '</li>'
       )
 
