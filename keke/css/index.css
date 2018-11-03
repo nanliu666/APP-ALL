@@ -6,12 +6,15 @@
 
 
 /* 推荐 */
-.remLi {
-  width: 50%;
-  /* padding: 4px; */
+.remUL {
+  padding-right: .1rem;
 }
 
-.remLi>img {
+.remLi {
+  width: 50%;
+}
+
+.remLi-img {
   max-width: 1.4rem;
   max-height: 1.4rem;
   padding: .1rem;
@@ -167,7 +170,12 @@
 }
 
 .js-game-ul>li {
-  border: 1px solid #ccc
+  border-bottom: 1px solid #ccc;
+  padding: .1rem 0;
+}
+
+.js-game-ul>li:last-child {
+  border-bottom: 0
 }
 
 .js-game-ul>li:last-child {

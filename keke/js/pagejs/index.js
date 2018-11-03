@@ -65,8 +65,8 @@ $(document).ready(function () {
     var HTML = []
     data.map(function (item, index) {
       HTML.push(
-        '<li class="flexRow flex-align-items-center remLi" data-toggle="modal" data-target="#myModal">' +
-        '<img src="../images/icon.png" alt="">' +
+        '<a class="flexRow flex-align-items-center remLi" href="game.html#div3">' +
+        '<img class="remLi-img" src="../images/icon.png" alt="">' +
         '<div class="flex-column width80">' +
         '<div class="flex-space-between">' +
         '<div>' + item.name + '</div>' +
@@ -81,13 +81,12 @@ $(document).ready(function () {
         '</div>' +
         '<div class="des">' + item.name + '</div>' +
         '</div>' +
-        '</li>'
+        '</a>'
       )
 
     })
     $('.remUL').html(HTML)
   }
-
 
   // 开服请求HTML
   var gameServerHTML = function (data) {
@@ -148,7 +147,6 @@ $(document).ready(function () {
   $(document).delegate(".gifts-button", "click", function () {
     var giftsID = gameServerData[$(this).attr('data-index')].gift_bag_id
     var gift_bag_name = gameServerData[$(this).attr('data-index')].name
-    console.log(gift_bag_name)
 
     var giftsconfig = giftsConfig(giftsID)
     $.ajaxSetup({
@@ -174,9 +172,7 @@ $(document).ready(function () {
   });
 
   // modal出来啦
-  $(document).delegate(".remUL li", "click", function () {
-    modalHTML(remData, $(this).index())
-  });
+
   $(document).delegate(".gameServerLi", "click", function () {
     modalHTML(gameServerData, $(this).index())
   });
@@ -193,5 +189,10 @@ $(document).ready(function () {
     $('.androidLoad').attr('href', data[index].android_download_url)
     $('.iOSLoad').attr('href', data[index].ios_download_url)
   }
+
+  // 推荐游戏独立调到游戏页面详情页
+  $(document).delegate(".remUL li", "click", function () {
+    console.log($(this).index())
+  });
 
 })

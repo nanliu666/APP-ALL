@@ -47,7 +47,6 @@
 
 <body>
   <!-- 头部 -->
-  <!-- 头部 -->
   <header class="layui-row headerDiv border-bottom">
     <div class="layui-col-xs6">
       <img src="../images/logo (2).png" alt="">
@@ -91,6 +90,9 @@
 <script src="../js/utils/jquery.js"></script>
 <script src="../js/utils/bootstrap.js"></script>
 <script src="../js/utils/bootstrapValidator.js"></script>
+<script src="https://cdn.bootcss.com/blueimp-md5/2.10.0/js/md5.js"></script>
+<script src="../js/utils/moment.min.js"></script>
+<script src="../js/utils/getSign.js"></script>
 <script src="../icon/iconfont.js"></script>
 <script src="../js/commom.js"></script>
 
@@ -139,17 +141,34 @@
         // Prevent form submission
         e.preventDefault();
 
-        // Get the form instance
-        var $form = $(e.target);
+        var account = $('input[name="username"]').val()
+        var password = $('input[name="password"]').val()
+        var loginURL = '/site/login'
+        var loginconfig = loginConfig(account, password)
+        console.log(loginconfig)
 
-        // Get the BootstrapValidator instance
-        var bv = $form.data('bootstrapValidator');
+        $.ajaxSetup({
+          type: 'POST',
+          headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+          },
+          data: loginconfig.ajaxConfig,
+        })
 
-        // Use Ajax to submit form data
-        $.post($form.attr('action'), $form.serialize(), function (result) {
-          console.log(result);
-        }, 'json');
+        $.ajax({
+          url: loginconfig.baseURL + loginURL,
+          success: function (data) {
+            if (data.data && data.data !== '') {
+              console.log(data)
+            }
+          },
+          error: function (err) {
+            console.log(err)
+          },
+        })
       });
+
+
   });
 </script>
 

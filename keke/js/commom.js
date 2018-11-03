@@ -71,10 +71,6 @@
     $(this).addClass('actives').siblings().removeClass('actives')
   })
 
-  // 游戏页面的
-  $('.js-downLeft').on('click', function () {
-    $(".js-display").toggle();
-  })
 
 
 
@@ -122,8 +118,8 @@
       ajaxConfig: ajaxConfig,
     }
     return obj
-  } 
-  
+  }
+
   // 招聘岗位ajax设置另外设置
   var recruitConfig = function (recruit_type_id) {
     baseURL = 'http://192.168.2.159:7002'
@@ -138,6 +134,32 @@
       platform: 'web',
       now_time: parseInt(moment().unix()),
       recruit_type_id: recruit_type_id,
+      sign: getSign(signObj),
+    }
+
+    var obj = {
+      baseURL: baseURL,
+      ajaxConfig: ajaxConfig,
+    }
+    return obj
+  } 
+  
+  // 登录ajax设置另外设置
+  var loginConfig = function (account, password) {
+    baseURL = 'http://192.168.2.159:7002'
+    signObj = {
+      now_time: parseInt(moment().unix()),
+      platform: 'web',
+      account: account,
+      password: password,
+    }
+    // sign = getSign(signObj)
+
+    ajaxConfig = {
+      now_time: parseInt(moment().unix()),
+      platform: 'web',
+      account: account,
+      password: password,
       sign: getSign(signObj),
     }
 
