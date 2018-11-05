@@ -113,7 +113,7 @@
 .textColors {
   border-left: 1px solid #ccc;
   width: 96%;
-  font-size: .3rem;
+  font-size: .4rem;
   font-weight: 800;
 }
 
@@ -200,4 +200,13 @@
 .job>li img {
   width: 100%;
   padding-top: .2rem;
+}
+
+
+.job-title {
+  height: .8rem;
+  line-height: .8rem;
+  background-color: rgb(226, 226, 226);
+  padding-left: .2rem;
+  margin: 0;
 }

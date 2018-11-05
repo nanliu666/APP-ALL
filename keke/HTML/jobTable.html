@@ -19,7 +19,7 @@
       height: 1rem;
       padding: .1rem 0;
       margin: 0;
-      background-color: rgb(240, 235, 239);
+      /* background-color: rgb(240, 235, 239); */
     }
 
     .tab-body>li {
@@ -32,6 +32,14 @@
     .tab-body>.li-actives {
       border: 1px solid rgb(198, 28, 41);
       color: rgb(198, 28, 41);
+    }
+
+    .job-title {
+      height: .8rem;
+      line-height: .8rem;
+      background-color: rgb(226, 226, 226);
+      padding-left: .2rem;
+      margin: 0;
     }
   </style>
 </head>
@@ -49,6 +57,9 @@
 
   <!-- 招聘 -->
   <main>
+    <p class="job-title">
+      社会招聘
+    </p>
     <ul class="flex-space-around tab-body">
       <li class="tab-li li-actives">全部</li>
     </ul>
@@ -108,9 +119,8 @@
 <script src="../layui/layui.js"></script>
 <script src="../js/utils/jquery.js"></script>
 <script src="../js/utils/bootstrap.js"></script>
+<script src="../js/utils/md5.js"></script>
 <script src="../icon/iconfont.js"></script>
-<script src="https://cdn.bootcss.com/blueimp-md5/2.10.0/js/md5.js"></script>
-<script src="https://cdn.bootcss.com/lodash.js/4.17.11/lodash.js"></script>
 <script src="../js/utils/moment.min.js"></script>
 <script src="../js/utils/getSign.js"></script>
 

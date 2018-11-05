@@ -65,7 +65,7 @@ $(document).ready(function () {
     var HTML = []
     data.map(function (item, index) {
       HTML.push(
-        '<a class="flexRow flex-align-items-center remLi" href="game.html#div3">' +
+        '<a class="flexRow flex-align-items-center remLi" href="./gameDetail.html">' +
         '<img class="remLi-img" src="../images/icon.png" alt="">' +
         '<div class="flex-column width80">' +
         '<div class="flex-space-between">' +
@@ -86,7 +86,16 @@ $(document).ready(function () {
 
     })
     $('.remUL').html(HTML)
+    console.log(data)
+    // 推荐游戏每个独立的游戏ID传出去
+    $(document).delegate('.remLi', 'click', function () {
+      event.preventDefault()
+      console.log(data[$(this).index()].game_id)
+      sessionStorage.setItem('gameID', data[$(this).index()].game_id)
+    })
   }
+
+
 
   // 开服请求HTML
   var gameServerHTML = function (data) {
