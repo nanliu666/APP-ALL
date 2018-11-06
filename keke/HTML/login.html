@@ -42,6 +42,18 @@
     .login-btn {
       margin-bottom: .2rem;
     }
+
+    
+    /* 微信登录 */
+    .weichatLogin {
+      padding: .2rem;
+    }
+
+    .weichatLoginSVG {
+      padding: .2rem;
+      border: 1px solid #ccc;
+      border-radius: 50%;
+    }
   </style>
 </head>
 
@@ -79,6 +91,17 @@
       <a href="./register.html" type="button" class="btn btn-success">注册可可豆通行证</a>
     </div>
   </form>
+
+  <div class="border-top weichatLogin font3">
+    <p class="flex-justify-content-center">第三方账号登录</p>
+    <div class="flex-justify-content-center">
+      <span class="weichatLoginSVG">
+        <svg class="icon" aria-hidden="true">
+          <use xlink:href="#icon-weixin1"></use>
+        </svg>
+      </span>
+    </div>
+  </div>
 
 </body>
 <!-- 让IE8/9支持媒体查询，从而兼容栅格 -->

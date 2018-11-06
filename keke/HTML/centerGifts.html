@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, height=device-height, user-scalable=no, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0">
+  <meta name="format-detection" content="telephone=no">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>我的礼包</title>
+  <link rel="stylesheet" href="../layui/css/layui.css">
+  <link rel="stylesheet" href="../css/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="../icon/iconfont.css">
+  <link rel="stylesheet" href="../css/common.css">
+  <link rel="stylesheet" href="../css/index.css">
+  <style>
+
+  </style>
+</head>
+
+<body>
+  <!-- 头部 -->
+  <header class="layui-row headerDiv border-bottom">
+    <div class="layui-col-xs6">
+      <img src="../images/logo (2).png" alt="">
+    </div>
+    <div class="layui-col-xs6 hcenter text-right">
+      <i class="iconfont icon-ren"></i>
+    </div>
+  </header>
+  <main>
+
+  </main>
+
+
+
+</body>
+<!-- 让IE8/9支持媒体查询，从而兼容栅格 -->
+<!--[if lt IE 9]>
+  <script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
+  <script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
+<![endif]-->
+<script src="../layui/layui.js"></script>
+<script src="../js/utils/jquery.js"></script>
+<script src="../js/utils/bootstrap.js"></script>
+<script src="../icon/iconfont.js"></script>
+<script src="https://cdn.bootcss.com/blueimp-md5/2.10.0/js/md5.js"></script>
+<script src="../js/utils/moment.min.js"></script>
+<script src="../js/utils/getSign.js"></script>
+
+<script src="../js/commom.js"></script>
+<script>
+  function unique(a) {
+    var res = [];
+
+    for (var i = 0, len = a.length; i < len; i++) {
+      var item = a[i];
+      for (var j = 0, jLen = res.length; j < jLen; j++) {
+        if (res[j] === item) {
+          break;
+        }
+      }
+      
+      if (j === jLen) {
+        res.push(item);
+      }
+    }
+
+    return res;
+  }
+
+  var a = [1, 1, '1', '2', 1];
+  var ans = unique(a);
+  console.log(ans); // => [1, "1", "2"]
+</script>
+
+</html>

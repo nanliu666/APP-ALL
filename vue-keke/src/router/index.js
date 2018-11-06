@@ -1,15 +1,20 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import kekeNav from '@/components/keke-nav'
+import components from "./compoents"
 
 Vue.use(Router)
 
 export default new Router({
-  routes: [
-    {
+  mode: 'history',
+  routes: [{
       path: '/',
-      name: 'kekeNav',
-      component: kekeNav
+      name: 'index',
+      component: components.index
+    },
+    {
+      path: '/game',
+      name: 'game',
+      component: components.game
     }
   ]
 })

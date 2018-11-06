@@ -13,8 +13,6 @@
   <link rel="stylesheet" href="../css/common.css">
   <link rel="stylesheet" href="../css/index.css">
   <style>
-
-
     /* 背景虚化 */
     .bg {
       background: url('../images/1.jpg') no-repeat center center fixed;
@@ -70,6 +68,10 @@
       margin-top: .8rem;
     }
 
+    .centerMain>a {
+      display: inline-block;
+    }
+
     .centerMain img {
       max-height: 1.6rem
     }
@@ -80,12 +82,13 @@
       margin: .2rem 0;
       font-size: .3rem;
     }
+
   </style>
 </head>
 
 <body>
   <!-- 头部 -->
-  <header class="layui-row headerDiv">
+  <header class="layui-row headerDiv ">
     <div class="layui-col-xs6">
       <img src="../images/logo (2).png" alt="">
     </div>
@@ -103,7 +106,7 @@
   </div>
 
   <div class="flex-space-around  centerMain">
-    <a href="./gifts.html">
+    <a href="./centerGifts.html">
       <img src="../images/icon.png" alt="">
       <p>我的礼包</p>
     </a>
@@ -116,6 +119,9 @@
       <p>退出登录</p>
     </a>
   </div>
+
+
+
 </body>
 <!-- 让IE8/9支持媒体查询，从而兼容栅格 -->
 <!--[if lt IE 9]>
@@ -131,6 +137,5 @@
 <script src="../js/utils/getSign.js"></script>
 
 <script src="../js/commom.js"></script>
-<script src="../js/pagejs/index.js"></script>
 
 </html>
