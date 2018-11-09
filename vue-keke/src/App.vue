@@ -2,11 +2,11 @@
   <el-container id="app" class="section-container">
     <el-header height="1.2rem" class="flex-space-between border-bottom">
       <router-link tag="li" class="flex-align-items-center" to="/index">
-        <img class="Headimg" src="./assets/images/logo.png" alt="">
+        <img class="Headimg" src="./assets/images/logo.png" alt="" >
       </router-link>
-      <div class="flex-align-items-center">
-        <i class="iconfont icon-ren"></i>
-      </div>
+      <router-link tag="li" class="flex-align-items-center" to="/center">
+        <i class="iconfont icon-ren" ></i>
+      </router-link>
     </el-header>
     <el-main>
       <transition :name="fade">
@@ -15,7 +15,7 @@
         </keep-alive>
       </transition>
     </el-main>
-    <el-footer height="1.2rem" class="border-top flex-space-between footer" v-show="navShow">
+    <el-footer height="1.2rem" class="border-top flex-space-between footer" v-show="navShow" ref="footerLi" >
       <router-link tag="li" class="link" to="/index">
         <i class="iconfont icon-fangzi"></i>
         <span>首页</span>
@@ -52,7 +52,7 @@ export default {
   methods: {
     listenNavShow: function(data) {
       this.navShow = data
-    }
+    },
   },
   watch: {
     $route(to, from) {

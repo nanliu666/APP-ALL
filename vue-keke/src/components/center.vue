@@ -19,8 +19,13 @@
                   <div class="flex-space-between">
                     <div>{{item.name}}</div>
                   </div>
-                  <el-rate v-model="value5" disabled text-color="#ff9900" score-template="{value}">
-                  </el-rate>
+                  <div class="angleImg">
+                    <img src="../assets/images/angle.svg" alt="">
+                    <img src="../assets/images/angle.svg" alt="">
+                    <img src="../assets/images/angle.svg" alt="">
+                    <img src="../assets/images/angle.svg" alt="">
+                    <img src="../assets/images/angle.svg" alt="">
+                  </div>
                   <div class="des">1111</div>
                 </div>
               </div>
@@ -44,8 +49,13 @@
                   <div class="flex-space-between">
                     <div>{{item.name}}</div>
                   </div>
-                  <el-rate v-model="value5" disabled text-color="#ff9900" score-template="{value}">
-                  </el-rate>
+                  <div class="angleImg">
+                    <img src="../assets/images/angle.svg" alt="">
+                    <img src="../assets/images/angle.svg" alt="">
+                    <img src="../assets/images/angle.svg" alt="">
+                    <img src="../assets/images/angle.svg" alt="">
+                    <img src="../assets/images/angle.svg" alt="">
+                  </div>
                   <div class="des">1111</div>
                 </div>
               </div>
@@ -65,13 +75,12 @@ import kekeDialog from './keke-dialog.vue'
 export default {
   name: 'game',
   props: {
-    navShow: Boolean
+    navShow:Boolean,
   },
   components: { kekeDialog },
   data() {
     return {
       remData: [],
-      value5: 5,
       newgameData: [],
       counter: this.navShow
     }
@@ -103,7 +112,7 @@ export default {
     openDetail(event) {
       let id = event.currentTarget.dataset.id
       this.counter = !this.counter
-      this.$emit('child', this.counter)
+      this.$emit('child',this.counter);
     }
   }
 }
@@ -126,7 +135,7 @@ export default {
   }
 
   .remUL {
-    margin: 0.1rem;
+    margin: 0.3rem;
     border: 1px solid #ccc;
     .remLi {
       width: 100%;
@@ -138,12 +147,18 @@ export default {
         margin-right: 0.2rem;
       }
       .newgameLi-img {
-        margin-right: 0.2rem;
+        margin-right: .2rem;
       }
     }
     &:last-child {
       border-bottom: 0;
     }
   }
+}
+</style>
+
+<style>
+.el-tabs--border-card > .el-tabs__content {
+  padding: 15px 0 !important;
 }
 </style>

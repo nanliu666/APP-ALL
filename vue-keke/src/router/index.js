@@ -40,7 +40,22 @@ export default new Router({
         index: 3
       },
       name: 'job',
-      component: components.job
+      component: components.job,
+    },
+    {
+      path: '/jobDetail',
+      meta: {
+        index: 3
+      },
+      name: 'jobDetail',
+      component: components.jobDetail
+    }, {
+      path: '/jobTable',
+      meta: {
+        index: 3
+      },
+      name: 'jobTable',
+      component: components.jobTable
     }, {
       path: '/about',
       meta: {
@@ -48,7 +63,17 @@ export default new Router({
       },
       name: 'about',
       component: components.about
+    }, {
+      path: '/center',
+      meta: {
+        index: 5
+      },
+      name: 'center',
+      component: components.center
     },
-
+    {
+      path: "*",
+      redirect: "/index"
+    }
   ]
 })

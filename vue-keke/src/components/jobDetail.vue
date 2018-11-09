@@ -1,16 +1,15 @@
 <template>
-  <div class="job">
-    <div class="flex-column jobImg">
-      <router-link :to="{name:'jobTable', params: {id: 'sz'}}"><img src="../assets/images/sz.jpg" @click="openDetail" alt=""></router-link>
-      <router-link :to="{name:'jobTable', params: {id: 'xz'}}"><img src="../assets/images/xz.jpg" @click="openDetail" alt=""></router-link>
-    </div>
-    <router-view></router-view>
+  <div class="job flex-column">
+    222
   </div>
 </template>
 <script>
 import ajaxConfig from '@/axios/axiosConfig'
 export default {
   name: 'job',
+  props: {
+    navShow:Boolean,
+  },
   data() {
     return {
       remData: [],
@@ -23,7 +22,6 @@ export default {
     // 获取数据
     onLoad() {
       let axiosConfig = ajaxConfig
-      console.log(this.navshow)
       let getRem = () => {
         return this.$axios.get('/game/recommend', {
           params: axiosConfig
@@ -43,18 +41,11 @@ export default {
     },
     openDetail(event) {
       const index = event.currentTarget.dataset.index
+      console.log(index)
     }
   }
 }
 </script>
 <style scoped lang="less">
-.job {
-  padding: 0.3rem;
-  .jobImg {
-    img {
-      width: 100%;
-      margin-bottom: 0.2rem;
-    }
-  }
-}
+
 </style>

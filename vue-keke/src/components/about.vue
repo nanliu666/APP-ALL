@@ -1,83 +1,33 @@
 <template>
-  <div class="game">
-    <el-tabs type="border-card" stretch=stretch>
-      <el-tab-pane label="推荐">
-        <ul class="pubilcBox flex-wrap">
-          <li><img src="../assets/images/icon.png" alt=""></li>
-          <li><img src="../assets/images/icon.png" alt=""></li>
-          <li><img src="../assets/images/icon.png" alt=""></li>
-          <li><img src="../assets/images/icon.png" alt=""></li>
-        </ul>
-        <ul class="flex-wrap remUL">
-          <template v-for="item in remData">
-            <li :key="item.game_id" class="remLi flex-space-between" :data-id="item.game_id" @click="openDetail">
-              <div class="flex-row">
-                <div class="flex-all-center">
-                  <img class="remLi-img" src="../assets/images/icon.png" alt="">
-                </div>
-                <div class="flex-column font3">
-                  <div class="flex-space-between">
-                    <div>{{item.name}}</div>
-                  </div>
-                  <div class="angleImg">
-                    <img src="../assets/images/angle.svg" alt="">
-                    <img src="../assets/images/angle.svg" alt="">
-                    <img src="../assets/images/angle.svg" alt="">
-                    <img src="../assets/images/angle.svg" alt="">
-                    <img src="../assets/images/angle.svg" alt="">
-                  </div>
-                  <div class="des">1111</div>
-                </div>
-              </div>
-              <div class="flex-all-center">
-                <el-button type="success" :data-id="item.game_id">下载</el-button>
-              </div>
-            </li>
-          </template>
-        </ul>
-      </el-tab-pane>
-      <el-tab-pane label="排行">
-        <ul class="flex-wrap remUL">
-          <template v-for="item in newgameData">
-            <li :key="item.game_id" class="remLi flex-space-between" @click="openDetail" :data-id="item.game_id">
-              <div class="flex-row">
-                <div class="flex-all-center">
-                  <img class="newgameLi-img" src="../assets/images/one.png" alt="">
-                  <img class="remLi-img" src="../assets/images/icon.png" alt="">
-                </div>
-                <div class="flex-column font3">
-                  <div class="flex-space-between">
-                    <div>{{item.name}}</div>
-                  </div>
-                  <div class="angleImg">
-                    <img src="../assets/images/angle.svg" alt="">
-                    <img src="../assets/images/angle.svg" alt="">
-                    <img src="../assets/images/angle.svg" alt="">
-                    <img src="../assets/images/angle.svg" alt="">
-                    <img src="../assets/images/angle.svg" alt="">
-                  </div>
-                  <div class="des">1111</div>
-                </div>
-              </div>
-              <div class="flex-all-center">
-                <el-button type="success" :data-id="item.game_id">下载</el-button>
-              </div>
-            </li>
-          </template>
-        </ul>
-      </el-tab-pane>
-    </el-tabs>
+  <div class="about">
+    <p class="title">关于我们</p>
+    <div class="introduce">
+      <p> 广州众玩网络有限公司成立于2015年，作为一家专业的网络游戏自主研发公司，公司核心研发人员均具备大型网络游戏项目开发经验，对网络游戏的设计研发具备深刻的了解与独到的见解。</p>
+      <p> 公司下设策划部、研发部、职能部、美术部等部门，在职员工有80多人并在不断壮大队伍，正处于快速发展上升期，欢迎各路人才的加入。</p>
+      <p>秉承“一切以用户体验为核心”的经营理念，以打造精品游戏为目标，致力于不断优化用户体验，持续提高自身核心技术研发能力，为用户提供更优质的产品。</p>
+      <p>
+        公司目前雄踞在广州繁华的天河北商圈，交通快捷便利。如果你是个有梦想并且肯为之奋斗的人，我们不仅能给你提供的是一个工作机会，更能为你提供一个实现梦想的平台！
+      </p>
+    </div>
+    <p class="contact">联系我们</p>
+    <div class="introduce">
+      <img src="../assets/images/map.png" alt="">
+      <p><b>联系地址:</b> 广州市天河区龙怡路117号银汇大厦18楼1805室</p>
+      <p><b>简历投递邮箱:</b> hr@gzzhongwan.net</p>
+      <p><b>联系电话:</b> 020-37887202 / 18022890303</p>
+      <p><b>联系地址:</b></p>
+      <p><label for="">地铁:</label>广州地铁3号线华师站E出口</p>
+      <p><label for="">公交:</label>师大后门站（B10、B17、B11、813、298、775、41）五山路口站(B10、B11、B17、B14、20、32、78a、130、191）</p>
+    </div>
   </div>
 </template>
 <script>
 import ajaxConfig from '@/axios/axiosConfig'
-import kekeDialog from './keke-dialog.vue'
 export default {
-  name: 'game',
+  name: 'about',
   props: {
-    navShow:Boolean,
+    navShow: Boolean
   },
-  components: { kekeDialog },
   data() {
     return {
       remData: [],
@@ -108,57 +58,33 @@ export default {
           this.newgameData = this._.orderBy(newgame.data.data, ['hot'], ['asc'])
         })
       )
-    },
-    openDetail(event) {
-      let id = event.currentTarget.dataset.id
-      this.counter = !this.counter
-      this.$emit('child',this.counter);
     }
   }
 }
 </script>
 <style scoped lang="less">
-.game {
-  padding: 0.2rem;
-  .pubilcBox {
-    li {
-      width: 50%;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      img {
-        max-width: 3rem;
-        max-height: 3rem;
-        padding: 0.1rem;
-      }
-    }
+.about {
+  .title,
+  .contact {
+    background-color: rgb(242, 242, 242);
+    font-size: 0.4rem;
+    padding: 0.2rem 0 0.2rem 0.4rem;
+    border-bottom: 1px solid #ccc;
   }
-
-  .remUL {
-    margin: 0.3rem;
-    border: 1px solid #ccc;
-    .remLi {
+  .contact {
+    border-top: 1px solid #ccc;
+  }
+  .introduce {
+    img {
       width: 100%;
-      border-bottom: 1px solid #ccc;
-      padding: 0.1rem;
-      .remLi-img {
-        max-width: 1rem;
-        max-height: 1rem;
-        margin-right: 0.2rem;
-      }
-      .newgameLi-img {
-        margin-right: .2rem;
-      }
+      margin-bottom: .2rem;
     }
-    &:last-child {
-      border-bottom: 0;
+    font-size: 0.3rem;
+    padding: 0.2rem;
+    b {
+      font-weight: 900;
     }
   }
 }
 </style>
 
-<style>
-.el-tabs--border-card > .el-tabs__content {
-  padding: 15px 0 !important;
-}
-</style>

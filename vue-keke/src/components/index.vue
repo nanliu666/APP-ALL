@@ -2,23 +2,22 @@
   <div id="index">
     <el-carousel :interval="5000" arrow="always">
       <el-carousel-item v-for="item in 4" :key="item">
-        <h3>{{ item }}</h3>
+        <h3 @click="openDetial" :data-id="item">{{ item }}</h3>
       </el-carousel-item>
     </el-carousel>
     <main>
-      <p class="flex-space-between border-bottom"><span>今日推荐</span><span>查看全部 &gt;</span></p>
+      <p class="flex-space-between border-bottom"><span>今日推荐</span><span @click="openAll">查看全部 &gt;</span></p>
       <ul class="flex-wrap remUL">
         <template v-for="item in remData">
-          <li :key="item.game_id" class="remLi" :data-id="item.game_id">
+          <li :key="item.game_id" class="remLi" :data-id="item.game_id" @click="openModal">
             <div class="flex-all-center"><img class="remLi-img" src="../assets/images/icon.png" alt=""></div>
-            <div class="flex-column width80">
-              <div class="flex-space-between">
+            <div class="flex-column">
+              <div class="flex-space-between game-name">
                 <div>{{ item.name }}</div>
                 <img src="../assets/images/free.png" class="freeImg" alt="">
               </div>
-              <div class="angleImg">
-                <img src="../assets/images/angle.svg" alt="">
-              </div>
+              <el-rate v-model="value5" disabled text-color="#ff9900" score-template="{value}">
+              </el-rate>
               <div class="des">1111{{ item.describe }}</div>
             </div>
           </li>
@@ -45,7 +44,7 @@
                       <use xlink:href="#icon-tianmaochaoshixinrenlibao"></use>
                     </svg>
                   </td>
-                  <td>
+                  <td @click="openModal" :data-id="item.game_server_id">
                     <svg class="icon" aria-hidden="true">
                       <use xlink:href="#icon-xiazai"></use>
                     </svg>
@@ -67,13 +66,8 @@
                   <div class="flex-space-between">
                     <div>{{item.name}}</div>
                   </div>
-                  <div class="angleImg">
-                    <img src="../assets/images/angle.svg" alt="">
-                    <img src="../assets/images/angle.svg" alt="">
-                    <img src="../assets/images/angle.svg" alt="">
-                    <img src="../assets/images/angle.svg" alt="">
-                    <img src="../assets/images/angle.svg" alt="">
-                  </div>
+                  <el-rate v-model="value5" disabled text-color="#ff9900" score-template="{value}">
+                  </el-rate>
                   <div class="des">1111</div>
                 </div>
               </div>
@@ -101,6 +95,7 @@ export default {
       newgameData: [],
       stretch: true,
       fit: true,
+      value5: 5,
       modalData: {
         openFlag: false
       }
@@ -140,8 +135,15 @@ export default {
       let gameID = event.currentTarget.dataset.id
       this.modalData.openFlag = !this.modalData.openFlag
       this.modalData.title = '请选择礼包'
-      var gameData = this._.find(this.gameData, {game_server_id: gameID});
+      var gameData = this._.find(this.gameData, { game_server_id: gameID })
       this.modalData.data = gameData
+    },
+    openAll() {
+      this.$router.push({ path: '/game' })
+    },
+    openDetial(event) {
+      //开启大图的每个url
+      console.log(event.currentTarget.dataset.id)
     }
   }
 }
@@ -178,6 +180,9 @@ export default {
         flex-direction: row;
         width: 50%;
         padding-bottom: 0.1rem;
+        .game-name {
+          padding-right: 0.1rem;
+        }
         .remLi-img {
           max-width: 1rem;
           max-height: 1rem;
@@ -223,8 +228,8 @@ export default {
   padding: 15px 0 !important;
 }
 .el-button {
-  width: 1rem;
-  padding: 0;
+  width: 100%;
   height: 0.8rem;
+  padding: 0.1rem 0.2rem;
 }
 </style>
