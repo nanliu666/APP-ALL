@@ -1,3 +1,4 @@
+$(document).ready(function () {
   //designWidth:设计稿的实际宽度值，需要根据实际设置
   //maxWidth:制作稿的最大宽度值，需要根据实际设置
   //这段js的最后面有两个参数记得要设置，一个为设计稿实际宽度，一个为制作稿最大宽度，例如设计稿为750，最大宽度为750，则为(750,750)
@@ -56,7 +57,7 @@
     carousel.render({
       elem: '#carousel',
       width: '100%', //设置容器宽度,
-      height: "376px",
+      // height: "auto",
       arrow: 'none', //始终显示箭头
       anim: 'fade', //切换动画方式
       interval: '3000', //切换动画方式
@@ -74,98 +75,101 @@
 
 
 
-  //ajax请求公共参数配置
-  var ajaxConfig = function () {
-    baseURL = 'http://192.168.2.159:7002'
-    signObj = {
-      now_time: parseInt(moment().unix()),
-      platform: 'web'
-    }
-    sign = getSign(signObj)
 
-    ajaxConfig = {
-      platform: 'web',
-      now_time: parseInt(moment().unix()),
-      sign: getSign(signObj),
-    }
+})
 
-    var obj = {
-      baseURL: baseURL,
-      ajaxConfig: ajaxConfig,
-    }
-    return obj
+//ajax请求公共参数配置
+var ajaxConfig = function () {
+  baseURL = 'http://192.168.2.159:7002'
+  signObj = {
+    now_time: parseInt(moment().unix()),
+    platform: 'web'
+  }
+  sign = getSign(signObj)
+
+  ajaxConfig = {
+    platform: 'web',
+    now_time: parseInt(moment().unix()),
+    sign: getSign(signObj),
   }
 
-  // 礼包ajax设置另外设置
-  var giftsConfig = function (giftsID) {
-    baseURL = 'http://192.168.2.159:7002'
-    signObj = {
-      now_time: parseInt(moment().unix()),
-      platform: 'web',
-      gift_bag_id: giftsID
-    }
-    sign = getSign(signObj)
+  var obj = {
+    baseURL: baseURL,
+    ajaxConfig: ajaxConfig,
+  }
+  return obj
+}
 
-    ajaxConfig = {
-      platform: 'web',
-      now_time: parseInt(moment().unix()),
-      gift_bag_id: giftsID,
-      sign: getSign(signObj),
-    }
+// 礼包ajax设置另外设置
+var giftsConfig = function (giftsID) {
+  baseURL = 'http://192.168.2.159:7002'
+  signObj = {
+    now_time: parseInt(moment().unix()),
+    platform: 'web',
+    gift_bag_id: giftsID
+  }
+  sign = getSign(signObj)
 
-    var obj = {
-      baseURL: baseURL,
-      ajaxConfig: ajaxConfig,
-    }
-    return obj
+  ajaxConfig = {
+    platform: 'web',
+    now_time: parseInt(moment().unix()),
+    gift_bag_id: giftsID,
+    sign: getSign(signObj),
   }
 
-  // 招聘岗位ajax设置另外设置
-  var recruitConfig = function (recruit_type_id) {
-    baseURL = 'http://192.168.2.159:7002'
-    signObj = {
-      now_time: parseInt(moment().unix()),
-      platform: 'web',
-      recruit_type_id: recruit_type_id
-    }
-    sign = getSign(signObj)
-
-    ajaxConfig = {
-      platform: 'web',
-      now_time: parseInt(moment().unix()),
-      recruit_type_id: recruit_type_id,
-      sign: getSign(signObj),
-    }
-
-    var obj = {
-      baseURL: baseURL,
-      ajaxConfig: ajaxConfig,
-    }
-    return obj
-  } 
-  
-  // 登录ajax设置另外设置
-  var loginConfig = function (account, password) {
-    baseURL = 'http://192.168.2.159:7002'
-    signObj = {
-      now_time: parseInt(moment().unix()),
-      platform: 'web',
-      account: account,
-      password: password,
-    }
-    // sign = getSign(signObj)
-
-    ajaxConfig = {
-      now_time: parseInt(moment().unix()),
-      platform: 'web',
-      account: account,
-      password: password,
-      sign: getSign(signObj),
-    }
-
-    var obj = {
-      baseURL: baseURL,
-      ajaxConfig: ajaxConfig,
-    }
-    return obj
+  var obj = {
+    baseURL: baseURL,
+    ajaxConfig: ajaxConfig,
   }
+  return obj
+}
+
+// 招聘岗位ajax设置另外设置
+var recruitConfig = function (recruit_type_id) {
+  baseURL = 'http://192.168.2.159:7002'
+  signObj = {
+    now_time: parseInt(moment().unix()),
+    platform: 'web',
+    recruit_type_id: recruit_type_id
+  }
+  sign = getSign(signObj)
+
+  ajaxConfig = {
+    platform: 'web',
+    now_time: parseInt(moment().unix()),
+    recruit_type_id: recruit_type_id,
+    sign: getSign(signObj),
+  }
+
+  var obj = {
+    baseURL: baseURL,
+    ajaxConfig: ajaxConfig,
+  }
+  return obj
+}
+
+// 登录ajax设置另外设置
+var loginConfig = function (account, password) {
+  baseURL = 'http://192.168.2.159:7002'
+  signObj = {
+    now_time: parseInt(moment().unix()),
+    platform: 'web',
+    account: account,
+    password: password,
+  }
+  // sign = getSign(signObj)
+
+  ajaxConfig = {
+    now_time: parseInt(moment().unix()),
+    platform: 'web',
+    account: account,
+    password: password,
+    sign: getSign(signObj),
+  }
+
+  var obj = {
+    baseURL: baseURL,
+    ajaxConfig: ajaxConfig,
+  }
+  return obj
+}

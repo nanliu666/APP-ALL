@@ -113,18 +113,10 @@ a:hover {
   background-color: #e2e2e2;
 }
 
-
 nav>li {
   width: 19%;
   display: inline-block;
   text-align: center;
-  border-right: 1px solid #ccc;
-  padding: 6px 0;
-  font-size: .3rem;
-}
-
-nav>li:last-child {
-  border-right: 0
 }
 
 
@@ -232,10 +224,24 @@ body {
 .headerDiv {
   display: flex;
   align-items: center;
-  height: 1rem;
-  padding: .4rem;
+  height: 40px;
+  padding: 5px;
+}
+
+@media screen and (max-width:1024px) {
+  .headerDiv {
+    display: flex;
+    align-items: center;
+    height: 1rem;
+    padding: .4rem;
+  }
+
+  #carousel {
+    height: 780px;
+  }
 }
 
 .headerDiv img {
   max-height: 40px
 }
+
