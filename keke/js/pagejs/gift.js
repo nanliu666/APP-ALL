@@ -34,19 +34,19 @@ $(document).ready(function () {
       HTML.push(
         '<li class="flex-space-between new-game-li flex-align-items-center">' +
         ' <div class=" flexRow newgame-box ">' +
-        '<img src="../images/icon.png" alt="" class="new-game-imgicon-gifts">' +
+        '<div class="flex-all-center"><img src="../images/icon.png" alt="" class="new-game-imgicon-gifts"></div>' +
         '<div class="flex-column flex-justify-content-center ">' +
         '<div class="flex-space-between">' +
-        '<span>' + item.game_name + '</span><span><img class="freeImg" src="../images/free.png" alt=""></span>' +
+        '<span>' + item.game_name + '</span><span>' +
         '</div>' +
-        '<div class="angleBox">' +
+        '<div class="angleImg">' +
         '<img src="../images/angle.svg" alt="" >' +
         '<img src="../images/angle.svg" alt="">' +
         '<img src="../images/angle.svg" alt="">' +
         '<img src="../images/angle.svg" alt="">' +
         ' <img src="../images/angle.svg" alt="">' +
         '</div>' +
-        '<div class="marginTop1rem">三角合一</div>' +
+        '<div class="des ellipsis">三角合一</div>' +
         '</div>' +
         ' </div>' +
         '<button class="layui-btn  gifts-button"  data-index=' + index + ' data-toggle="modal" data-target="#myModal">领取礼包</button>' +

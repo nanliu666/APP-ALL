@@ -57,6 +57,10 @@ a:hover {
   padding: 0 10px;
 }
 
+.padding4 {
+  padding: 0 4px;
+}
+
 .padding2rem {
   padding: 0 .2rem;
 }
@@ -281,7 +285,7 @@ body {
 
   /* 游戏详情头像 */
   .new-game-imgicon-gifts {
-    max-width: 60px!important;
+    max-width: 60px !important;
   }
 
   /* 今日推荐文字描述 */

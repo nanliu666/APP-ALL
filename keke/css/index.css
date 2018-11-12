@@ -37,6 +37,7 @@
 /* 开服 */
 .mainTable {
   margin-bottom: 52px;
+  margin-top: 0;
 }
 
 .layui-tab-title-li {
@@ -177,11 +178,15 @@
   display: flex;
   justify-content: center;
   margin: .1rem 0;
+  padding: 0 .1rem;
 }
 
-.gamesBox>li img {
-  max-width: 3.4rem;
-  max-height: 3.4rem;
+
+@media screen and (max-width:1024px) {
+  .gamesBox>li img {
+    max-height: 1.6rem;
+    width: 100%;
+  }
 }
 
 .js-game-ul>li {
