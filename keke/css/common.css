@@ -287,6 +287,12 @@ body {
     padding: 0 5px 0 0;
   }
 
+  .downLoadLi .downLoadLiimg {
+    max-width: 60px;
+    max-height: 60px;
+    padding: 0 5px 0 0;
+  }
+
   .angleImg>img {
     width: 22px !important;
   }
