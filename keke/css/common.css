@@ -41,6 +41,10 @@ a:hover {
   margin: 10px 0;
 }
 
+.marginALL10 {
+  margin: 10px;
+}
+
 .margin1rem {
   margin: .1rem
 }
@@ -75,6 +79,10 @@ a:hover {
 
 .icon14px {
   font-size: 14px
+}
+
+.border-radius {
+  border-radius: 10px;
 }
 
 .border-all {

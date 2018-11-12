@@ -13,7 +13,21 @@
   <link rel="stylesheet" href="../css/common.css">
   <link rel="stylesheet" href="../css/index.css">
   <style>
-
+    .giftsLi {
+      margin-bottom: 10px;
+    }
+    .gifts-li-title {
+      padding:6px 10px;
+    }
+    .gifts-button {
+      height: 30px;
+      line-height: 30px;
+      padding: 0 8px;
+      border-radius: 6px;
+    }
+    .gifts-color {
+      color: #ccc;
+    }
   </style>
 </head>
 
@@ -24,11 +38,31 @@
       <a href="./index.html"><img src="../images/logo (2).png" alt=""></a>
     </div>
     <div class="layui-col-xs6 hcenter text-right">
-      <i class="iconfont icon-ren"></i>
+      <a href="./center.html"><i class="iconfont icon-ren"></i></a>
     </div>
   </header>
   <main>
+    <ul class="marginALL10">
+      <li class="border-all border-radius giftsLi">
+        <div class="flex-space-between gifts-li-title border-bottom"><b class="flex-align-items-center">仙坠凡尘-4服</b><button
+            class="layui-btn gifts-button" type="button">复制CDKEY</button></div>
+        <div class="gifts-li-title">
+          <p>新手礼包</p>
+          <p class="gifts-color">铜钱x1000、铜钱x1000、铜钱x1000、铜钱x1000、铜钱x1000、铜钱x1000、</p>
+          <p>CDKEY: 012345679</p>
+        </div>
+      </li>
+      <li class="border-all border-radius giftsLi">
+        <div class="flex-space-between gifts-li-title border-bottom"><b class="flex-align-items-center">仙坠凡尘-4服</b><button
+            class="layui-btn gifts-button" type="button">复制CDKEY</button></div>
+        <div class="gifts-li-title">
+          <p>新手礼包</p>
+          <p class="gifts-color">铜钱x1000、铜钱x1000、铜钱x1000、铜钱x1000、铜钱x1000、铜钱x1000、</p>
+          <p>CDKEY: 012345679</p>
+        </div>
+      </li>
 
+    </ul>
   </main>
 
 
@@ -59,7 +93,7 @@
           break;
         }
       }
-      
+
       if (j === jLen) {
         res.push(item);
       }

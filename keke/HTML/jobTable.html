@@ -126,7 +126,8 @@
 
 <script src="../js/commom.js"></script>
 <script>
-  var jobClassify = sessionStorage.getItem('jobClassify')
+  $(document).ready(function () {
+    var jobClassify = sessionStorage.getItem('jobClassify')
   if (jobClassify === 'sz') {
     document.title = '社会招聘'
   } else {
@@ -202,8 +203,10 @@
 
   // 动态生成的表格每一列
   $(document).delegate(".js-table-body tr", "click", function () {
-    // console.log($(this))
+    console.log($(this))
+    location.href = "./jobDetail.html"
   });
+  })
 </script>
 
 </html>
