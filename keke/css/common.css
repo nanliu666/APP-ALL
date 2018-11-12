@@ -121,7 +121,7 @@ nav>li {
 
 
 .actives {
-  color: rgb(76, 181, 146) !important;
+  color: green !important;
 }
 
 /* 占比 */
@@ -213,35 +213,80 @@ body {
   font-size: .3rem
 }
 
-@media screen and (min-width: 768px) {
-  .freeImg {
-    width: .8rem;
-  }
+.ellipsis {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
+
+
 
 /* 头部 */
 
 .headerDiv {
   display: flex;
   align-items: center;
-  height: 40px;
-  padding: 5px;
-}
-
-@media screen and (max-width:1024px) {
-  .headerDiv {
-    display: flex;
-    align-items: center;
-    height: 1rem;
-    padding: .4rem;
-  }
-
-  #carousel {
-    height: 780px;
-  }
+  height: 44px;
+  padding: 2px .2rem;
 }
 
 .headerDiv img {
   max-height: 40px
 }
 
+/* 轮播图手机 */
+#carousel img {
+  height: 4rem !important;
+}
+
+/* 轮播图PC专门尺寸 */
+@media screen and (min-width: 1030px) {
+
+  /* 轮播图 */
+  #carousel {
+    height: 8rem !important;
+  }
+
+  #carousel img {
+    height: 8rem !important;
+  }
+}
+
+/* iPad和PC专门适配CSS */
+@media screen and (min-width:700px) {
+  .headerDiv {
+    display: flex;
+    align-items: center;
+    height: 40px;
+    padding: 5px;
+  }
+
+  .font2 {
+    font-size: 14px;
+  }
+
+  .remUL {
+    padding: .1rem;
+  }
+
+  .remLi .remLi-img {
+    max-width: 60px;
+    max-height: 60px;
+    padding: 0 5px 0 0;
+  }
+
+  .angleImg>img {
+    width: 22px !important;
+  }
+
+  /* 游戏详情头像 */
+  .new-game-imgicon-gifts {
+    max-width: 60px!important;
+  }
+
+  /* 今日推荐文字描述 */
+  .des {
+    margin-top: 4px !important;
+  }
+
+}

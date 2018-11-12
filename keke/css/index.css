@@ -11,7 +11,17 @@
 }
 
 .remLi {
+  position: relative;
   width: 50%;
+  padding-left: 4px;
+  border: 1px solid #ccc;
+  border-style: none solid solid none;
+}
+
+.freeImg {
+  position: absolute;
+  top: 0;
+  right: 0;
 }
 
 .remLi-img {
@@ -33,6 +43,16 @@
   margin: 0 !important
 }
 
+.number-order {
+  width: 24px;
+  height: 46px;
+  line-height: 46px;
+  color: rgb(193, 193, 193);
+  text-align: center;
+  padding-right: 6px;
+  font-size: 16px;
+}
+
 
 /* 新游  与 礼包列表部分css*/
 .new-game-li {
@@ -51,21 +71,16 @@
   margin-right: .2rem;
 }
 
-.new-game-flag>img {
-  height: .5rem;
-}
-
-
 .new-game-imgicon {
-  height: 1rem;
+  height: 60px;
   display: inline-block;
-  margin: .1rem .2rem 0 0;
+  margin: 2px 6px 0 0
 }
 
 .new-game-imgicon-gifts {
-  height: 1.2rem;
-  display: inline-block;
-  margin: .1rem .2rem 0 0;
+  max-width: 1.2rem;
+  max-height: 1.2rem;
+  padding-right: .1rem;
 }
 
 .newgame-button {
@@ -183,7 +198,7 @@
 }
 
 .gameBig {
-  padding: .2rem;
+  width: 100%;
   border-top: 1px solid #ccc
 }
 
@@ -194,8 +209,7 @@
 
 
 /* 招聘css */
-/* .job {
-} */
+
 
 .job>li img {
   width: 100%;

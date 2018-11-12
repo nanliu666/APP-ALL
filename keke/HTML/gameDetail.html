@@ -19,7 +19,7 @@
   <!-- 头部 -->
   <header class="layui-row headerDiv border-bottom">
     <div class="layui-col-xs6">
-      <img src="../images/logo (2).png" alt="">
+      <a href="./index.html"><img src="../images/logo (2).png" alt=""></a>
     </div>
     <div class="layui-col-xs6 hcenter text-right">
       <a href="./center.html"><i class="iconfont icon-ren"></i></a>
@@ -31,23 +31,23 @@
 
     <!-- 推荐 -->
 
-    <div class="padding0 font3 border-all margin1rem js-game-ul">
+    <div class="padding0  border-all margin1rem js-game-ul">
       <div class="flex-space-between new-game-li flex-align-items-center">
         <div class=" flexRow  width80 js-downLeft">
           <div class="newgame-box">
-            <img src="../images/icon.png" alt="" class="new-game-imgicon-gifts">
+            <div class="flex-all-center"><img src="../images/icon.png" alt="" class="new-game-imgicon-gifts"></div>
             <div class="flex-column flex-justify-content-center ">
               <div class="flex-space-between">
-                <span>大天使</span><span><img class="freeImg" src="../images/free.png" alt=""></span>
+                <span>大天使</span>
               </div>
-              <div>
+              <div class="angleImg">
                 <img src="../images/angle.svg" alt="">
                 <img src="../images/angle.svg" alt="">
                 <img src="../images/angle.svg" alt="">
                 <img src="../images/angle.svg" alt="">
                 <img src="../images/angle.svg" alt="">
               </div>
-              <div class="marginTop1rem">三角合一</div>
+              <div class="des ellipsis">三角合一</div>
             </div>
           </div>
         </div>
@@ -137,7 +137,7 @@
                 <img src="../images/angle.svg" alt="">
                 <img src="../images/angle.svg" alt="">
               </div>
-              <div class="des">三合一</div>
+              <div class="des ellipsis">三合一</div>
             </div>
           </li>
           <div class="flex-column downLoadBtn">
@@ -196,7 +196,7 @@
     data: ajaxObj.ajaxConfig,
   })
 
-  //推荐游戏请求
+  //todo 通过每个独立ID获取每个游戏的请求，后端补全
   $.ajax({
     url: ajaxObj.baseURL + recommendURL,
     success: function (data) {

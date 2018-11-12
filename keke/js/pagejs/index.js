@@ -65,12 +65,12 @@ $(document).ready(function () {
     var HTML = []
     data.map(function (item, index) {
       HTML.push(
-        '<a class="flexRow flex-align-items-center remLi" href="./gameDetail.html">' +
-        '<img class="remLi-img" src="../images/icon.png" alt="">' +
-        '<div class="flex-column width80">' +
-        '<div class="flex-space-between">' +
-        '<div>' + item.name + '</div>' +
+        '<li class="flexRow flex-align-items-center remLi" >' +
         '<img src="../images/free.png" class="freeImg" alt="">' +
+        '<img class="remLi-img" src="../images/icon.png" alt="">' +
+        '<div class="flex-column width60">' +
+        '<div class="flex-space-between ">' +
+        '<div>' + item.name + '</div>' +
         '</div>' +
         '<div class="angleImg">' +
         '<img src="../images/angle.svg" alt="">' +
@@ -79,14 +79,13 @@ $(document).ready(function () {
         '<img src="../images/angle.svg" alt="">' +
         '<img src="../images/angle.svg" alt="">' +
         '</div>' +
-        '<div class="des">' + item.name + '</div>' +
+        '<div class="des ellipsis">' + item.name + '</div>' +
         '</div>' +
-        '</a>'
+        '</li>'
       )
 
     })
     $('.remUL').html(HTML)
-    console.log(data)
     // 推荐游戏每个独立的游戏ID传出去
     $(document).delegate('.remLi', 'click', function () {
       event.preventDefault()
@@ -94,6 +93,12 @@ $(document).ready(function () {
       sessionStorage.setItem('gameID', data[$(this).index()].game_id)
     })
   }
+
+  // 推荐游戏独立调到游戏页面详情页
+  $(document).delegate(".remUL li", "click", function () {
+    console.log($(this).index())
+    // location.href = "./gameDetail.html"
+  });
 
 
 
@@ -129,11 +134,11 @@ $(document).ready(function () {
       HTML.push(
         '<li class="flex-space-between new-game-li flex-align-items-center">' +
         '<div class=" flexRow newgame-box ">' +
-        ' <div class="new-game-flag"><img src="../images/one.png" alt=""></div>' +
+        ' <div class="new-game-flag" data-index=' + index + '><span class="number-order">' + Number(index + 1) + '</span></div>' +
         '<img src="../images/icon.png" alt="" class="new-game-imgicon">' +
-        '<div class="flex-column flex-justify-content-center ">' +
+        '<div class="flex-column flex-justify-content-center width60">' +
         '<div class="flex-space-between">' +
-        ' <span>' + item.name + '</span><span><img src="../images/free.png"  class="freeImg" alt=""></span>' +
+        ' <span>' + item.name + '</span>' +
         '</div>' +
         '<div>' +
         '<img src="../images/angle.svg" alt="">' +
@@ -142,7 +147,7 @@ $(document).ready(function () {
         '<img src="../images/angle.svg" alt="">' +
         '<img src="../images/angle.svg" alt="">' +
         '</div>' +
-        '<div class="marginTop1rem">三角合一</div>' +
+        '<div class="des ellipsis">三角合一三角合一三角合一三角合一三角合一三角合一</div>' +
         '</div>' +
         '</div>' +
         '<button class="layui-btn  newgame-button" data-toggle="modal" data-target="#myModal">下载</button>' +
@@ -150,6 +155,21 @@ $(document).ready(function () {
       )
     })
     $('.js-newgame').html(HTML)
+    $('.new-game-flag').each(function (index, el) {
+      if (index === 1) {
+        var img = $('<img src="../images/two.png">')
+        $(el).append(img)
+        $(el).find("span").remove()
+      } else if (index === 2) {
+        var img = $('<img src="../images/three.png">')
+        $(el).find("span").remove()
+        $(el).append(img)
+      } else if (index === 0) {
+        var img = $('<img src="../images/one.png">')
+        $(el).find("span").remove()
+        $(el).append(img)
+      }
+    })
   }
 
   // 礼包领取
@@ -199,9 +219,6 @@ $(document).ready(function () {
     $('.iOSLoad').attr('href', data[index].ios_download_url)
   }
 
-  // 推荐游戏独立调到游戏页面详情页
-  $(document).delegate(".remUL li", "click", function () {
-    console.log($(this).index())
-  });
+
 
 })
