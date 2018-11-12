@@ -78,6 +78,9 @@
           </template>
         </el-tab-pane>
       </el-tabs>
+      <h3>{{count}}</h3>
+      <button @click="add">+</button>
+      <button @click="reduce">-</button>
     </main>
     <keke-dialog :modalData="modalData"></keke-dialog>
   </div>
@@ -85,6 +88,7 @@
 <script>
 import ajaxConfig from '@/axios/axiosConfig'
 import kekeDialog from './keke-dialog.vue'
+import { mapState, mapMutations } from 'vuex'
 export default {
   name: 'index',
   components: { kekeDialog },
@@ -104,7 +108,9 @@ export default {
   created() {
     this.onLoad()
   },
+  computed: mapState(['count']),
   methods: {
+    ...mapMutations(['add', 'reduce']),
     // 获取数据
     onLoad() {
       let axiosConfig = ajaxConfig

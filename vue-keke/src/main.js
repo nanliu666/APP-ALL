@@ -10,7 +10,10 @@ import '../static/icon/iconfont.css'
 import '../static/icon/iconfont.js'
 import 'element-ui/lib/theme-chalk/index.css'
 import './assets/js/fitLayout'
-Vue.use(ElementUI);
+import Vuex from 'vuex'
+import store from '@/vuex/store'
+Vue.use(ElementUI)
+Vue.use(Vuex)
 
 
 Vue.prototype.$axios = axios
@@ -23,5 +26,6 @@ new Vue({
   components: {
     App
   },
+  store,
   template: '<App/>'
 })
