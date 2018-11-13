@@ -12,6 +12,39 @@
   <link rel="stylesheet" type="text/css" href="../icon/iconfont.css">
   <link rel="stylesheet" href="../css/common.css">
   <link rel="stylesheet" href="../css/index.css">
+  <style>
+    .about-box {
+      height: 60px;
+      align-items: flex-end;
+      margin-bottom: 10px;
+    }
+
+    .logo-img {
+      max-width: 60px;
+      max-height: 60px;
+      padding: 4px;
+    }
+
+    .about-title {
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+      padding: 2px 0;
+      border: 1px solid #ccc;
+      border-style: solid none;
+    }
+
+    .chinese {
+      font-size: 15px;
+      font-weight: 900;
+      color: black;
+    }
+
+    .english {
+      font-weight: 300;
+      color: black;
+    }
+  </style>
 </head>
 
 <body>
@@ -28,8 +61,13 @@
     <!-- 关于 -->
     <main class="font2">
       <div>
-        <h3>关于我们</h3>
-        <hr>
+        <div class="flexRow about-box">
+          <div><img class="logo-img" src="../images/logo(1).png" alt=""></div>
+          <div class="about-title">
+            <strong class="chinese">关于我们</strong>
+            <div class="english">ABOUT US</div>
+          </div>
+        </div>
         <p>广州众玩网络有限公司成立于2015年，作为一家专业的网络游戏自主研发公司，公司核心研发人员均具备大型网络游戏项目开发经验，对网络游戏的设计研发具备深刻的了解与独到的见解。
 
           公司下设策划部、研发部、职能部、美术部等部门，在职员工有80多人并在不断壮大队伍，正处于快速发展上升期，欢迎各路人才的加入。
@@ -39,8 +77,14 @@
           公司目前雄踞在广州繁华的天河北商圈，交通快捷便利。如果你是个有梦想并且肯为之奋斗的人，我们不仅能给你提供的是一个工作机会，更能为你提供一个实现梦想的平台！</p>
       </div>
       <div>
-        <h3>联系我们</h3>
-        <hr>
+        <div class="flexRow about-box">
+          <div><img class="logo-img" src="../images/logo(1).png" alt=""></div>
+          <div class="about-title">
+            <strong class="chinese">联系我们</strong>
+            <div class="english">CONTACT US</div>
+          </div>
+        </div>
+
         <img src="../images/map.png" alt="" style="max-width:  100%;    margin-bottom: .3rem">
         <p><strong>联系地址:</strong>广州市天河区龙怡路117号银汇大厦18楼1805室</p>
         <p><strong>简历投递邮箱:</strong>hr@gzzhongwan.net</p>

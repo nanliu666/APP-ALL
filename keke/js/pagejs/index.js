@@ -66,7 +66,6 @@ $(document).ready(function () {
     data.map(function (item, index) {
       HTML.push(
         '<li class="flexRow flex-align-items-center remLi" >' +
-        '<img src="../images/free.png" class="freeImg" alt="">' +
         '<img class="remLi-img" src="../images/icon.png" alt="">' +
         '<div class="flex-column width60">' +
         '<div class="flex-space-between ">' +

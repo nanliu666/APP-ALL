@@ -16,30 +16,27 @@
     .tab-body {
       display: flex;
       align-items: center;
-      height: 1rem;
-      padding: .1rem 0;
+      flex-wrap: wrap;
+      padding: 1px 0;
+      padding-left: 12px;
       margin: 0;
-      /* background-color: rgb(240, 235, 239); */
     }
 
     .tab-body>li {
-      background-color: rgb(255, 254, 255);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 18%;
+      margin: 4px 2px;
       border: 1px solid #ccc;
-      padding: .1rem .2rem;
-      border-radius: .3rem;
+      padding: 1px 2px;
+      border-radius: 8px;
+      background-color: rgb(255, 254, 255);
     }
 
     .tab-body>.li-actives {
       border: 1px solid rgb(198, 28, 41);
       color: rgb(198, 28, 41);
-    }
-
-    .job-title {
-      height: .8rem;
-      line-height: .8rem;
-      background-color: rgb(226, 226, 226);
-      padding-left: .2rem;
-      margin: 0;
     }
   </style>
 </head>
@@ -60,7 +57,12 @@
     <p class="job-title">
       社会招聘
     </p>
-    <ul class="flex-space-around tab-body">
+    <ul class="tab-body">
+      <li class="tab-li li-actives">全部</li>
+      <li class="tab-li li-actives">全部</li>
+      <li class="tab-li li-actives">全部</li>
+      <li class="tab-li li-actives">全部</li>
+      <li class="tab-li li-actives">全部</li>
       <li class="tab-li li-actives">全部</li>
     </ul>
     <table class="table table-hover table-striped border-top">
@@ -68,7 +70,7 @@
         <tr>
           <th class="text-center">招聘职位</th>
           <th class="text-center">岗位类别</th>
-          <th class="text-center">新洲待遇</th>
+          <th class="text-center">薪酬待遇</th>
         </tr>
       </thead>
       <tbody class="text-center js-table-body"></tbody>
@@ -128,84 +130,84 @@
 <script>
   $(document).ready(function () {
     var jobClassify = sessionStorage.getItem('jobClassify')
-  if (jobClassify === 'sz') {
-    document.title = '社会招聘'
-  } else {
-    document.title = '校园招聘'
-  }
-
-  var recruitTypeUrl = '/recruit/type'
-  var recruitPositionUrl = '/recruit/position'
-  //公共参数
-  var ajaxObj = ajaxConfig()
-  $.ajaxSetup({
-    type: 'GET',
-    headers: {
-      'Content-Type': 'application/x-www-form-urlencoded',
-    },
-    data: ajaxObj.ajaxConfig,
-  })
-  var typeAjax = $.ajax({
-    url: ajaxObj.baseURL + recruitTypeUrl,
-    success: function (data) {
-      if (data.data && data !== '') {
-        var typeData = data.data
-        typeData.map(function (item, index) {
-          $('.tab-body').append('<li data-recruit_type_id=' + item.recruit_type_id + '>' + item.recruit_type_name +
-            '</li>')
-        })
-      }
-    },
-    err: function (data) {
-      console.log(data)
+    if (jobClassify === 'sz') {
+      document.title = '社会招聘'
+    } else {
+      document.title = '校园招聘'
     }
-  })
 
-
-  var positionAjax = function (ajaxSetting) {
-    ajaxSetting = ajaxSetting || ajaxObj
-    $.ajax({
-      url: ajaxSetting.baseURL + recruitPositionUrl,
+    var recruitTypeUrl = '/recruit/type'
+    var recruitPositionUrl = '/recruit/position'
+    //公共参数
+    var ajaxObj = ajaxConfig()
+    $.ajaxSetup({
+      type: 'GET',
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+      },
+      data: ajaxObj.ajaxConfig,
+    })
+    var typeAjax = $.ajax({
+      url: ajaxObj.baseURL + recruitTypeUrl,
       success: function (data) {
         if (data.data && data !== '') {
-          var positionData = data.data
-          // console.log(_.groupBy(positionData, 'recruit_type_name'))
-          var HTML = ''
-          positionData.map(function (item, index) {
-            HTML += ('<tr>' +
-              '<td>' + item.recruit_position_name + '</td>' +
-              '<td>' + item.recruit_type_name + '</td>' +
-              '<td>面议</td>' +
-              '</tr>')
+          var typeData = data.data
+          typeData.map(function (item, index) {
+            $('.tab-body').append('<li data-recruit_type_id=' + item.recruit_type_id + '>' + item.recruit_type_name +
+              '</li>')
           })
-          $('.js-table-body').html(HTML)
         }
       },
       err: function (data) {
         console.log(data)
       }
     })
-  }
-  positionAjax()
 
 
-  //切换其他类别
-  $('.tab-body').on('click', 'li', function () {
-    $(this).addClass('li-actives').siblings().removeClass('li-actives')
-    if ($(this).data('recruit_type_id') !== undefined) {
-      var recruit_type_id = $(this).data('recruit_type_id')
-      var recruitconfig = recruitConfig(recruit_type_id)
-      positionAjax(recruitconfig)
-    } else {
-      positionAjax()
+    var positionAjax = function (ajaxSetting) {
+      ajaxSetting = ajaxSetting || ajaxObj
+      $.ajax({
+        url: ajaxSetting.baseURL + recruitPositionUrl,
+        success: function (data) {
+          if (data.data && data !== '') {
+            var positionData = data.data
+            // console.log(_.groupBy(positionData, 'recruit_type_name'))
+            var HTML = ''
+            positionData.map(function (item, index) {
+              HTML += ('<tr>' +
+                '<td>' + item.recruit_position_name + '</td>' +
+                '<td>' + item.recruit_type_name + '</td>' +
+                '<td>面议</td>' +
+                '</tr>')
+            })
+            $('.js-table-body').html(HTML)
+          }
+        },
+        err: function (data) {
+          console.log(data)
+        }
+      })
     }
-  })
+    positionAjax()
 
-  // 动态生成的表格每一列
-  $(document).delegate(".js-table-body tr", "click", function () {
-    console.log($(this))
-    location.href = "./jobDetail.html"
-  });
+
+    //切换其他类别
+    $('.tab-body').on('click', 'li', function () {
+      $(this).addClass('li-actives').siblings().removeClass('li-actives')
+      if ($(this).data('recruit_type_id') !== undefined) {
+        var recruit_type_id = $(this).data('recruit_type_id')
+        var recruitconfig = recruitConfig(recruit_type_id)
+        positionAjax(recruitconfig)
+      } else {
+        positionAjax()
+      }
+    })
+
+    // 动态生成的表格每一列
+    $(document).delegate(".js-table-body tr", "click", function () {
+      console.log($(this))
+      location.href = "./jobDetail.html"
+    });
   })
 </script>
 

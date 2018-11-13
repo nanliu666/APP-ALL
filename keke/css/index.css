@@ -118,7 +118,7 @@
   color: white;
   margin: 6px 0;
   border-radius: 4px;
-  height: .8rem;
+  height: 38px;
 }
 
 .android {
@@ -128,11 +128,13 @@
 .iOS {
   background-color: #64bcf5;
 }
-
+.downLoadsvg {
+  width: 50px;
+}
 .textColors {
   border-left: 1px solid #ccc;
   width: 96%;
-  font-size: .4rem;
+  font-size: 19px;
   font-weight: 800;
 }
 
@@ -226,8 +228,8 @@
 
 
 .job-title {
-  height: .8rem;
-  line-height: .8rem;
+  height: 34px;
+  line-height: 34px;
   background-color: rgb(226, 226, 226);
   padding-left: .2rem;
   margin: 0;
