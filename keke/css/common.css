@@ -294,7 +294,7 @@ body {
   }
 
   .angleImg>img {
-    width: 22px !important;
+    width: 20px !important;
   }
 
   /* 游戏详情头像 */
@@ -307,4 +307,13 @@ body {
     margin-top: 4px !important;
   }
 
+  /* 下载按钮 */
+  .downLoadBtn>a {
+    height: .5rem !important;
+  }
+
+  /* 下载modal footer宽度 */
+  .modal-footer-min {
+    min-width: 100%;
+  }
 }

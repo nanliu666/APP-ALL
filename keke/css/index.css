@@ -34,6 +34,10 @@
   width: .3rem;
 }
 
+.downLoadangleImg>img {
+  width: 17px;
+}
+
 /* 开服 */
 .mainTable {
   margin-bottom: 52px;
@@ -94,7 +98,7 @@
 /* 模态框 */
 .modal-footer-fix {
   border-top: 1px solid #e5e5e5;
-  padding-top: 0.1rem;
+  padding: 0.1rem 0;
 }
 
 .downLoadLi {
@@ -114,7 +118,7 @@
   color: white;
   margin: 6px 0;
   border-radius: 4px;
-  height: .5rem;
+  height: .8rem;
 }
 
 .android {

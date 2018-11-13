@@ -88,17 +88,12 @@ $(document).ready(function () {
     $('.remUL').html(HTML)
     // 推荐游戏每个独立的游戏ID传出去
     $(document).delegate('.remLi', 'click', function () {
-      event.preventDefault()
-      console.log(data[$(this).index()].game_id)
       sessionStorage.setItem('gameID', data[$(this).index()].game_id)
+      location.href = "./gameDetail.html"
     })
   }
 
-  // 推荐游戏独立调到游戏页面详情页
-  $(document).delegate(".remUL li", "click", function () {
-    console.log($(this).index())
-    // location.href = "./gameDetail.html"
-  });
+
 
 
 

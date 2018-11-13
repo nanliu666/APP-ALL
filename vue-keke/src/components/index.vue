@@ -79,7 +79,7 @@
         </el-tab-pane>
       </el-tabs>
       <h3>{{count}}</h3>
-      <button @click="add">+</button>
+      <button @click="add(10)">+</button>
       <button @click="reduce">-</button>
     </main>
     <keke-dialog :modalData="modalData"></keke-dialog>
@@ -88,7 +88,7 @@
 <script>
 import ajaxConfig from '@/axios/axiosConfig'
 import kekeDialog from './keke-dialog.vue'
-import { mapState, mapMutations } from 'vuex'
+import { mapState, mapGetters, mapMutations } from 'vuex'
 export default {
   name: 'index',
   components: { kekeDialog },
@@ -108,7 +108,10 @@ export default {
   created() {
     this.onLoad()
   },
-  computed: mapState(['count']),
+  computed: {
+    ...mapState(['count']),
+    ...mapGetters(['count']),
+  },
   methods: {
     ...mapMutations(['add', 'reduce']),
     // 获取数据
