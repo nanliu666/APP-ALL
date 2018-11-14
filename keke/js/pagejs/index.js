@@ -62,6 +62,8 @@ $(document).ready(function () {
 
   //推荐游戏HTML
   var remHTML = function (data) {
+    var Dleng = data.length
+    console.log(parseInt(Dleng / 4))
     var HTML = []
     data.map(function (item, index) {
       HTML.push(
@@ -91,7 +93,14 @@ $(document).ready(function () {
       location.href = "./gameDetail.html"
     })
   }
-
+  $(".remUL").swipe({
+    //Generic swipe handler for all directions 通用滑动处理程序为所有方向
+    swipe: function (event, direction, distance, duration, fingerCount, fingerData) {
+      $(this).text("You swiped " + direction);
+    },
+    //Default is 75px, set to 0 for demo so any distance triggers swipe 默认设置为75px, demo设置为0，任何距离都会触发滑动
+    threshold: 0 
+  });
 
 
 

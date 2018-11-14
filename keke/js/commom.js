@@ -50,7 +50,7 @@ $(document).ready(function () {
   })(750, 750);
 
 
-  layui.use(['carousel', 'element', ], function () {
+  layui.use(['carousel',  'element', ], function () {
     var carousel = layui.carousel;
     var element = layui.element;
     //建造实例
@@ -63,6 +63,9 @@ $(document).ready(function () {
       interval: '3000', //切换动画方式
       arrow: "hover",
     });
+
+
+
     //获取hash来切换选项卡，假设当前地址的hash为lay-id对应的值
     var layid = location.hash.replace(/^#test1=/, '');
     element.tabChange('test1', layid);

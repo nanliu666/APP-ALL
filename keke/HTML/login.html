@@ -21,10 +21,13 @@
       max-width: 100px;
       max-height: 100px;
     }
-    @media (min-width: 700px) { 
-      #defaultForm .inputGroup {
-        /* width: 50%; */
-    }   
+    @media (min-width: 1024px) { 
+      .inputGroup {
+      padding: 0 40%!important;
+      }   
+      .loginGroup {
+      padding: 0 42%!important;
+    }     
     }
     .inputGroup {
       padding: 0 1.2rem;
@@ -84,7 +87,7 @@
       <input type="password" class="form-control" name="password" placeholder="请输入密码" />
     </div>
 
-    <div class="form-group loginGroup ">
+    <div class="form-group loginGroup inputGroup">
       <button type="submit" class="btn btn-primary login-btn">登录</button>
       <a href="./register.html" type="button" class="btn btn-success">注册可可豆通行证</a>
     </div>
