@@ -86,20 +86,18 @@ $(document).ready(function () {
       )
 
     })
-    $('.remUL').html(HTML)
+    // $('.swiper-item').html(HTML)
     // 推荐游戏每个独立的游戏ID传出去
     $(document).delegate('.remLi', 'click', function () {
       sessionStorage.setItem('gameID', data[$(this).index()].game_id)
       location.href = "./gameDetail.html"
     })
   }
-  $(".remUL").swipe({
-    //Generic swipe handler for all directions 通用滑动处理程序为所有方向
-    swipe: function (event, direction, distance, duration, fingerCount, fingerData) {
-      $(this).text("You swiped " + direction);
+  var swiper = new Swiper('.swiper-container', {
+    pagination: {
+      el: '.swiper-pagination',
+      loop : true,
     },
-    //Default is 75px, set to 0 for demo so any distance triggers swipe 默认设置为75px, demo设置为0，任何距离都会触发滑动
-    threshold: 0 
   });
 
 
