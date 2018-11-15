@@ -6,25 +6,16 @@
   <meta name="viewport" content="width=device-width, height=device-height, user-scalable=no, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0">
   <meta name="format-detection" content="telephone=no">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>修改密码</title>
+  <title>绑定手机</title>
   <link rel="stylesheet" href="../layui/css/layui.css">
   <link rel="stylesheet" href="../css/bootstrap.css">
   <link rel="stylesheet" href="../css/bootstrapValidator.css">
   <link rel="stylesheet" type="text/css" href="../icon/iconfont.css">
   <link rel="stylesheet" href="../css/common.css">
   <link rel="stylesheet" href="../css/index.css">
-
   <style>
-    @media (min-width: 1024px) { 
-      .inputGroup {
-      padding: 0 38%!important;
-      }   
-      .loginGroup {
-      padding: 0 42%!important;
-      }     
-    }
     .inputGroup {
-      padding: 0 1rem;
+      padding: 0 .6rem;
     }    
 
     .inputGroup > p{
@@ -37,44 +28,64 @@
       flex-direction: column;
       padding: 0 2rem;
     }    
+    .inputBOX{
+      border: 1px solid #ccc;
+      padding: .1rem;
+      margin: 0 .1rem 0 0;
+      width: 100%;
+    }       
+    
+    .yanzhen{
+      border: 1px solid #ccc;
+      padding: .1rem;
+      margin: 0 .1rem 0 0;
+      width: 60%;
+    }       
+    .yanzhenButton {
+        float: right;
+        width: 38%;
+        padding: .1rem;
+    }
 
     .login-btn {
       margin-bottom: .2rem;
+    }
+
+    .aLink {
+      text-decoration:underline !important
     }
   </style>
 </head>
 
 <body>
   <!-- 头部 -->
-  <header class="layui-row headerDiv border-bottom">
+  <header class="layui-row headerDiv">
     <div class="layui-col-xs6">
-      <a href="./index.html"><img src="../images/logo (2).png" alt=""></a>
+      <img src="../images/logo (2).png" alt="">
     </div>
     <div class="layui-col-xs6 hcenter text-right">
-      <a href="./center.html"><i class="iconfont icon-ren"></i></a>
+      <i class="iconfont icon-ren"></i>
     </div>
   </header>
-  <p class="job-title">重置密码</p>
+
+  <p class="job-title">绑定手机</p>
 
 
   <!-- 登录验证 -->
-  <form id="defaultForm" method="post">
-    <!-- <div class="inputGroup form-group">
-      <input type="text" class="form-control" name="oldpassword" placeholder="请输入原密码" />
-    </div> -->
-
+  <form id="defaultForm" class="padding2rem" method="post">
     <div class="inputGroup form-group">
-      <input type="password" class="form-control" name="password" placeholder="请输入6~8位的新密码" />
+      <input type="number" name="phoneNumer" placeholder="手机号" class="inputBOX" required />
     </div>
 
-    <div class="inputGroup form-group">
-      <input type="password" class="form-control" name="verify" placeholder="请重复输入密码" />
+    <div class="inputGroup form-group ">
+      <input type="password" name="verify" class="yanzhen" placeholder="请输入验证码" required />
+      <button type="button" class="btn btn-success yanzhenButton">获取验证码</button>
     </div>
-
 
     <div class="form-group loginGroup ">
-      <button type="submit" class="btn btn-primary login-btn">重置</button>
+      <button type="submit" class="layui-btn login-btn">确定</button>
     </div>
+
   </form>
 
 </body>
@@ -87,10 +98,11 @@
 <script src="../js/utils/jquery.js"></script>
 <script src="../js/utils/bootstrap.js"></script>
 <script src="../js/utils/bootstrapValidator.js"></script>
+<script src="https://cdn.bootcss.com/blueimp-md5/2.10.0/js/md5.js"></script>
+<script src="../js/utils/moment.min.js"></script>
+<script src="../js/utils/getSign.js"></script>
 <script src="../icon/iconfont.js"></script>
 <script src="../js/commom.js"></script>
-
-
 <script>
   $(document).ready(function () {
     $('#defaultForm')
@@ -102,38 +114,30 @@
           validating: 'glyphicon glyphicon-refresh'
         },
         fields: {
-          oldpassword: {
+          phoneNumer: {
             validators: {
               notEmpty: {
-                message: '密码不为空'
+                message: '手机必须存在且不为空'
               },
               stringLength: {
-                min: 6,
-                max: 8,
-                message: '密码长度需在6~8位之间'
+                min: 11,
+                max: 11,
+                message: '请输入11位有效的手机号'
               },
-            },
-          },
-          password: {
-            validators: {
-              notEmpty: {
-                message: '新密码不为空'
-              },
-              stringLength: {
-                min: 6,
-                max: 8,
-                message: '新密码长度需在6~8位之间'
-              },
-            },
+              /*remote: {
+                  url: 'remote.php',
+                  message: 'The username is not available'
+              },*/
+              // regexp: {
+              //   regexp: /((\d{11})|^((\d{7,8})|(\d{4}|\d{3})-(\d{7,8})|(\d{4}|\d{3})-(\d{7,8})-(\d{4}|\d{3}|\d{2}|\d{1})|(\d{7,8})-(\d{4}|\d{3}|\d{2}|\d{1}))$)/,
+              //   message: '请输入11位有效的手机号'
+              // }
+            }
           },
           verify: {
             validators: {
               notEmpty: {
-                message: '新密码不为空'
-              },
-              identical: {
-                field: 'password',
-                message: '两次输入不一致'
+                message: '验证码不为空'
               }
             }
           },
@@ -154,6 +158,8 @@
           console.log(result);
         }, 'json');
       });
+
+    $('#password').password().on('show.bs.password', function (e) {}).on('hide.bs.password', function (e) {});
   });
 </script>
 

@@ -247,6 +247,11 @@ body {
   margin-left: 5px;
 }
 
+/* 头部标题 */
+.job-detail {
+  padding-left: 12px;
+}
+
 /* 轮播图手机 */
 #carousel img {
   height: 4rem !important;

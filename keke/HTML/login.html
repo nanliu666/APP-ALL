@@ -23,15 +23,38 @@
     }
     @media (min-width: 1024px) { 
       .inputGroup {
-      padding: 0 40%!important;
+      padding: 0 38%!important;
       }   
       .loginGroup {
       padding: 0 42%!important;
-    }     
+      }     
     }
     .inputGroup {
-      padding: 0 1.2rem;
-    }    
+      padding: 0 1rem;
+    }   
+    .inputGroup .password {
+      margin-right: .1rem;
+    }     
+    
+    .inputBOX{
+      border: 1px solid #ccc;
+      padding: .1rem;
+      margin: 0 .1rem 0 0;
+      width: 100%;
+    }   
+
+    /* 密码input */
+    .password {
+      border: 1px solid #ccc;
+      padding: .1rem;
+      margin: 0 .1rem 0 0;
+      width: 60%;
+    }
+    .yanzhenButton {
+        float: right;
+        width: 35%;
+        padding: .1rem;
+    }
 
     .inputGroup > p{
       color: rgb(153, 153, 153);
@@ -59,6 +82,16 @@
       border: 1px solid #ccc;
       border-radius: 50%;
     }
+
+
+    /* 绑定modal的btn */
+    .banding-modal-footer {
+      padding: 0 1rem;
+    }
+    .banding-modal-footer button:last-child{
+      margin: .1rem 0;
+    }
+    
   </style>
 </head>
 
@@ -69,7 +102,7 @@
       <img src="../images/logo (2).png" alt="">
     </div>
     <div class="layui-col-xs6 hcenter text-right">
-      <i class="iconfont icon-ren"></i>
+      <a href=""><i class="iconfont icon-ren"></i></a>
     </div>
   </header>
 
@@ -80,16 +113,17 @@
   <!-- 登录验证 -->
   <form id="defaultForm" method="post">
     <div class="inputGroup form-group">
-      <input type="text" class="form-control" name="username" placeholder="请输入用户名" />
+      <input type="text" class="inputBOX" name="username" placeholder="请输入用户名" />
     </div>
 
     <div class="inputGroup form-group">
-      <input type="password" class="form-control" name="password" placeholder="请输入密码" />
+      <input type="password" class=" password" name="password" placeholder="请输入密码" />
+      <button type="button" class="btn btn-success yanzhenButton">找回密码</button>
     </div>
 
     <div class="form-group loginGroup inputGroup">
       <button type="submit" class="btn btn-primary login-btn">登录</button>
-      <a href="./register.html" type="button" class="btn btn-success">注册可可豆通行证</a>
+      <a href="./register.html" type="button" class="btn btn-default">注册可可豆通行证</a>
     </div>
   </form>
 
@@ -104,6 +138,25 @@
     </div>
   </div>
 
+
+  <!-- 礼包模态框（Modal） -->
+  <div class="modal fade font2" id="bindingModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header flex-justify-content-center">
+          <strong class="modal-title" id="bindingModalLabel">绑定手机</strong>
+        </div>
+        <div class="modal-body gifts-modal-body">
+          <p>您的可可豆账号存在安全风险</p>
+          <p>建议您绑定手机</p>
+        </div>
+        <div class="banding-modal-footer flex-column modal-footer-min" data-dismiss="modal">
+          <button class="btn js-bing" type="button">去绑定</button>
+          <button class="btn  btn-primary" type="button">暂不绑定</button>
+        </div>
+      </div>
+    </div>
+  </div>
 </body>
 <!-- 让IE8/9支持媒体查询，从而兼容栅格 -->
 <!--[if lt IE 9]>
@@ -191,8 +244,10 @@
           },
         })
       });
-
-
+    $('#bindingModal').modal('toggle')
+    $('.js-bing').on('click', function() {
+      location.href = './bindingIphone.html'
+    })
   });
 </script>
 
