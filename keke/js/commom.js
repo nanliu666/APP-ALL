@@ -50,7 +50,7 @@ $(document).ready(function () {
   })(750, 750);
 
 
-  layui.use(['carousel',  'element', ], function () {
+  layui.use(['carousel', 'element', ], function () {
     var carousel = layui.carousel;
     var element = layui.element;
     //建造实例

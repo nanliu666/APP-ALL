@@ -59,20 +59,24 @@ $(document).ready(function () {
     },
   })
 
+  var swiper = new Swiper('.swiper-container', {
+    pagination: {
+      el: '.swiper-pagination',
+    },
+    loop: true,
+    roundLengths: true,
+    // uniqueNavElements: false,
+  });
 
   //推荐游戏HTML
   var remHTML = function (data) {
-    var Dleng = data.length
-    console.log(parseInt(Dleng / 4))
     var HTML = []
     data.map(function (item, index) {
       HTML.push(
         '<li class="flexRow flex-align-items-center remLi" >' +
         '<img class="remLi-img" src="../images/icon.png" alt="">' +
         '<div class="flex-column width60">' +
-        '<div class="flex-space-between ">' +
-        '<div>' + item.name + '</div>' +
-        '</div>' +
+        '<div class="flex-space-between ">' + item.name + '</div>' +
         '<div class="angleImg">' +
         '<img src="../images/angle.svg" alt="">' +
         '<img src="../images/angle.svg" alt="">' +
@@ -86,19 +90,13 @@ $(document).ready(function () {
       )
 
     })
-    // $('.swiper-item').html(HTML)
+    $('.swiper-slide').html(HTML)
     // 推荐游戏每个独立的游戏ID传出去
     $(document).delegate('.remLi', 'click', function () {
       sessionStorage.setItem('gameID', data[$(this).index()].game_id)
       location.href = "./gameDetail.html"
     })
   }
-  var swiper = new Swiper('.swiper-container', {
-    pagination: {
-      el: '.swiper-pagination',
-      loop : true,
-    },
-  });
 
 
 

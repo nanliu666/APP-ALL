@@ -41,6 +41,10 @@ a:hover {
   margin: 10px 0;
 }
 
+.marginL10 {
+  margin: 0 10px ;
+}
+
 .marginALL10 {
   margin: 10px;
 }
