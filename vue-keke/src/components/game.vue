@@ -57,17 +57,17 @@
         </ul>
       </el-tab-pane>
     </el-tabs>
+    <keke-nav></keke-nav>
   </div>
 </template>
 <script>
 import ajaxConfig from '@/axios/axiosConfig'
-import kekeDialog from './keke-dialog.vue'
+import kekeDialog from './common/keke-dialog.vue'
+import kekeNav from './common/keke-nav.vue'
 export default {
   name: 'game',
-  props: {
-    navShow: Boolean
-  },
-  components: { kekeDialog },
+
+  components: { kekeDialog,kekeNav },
   data() {
     return {
       remData: [],

@@ -71,18 +71,14 @@
 </template>
 <script>
 import ajaxConfig from '@/axios/axiosConfig'
-import kekeDialog from './keke-dialog.vue'
+import kekeDialog from './common/keke-dialog.vue'
 export default {
   name: 'game',
-  props: {
-    navShow:Boolean,
-  },
   components: { kekeDialog },
   data() {
     return {
       remData: [],
       newgameData: [],
-      counter: this.navShow
     }
   },
   created() {
@@ -111,8 +107,6 @@ export default {
     },
     openDetail(event) {
       let id = event.currentTarget.dataset.id
-      this.counter = !this.counter
-      this.$emit('child',this.counter);
     }
   }
 }

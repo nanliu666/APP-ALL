@@ -5,12 +5,16 @@
       <router-link :to="{name:'jobTable', params: {id: 'xz'}}"><img src="../assets/images/xz.jpg" @click="openDetail" alt=""></router-link>
     </div>
     <router-view></router-view>
+    <keke-nav></keke-nav>
   </div>
 </template>
 <script>
-import ajaxConfig from '@/axios/axiosConfig'
+import ajaxConfig from '@/axios/axiosConfig'    
+import kekeNav from './common/keke-nav.vue'
+
 export default {
   name: 'job',
+  components: {  kekeNav },
   data() {
     return {
       remData: [],

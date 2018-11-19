@@ -1,10 +1,8 @@
 <template>
-  <el-dialog :title="modalData.title" :visible.sync="modalData.openFlag" center>
+  <el-dialog  center>
     <div>
     </div>
     <div slot="footer" class="dialog-footer">
-      <div v-if="modalData.flag === 'login'" @click='modalData.openFlag = !modalData.openFlag' class="login">去登陆</div>
-      <div @click="modalData.openFlag = !modalData.openFlag">关闭</div>
     </div>
   </el-dialog>
 </template>
@@ -12,11 +10,6 @@
 <script>
 export default {
   name: 'keke-dialog',
-  props: {
-    modalData: {
-      type: Object
-    }
-  },
   data() {
     return {}
   }

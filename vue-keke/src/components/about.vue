@@ -19,20 +19,20 @@
       <p><label for="">地铁:</label>广州地铁3号线华师站E出口</p>
       <p><label for="">公交:</label>师大后门站（B10、B17、B11、813、298、775、41）五山路口站(B10、B11、B17、B14、20、32、78a、130、191）</p>
     </div>
+    <keke-nav></keke-nav>
   </div>
 </template>
 <script>
-import ajaxConfig from '@/axios/axiosConfig'
+import ajaxConfig from '@/axios/axiosConfig'    
+import kekeNav from './common/keke-nav.vue'
+
 export default {
   name: 'about',
-  props: {
-    navShow: Boolean
-  },
+  components: {  kekeNav },
   data() {
     return {
       remData: [],
       newgameData: [],
-      counter: this.navShow
     }
   },
   created() {

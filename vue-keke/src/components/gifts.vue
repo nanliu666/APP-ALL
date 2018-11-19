@@ -22,21 +22,21 @@
         </li>
       </template>
     </ul>
+    <keke-nav></keke-nav>
+
   </div>
 </template>
 <script>
 import ajaxConfig from '@/axios/axiosConfig'
-import kekeDialog from './keke-dialog.vue'
+import kekeNav from './common/keke-nav.vue'
+
 export default {
   name: 'game',
-  props: {
-    navShow: Boolean
-  },
-  components: { kekeDialog },
+  components: {  kekeNav },
+
   data() {
     return {
       giftsData: [],
-      counter: this.navShow,
       value5: 5
     }
   },
@@ -60,8 +60,6 @@ export default {
     },
     openDetail(event) {
       let id = event.currentTarget.dataset.id
-      this.counter = !this.counter
-      this.$emit('child', this.counter)
     }
   }
 }

@@ -14,7 +14,6 @@
             <div class="flex-column">
               <div class="flex-space-between game-name">
                 <div>{{ item.name }}</div>
-                <img src="../assets/images/free.png" class="freeImg" alt="">
               </div>
               <el-rate v-model="value5" disabled text-color="#ff9900" score-template="{value}">
               </el-rate>
@@ -55,11 +54,14 @@
           </table>
         </el-tab-pane>
         <el-tab-pane label="新游榜">
-          <template v-for="item in newgameData">
+          <template v-for="(item, index) in newgameData">
             <li :key="item.game_id" class="newgameLi flex-space-between">
               <div class="flex-row">
                 <div class="flex-all-center">
-                  <img class="newgameLi-img" src="../assets/images/one.png" alt="">
+                  <img class="newgameLi-img" v-if="index === 0" :src="one" alt="">
+                  <img class="newgameLi-img" v-if="index === 1" :src="two" alt="">
+                  <img class="newgameLi-img" v-if="index === 2" :src="there" alt="">
+                  <span class="numberSort" v-if="index >= 3">{{index + 1}}</span>
                   <img class="newgameLi-img" src="../assets/images/icon.png" alt="">
                 </div>
                 <div class="flex-column font3">
@@ -78,20 +80,18 @@
           </template>
         </el-tab-pane>
       </el-tabs>
-      <h3>{{count}}</h3>
-      <button @click="add(10)">+</button>
-      <button @click="reduce">-</button>
     </main>
-    <keke-dialog :modalData="modalData"></keke-dialog>
+    <keke-nav></keke-nav>
+    <keke-dialog></keke-dialog>
   </div>
 </template>
 <script>
 import ajaxConfig from '@/axios/axiosConfig'
-import kekeDialog from './keke-dialog.vue'
-import { mapState, mapGetters, mapMutations } from 'vuex'
+import kekeDialog from './common/keke-dialog.vue'
+import kekeNav from './common/keke-nav.vue'
 export default {
   name: 'index',
-  components: { kekeDialog },
+  components: { kekeDialog, kekeNav },
   data() {
     return {
       remData: [],
@@ -100,6 +100,9 @@ export default {
       stretch: true,
       fit: true,
       value5: 5,
+      one: require('@/assets/images/one.png'),
+      two: require('@/assets/images/two.png'),
+      there: require('@/assets/images/three.png'),
       modalData: {
         openFlag: false
       }
@@ -108,12 +111,7 @@ export default {
   created() {
     this.onLoad()
   },
-  computed: {
-    ...mapState(['count']),
-    ...mapGetters(['count']),
-  },
   methods: {
-    ...mapMutations(['add', 'reduce']),
     // 获取数据
     onLoad() {
       let axiosConfig = ajaxConfig
@@ -219,6 +217,13 @@ export default {
         max-width: 1rem;
         max-height: 1rem;
         padding: 0 0.1rem;
+      }
+      .numberSort {
+        display: flex;
+        width: 0.7rem;
+        justify-content: center;
+        align-items: center;
+        color: #ccc;
       }
       .angleImg {
         margin: 0.1rem 0;
