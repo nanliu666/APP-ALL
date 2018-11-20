@@ -1,0 +1,55 @@
+<html>
+
+<head>
+  <meta name="viewport" content="width=device-width" />
+  <title>loading</title>
+
+  <link href="../css/bootstrap.css" rel="stylesheet" />
+  <script src="./jquery.js"></script>
+  <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <script src="./load.js"></script>
+  <script type="text/javascript">
+    $(function () {
+      $("#btn_submit").on("click", function () {
+        $.bootstrapLoading.start({
+          loadingTips: "正在处理数据，请稍候..."
+        });
+        $.ajax({
+          type: 'get',
+          url: '../json/recordData.json',
+          data: {},
+          success: function (data, statu) {
+            // debugger;
+            setTimeout(function(){
+              console.log(data)
+            }, 5000)
+          },
+          complete: function () {
+            $.bootstrapLoading.end();
+          }
+        });
+      })
+
+    });
+  </script>
+</head>
+
+<body>
+  <div class="panel-body" style="padding:0px">
+    <div class="panel panel-default" style="height:450px;">
+      <div class="panel-heading">查询条件</div>
+      <div class="panel-body">
+        <form id="formSearch" class="form-horizontal">
+          <div class="form-group">
+            <div class="col-xs-4">
+              <button type="button" id="btn_submit" class="btn btn-primary"><span class="glyphicon glyphicon-floppy-disk"
+                  aria-hidden="true"></span>加载测试</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</body>
+
+</html>

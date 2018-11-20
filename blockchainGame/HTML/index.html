@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>兑换</title>
+    <link rel="stylesheet" href="../css/reset.css">
+    <link rel="stylesheet" href="../css/bootstrap.css">
+    <link href="../css/common.css" rel="stylesheet" type="text/css" />
+    <link href="../css/index.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../icon/iconfont.css">
+    <link href="../css/bootstrap.css" rel="stylesheet" />
+    <link rel="stylesheet" href="../css/spin.css">
+
+</head>
+
+<body>
+    <div class="container">
+        <header class="flexWcenter header">
+            <h3>兑换</h3>
+        </header>
+        <main class="main">
+            <form action="" role="form" id="Js-exchange" class="displayBlock ">
+                <div class="exchangeForm">
+                    <div class="flexspaceBetween borderBottom">
+                        <label class="" for="">角色ID：</label>
+                        <span class="js-roleID">123456</span>
+                    </div>
+                    <div class="flexspaceBetween borderBottom">
+                        <label class="" for="">游戏币余额：</label>
+                        <span class="js-copper">154545</span>
+                    </div>
+                    <div class="flexspaceBetween borderBottom">
+                        <label class="" for="">区块链币余额：</label>
+                        <span class="js-block">11000</span>
+                    </div>
+                    <div class="flexspaceBetween borderBottom">
+                        <label class="" for="">每1游戏币兑换区块链币：</label>
+                        <span class="js-ratio">0.1</span>
+                    </div>
+                    <div class="">
+                        <input type="text" name="" id="" class="form-control" placeholder="请填写要兑换的区块链币数量">
+                    </div>
+                </div>
+                <div class=" flexALLcenter">
+                    <button type="button" class="btn btn-warning col-6 btn-lg js-loading">确定</button>
+                </div>
+            </form>
+        </main>
+        <footer>
+            <nav class="fixed-bottom flexspaceBetween footer-nav">
+                <li class="col-6 flexALLcenter active navli js-duihuan">
+                    <i class="iconfont icon-jiaoyi-"></i>
+                    <span>兑换</span>
+                </li>
+                <li class="col-6 flexALLcenter navli js-record">
+                    <i class="iconfont icon-jiaoyijilu"></i>
+                    <span>兑换记录</span>
+                </li>
+            </nav>
+        </footer>
+    </div>
+    <div id="foo"></div>
+</body>
+
+<script src="./jquery.js"></script>
+<script src="./bootstrap.min.js"></script>
+<script src="./spin.js"></script>
+<script>
+    var exchangeData = {
+        role_id: "nanliu", //角色ID
+        copper: 10, //角色ID
+        block: 100, //角色ID
+        exchange_ratio: 1.5 //角色ID
+    };
+
+    var spinner = undefined;
+    $('.js-loading').click(function () {
+        $.ajax({
+            type: 'get',
+            url: '../json/recordData.json',
+            data: {},
+            beforeSend: function () {
+                var option = {
+                    lines: 9, // 花瓣数目
+                    length: 1, // 花瓣长度
+                    width: 10, // 花瓣宽度
+                    radius: 15, // 花瓣距中心半径
+                    shadow: true,
+                    opacity: 1 / 8
+                };
+                var target = document.getElementById('foo');
+                spinner = new Spinner(option).spin(target); //显示加载
+            },
+            success: function (data, statu) {
+                console.log(data)
+            },
+            complete: function () {
+                spinner.spin();//移除加载
+            }
+        });
+    })
+
+    //模拟数据填充
+    $(".js-roleID").html(exchangeData.role_id);
+    $(".js-copper").html(exchangeData.copper);
+    $(".js-block").html(exchangeData.block);
+    $(".js-ratio").html(exchangeData.exchange_ratio);
+
+    // nav栏切换效果
+    $('.footer-nav').on('click', '.navli', function () {
+        $(this).addClass('active').siblings().removeClass('active')
+        if ($(this).hasClass('js-record')) {
+            location.href = './record.html'
+        } else {
+            location.href = './index.html'
+
+        }
+    })
+</script>
+
+</html>

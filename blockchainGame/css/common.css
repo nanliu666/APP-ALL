@@ -1,0 +1,149 @@
+/* flex布局 */
+.flexcolumn {
+  display: flex;
+  flex-direction: column;
+}
+
+.flexspaceAround {
+  display: flex;
+  justify-content: space-around;
+}
+
+.flexspaceBetween {
+  display: flex;
+  justify-content: space-between;
+}
+
+.flexAstretch {
+  display: flex;
+  align-content: stretch;
+}
+
+.flexWcenter {
+  display: flex;
+  justify-content: center;
+}
+
+.flexHcenter {
+  display: flex;
+  align-items: center;
+}
+
+.flexALLcenter {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/*固定布局*/
+
+.fixed-bottom {
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 1030;
+}
+
+/*显示与隐藏*/
+
+.displayBlock {
+  display: block;
+}
+
+.displayNone {
+  display: none;
+}
+
+/*icon图标*/
+
+.icon {
+  width: 1.6em;
+  height: 1.6em;
+  vertical-align: -0.15em;
+  fill: currentColor;
+  overflow: hidden;
+}
+
+.iconLG {
+  width: 10em;
+  height: 10em;
+  vertical-align: -0.15em;
+  fill: currentColor;
+  overflow: hidden;
+}
+
+/*padding10*/
+
+.padding10 {
+  padding: 10px;
+}
+
+.margin10 {
+  margin: 10px 0;
+}
+
+.margin20 {
+  margin: 20px 0;
+}
+
+.margin30 {
+  margin: 30px 0;
+}
+
+.margin_25 {
+  margin: 0 -25px;
+}
+
+/*font-size*/
+
+.fontSize20 {
+  font-size: 20px;
+}
+
+/*color相关*/
+.textSuccess {
+  font-family: 'Arial Negreta', 'Arial Normal', 'Arial';
+  font-weight: 700;
+  font-style: normal;
+  color: #008000;
+}
+
+.textErr {
+  font-family: 'Arial Negreta', 'Arial Normal', 'Arial';
+  font-weight: 700;
+  font-style: normal;
+  color: #FF0000;
+}
+
+.textP {
+  color: rgb(153, 153, 153);
+}
+
+/*border相关*/
+
+.borderTB {
+  border: 1px solid rgb(121, 121, 121);
+  border-style: solid none;
+}
+
+/*百分比布局相关*/
+.percent80 {
+  width: 80%;
+}
+
+.h50 {
+  height: 50%;
+}
+
+.h20 {
+  height: 20%;
+}
+
+.h80 {
+  height: 80%;
+}
+
+.h100 {
+  height: 100%;
+}
