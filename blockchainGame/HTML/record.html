@@ -49,7 +49,7 @@
     // 页数
     var page = 0;
     // 每页展示5个
-    var size = 10;
+    var size = 5;
 
     // dropload
     $('.container').dropload({
@@ -58,7 +58,7 @@
         domClass: 'dropload-down',
         domRefresh: '<div class="dropload-refresh">↑上拉加载更多</div>',
         domLoad: '<div class="dropload-load"><span class="loading"></span>加载中...</div>',
-        domNoData: '<div class="dropload-noData">暂无数据-自定义内容</div>'
+        domNoData: '<div class="dropload-noData">暂无数据</div>'
       },
       loadDownFn: function (me) {
         page++;
@@ -73,6 +73,7 @@
           success: function (r) {
             if (r && r.code == 0) {
               var recordData = r
+              putHtml(recordData);
               // 如果没有数据
             } else {
               // 锁定
@@ -83,7 +84,7 @@
             // 为了测试，延迟1秒加载
             setTimeout(function () {
               // 插入数据到页面，放到最后面
-              putHtml(recordData);
+             
               // 每次数据插入，必须重置
               me.resetload();
             }, 1000);
@@ -115,7 +116,6 @@
 
 
     groupedItems.map(function (item) {
-      console.log($('#Js-record ul .dateP').last().text())
       if (item.date_time !== $('#Js-record ul .dateP').last().text()) {
         recordLiHTML.push(
           '<p class="dateP pfontsize">' + item.date_time + '</p>'
@@ -135,8 +135,10 @@
     $('#Js-record ul').html(recordLiHTML);
 
   }
+
+
   // 成功失败样式显示
-  const jsSuccess = $('.jsSuccess');
+  var jsSuccess = $('.jsSuccess');
   for (let i = 0; i < jsSuccess.length; i++) {
     if (jsSuccess[i].innerHTML === '1') {
       jsSuccess[i].innerHTML = '兑换成功';

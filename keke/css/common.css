@@ -42,7 +42,7 @@ a:hover {
 }
 
 .marginL10 {
-  margin: 0 10px ;
+  margin: 0 10px;
 }
 
 .marginALL10 {
@@ -63,6 +63,10 @@ a:hover {
 
 .padding10 {
   padding: 0 10px;
+}
+
+.padding20 {
+  padding: 0 20px;
 }
 
 .padding4 {
@@ -243,12 +247,21 @@ body {
   display: flex;
   align-items: center;
   height: 44px;
-  padding: 2px .2rem;
+  padding: 4px .2rem;
 }
 
 .headerDiv img {
   max-height: 30px;
   margin-left: 5px;
+}
+
+/* 查看全部 */
+.lookAll {
+  font-size: 14px;
+}
+
+.ccc {
+  color: #cccccc;
 }
 
 /* 头部标题 */

@@ -1,8 +1,10 @@
 <template>
   <div id="index">
     <el-carousel :interval="5000" arrow="always">
-      <el-carousel-item v-for="item in 4" :key="item">
-        <h3 @click="openDetial" :data-id="item">{{ item }}</h3>
+      <el-carousel-item v-for="item in imgList" :key="item.id">
+        <el-row>
+          <el-col :span="24"><img ref="imgHeight" :src="item.idView" class="banner_img img-responsive center-block" /></el-col>
+        </el-row>
       </el-carousel-item>
     </el-carousel>
     <main>
@@ -103,6 +105,17 @@ export default {
       one: require('@/assets/images/one.png'),
       two: require('@/assets/images/two.png'),
       there: require('@/assets/images/three.png'),
+      imgList: [
+        { id: 0, idView: require('@/assets/images/2.jpg') },
+        {
+          id: 1,
+          name: '详情',
+          idView: require('@/assets/images/3.jpg')
+        },
+        { id: 2, name: '推荐', idView: require('@/assets/images/4.jpg') },
+        { id: 3, name: '推荐', idView: require('@/assets/images/elf.jpg') }
+      ],
+
       modalData: {
         openFlag: false
       }
@@ -157,20 +170,11 @@ export default {
 </script>
 <style scoped lang="less">
 #index {
-  .el-carousel__item h3 {
-    color: #475669;
-    font-size: 18px;
-    opacity: 0.75;
-    line-height: 300px;
-    margin: 0;
-  }
-
-  .el-carousel__item:nth-child(2n) {
-    background-color: #99a9bf;
-  }
-
-  .el-carousel__item:nth-child(2n + 1) {
-    background-color: #d3dce6;
+  .el-carousel__item {
+    img {
+      width: 100%;
+      height: 300px;
+    }
   }
 
   main {

@@ -84,7 +84,7 @@ $(document).ready(function () {
         '<img src="../images/angle.svg" alt="">' +
         '<img src="../images/angle.svg" alt="">' +
         '</div>' +
-        '<div class="des ellipsis">' + item.name + '</div>' +
+        '<div class="des ellipsis ccc">' + item.name + '</div>' +
         '</div>' +
         '</li>'
       )
