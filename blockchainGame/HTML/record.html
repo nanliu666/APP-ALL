@@ -84,7 +84,7 @@
             // 为了测试，延迟1秒加载
             setTimeout(function () {
               // 插入数据到页面，放到最后面
-             
+
               // 每次数据插入，必须重置
               me.resetload();
             }, 1000);
@@ -174,6 +174,31 @@
       location.href = 'role_info'
     }
   })
+
+  Array.prototype.unique = function () {
+    var tmp = {},
+      res = []
+    this.forEach(function (i) {
+      !tmp[i] && res.push(i) && (tmp[i] = true);
+      // tmp里面不存在i元素的时候，res推入这个元素，并且把以这个元素为索引的temp元素设置true，下次遇到这个元素，就不会进入这个语句
+    })
+    return res
+  }
+
+ 
+
+  var arr = ['k','k','o']
+  console.log([...new Set(arr)])
+
+  var t = true
+  setTimeout(function() {
+    t = false
+  }, 1000)
+  while(t) {
+    console.log(2)
+    break
+  }
+  console.log(1)
 </script>
 
 </html>
