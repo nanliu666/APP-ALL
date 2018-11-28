@@ -1,39 +1,82 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+    <style>
+      #red {
+        cursor: pointer;
+        background: red;
+        width: 100px;
+        height: 100px;
+        border-radius: 50%;
+      }
+      p {
+        position: relative;
+        margin: 1%; /*决定省略号在文本尾部的位置*/
+        line-height: 2em;
+        height: 4em; /*此处高度决定了显示几行*/
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+      p:after {
+        bottom: 0;
+        right: 0;
+        content: '...';
+        padding: 0 -40px 0 0;
+        position: absolute;
+      }
+    </style>
+  </head>
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Document</title>
-  <style>
+  <body>
+    <p>
+      「 ：我想给这个蓝框里面最后加个省略号 如果加个背景图
+      （省略号图）怎么显示在最高的层级？」「 ：我想给这个蓝框里面最后加个省略号
+      如果加个背景图 （省略号图）怎么显示在最高的层级？」「
+      ：我想给这个蓝框里面最后加个省略号 如果加个背景图
+      （省略号图）怎么显示在最高的层级？」「 ：我想给这个蓝框里面最后加个省略号
+      如果加个背景图 （省略号图）怎么显示在最高的层级？」「
+      ：我想给这个蓝框里面最后加个省略号 如果加个背景图
+      （省略号图）怎么显示在最高的层级？」
+    </p>
+    <div id="red" class="click-area"></div>
+  </body>
+  <script src="./jquery.js"></script>
+  <script>
+    $('#red').on('click', function(e) {
+      var r = 50
+      var x1 = $(this).offset().left + $(this).width() / 2
+      var y1 = $(this).offset().top + $(this).height() / 2
+      var x2 = e.clientX
+      var y2 = e.clientY
+      console.log($(this).width() / 2)
 
-#red{  
- cursor:pointer;
- background:red;  
- width:100px;  
- height:100px;  
- border-radius:50%;  
-} 
-  </style>
-</head>
+      var distance = Math.abs(
+        Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2))
+      )
+      // if (distance <= 50)  { alert("Yes!"); }
+    })
+    var string = '?a=1&b=1&c=3'
+    var obj = {}
+    var strArr = string.substring(1).split('&')
+    strArr.map(function(item, index) {
+      var name = item.split('=')[0]
+      var value = item.split('=')[1]
+      obj[name] = value
+    })
 
-<body>
-
-  <div id="red" class="click-area" ></div>
-</body>
-<script src="./jquery.js"></script>
-<script>
-$("#red").on('click',function(e) {    
-  var r = 50; 
-  var x1 = $(this).offset().left+$(this).width()/2;            
-  var y1 = $(this).offset().top+$(this).height()/2;   
-  var x2= e.clientX;  
-  var y2= e.clientY;    
-  console.log($(this).width()/2)
-
-  var distance = Math.abs(Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2)));    
-  // if (distance <= 50)  { alert("Yes!"); }
-}); 
-</script>
+    var a = []
+    for (let i = 0; i < 10; i++) {
+      let x = 0
+      x = 9
+      n = 10
+      a[i] = function() {
+        console.log(i)
+      }
+    }
+    a[6]()
+  </script>
 </html>
